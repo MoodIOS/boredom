@@ -1,35 +1,36 @@
-# Group Project - *Name of App Here*
+# Group Project - ActivityFinder
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+ActivityFinder(temp name) is going to be an app for indecisive people to pick activites while out with friends/family. Sometimes, we end up taking too much time just deciding what to do and this app will make it easier for people to decide an activity by generating a list of activities according to the user input of time, money, and distance/location. We are thinking of using the yelp API to come up with the initial list of businesses. 
 
 Time spent: **X** hours spent in total
 
-## User Stories
+## User Stories(required)
+-Individual:(user)
+-User can sign up 
+-User can retrieve their Lists of activities
+-User can create an activity List
+-User can add Activity into a List
+-User can edit activity description 
+-User can search for description from our app (which will integrate the Yelp database)
+-User can edit information such as location, duration, cost, group size(big vs small group vs individual)
+-User can like a List from different users(so lists are public, kinda like how spotify playlists are)
+-User can like an Activity from his/her own List
+-User can push a button to generate an activity from their List(s)
 
-The following **required** user stories are complete:
 
-- [ ] User sees app icon in home screen and styled launch screen (+1pt)
-- [ ] User can scroll through a list of movies currently playing in theaters from The Movie DB API (+5pt)
-- [ ] User can "Pull to refresh" the movie list (+2pt)
-- [ ] User sees a loading state while waiting for the movies to load (+2pt)
 
-The following **stretch** user stories are implemented:
+## (the app) --> stuff we(the app admins) can do
+-create database of users
+-create some fake database of activities/pull stuff from yelp
+-save user account info
 
-- [ ] User sees an alert when there's a networking error (+1pt)
-- [ ] User can search for a movie (+3pt)
-- [ ] While poster is being fetched, user see's a placeholder image (+1pt)
-- [ ] User sees image transition for images coming from network, not when it is loaded from cache (+1pt)
-- [ ] Customize the selection effect of the cell (+1pt)
-- [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete (+2pt)
+## some cool and optional user stories 
+-users can like or dislike an activity and we sort initial list of activities based on number of likes
+-User can choose between different random search modes:
+  -Individual Explore: from top 3 lists 
+-User will have a profile with their list of activities(the activities they have done) and maybe even some friends list
+-Users can see if their friends also plan on going to the same activity, so they can go together
 
-The following **additional** user stories are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality! (+1-3pts)
-
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-1.
-2.
 
 ## Video Walkthrough
 
