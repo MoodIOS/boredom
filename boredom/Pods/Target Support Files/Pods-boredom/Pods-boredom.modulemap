@@ -1,0 +1,6 @@
+framework module Pods_boredom {
+  umbrella header "Pods-boredom-umbrella.h"
+
+  export *
+  module * { export * }
+}

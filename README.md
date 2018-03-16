@@ -16,6 +16,8 @@ Individual:(user)
 - [] User can like a List from different users(so lists are public, kinda like how spotify playlists are)
 - [] User can like an Activity from his/her own List
 - [] User can push a button to generate an activity from their List(s)
+- [] User can use map to see theire activities
+- [] User can use camera to take picture of activities
 
 ## Optional user stories
 - [] Users can like or dislike an activity and we sort initial list of activities based on number of likes
@@ -25,15 +27,16 @@ Individual:(user)
 - [] Users can see if their friends also plan on going to the same activity, so they can go together
 
 ## Database/ API
-- Create database of users
-- Create some fake database of activities/pull stuff from yelp
-- Save user account info
+- API for activity description: Yelp
+- Database: Parse
+
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
 <img src='https://i.imgur.com/OtpjVnb.png' title='Wireframes' width='' alt='Wireframes' />
+<img src='https://i.imgur.com/jgSFbGv.png' title='Wireframes' width='' alt='Wireframes' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

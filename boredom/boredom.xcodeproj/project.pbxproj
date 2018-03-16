@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25E5CEBFFD7A40B894BF5CBE /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */; };
+		3494FA0A1FE948776617FFB6 /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */; };
+		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94681204F76E30070B150 /* AppDelegate.swift */; };
 		FFE94684204F76E30070B150 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94683204F76E30070B150 /* ViewController.swift */; };
 		FFE94687204F76E30070B150 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFE94685204F76E30070B150 /* Main.storyboard */; };
@@ -34,6 +37,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
+		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
+		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
+		95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0C09AFC596F4C5038953714 /* Pods_boredom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
 		FFE9467E204F76E30070B150 /* boredom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boredom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE94681204F76E30070B150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFE94683204F76E30070B150 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3494FA0A1FE948776617FFB6 /* Pods_boredomTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +82,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25E5CEBFFD7A40B894BF5CBE /* Pods_boredomUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03371133378E42D20E409049 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */,
+				5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */,
+				B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */,
+				E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */,
+				A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */,
+				6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		3EC50DBB2CBF15F3C5D8B255 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0C09AFC596F4C5038953714 /* Pods_boredom.framework */,
+				D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */,
+				95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FFE94675204F76E30070B150 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +119,8 @@
 				FFE94695204F76E30070B150 /* boredomTests */,
 				FFE946A0204F76E40070B150 /* boredomUITests */,
 				FFE9467F204F76E30070B150 /* Products */,
+				03371133378E42D20E409049 /* Pods */,
+				3EC50DBB2CBF15F3C5D8B255 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,9 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946A6204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredom" */;
 			buildPhases = (
+				B70543CDEE95310FCB9BDF3D /* [CP] Check Pods Manifest.lock */,
 				FFE9467A204F76E30070B150 /* Sources */,
 				FFE9467B204F76E30070B150 /* Frameworks */,
 				FFE9467C204F76E30070B150 /* Resources */,
+				B81EA930FDE23957B3D6B0AC /* [CP] Embed Pods Frameworks */,
+				BEF20CA5526F1D9BAA530E0B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946A9204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredomTests" */;
 			buildPhases = (
+				BBD07FD0A5CE6158C92FC16D /* [CP] Check Pods Manifest.lock */,
 				FFE9468E204F76E30070B150 /* Sources */,
 				FFE9468F204F76E30070B150 /* Frameworks */,
 				FFE94690204F76E30070B150 /* Resources */,
+				F9BCED13560F7B9BC75E91F5 /* [CP] Embed Pods Frameworks */,
+				45154DA507E16339C4D5DB6E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946AC204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredomUITests" */;
 			buildPhases = (
+				2DBB48EF93FA8B3A4ECE4788 /* [CP] Check Pods Manifest.lock */,
 				FFE94699204F76E40070B150 /* Sources */,
 				FFE9469A204F76E40070B150 /* Frameworks */,
 				FFE9469B204F76E40070B150 /* Resources */,
+				6D3773D4D7F6CE8B9AA404FE /* [CP] Embed Pods Frameworks */,
+				445EDEB367775A5B7D90AD23 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,6 +302,168 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2DBB48EF93FA8B3A4ECE4788 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredomUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		445EDEB367775A5B7D90AD23 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		45154DA507E16339C4D5DB6E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D3773D4D7F6CE8B9AA404FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B70543CDEE95310FCB9BDF3D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredom-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B81EA930FDE23957B3D6B0AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwiftAlamofire/OAuthSwiftAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwiftAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBD07FD0A5CE6158C92FC16D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredomTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BEF20CA5526F1D9BAA530E0B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9BCED13560F7B9BC75E91F5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FFE9467A204F76E30070B150 /* Sources */ = {
@@ -424,6 +635,7 @@
 		};
 		FFE946A7204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -439,6 +651,7 @@
 		};
 		FFE946A8204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -454,6 +667,7 @@
 		};
 		FFE946AA204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -470,6 +684,7 @@
 		};
 		FFE946AB204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -486,6 +701,7 @@
 		};
 		FFE946AD204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -501,6 +717,7 @@
 		};
 		FFE946AE204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
