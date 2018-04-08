@@ -19,11 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Parse.initialize(
             with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
-                configuration.applicationId = "myAppId"
-                configuration.clientKey = nil  // set to nil assuming you have not set clientKey
-                configuration.server = "https://myAppName.herokuapp.com/parse"
+                configuration.applicationId = "boredomID"
+                configuration.clientKey = "boredomMasterKey"  // set to nil assuming you have not set clientKey
+                configuration.server = "https://boredom-ios.herokuapp.com/parse"
             })
         )
+        
+        /*if PFUser.current() != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "userMainPage")
+        }*/
         
         return true
     }
