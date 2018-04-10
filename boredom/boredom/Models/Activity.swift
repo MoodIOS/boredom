@@ -7,3 +7,22 @@
 //
 
 import Foundation
+import Parse
+@objc class Activity: PFObject {
+   
+    @NSManaged
+    var actName: String!
+    
+    @NSManaged
+//    var description: String!
+    //optional?
+    
+    var actType: String!
+    var author: String!
+    
+//    init(dictionary: [String: Any]) {
+////        actName = dictionary["actName"] as! String
+////        description
+//
+//    }
+}

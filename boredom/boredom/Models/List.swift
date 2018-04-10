@@ -7,3 +7,19 @@
 //
 
 import Foundation
+import Parse
+
+//@objc class List: PFObject {
+//    @NSManaged
+//    var listName: String!
+//    @NSManaged
+//    var category: String!
+//    //optional?
+//    var rating: Int!
+//    var author: String!
+//    var activities: [Activity]
+    
+//    init(dictionary: [String: Any]){
+//
+//    }
+}

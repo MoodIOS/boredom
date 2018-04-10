@@ -16,6 +16,9 @@
 		FFBA1637207C53C700242310 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1636207C53C700242310 /* User.swift */; };
 		FFBA1639207C53DE00242310 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1638207C53DE00242310 /* List.swift */; };
 		FFBA163C207C53FF00242310 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA163B207C53FF00242310 /* Activity.swift */; };
+		FFBA163E207C61B400242310 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA163D207C61B400242310 /* HomeViewController.swift */; };
+		FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA163F207C61CE00242310 /* ProfileViewController.swift */; };
+		FFBA1642207C61E900242310 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1641207C61E900242310 /* SettingViewController.swift */; };
 		FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94681204F76E30070B150 /* AppDelegate.swift */; };
 		FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94683204F76E30070B150 /* LoginViewController.swift */; };
 		FFE94687204F76E30070B150 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFE94685204F76E30070B150 /* Main.storyboard */; };
@@ -58,6 +61,9 @@
 		FFBA1636207C53C700242310 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FFBA1638207C53DE00242310 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		FFBA163B207C53FF00242310 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		FFBA163D207C61B400242310 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FFBA163F207C61CE00242310 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FFBA1641207C61E900242310 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		FFE9467E204F76E30070B150 /* boredom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boredom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE94681204F76E30070B150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFE94683204F76E30070B150 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +135,9 @@
 			children = (
 				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
 				FFE94683204F76E30070B150 /* LoginViewController.swift */,
+				FFBA163D207C61B400242310 /* HomeViewController.swift */,
+				FFBA163F207C61CE00242310 /* ProfileViewController.swift */,
+				FFBA1641207C61E900242310 /* SettingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -505,10 +514,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */,
+				FFBA1642207C61E900242310 /* SettingViewController.swift in Sources */,
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,
+				FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */,
 				FFBA1639207C53DE00242310 /* List.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
+				FFBA163E207C61B400242310 /* HomeViewController.swift in Sources */,
 				FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */,
 				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
