@@ -13,6 +13,9 @@
 		44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EAB2079F21A0037EB0D /* UserListsCell.swift */; };
 		44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EB1207A17370037EB0D /* ActivitiesCell.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
+		FFBA1637207C53C700242310 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1636207C53C700242310 /* User.swift */; };
+		FFBA1639207C53DE00242310 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1638207C53DE00242310 /* List.swift */; };
+		FFBA163C207C53FF00242310 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA163B207C53FF00242310 /* Activity.swift */; };
 		FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94681204F76E30070B150 /* AppDelegate.swift */; };
 		FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94683204F76E30070B150 /* LoginViewController.swift */; };
 		FFE94687204F76E30070B150 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFE94685204F76E30070B150 /* Main.storyboard */; };
@@ -52,6 +55,9 @@
 		B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
+		FFBA1636207C53C700242310 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FFBA1638207C53DE00242310 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		FFBA163B207C53FF00242310 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		FFE9467E204F76E30070B150 /* boredom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boredom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE94681204F76E30070B150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFE94683204F76E30070B150 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +124,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FFBA1634207C532E00242310 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
+				FFE94683204F76E30070B150 /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FFBA1635207C534B00242310 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FFBA1636207C53C700242310 /* User.swift */,
+				FFBA1638207C53DE00242310 /* List.swift */,
+				FFBA163B207C53FF00242310 /* Activity.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FFE94675204F76E30070B150 = {
 			isa = PBXGroup;
 			children = (
@@ -143,9 +168,9 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
+				FFBA1635207C534B00242310 /* Models */,
+				FFBA1634207C532E00242310 /* ViewControllers */,
 				FFE94681204F76E30070B150 /* AppDelegate.swift */,
-				FFE94683204F76E30070B150 /* LoginViewController.swift */,
-				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
 				44116EAB2079F21A0037EB0D /* UserListsCell.swift */,
 				FFE94685204F76E30070B150 /* Main.storyboard */,
 				FFE94688204F76E30070B150 /* Assets.xcassets */,
@@ -481,8 +506,11 @@
 			files = (
 				FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */,
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,
+				FFBA1639207C53DE00242310 /* List.swift in Sources */,
+				FFBA1637207C53C700242310 /* User.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
 				FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */,
+				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
