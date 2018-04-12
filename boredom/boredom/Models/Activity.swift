@@ -8,21 +8,30 @@
 
 import Foundation
 import Parse
+
 @objc class Activity: PFObject {
-   
-    @NSManaged
     var actName: String!
-    
-    @NSManaged
-//    var description: String!
-    //optional?
-    
+    var description: String!
     var actType: String!
     var author: String!
     
-//    init(dictionary: [String: Any]) {
-////        actName = dictionary["actName"] as! String
-////        description
-//
-//    }
+    init (dictionary: [String: Any]) {
+        actType = dictionary["listName"] as? String ?? "No name"
+        description = dictionary["category"] as? String ?? "No description"
+        actType = dictionary["rating"] as? String ?? "No activity type"
+        author = dictionary["author"] as? String ?? "No author"
+        super.init()
+    }
+    
+    class func activities(dictionaries: [[String: Any]]) -> [Activity] {
+        var list: [Activity] = []
+        for dictionary in dictionaries {
+            let activity = Activity(dictionary: dictionary)
+            list.append(activity)
+        }
+        return lists
+    }
 }
+
+
+

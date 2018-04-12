@@ -182,15 +182,6 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     @IBAction func didTapLogout(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.logout()
-//        PFUser.logOutInBackground(block: { (error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            } else {
-//                print("Successful loggout")
-//                //self.performSegue(withIdentifier: "logoutSegue", sender: nil)
-//
-//            }
-//        })
     }
     
     

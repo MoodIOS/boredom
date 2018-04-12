@@ -46,7 +46,7 @@ class User {
         name = dictionary["name"] as! String
         username = dictionary["username"] as! String
         self.userDict = dictionary
-        profileImageURL = dictionary["profile_image_url_https"] as! String
+        profileImageURL = dictionary["profileImageURL"] as! String
         password = dictionary["password"] as! String
         userEmail = dictionary["userEmail"] as!  String
 
