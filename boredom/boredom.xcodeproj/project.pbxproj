@@ -26,6 +26,8 @@
 		FFE9468C204F76E30070B150 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFE9468A204F76E30070B150 /* LaunchScreen.storyboard */; };
 		FFE94697204F76E40070B150 /* boredomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94696204F76E40070B150 /* boredomTests.swift */; };
 		FFE946A2204F76E40070B150 /* boredomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE946A1204F76E40070B150 /* boredomUITests.swift */; };
+		FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */; };
+		FFF76962207EEE5000B1F21E /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF76961207EEE5000B1F21E /* APIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		FFE9469D204F76E40070B150 /* boredomUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = boredomUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE946A1204F76E40070B150 /* boredomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boredomUITests.swift; sourceTree = "<group>"; };
 		FFE946A3204F76E40070B150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewListViewController.swift; sourceTree = "<group>"; };
+		FFF76961207EEE5000B1F21E /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,11 +137,12 @@
 		FFBA1634207C532E00242310 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
 				FFE94683204F76E30070B150 /* LoginViewController.swift */,
+				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
 				FFBA163D207C61B400242310 /* HomeViewController.swift */,
 				FFBA163F207C61CE00242310 /* ProfileViewController.swift */,
 				FFBA1641207C61E900242310 /* SettingViewController.swift */,
+				FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -177,15 +182,15 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
+				FFF76961207EEE5000B1F21E /* APIManager.swift */,
 				FFBA1635207C534B00242310 /* Models */,
+				FFF76960207EEDD500B1F21E /* ViewCells */,
 				FFBA1634207C532E00242310 /* ViewControllers */,
 				FFE94681204F76E30070B150 /* AppDelegate.swift */,
-				44116EAB2079F21A0037EB0D /* UserListsCell.swift */,
 				FFE94685204F76E30070B150 /* Main.storyboard */,
 				FFE94688204F76E30070B150 /* Assets.xcassets */,
 				FFE9468A204F76E30070B150 /* LaunchScreen.storyboard */,
 				FFE9468D204F76E30070B150 /* Info.plist */,
-				44116EB1207A17370037EB0D /* ActivitiesCell.swift */,
 			);
 			path = boredom;
 			sourceTree = "<group>";
@@ -206,6 +211,16 @@
 				FFE946A3204F76E40070B150 /* Info.plist */,
 			);
 			path = boredomUITests;
+			sourceTree = "<group>";
+		};
+		FFF76960207EEDD500B1F21E /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				44116EAB2079F21A0037EB0D /* UserListsCell.swift */,
+				44116EB1207A17370037EB0D /* ActivitiesCell.swift */,
+			);
+			name = ViewCells;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -523,7 +538,9 @@
 				FFBA163E207C61B400242310 /* HomeViewController.swift in Sources */,
 				FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */,
 				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
+				FFF76962207EEE5000B1F21E /* APIManager.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
+				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
