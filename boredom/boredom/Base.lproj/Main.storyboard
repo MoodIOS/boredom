@@ -786,7 +786,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XqE-ST-ve5">
-                                <rect key="frame" x="0.0" y="330" width="375" height="169"/>
+                                <rect key="frame" x="0.0" y="330" width="375" height="337"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hfl-cd-eVe">
@@ -838,7 +838,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZu-Fw-bPI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2033" y="301"/>
+            <point key="canvasLocation" x="2032.8" y="300.89955022488761"/>
         </scene>
         <!--Activities-->
         <scene sceneID="Rpn-bG-wga">
@@ -891,7 +891,11 @@
                         <viewLayoutGuide key="safeArea" id="hzI-rf-uxu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Activities" id="I38-lB-lf8">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="yVj-M5-d2S"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="yVj-M5-d2S">
+                            <connections>
+                                <action selector="onBackButton:" destination="s4v-lZ-fF6" id="SZ2-tt-dQv"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="NpB-9n-CDD">
                             <connections>
                                 <action selector="onAddButton:" destination="s4v-lZ-fF6" id="e2p-sg-N8h"/>

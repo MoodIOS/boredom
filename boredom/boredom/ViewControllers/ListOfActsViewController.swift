@@ -49,6 +49,12 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
 
+    
+    
+    @IBAction func onBackButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
@@ -62,18 +68,16 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    //ISSUE: PASSING DATA FAILS
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navVC = segue.destination as! UINavigationController
         let addNewActVC = navVC.topViewController as! AddNewActivityVCViewController
         addNewActVC.list = self.list
     }
-    
-//    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let addNewActVC = storyboard.instantiateViewController(withIdentifier: "addNewActVC") as! AddNewActivityVCViewController
-//        addNewActVC.list = self.list
-//    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        getActivities()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

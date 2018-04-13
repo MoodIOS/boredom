@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Adjust cell size and layout
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
-        let cellsPerLine: CGFloat = 2
+        let cellsPerLine: CGFloat = 3
         let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
         let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
         layout.itemSize = CGSize(width: width, height: width * 3 / 2)
@@ -41,7 +41,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        getLists()
     }
     
     func getLists() {
@@ -68,7 +68,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
 
-
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let userLists = self.lists
@@ -85,23 +84,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return cell
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! UICollectionViewCell
-        if let indexPath = colView.indexPath(for: cell){
-            let curList = lists[indexPath.row]
-            print("list to be send for adding act:", curList)
-            let navVC = segue.destination as! UINavigationController
-            let listOfActVC = navVC.topViewController as! ListOfActsViewController
-            print("ListofAct VC", listOfActVC)
-            listOfActVC.list = curList
-            print("send current List:", listOfActVC.list)
+        if let cell = sender as? UICollectionViewCell{
+            if let indexPath = colView.indexPath(for: cell){
+                let curList = lists[indexPath.row]
+                print("list to be send for adding act:", curList)
+                let navVC = segue.destination as! UINavigationController
+                let listOfActVC = navVC.topViewController as! ListOfActsViewController
+                print("ListofAct VC", listOfActVC)
+                listOfActVC.list = curList
+                print("send current List:", listOfActVC.list)
+            }
         }
     }
-    
+
     
     @IBAction func changeProfilePic(_ sender: UIButton) {
         
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
