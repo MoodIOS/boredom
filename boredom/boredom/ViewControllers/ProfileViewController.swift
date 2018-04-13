@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
@@ -15,6 +16,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var lists = [String: Any]()
+    var lists2: [PFObject] = []
     
     
     override func viewDidLoad() {
@@ -23,7 +25,33 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         tableView.delegate = self
         
+        getLists()
+        
+        //APIManager.shared.getLists()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func getLists() {
+        print("inside getLists")
+        let query = PFQuery(className: "List")
+        query.includeKey("_p_author")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        query.whereKey("author", equalTo: "_User$" + (PFUser.current()?.objectId)!)
+        query.findObjectsInBackground { (lists2: [PFObject]? , error: Error?) in
+            if error == nil {
+                print(lists2!)
+                if let lists2 = lists2 {
+                    self.lists2 = lists2
+                    
+                }
+            }
+            else{
+                print(error)
+            }
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
