@@ -13,27 +13,35 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
-    //@IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var colView: UICollectionView!
-    
-    //var lists = [String: Any]()
-    var lists = [List]()
-//    var lists2: [PFObject] = []
 
-    
+    var lists = [List]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         colView.dataSource = self
         colView.delegate = self
+        
+        let layout = colView.collectionViewLayout as! UICollectionViewFlowLayout
+        // Adjust cell size and layout
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = layout.minimumInteritemSpacing
+        let cellsPerLine: CGFloat = 2
+        let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
+        let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
+        layout.itemSize = CGSize(width: width, height: width * 3 / 2)
+
         
         getLists()
         
         //APIManager.shared.getLists()
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     func getLists() {
@@ -48,7 +56,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 print(lists!)
                 if let lists = lists {
                     self.lists = lists as! [List]
-                    self.reloadInputViews()
+                    self.colView.reloadData()
                     print("self.lists", self.lists )
                     print("lists[0]", self.lists[0].listName)
                 }
