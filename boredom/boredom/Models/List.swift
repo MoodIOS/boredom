@@ -15,27 +15,12 @@ import Parse
     @NSManaged var activities: [Activity]?
     //var rating: Int?
     @NSManaged var author: PFUser!
-    
-    /*init (dictionary: [String: Any]) {
-        listName = dictionary["listName"] as? String ?? "No name"
-        category = dictionary["category"] as? String ?? "No category"
-        rating = dictionary["rating"] as? Int ?? 0
-        author = dictionary["author"] as? String ?? "No author"
-        //super.init()
-    }*/
+
     class func parseClassName() -> String {
         return "List"
     }
     
-    
-    /*class func lists(dictionaries: [[String: Any]]) -> [List] {
-        var lists: [List] = []
-        for dictionary in dictionaries {
-            let list = List(dictionary: dictionary)
-            lists.append(list)
-        }
-        return lists
-    }*/
+
     
     
     class func addNewList(name: String?, category: String?, withCompletion completion: PFBooleanResultBlock?) {
