@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    var lists = [String: Any]
+    var lists = [String: Any]()
     
     
     override func viewDidLoad() {
@@ -36,9 +36,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! TweetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! UITableViewCell
         
-        cell.tweet = lists[indexPath.row]
+        //cell.tweet = lists[indexPath.row]
         
         return cell
     }

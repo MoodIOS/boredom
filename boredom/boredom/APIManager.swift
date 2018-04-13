@@ -10,7 +10,7 @@ import Foundation
 class APIManager {
     
     
-    func fetchMovies(){
+    /*func fetchMovies(){
         let url = URL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         
         //getting data
@@ -54,5 +54,5 @@ class APIManager {
         }
         //ALWAYS NEED TO CALL THIS FUNCTION! this will actually start the task
         task.resume()
-    }
+    }*/
 }

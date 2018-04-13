@@ -11,13 +11,13 @@ import Parse
 
 @objc class Activity: PFObject {
     var actName: String!
-    var description: String!
+    var actDescription: String!
     var actType: String!
     var author: String!
     
     init (dictionary: [String: Any]) {
         actType = dictionary["listName"] as? String ?? "No name"
-        description = dictionary["category"] as? String ?? "No description"
+        actDescription = dictionary["category"] as? String ?? "No description"
         actType = dictionary["rating"] as? String ?? "No activity type"
         author = dictionary["author"] as? String ?? "No author"
         super.init()
@@ -29,7 +29,7 @@ import Parse
             let activity = Activity(dictionary: dictionary)
             list.append(activity)
         }
-        return lists
+        return list
     }
 }
 
