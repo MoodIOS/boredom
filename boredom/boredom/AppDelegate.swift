@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func login(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let exploreViewController = storyboard.instantiateViewController(withIdentifier: "exploreViewController")
+        let exploreViewController = storyboard.instantiateViewController(withIdentifier: "tabViewController")
         self.window?.rootViewController = exploreViewController
         
     }
