@@ -32,6 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func login(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let exploreViewController = storyboard.instantiateViewController(withIdentifier: "exploreViewController")
+        self.window?.rootViewController = exploreViewController
+        
+    }
 
     func logout(){
         PFUser.logOutInBackground(block: { (error) in
