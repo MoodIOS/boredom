@@ -75,7 +75,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return userLists.count
     }
     
-    //TODO: lists vs lists2
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
         let userLists = self.lists
@@ -86,6 +85,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         cell.listName.text = curListName
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UICollectionViewCell
+        if let indexPath = colView.indexPath(for: cell){
+            let list = lists[indexPath.row]
+            let navVC = segue.destination as! UINavigationController
+            let listOfActVC = navVC.topViewController as! ListOfActsViewController
+            listOfActVC.list = list
+            print("send current List:", listOfActVC.list)
+        }
     }
     
     

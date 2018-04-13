@@ -15,6 +15,7 @@ class AddNewListViewController: UIViewController {
     @IBOutlet weak var nameText: UITextField!
     
     @IBOutlet weak var categoryText: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

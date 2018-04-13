@@ -7,15 +7,36 @@
 //
 
 import UIKit
-
+import Parse
 class AddNewActivityVCViewController: UIViewController {
 
+    @IBOutlet weak var actName: UITextField!
+    @IBOutlet weak var actDescription: UITextField!
+    var list = List()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("self.list", self.list)
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
+        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list){ (success, error) in
+            if success {
+                print("Activity created!")
+                self.dismiss(animated: true, completion: nil)
+            }
+            else if let error = error {
+                print("Problem saving activity: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil )
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

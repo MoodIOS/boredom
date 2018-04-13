@@ -12,20 +12,20 @@ import Parse
 @objc class Activity: PFObject, PFSubclassing {
     @NSManaged var actName: String!
     @NSManaged var actDescription: String!
-    @NSManaged var actType: String!
-    @NSManaged var list: PFObject!
+    @NSManaged var list: List!
+    @NSManaged var done: BooleanLiteralType
     
     class func parseClassName() -> String {
         return "Activity"
     }
     
-    class func addNewActivity(actName: String?, actDescription: String?, actType: String?, list: PFObject?, withCompletion completion: PFBooleanResultBlock?){
+    class func addNewActivity(actName: String?, actDescription: String?, list: List, withCompletion completion: PFBooleanResultBlock?){
         let activity = Activity()
         
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
-        activity.actType = actType ?? "No Type"
         activity.list = list
+        activity.done = false
         
         activity.saveInBackground(block: completion)
     }
