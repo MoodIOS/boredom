@@ -8,42 +8,42 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    //@IBOutlet weak var tableView: UITableView!
     
-    var lists = [String: Any]()
+    @IBOutlet weak var colView: UICollectionView!
+    
+    var lists = [List]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.dataSource = self
-        tableView.delegate = self
+        colView.dataSource = self
+        colView.delegate = self
         
         // Do any additional setup after loading the view.
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-    }
+
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return lists.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! UITableViewCell
-        
-        //cell.tweet = lists[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
+        let curList = lists[indexPath.row]
+        let curListName = curList.listName
+        cell.listName.text = curListName
         
         return cell
     }
-    
-    
     
     
     @IBAction func changeProfilePic(_ sender: UIButton) {
