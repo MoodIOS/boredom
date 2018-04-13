@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Parse
 
 class AddNewListViewController: UIViewController {
 
+    
+    @IBOutlet weak var nameText: UITextField!
+    
+    @IBOutlet weak var categoryText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +26,19 @@ class AddNewListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func doneButton(_ sender: Any) {
+        List.addNewList(name: nameText.text, category: categoryText.text) { (success, error) in
+            if success {
+                print("List created!")
+                
+                self.dismiss(animated: true, completion: nil)
+            }
+            else if let error = error {
+                print("Problem saving list: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

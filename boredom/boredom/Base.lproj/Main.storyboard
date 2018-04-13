@@ -869,8 +869,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="New List" id="AjJ-t8-BK4">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pPW-1E-vAE"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="vEO-co-Po3"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="vEO-co-Po3">
+                            <connections>
+                                <action selector="doneButton:" destination="xLP-iM-HIw" id="hiD-ot-8du"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="categoryText" destination="tLx-wC-iPW" id="uw3-0a-Day"/>
+                        <outlet property="nameText" destination="wgi-Qm-X5j" id="qEY-AI-tKY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3aJ-SU-n5u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
