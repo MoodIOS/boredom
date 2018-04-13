@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -744,7 +744,7 @@
             </objects>
             <point key="canvasLocation" x="1311" y="-674"/>
         </scene>
-        <!--MY PROFILE-->
+        <!--YOUR LIST-->
         <scene sceneID="3GN-WH-JqQ">
             <objects>
                 <viewController id="AO5-EO-i6w" customClass="ProfileViewController" customModule="boredom" customModuleProvider="target" sceneMemberID="viewController">
@@ -822,8 +822,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="BlE-cS-QNy"/>
                     </view>
-                    <navigationItem key="navigationItem" title="MY PROFILE" id="OuX-ze-kpX">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="1pX-BG-I14"/>
+                    <navigationItem key="navigationItem" title="YOUR LIST" id="OuX-ze-kpX">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Rg0-sY-el5">
                             <connections>
                                 <segue destination="P2w-61-nVM" kind="presentation" id="aEa-4i-bsz"/>
@@ -881,7 +880,11 @@
                         <viewLayoutGuide key="safeArea" id="7ZZ-JX-yOT"/>
                     </view>
                     <navigationItem key="navigationItem" title="New List" id="AjJ-t8-BK4">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pPW-1E-vAE"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pPW-1E-vAE">
+                            <connections>
+                                <action selector="cancelButton:" destination="xLP-iM-HIw" id="A7L-UZ-6oJ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="vEO-co-Po3">
                             <connections>
                                 <action selector="doneButton:" destination="xLP-iM-HIw" id="hiD-ot-8du"/>
@@ -1037,11 +1040,11 @@
             </objects>
             <point key="canvasLocation" x="-1649" y="365"/>
         </scene>
-        <!--PROFILE-->
+        <!--SETTING-->
         <scene sceneID="f56-cw-JzA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ibW-VC-bhr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="PROFILE" id="OAf-ys-t3e"/>
+                    <tabBarItem key="tabBarItem" title="SETTING" id="OAf-ys-t3e"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ABc-J7-8Eq">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

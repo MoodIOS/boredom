@@ -26,6 +26,11 @@ class AddNewListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func doneButton(_ sender: Any) {
         List.addNewList(name: nameText.text, category: categoryText.text) { (success, error) in
             if success {

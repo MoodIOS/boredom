@@ -13,19 +13,19 @@ import Parse
     @NSManaged var actName: String!
     @NSManaged var actDescription: String!
     @NSManaged var actType: String!
-    @NSManaged var author: PFUser!
+    @NSManaged var list: PFObject!
     
     class func parseClassName() -> String {
         return "Activity"
     }
     
-    class func addNewActivity(actName: String?, actDescription: String?, actType: String?, withCompletion completion: PFBooleanResultBlock?){
+    class func addNewActivity(actName: String?, actDescription: String?, actType: String?, list: PFObject?, withCompletion completion: PFBooleanResultBlock?){
         let activity = Activity()
         
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
         activity.actType = actType ?? "No Type"
-        activity.author = PFUser.current()
+        activity.list = list
         
         activity.saveInBackground(block: completion)
     }

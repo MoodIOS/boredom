@@ -11,8 +11,6 @@ import Parse
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    
-
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
     //@IBOutlet weak var tableView: UITableView!
@@ -21,7 +19,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     //var lists = [String: Any]()
     var lists = [List]()
-    var lists2: [PFObject] = []
+//    var lists2: [PFObject] = []
 
     
     
@@ -45,12 +43,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
         query.whereKey("author", equalTo: "_User$" + (PFUser.current()?.objectId)!)
-        query.findObjectsInBackground { (lists2: [PFObject]? , error: Error?) in
+        query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
             if error == nil {
-                print(lists2!)
-                if let lists2 = lists2 {
-                    self.lists2 = lists2
-                    
+                print(lists!)
+                if let lists = lists {
+                    self.lists = lists as! [List]
+                    self.reloadInputViews()
+                    print("self.lists", self.lists )
+                    print("lists[0]", self.lists[0].listName)
                 }
             }
             else{
@@ -63,14 +63,18 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return lists.count
+        let userLists = self.lists
+        return userLists.count
     }
     
     //TODO: lists vs lists2
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
-        let curList = lists[indexPath.row]
+        let userLists = self.lists
+        let curList = userLists[indexPath.row]
+        print("curList", curList)
         let curListName = curList.listName
+//        let curListName = curList["listName"]
         cell.listName.text = curListName
         
         return cell

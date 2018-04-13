@@ -13,6 +13,7 @@
 		44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EAB2079F21A0037EB0D /* UserListsCell.swift */; };
 		44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EB1207A17370037EB0D /* ActivitiesCell.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
+		FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */; };
 		FFBA1637207C53C700242310 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1636207C53C700242310 /* User.swift */; };
 		FFBA1639207C53DE00242310 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA1638207C53DE00242310 /* List.swift */; };
 		FFBA163C207C53FF00242310 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA163B207C53FF00242310 /* Activity.swift */; };
@@ -60,6 +61,7 @@
 		B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
+		FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewActivityVCViewController.swift; sourceTree = "<group>"; };
 		FFBA1636207C53C700242310 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FFBA1638207C53DE00242310 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		FFBA163B207C53FF00242310 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				FFBA163F207C61CE00242310 /* ProfileViewController.swift */,
 				FFBA1641207C61E900242310 /* SettingViewController.swift */,
 				FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */,
+				FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,
 				FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */,
 				FFBA1639207C53DE00242310 /* List.swift in Sources */,
+				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
 				FFBA163E207C61B400242310 /* HomeViewController.swift in Sources */,

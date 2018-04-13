@@ -8,12 +8,8 @@
 
 import Foundation
 import Parse
-import Alamofire
-import OAuthSwift
-import OAuthSwiftAlamofire
-import KeychainAccess
 
-class APIManager: SessionManager {
+class APIManager {
     var lists: [PFObject] = []
     
     func getLists() {

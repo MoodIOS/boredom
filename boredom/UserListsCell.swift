@@ -10,7 +10,5 @@ import UIKit
 
 class UserListsCell: UICollectionViewCell {
     @IBOutlet weak var userListsImageView: UIImageView!
-    
-    
     @IBOutlet weak var listName: UILabel!
 }
