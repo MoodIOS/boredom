@@ -79,9 +79,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
         let userLists = self.lists
         let curList = userLists[indexPath.row]
-        print("curList", curList)
         let curListName = curList.listName
-//        let curListName = curList["listName"]
         cell.listName.text = curListName
         
         return cell
@@ -90,10 +88,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UICollectionViewCell
         if let indexPath = colView.indexPath(for: cell){
-            let list = lists[indexPath.row]
+            let curList = lists[indexPath.row]
+            print("list to be send for adding act:", curList)
             let navVC = segue.destination as! UINavigationController
             let listOfActVC = navVC.topViewController as! ListOfActsViewController
-            listOfActVC.list = list
+            print("ListofAct VC", listOfActVC)
+            listOfActVC.list = curList
             print("send current List:", listOfActVC.list)
         }
     }

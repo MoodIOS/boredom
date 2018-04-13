@@ -21,9 +21,12 @@ class AddNewActivityVCViewController: UIViewController {
     }
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
+//        let currentList = self.list
+//        print("Save list objectId:", currentList.objectId)
         Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list){ (success, error) in
             if success {
                 print("Activity created!")
+
                 self.dismiss(animated: true, completion: nil)
             }
             else if let error = error {

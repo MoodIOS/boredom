@@ -19,7 +19,34 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        getActivities()
         // Do any additional setup after loading the view.
+    }
+    
+    func getActivities() {
+        print("inside getActitivy")
+        let query = PFQuery(className: "Activity")
+        query.includeKey("_p_list")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        print("List$" + "\((self.list.objectId)!)")
+        query.whereKey("list", equalTo: "List$" + (self.list.objectId)!)
+//        query.whereKey("list", equalTo: "List$" + "qMDPU2MqRj")
+        query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+            if error == nil {
+                print(activities!)
+                if let activities = activities {
+                    self.activities = activities as! [Activity]
+                    self.tableView.reloadData()
+                    print("self.activities", self.activities )
+//                    print("lists[0]", self.lists[0].listName)
+                }
+            }
+            else{
+                print(error?.localizedDescription)
+            }
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,11 +62,18 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let addNewActVC = storyboard.instantiateViewController(withIdentifier: "addNewActVC") as! AddNewActivityVCViewController
+    //ISSUE: PASSING DATA FAILS
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navVC = segue.destination as! UINavigationController
+        let addNewActVC = navVC.topViewController as! AddNewActivityVCViewController
         addNewActVC.list = self.list
     }
+    
+//    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let addNewActVC = storyboard.instantiateViewController(withIdentifier: "addNewActVC") as! AddNewActivityVCViewController
+//        addNewActVC.list = self.list
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

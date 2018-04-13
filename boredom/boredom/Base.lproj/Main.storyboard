@@ -814,7 +814,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="listName" destination="QwK-HF-2BB" id="x2X-YN-jbX"/>
-                                            <segue destination="A0Z-kx-Jjr" kind="showDetail" id="yLh-di-C2E"/>
+                                            <segue destination="A0Z-kx-Jjr" kind="show" id="yLh-di-C2E"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -891,6 +891,7 @@
                         <viewLayoutGuide key="safeArea" id="hzI-rf-uxu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Activities" id="I38-lB-lf8">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="yVj-M5-d2S"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="NpB-9n-CDD">
                             <connections>
                                 <action selector="onAddButton:" destination="s4v-lZ-fF6" id="e2p-sg-N8h"/>
