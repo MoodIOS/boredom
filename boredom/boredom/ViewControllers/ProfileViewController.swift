@@ -14,7 +14,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var colView: UICollectionView!
-
+    @IBOutlet weak var noListsLabel: UILabel!
+    
     var lists = [List]()
 
     
@@ -22,15 +23,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         colView.dataSource = self
         colView.delegate = self
+        noListsLabel.isHidden = true
         
         let layout = colView.collectionViewLayout as! UICollectionViewFlowLayout
         // Adjust cell size and layout
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
-        let cellsPerLine: CGFloat = 3
+        let cellsPerLine: CGFloat = 2
         let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
         let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
-        layout.itemSize = CGSize(width: width, height: width * 3 / 2)
+        layout.itemSize = CGSize(width: width, height: width) //width*3/2
 
         
         getLists()
@@ -42,6 +44,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         getLists()
+        
     }
     
     func getLists() {
@@ -52,17 +55,24 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         query.addDescendingOrder("_created_at")
         query.whereKey("author", equalTo: "_User$" + (PFUser.current()?.objectId)!)
         query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
-            if error == nil {
-                print(lists!)
-                if let lists = lists {
-                    self.lists = lists as! [List]
-                    self.colView.reloadData()
-                    print("self.lists", self.lists )
-                    print("lists[0]", self.lists[0].listName)
-                }
+            if lists?.count == 0 {
+                self.noListsLabel.isHidden = false
+                print("user has no lists yet")
             }
             else{
-                print(error?.localizedDescription)
+                if error == nil {
+                    self.noListsLabel.isHidden = true
+                    print(lists!)
+                    if let lists = lists {
+                        self.lists = lists as! [List]
+                        self.colView.reloadData()
+                        print("self.lists", self.lists )
+                        print("lists[0]", self.lists[0].listName)
+                    }
+                }
+                else{
+                    print(error?.localizedDescription)
+                }
             }
         }
         

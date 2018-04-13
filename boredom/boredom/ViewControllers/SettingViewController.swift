@@ -7,11 +7,19 @@
 //
 
 import UIKit
+import Parse
 
 class SettingViewController: UIViewController {
 
+    @IBOutlet weak var usernameLabel: UILabel!
+
+    @IBOutlet weak var userPassword: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameLabel.text = PFUser.current()?.username
+        userPassword.text = PFUser.current()?.password
+        
 
         // Do any additional setup after loading the view.
     }
@@ -21,7 +29,11 @@ class SettingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func didTapLogout(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.logout()
+    }
+    
     /*
     // MARK: - Navigation
 
