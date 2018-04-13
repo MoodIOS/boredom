@@ -23,15 +23,18 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func onTapLogin(_ sender: Any) {
-        if(usernameField.text?.isEmpty == true || userPasswordField.text?.isEmpty == true){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if(usernameField.text?.isEmpty == true || userPasswordField.text?.isEmpty == true || (usernameField.text?.isEmpty == true && userPasswordField.text?.isEmpty == true)){
             print("incorrect login credentials, try again")
         }
         else{//TODO might have to use prepareforsegue isntead(or something else), since right now, we are still proceeding to the user page even with incorrect login credentials, because of our segue.
                 PFUser.logInWithUsername(inBackground: usernameField.text!, password: userPasswordField.text!) { (user: PFUser?, error:Error?) -> Void in
                 if user != nil {
+                    appDelegate.login()
                     print("you are logged in!")
                 }
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                //self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
             
         }
