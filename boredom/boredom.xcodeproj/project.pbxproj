@@ -30,7 +30,6 @@
 		FFE94697204F76E40070B150 /* boredomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE94696204F76E40070B150 /* boredomTests.swift */; };
 		FFE946A2204F76E40070B150 /* boredomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE946A1204F76E40070B150 /* boredomUITests.swift */; };
 		FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */; };
-		FFF76962207EEE5000B1F21E /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF76961207EEE5000B1F21E /* APIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +85,6 @@
 		FFE946A1204F76E40070B150 /* boredomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boredomUITests.swift; sourceTree = "<group>"; };
 		FFE946A3204F76E40070B150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewListViewController.swift; sourceTree = "<group>"; };
-		FFF76961207EEE5000B1F21E /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +188,6 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
-				FFF76961207EEE5000B1F21E /* APIManager.swift */,
 				FFBA1635207C534B00242310 /* Models */,
 				FFF76960207EEDD500B1F21E /* ViewCells */,
 				FFBA1634207C532E00242310 /* ViewControllers */,
@@ -549,7 +546,6 @@
 				FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */,
 				FF68C84C2080D02B0005967E /* ActivityCell.swift in Sources */,
 				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
-				FFF76962207EEE5000B1F21E /* APIManager.swift in Sources */,
 				FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,

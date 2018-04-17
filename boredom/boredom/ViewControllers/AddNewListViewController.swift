@@ -33,7 +33,7 @@ class AddNewListViewController: UIViewController {
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        List.addNewList(name: nameText.text, category: categoryText.text) { (success, error) in
+        List.addNewList(name: nameText.text, category: categoryText.text, likeCount: 0 ) { (success, error) in
             if success {
                 print("List created!")
                 

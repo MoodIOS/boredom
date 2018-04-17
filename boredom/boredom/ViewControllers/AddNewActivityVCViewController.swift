@@ -12,6 +12,8 @@ class AddNewActivityVCViewController: UIViewController {
 
     @IBOutlet weak var actName: UITextField!
     @IBOutlet weak var actDescription: UITextField!
+    @IBOutlet weak var location: UITextField!
+    @IBOutlet weak var cost: UITextField!
     var list = List()
     
     override func viewDidLoad() {
@@ -23,7 +25,7 @@ class AddNewActivityVCViewController: UIViewController {
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
 //        let currentList = self.list
 //        print("Save list objectId:", currentList.objectId)
-        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list){ (success, error) in
+        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (success, error) in
             if success {
                 print("Activity created!")
 
