@@ -11,4 +11,5 @@ import UIKit
 class ActivitiesCell: UICollectionViewCell {
     
     @IBOutlet weak var activitiesImageView: UIImageView!
+    
 }

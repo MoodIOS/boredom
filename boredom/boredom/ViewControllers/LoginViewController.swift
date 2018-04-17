@@ -44,13 +44,15 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func onTapSignIn(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let newUser = PFUser()
         newUser.username = usernameField.text
         newUser.password = userPasswordField.text
         newUser.signUpInBackground{ (success:Bool, error:Error?) -> Void in
             if success{
                 print("yay created a user!")
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                appDelegate.login()
+//                self.performSegue(withIdentifier: "loginSegue", sender: nil)
                 
             } else{
                 print(error?.localizedDescription)

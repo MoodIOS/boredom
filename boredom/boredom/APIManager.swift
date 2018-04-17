@@ -7,9 +7,27 @@
 //
 
 import Foundation
+import Parse
+
 class APIManager {
+    var lists: [PFObject] = []
     
-    
+    func getLists() {
+        let query = PFQuery(className: "List")
+        query.includeKey("_p_author")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            if error == nil {
+                print(lists!)
+                if let lists = lists {
+                    self.lists = lists
+                    
+                }
+            }
+        }
+        
+    }
     /*func fetchMovies(){
         let url = URL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         

@@ -9,28 +9,28 @@
 import Foundation
 import Parse
 
-@objc class Activity: PFObject {
-    var actName: String!
-    var actDescription: String!
-    var actType: String!
-    var author: String!
+@objc class Activity: PFObject, PFSubclassing {
+    @NSManaged var actName: String!
+    @NSManaged var actDescription: String!
+    @NSManaged var list: List!
+    @NSManaged var done: BooleanLiteralType
     
-    init (dictionary: [String: Any]) {
-        actType = dictionary["listName"] as? String ?? "No name"
-        actDescription = dictionary["category"] as? String ?? "No description"
-        actType = dictionary["rating"] as? String ?? "No activity type"
-        author = dictionary["author"] as? String ?? "No author"
-        super.init()
+    class func parseClassName() -> String {
+        return "Activity"
     }
     
-    class func activities(dictionaries: [[String: Any]]) -> [Activity] {
-        var list: [Activity] = []
-        for dictionary in dictionaries {
-            let activity = Activity(dictionary: dictionary)
-            list.append(activity)
-        }
-        return list
+    class func addNewActivity(actName: String?, actDescription: String?, list: List, withCompletion completion: PFBooleanResultBlock?){
+        let activity = Activity()
+        
+        activity.actName = actName ?? "No name"
+        activity.actDescription = actDescription ?? "No description"
+        activity.list = list
+        activity.done = false
+        
+        activity.saveInBackground(block: completion)
     }
+    
+    
 }
 
 
