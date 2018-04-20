@@ -13,6 +13,8 @@
 		44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EAB2079F21A0037EB0D /* UserListsCell.swift */; };
 		44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EB1207A17370037EB0D /* ActivitiesCell.swift */; };
 		44116EF2208970D70037EB0D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF1208970D70037EB0D /* SignUpViewController.swift */; };
+		44116EF4208996600037EB0D /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF3208996600037EB0D /* YelpClient.swift */; };
+		44116EF620899C510037EB0D /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF520899C510037EB0D /* Business.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */; };
 		FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */; };
@@ -56,6 +58,8 @@
 		44116EAB2079F21A0037EB0D /* UserListsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListsCell.swift; sourceTree = "<group>"; };
 		44116EB1207A17370037EB0D /* ActivitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCell.swift; sourceTree = "<group>"; };
 		44116EF1208970D70037EB0D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		44116EF3208996600037EB0D /* YelpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpClient.swift; sourceTree = "<group>"; };
+		44116EF520899C510037EB0D /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
 		95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +203,8 @@
 				FFE94688204F76E30070B150 /* Assets.xcassets */,
 				FFE9468A204F76E30070B150 /* LaunchScreen.storyboard */,
 				FFE9468D204F76E30070B150 /* Info.plist */,
+				44116EF3208996600037EB0D /* YelpClient.swift */,
+				44116EF520899C510037EB0D /* Business.swift */,
 			);
 			path = boredom;
 			sourceTree = "<group>";
@@ -459,8 +465,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
@@ -469,8 +477,10 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
@@ -542,6 +552,7 @@
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,
 				FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */,
 				FFBA1639207C53DE00242310 /* List.swift in Sources */,
+				44116EF4208996600037EB0D /* YelpClient.swift in Sources */,
 				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
@@ -551,6 +562,7 @@
 				FF68C84C2080D02B0005967E /* ActivityCell.swift in Sources */,
 				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
 				FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */,
+				44116EF620899C510037EB0D /* Business.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,
 			);
@@ -719,12 +731,14 @@
 			baseConfigurationReference = 2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4SX7SE65E;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -735,12 +749,14 @@
 			baseConfigurationReference = 5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4SX7SE65E;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

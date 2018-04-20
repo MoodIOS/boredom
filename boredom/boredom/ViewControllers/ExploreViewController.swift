@@ -11,12 +11,14 @@ import Parse
 import AlamofireImage
 
 class ExploreViewController: UIViewController, UICollectionViewDataSource{
-    
-    
+
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
     var movies: [[String:Any]] = []
+    var exploreActivity: Activity!
+    var activitiesYelp: [Business]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,18 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         
         fetchMovies()
+        /*Business.searchWithTerm(term: "Thai", completion: { (activitiesYelp: [Business]?, error: Error?) -> Void in
+            
+            self.activitiesYelp = activitiesYelp
+            self.activitiesCollectionView.reloadData()
+            if case let self.activitiesYelp = activitiesYelp {
+                for self.activitiesYelp in activitiesYelp {
+                    print("BUSINESSES")
+                }
+            }
+            
+        }
+        )*/
 
         // Do any additional setup after loading the view.
     }
@@ -131,13 +145,13 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        /*if(collectionView == activitiesCollectionView){
+        /*if(collectionView == userListsCollectionView){
             return movies.count
         }
         else{
-            return movies.count
+            return activitiesYelp!.count
         }*/
-         return movies.count
+        return movies.count
         
         
     }
@@ -147,16 +161,15 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         if(collectionView == self.userListsCollectionView){
         let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
             
-        
-        
         let movie = movies[indexPath.item]
         if let posterPathString = movie["poster_path"] as? String {
             let baseURLString = "https://image.tmdb.org/t/p/w500"
             let posterURL = URL(string: baseURLString + posterPathString)!
             cell.userListsImageView.af_setImage(withURL: posterURL)
-            
+ 
             
         }
+        
         return cell
             
         }
@@ -169,8 +182,9 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                 let baseURLString = "https://image.tmdb.org/t/p/w500"
                 let posterURL = URL(string: baseURLString + posterPathString)!
                 activitiesCell.activitiesImageView.af_setImage(withURL: posterURL)
-                
+           // activitiesCell.activitiesImageView.af_setImage(withURL: URL(string: self.exploreActivity.actImageUrl)!)
             }
+            //activitiesCell.business = activitiesYelp[indexPath.item]
             return activitiesCell
         }
         

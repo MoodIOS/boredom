@@ -12,6 +12,7 @@ import Parse
 @objc class Activity: PFObject, PFSubclassing {
     @NSManaged var actName: String!
     @NSManaged var actDescription: String!
+    //@NSManaged var actImageUrl: String!
     @NSManaged var list: List!
     @NSManaged var done: BooleanLiteralType
     @NSManaged var location: String!
@@ -25,6 +26,7 @@ import Parse
         let activity = Activity()
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
+        //activity.actImageUrl = "//cdn.shopify.com/s/files/1/1061/1924/products/Blow_Kiss_Emoji_grande.png?v=1480481051"
         activity.list = list
         activity.done = false
         activity.location = location ?? "No location specified"

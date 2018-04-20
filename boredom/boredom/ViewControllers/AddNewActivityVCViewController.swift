@@ -16,6 +16,7 @@ class AddNewActivityVCViewController: UIViewController {
     @IBOutlet weak var cost: UITextField!
     var list = List()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("self.list", self.list)
