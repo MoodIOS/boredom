@@ -16,7 +16,8 @@ import Parse
     @NSManaged var activities: [Activity]?
     //var rating: Int?
     @NSManaged var author: PFUser!
-    @NSManaged var likeCount: Int 
+    @NSManaged var likeCount: Int
+    
     class func parseClassName() -> String {
         return "List"
     }
@@ -35,20 +36,25 @@ import Parse
         list.saveInBackground(block: completion)
     }
     
-    class func fetchLists(){
-        
-    }
-    
-    
-    class func fetchLists(userId: String){
-        print("inside getLists")
+    class func fetchLists(completion: @escaping ([List]?, Error?) -> Void){
         let query = PFQuery(className: "List")
         query.includeKey("_p_author")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
-        query.whereKey("author", equalTo: "_User$" + (PFUser.current()?.objectId)!)
-        query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
-            return lists
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion( lists as? [List], nil)
+        }
+    }
+    
+    
+    class func fetchLists(userId: String, completion: @escaping ([List]?, Error?) -> Void ){
+        let query = PFQuery(className: "List")
+        query.includeKey("_p_author")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        query.whereKey("author", equalTo: "_User$" + userId)
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion(lists as? [List], nil)
         }
     }
     

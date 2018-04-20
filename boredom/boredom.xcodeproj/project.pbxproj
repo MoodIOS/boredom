@@ -16,6 +16,7 @@
 		44116EF4208996600037EB0D /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF3208996600037EB0D /* YelpClient.swift */; };
 		44116EF620899C510037EB0D /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF520899C510037EB0D /* Business.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
+		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
 		FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */; };
 		FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */; };
 		FF68C84C2080D02B0005967E /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C84B2080D02B0005967E /* ActivityCell.swift */; };
@@ -68,6 +69,7 @@
 		B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
+		FF6294FB208A8C7000646128 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewActivityVCViewController.swift; sourceTree = "<group>"; };
 		FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfActsViewController.swift; sourceTree = "<group>"; };
 		FF68C84B2080D02B0005967E /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityCell.swift; path = boredom/ActivityCell.swift; sourceTree = "<group>"; };
@@ -163,6 +165,8 @@
 		FFBA1635207C534B00242310 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				44116EF520899C510037EB0D /* Business.swift */,
+				FF6294FB208A8C7000646128 /* Movie.swift */,
 				FFBA1636207C53C700242310 /* User.swift */,
 				FFBA1638207C53DE00242310 /* List.swift */,
 				FFBA163B207C53FF00242310 /* Activity.swift */,
@@ -195,6 +199,7 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
+				44116EF3208996600037EB0D /* YelpClient.swift */,
 				FFBA1635207C534B00242310 /* Models */,
 				FFF76960207EEDD500B1F21E /* ViewCells */,
 				FFBA1634207C532E00242310 /* ViewControllers */,
@@ -203,8 +208,6 @@
 				FFE94688204F76E30070B150 /* Assets.xcassets */,
 				FFE9468A204F76E30070B150 /* LaunchScreen.storyboard */,
 				FFE9468D204F76E30070B150 /* Info.plist */,
-				44116EF3208996600037EB0D /* YelpClient.swift */,
-				44116EF520899C510037EB0D /* Business.swift */,
 			);
 			path = boredom;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwiftAlamofire/OAuthSwiftAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -486,6 +490,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwiftAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -547,6 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF6294FC208A8C7000646128 /* Movie.swift in Sources */,
 				FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */,
 				FFBA1642207C61E900242310 /* SettingViewController.swift in Sources */,
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,

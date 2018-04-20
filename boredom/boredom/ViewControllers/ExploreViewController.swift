@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 import AlamofireImage
+import PromiseKit
+
 
 class ExploreViewController: UIViewController, UICollectionViewDataSource{
 
@@ -16,7 +18,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
     var movies: [[String:Any]] = []
-    var exploreActivity: Activity!
+    var exploreActivities: [Activity]!
+    var exploreLists: [List]!
     var activitiesYelp: [Business]!
     
     
@@ -89,7 +92,26 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         
         fetchMovies()
+        getTopLists()
     }
+    
+    func getTopLists(){
+        List.fetchLists { (lists: [List]?, error: Error?) in
+            self.exploreLists = lists
+            print("self.exploreLists", self.exploreLists)
+        }
+        
+        
+    }
+    
+    func getTopActivities() {
+
+    }
+    
+    
+    
+    
+
     
     func fetchMovies()
     {
@@ -125,7 +147,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             }
             else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
-                print(dataDictionary)
+//                print(dataDictionary)
                 let movies = dataDictionary["results"] as! [[String:Any]]
                 self.movies = movies
                 self.userListsCollectionView.reloadData()
@@ -138,6 +160,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         task.resume()
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
