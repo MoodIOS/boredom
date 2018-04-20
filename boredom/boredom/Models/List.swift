@@ -12,33 +12,17 @@ import Parse
 @objc class List: PFObject, PFSubclassing {
     @NSManaged var listName: String!
     @NSManaged var category: String!
+    //@NSManaged var listImage: UIImage!
     @NSManaged var activities: [Activity]?
     //var rating: Int?
     @NSManaged var author: PFUser!
+    @NSManaged var likeCount: Int
     
-    /*init (dictionary: [String: Any]) {
-        listName = dictionary["listName"] as? String ?? "No name"
-        category = dictionary["category"] as? String ?? "No category"
-        rating = dictionary["rating"] as? Int ?? 0
-        author = dictionary["author"] as? String ?? "No author"
-        //super.init()
-    }*/
     class func parseClassName() -> String {
         return "List"
     }
     
-    
-    /*class func lists(dictionaries: [[String: Any]]) -> [List] {
-        var lists: [List] = []
-        for dictionary in dictionaries {
-            let list = List(dictionary: dictionary)
-            lists.append(list)
-        }
-        return lists
-    }*/
-    
-    
-    class func addNewList(name: String?, category: String?, withCompletion completion: PFBooleanResultBlock?) {
+    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: PFBooleanResultBlock?) {
         // use subclass approach
         let list = List()
         
@@ -46,9 +30,33 @@ import Parse
         list.category = category ?? "No category"
         list.activities = []
         list.author = PFUser.current()
+        list.likeCount = likeCount ?? 0
         
         // Save object (following function will save the object in Parse asynchronously)
         list.saveInBackground(block: completion)
     }
+    
+    class func fetchLists(completion: @escaping ([List]?, Error?) -> Void){
+        let query = PFQuery(className: "List")
+        query.includeKey("_p_author")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion( lists as? [List], nil)
+        }
+    }
+    
+    
+    class func fetchLists(userId: String, completion: @escaping ([List]?, Error?) -> Void ){
+        let query = PFQuery(className: "List")
+        query.includeKey("_p_author")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        query.whereKey("author", equalTo: "_User$" + userId)
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion(lists as? [List], nil)
+        }
+    }
+    
 }
 

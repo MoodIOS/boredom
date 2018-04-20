@@ -9,19 +9,21 @@
 import UIKit
 import Parse
 
+
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
 
     @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var signupBtn: UIButton!
     
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
-
+    
+    
     @IBAction func onTapLogin(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -42,25 +44,7 @@ class LoginViewController: UIViewController {
         
     }
     
-    
-    @IBAction func onTapSignIn(_ sender: Any) {
-        let newUser = PFUser()
-        newUser.username = usernameField.text
-        newUser.password = userPasswordField.text
-        newUser.signUpInBackground{ (success:Bool, error:Error?) -> Void in
-            if success{
-                print("yay created a user!")
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                
-            } else{
-                print(error?.localizedDescription)
-                if error?._code == 202{
-                    print("Username is taken")
-                }
-            }
-        }
-    }
-    
+   
     
     
     override func didReceiveMemoryWarning() {

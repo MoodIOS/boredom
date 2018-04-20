@@ -15,7 +15,11 @@ class User {
     var userEmail: String
     var profileImageURL: String
     var password: String
+//    var userCoordinate: CGPoint!
+    var userLocation: String
     
+    // Define this:
+    var randomActivity: Activity!
     
     private static var _current: User?
     static var current: User?{
@@ -49,6 +53,7 @@ class User {
         profileImageURL = dictionary["profileImageURL"] as! String
         password = dictionary["password"] as! String
         userEmail = dictionary["userEmail"] as!  String
+        userLocation = dictionary["userLocation"] as! String
 
     }
 }

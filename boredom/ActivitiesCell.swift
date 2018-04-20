@@ -11,4 +11,13 @@ import UIKit
 class ActivitiesCell: UICollectionViewCell {
     
     @IBOutlet weak var activitiesImageView: UIImageView!
+    
+    var business: Business! {
+        didSet {
+            
+            activitiesImageView.setImageWith(business.imageURL!)
+            
+        }
+    }
+    
 }

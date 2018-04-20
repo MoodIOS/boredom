@@ -15,6 +15,7 @@ class AddNewListViewController: UIViewController {
     @IBOutlet weak var nameText: UITextField!
     
     @IBOutlet weak var categoryText: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,8 +27,13 @@ class AddNewListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func doneButton(_ sender: Any) {
-        List.addNewList(name: nameText.text, category: categoryText.text) { (success, error) in
+        List.addNewList(name: nameText.text, category: categoryText.text, likeCount: 0 ) { (success, error) in
             if success {
                 print("List created!")
                 

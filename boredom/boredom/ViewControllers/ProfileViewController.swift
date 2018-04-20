@@ -7,38 +7,80 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    
-
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
-    //@IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var colView: UICollectionView!
+    @IBOutlet weak var noListsLabel: UILabel!
     
     var lists = [List]()
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         colView.dataSource = self
         colView.delegate = self
+        noListsLabel.isHidden = true
+        
+        let layout = colView.collectionViewLayout as! UICollectionViewFlowLayout
+        // Adjust cell size and layout
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = layout.minimumInteritemSpacing
+        let cellsPerLine: CGFloat = 2
+        let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
+        let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
+        layout.itemSize = CGSize(width: width, height: width) //width*3/2
+
+        
+        getLists()
+        
+        //APIManager.shared.getLists()
         
         // Do any additional setup after loading the view.
     }
-
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getLists()
+        
+    }
+    
+    func getLists() {
+        let curUser = PFUser.current()
+        let userId = curUser?.objectId
+        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
+            if lists?.count == 0 {
+                self.noListsLabel.isHidden = false
+                print("user has no lists yet")
+            }
+            else {
+                if error == nil {
+                    let lists = lists!
+                    self.noListsLabel.isHidden = true
+                    print(lists)
+                    self.lists = lists
+                    self.colView.reloadData()
+                    print("self.lists", self.lists )
+                    print("lists[0]", self.lists[0].listName)
+                } else {
+                print(error?.localizedDescription)
+                }
+            }
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return lists.count
+        let userLists = self.lists
+        return userLists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
-        let curList = lists[indexPath.row]
+        let userLists = self.lists
+        let curList = userLists[indexPath.row]
         let curListName = curList.listName
         cell.listName.text = curListName
         
@@ -46,9 +88,26 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UICollectionViewCell{
+            if let indexPath = colView.indexPath(for: cell){
+                let curList = lists[indexPath.row]
+                print("list to be send for adding act:", curList)
+                let navVC = segue.destination as! UINavigationController
+                let listOfActVC = navVC.topViewController as! ListOfActsViewController
+                print("ListofAct VC", listOfActVC)
+                listOfActVC.list = curList
+                print("send current List:", listOfActVC.list)
+            }
+        }
+    }
+
+    
     @IBAction func changeProfilePic(_ sender: UIButton) {
         
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

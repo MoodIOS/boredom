@@ -10,6 +10,15 @@ target 'boredom' do
   pod 'OAuthSwift'
   pod 'OAuthSwiftAlamofire'
   pod 'KeychainAccess'
+  
+  # Promise function
+  pod 'PromiseKit'
+
+	
+  # Pods for Yelp
+  pod 'AFNetworking', '~> 2.5'
+  pod 'BDBOAuth1Manager'
+
   # Pods for boredom
 
   target 'boredomTests' do
