@@ -48,36 +48,29 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func getLists() {
-        print("inside getLists")
-        let query = PFQuery(className: "List")
-        query.includeKey("_p_author")
-        query.includeKey("_created_at")
-        query.addDescendingOrder("_created_at")
-        query.whereKey("author", equalTo: "_User$" + (PFUser.current()?.objectId)!)
-        query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+        let curUser = PFUser.current()
+        let userId = curUser?.objectId
+        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
             if lists?.count == 0 {
                 self.noListsLabel.isHidden = false
                 print("user has no lists yet")
             }
-            else{
+            else {
                 if error == nil {
+                    let lists = lists!
                     self.noListsLabel.isHidden = true
-                    print(lists!)
-                    if let lists = lists {
-                        self.lists = lists as! [List]
-                        self.colView.reloadData()
-                        print("self.lists", self.lists )
-                        print("lists[0]", self.lists[0].listName)
-                    }
-                }
-                else{
-                    print(error?.localizedDescription)
+                    print(lists)
+                    self.lists = lists
+                    self.colView.reloadData()
+                    print("self.lists", self.lists )
+                    print("lists[0]", self.lists[0].listName)
+                } else {
+                print(error?.localizedDescription)
                 }
             }
         }
-        
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let userLists = self.lists

@@ -24,30 +24,37 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func getActivities() {
-        print("inside getActitivy")
-        let query = PFQuery(className: "Activity")
-        query.includeKey("_p_list")
-        query.includeKey("_created_at")
-        query.addDescendingOrder("_created_at")
-        print("List$" + "\((self.list.objectId)!)")
-        query.whereKey("list", equalTo: "List$" + (self.list.objectId)!)
-//        query.whereKey("list", equalTo: "List$" + "qMDPU2MqRj")
-        query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+        let curList = self.list
+        let listId = curList.objectId
+        Activity.fetchActivity(listId: listId!) { (activities: [Activity]?, error: Error?) in
             if error == nil {
                 print(activities!)
                 if let activities = activities {
-                    self.activities = activities as! [Activity]
+                    self.activities = activities
                     self.tableView.reloadData()
                     print("self.activities", self.activities )
-//                    print("lists[0]", self.lists[0].listName)
                 }
-            }
-            else{
+            } else{
                 print(error?.localizedDescription)
             }
         }
-        
     }
+        
+//        query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+//            if error == nil {
+//                print(activities!)
+//                if let activities = activities {
+//                    self.activities = activities as! [Activity]
+//                    self.tableView.reloadData()
+//                    print("self.activities", self.activities )
+////                    print("lists[0]", self.lists[0].listName)
+//                }
+//            }
+//            else{
+//                print(error?.localizedDescription)
+//            }
+//        }
+    
 
     
     
