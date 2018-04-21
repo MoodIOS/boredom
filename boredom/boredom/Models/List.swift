@@ -36,17 +36,22 @@ import Parse
         list.saveInBackground(block: completion)
     }
     
+    //fetching all lists possible
     class func fetchLists(completion: @escaping ([List]?, Error?) -> Void){
         let query = PFQuery(className: "List")
+        query.includeKey("likeCount")
         query.includeKey("_p_author")
         query.includeKey("_created_at")
-        query.addDescendingOrder("_created_at")
+        //query.addDescendingOrder("_created_at")
+        query.addDescendingOrder("likeCount")
+        
         return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
             completion( lists as? [List], nil)
+            
         }
     }
     
-    
+    //fetching lists for each specific user
     class func fetchLists(userId: String, completion: @escaping ([List]?, Error?) -> Void ){
         let query = PFQuery(className: "List")
         query.includeKey("_p_author")
@@ -57,6 +62,10 @@ import Parse
             completion(lists as? [List], nil)
         }
     }
+    
+    
+    
+    
     
 }
 

@@ -52,6 +52,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         
         fetchMovies()
+        //getTopLists()
         /*Business.searchWithTerm(term: "Thai", completion: { (activitiesYelp: [Business]?, error: Error?) -> Void in
             
             self.activitiesYelp = activitiesYelp
@@ -93,25 +94,38 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         fetchMovies()
         getTopLists()
+        getTopActivities()
     }
     
     func getTopLists(){
+        //print(".............INSIDE TOP LISTS.........")
         List.fetchLists { (lists: [List]?, error: Error?) in
             self.exploreLists = lists
-            print("self.exploreLists", self.exploreLists)
+            //print("self.exploreLists", self.exploreLists)
+            var i = 0
+            while i <= 9 {
+                //print("lists", lists)
+                print("listLikecount", lists![i].likeCount)
+                i = i + 1
+            }
         }
         
         
     }
     
     func getTopActivities() {
+        Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
+            self.exploreActivities = activities
+            var i = 0
+            while i <= 4 {
+                //print("lists", lists)
+                print("activityLikeCount", activities![i].activityLikeCount)
+                i = i + 1
+            }
+        }
 
     }
     
-    
-    
-    
-
     
     func fetchMovies()
     {

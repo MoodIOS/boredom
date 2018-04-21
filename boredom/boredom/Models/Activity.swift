@@ -17,7 +17,7 @@ import Parse
     //@NSManaged var done: BooleanLiteralType
     @NSManaged var location: String!
     @NSManaged var cost: String // Free, $, $$, $$$
-    @NSManaged var likeCount: Int
+    @NSManaged var activityLikeCount: Int
     
     class func parseClassName() -> String {
         return "Activity"
@@ -32,16 +32,22 @@ import Parse
         //activity.done = false
         activity.location = location ?? "No location specified"
         activity.cost = cost
-        activity.likeCount = 0
+        activity.activityLikeCount = 0
         activity.saveInBackground(block: completion)
     }
     
     class func fetchActivity (completion: @escaping ([Activity]?, Error?) -> Void) {
         print("inside getActitivy")
         let query = PFQuery(className: "Activity")
+        query.includeKey("activityLikeCount")
         query.includeKey("_p_list")
         query.includeKey("_created_at")
+<<<<<<< HEAD
         query.addDescendingOrder("_created_at")
+=======
+        //query.addDescendingOrder("_created_at")
+        query.addDescendingOrder("activityLikeCount")
+>>>>>>> 5f7a0f3be8e45629d133a67cd86490927e6c6bd8
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
            completion(activities as? [Activity], nil)
         }
@@ -58,8 +64,12 @@ import Parse
         //        query.whereKey("list", equalTo: "List$" + "qMDPU2MqRj")
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
             completion(activities as? [Activity], nil)
-        }
-    }*/
+        }*/
+
+    
+    
+    
+
 }
 
 
