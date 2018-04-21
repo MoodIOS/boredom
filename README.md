@@ -39,7 +39,7 @@ Individual:(user)
 Here's a walkthrough of implemented user stories:
 
 
-<img src='https://imgur.com/a/Dzh0Iun.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/IpnmRZz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 older gifs:
