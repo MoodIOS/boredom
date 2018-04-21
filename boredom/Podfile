@@ -10,6 +10,7 @@ target 'boredom' do
   pod 'OAuthSwift'
   pod 'OAuthSwiftAlamofire'
   pod 'KeychainAccess'
+  pod 'SearchTextField'
   
   # Promise function
   pod 'PromiseKit'

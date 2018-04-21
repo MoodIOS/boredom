@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317D9F6208AAD810026CD0D /* UserActivity.swift */; };
 		25E5CEBFFD7A40B894BF5CBE /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */; };
 		3494FA0A1FE948776617FFB6 /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */; };
 		44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EA72079E4F10037EB0D /* ExploreViewController.swift */; };
@@ -15,6 +16,7 @@
 		44116EF2208970D70037EB0D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF1208970D70037EB0D /* SignUpViewController.swift */; };
 		44116EF4208996600037EB0D /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF3208996600037EB0D /* YelpClient.swift */; };
 		44116EF620899C510037EB0D /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF520899C510037EB0D /* Business.swift */; };
+		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
 		FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */; };
@@ -54,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1317D9F6208AAD810026CD0D /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
 		44116EA72079E4F10037EB0D /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		44116EAB2079F21A0037EB0D /* UserListsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListsCell.swift; sourceTree = "<group>"; };
@@ -63,6 +66,7 @@
 		44116EF520899C510037EB0D /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0C09AFC596F4C5038953714 /* Pods_boredom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */,
 				FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */,
 				44116EF1208970D70037EB0D /* SignUpViewController.swift */,
+				8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -170,6 +175,7 @@
 				FFBA1636207C53C700242310 /* User.swift */,
 				FFBA1638207C53DE00242310 /* List.swift */,
 				FFBA163B207C53FF00242310 /* Activity.swift */,
+				1317D9F6208AAD810026CD0D /* UserActivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -478,6 +484,7 @@
 				"${BUILT_PRODUCTS_DIR}/OAuthSwiftAlamofire/OAuthSwiftAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -491,6 +498,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwiftAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -561,6 +569,8 @@
 				44116EF4208996600037EB0D /* YelpClient.swift in Sources */,
 				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
+				1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */,
+				8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
 				FFBA163E207C61B400242310 /* HomeViewController.swift in Sources */,
 				FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */,

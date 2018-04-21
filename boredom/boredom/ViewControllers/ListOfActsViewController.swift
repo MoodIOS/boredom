@@ -11,7 +11,7 @@ import Parse
 class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    var activities = [Activity]()
+    var userActivities = [UserActivity]()
     var list = List()
     
     
@@ -26,13 +26,13 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     func getActivities() {
         let curList = self.list
         let listId = curList.objectId
-        Activity.fetchActivity(listId: listId!) { (activities: [Activity]?, error: Error?) in
+        UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil {
                 print(activities!)
                 if let activities = activities {
-                    self.activities = activities
+                    self.userActivities = activities
                     self.tableView.reloadData()
-                    print("self.activities", self.activities )
+                    print("self.activities", self.userActivities )
                 }
             } else{
                 print(error?.localizedDescription)
@@ -63,14 +63,14 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        return userActivities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
-        let userActivities = self.activities
+        let userActivities = self.userActivities
         let curAct = userActivities[indexPath.row]
-        let curActName = curAct.actName
+        let curActName = curAct.activity.actName
         cell.activityName.text = curActName
         return cell
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -301,6 +301,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmR-j8-v4V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3393" y="1244"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9RK-Gi-nmf">
+            <objects>
+                <viewController id="Ixj-oH-U4K" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Uih-ia-5X7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ZCK-bB-b2c"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hop-qB-wsX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="809" y="-194"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gzV-Q1-VgU">
@@ -1005,7 +1020,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jXp-Lc-tTu">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jXp-Lc-tTu" customClass="SearchTextField" customModule="SearchTextField">
                                 <rect key="frame" x="15" y="148" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -1082,6 +1097,7 @@
                         <outlet property="actName" destination="jXp-Lc-tTu" id="M4w-fn-oy6"/>
                         <outlet property="cost" destination="FtA-RS-CPd" id="DNg-Aj-Kbc"/>
                         <outlet property="location" destination="fNa-0F-IRg" id="4g9-ZK-3ah"/>
+                        <outlet property="name" destination="jXp-Lc-tTu" id="W9v-0a-plm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nLt-2o-Zvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1149,10 +1165,10 @@
             </objects>
             <point key="canvasLocation" x="468" y="1244"/>
         </scene>
-        <!--View Controller-->
+        <!--Options View Controller-->
         <scene sceneID="xXh-5R-ej6">
             <objects>
-                <viewController id="9gv-Fn-Yat" sceneMemberID="viewController">
+                <viewController id="9gv-Fn-Yat" customClass="OptionsViewController" customModule="boredom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oP9-CK-Qi0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1185,22 +1201,46 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="27T-yc-OnI">
-                                <rect key="frame" x="157" y="270" width="203" height="30"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CiJ-dR-VNo">
+                                <rect key="frame" x="160" y="209" width="195" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
+                                <segments>
+                                    <segment title="$"/>
+                                    <segment title="$$"/>
+                                    <segment title="$$$"/>
+                                    <segment title="$$$$"/>
+                                </segments>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="i5H-Il-PVm">
+                                <rect key="frame" x="157" y="271" width="201" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Ec3-dh-lDC"/>
                     </view>
                     <navigationItem key="navigationItem" id="CBc-5E-boo">
-                        <barButtonItem key="leftBarButtonItem" title="Save" id="QJc-K1-9hS"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="DnE-aJ-5YT"/>
+                        <barButtonItem key="leftBarButtonItem" title="Save" id="QJc-K1-9hS">
+                            <connections>
+                                <action selector="saveAction:" destination="9gv-Fn-Yat" id="IO4-hL-uII"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="DnE-aJ-5YT">
+                            <connections>
+                                <action selector="cancelAction:" destination="9gv-Fn-Yat" id="J9x-Qp-ZDl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57P-LO-Sgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="2060"/>
+            <point key="canvasLocation" x="-639.20000000000005" y="2059.5202398800602"/>
         </scene>
         <!--Home-->
         <scene sceneID="yux-iL-tyA">
