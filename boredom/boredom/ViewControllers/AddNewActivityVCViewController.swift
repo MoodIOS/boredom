@@ -21,6 +21,7 @@ class AddNewActivityVCViewController: UIViewController {
     
     var list = List()
     var allActivities: [Activity]?
+    var activityNames: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +30,23 @@ class AddNewActivityVCViewController: UIViewController {
             if error == nil {
                 self.allActivities = activities
                 print("list of all activities")
+                self.getActivityNames(completion: { (activityNames: [String]?, error: Error?) in
+                    self.activityNames = activityNames
+                    self.name.filterStrings(activityNames!)
+                })
+                
+                
             }
             else {
                 print(error?.localizedDescription)
             }
         })
+        
+        //for act in allActivities! {
+            //activityNames?.append(act.actName)
+        //}
+        //activityNames = ["Red", "blue"]
+        //name.filterStrings(activityNames!)
         //allActivities = Activity.fetchAct
         // Do any additional setup after loading the view.
     }
@@ -63,6 +76,17 @@ class AddNewActivityVCViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func getActivityNames(completion: @escaping ([String]?, Error?) -> Void) {
+        //let activityNames: [String]?
+        for act in allActivities! {
+            activityNames?.append(act.actName)
+            print (act.actName)
+        }
+        //return self.getActivityNames(completion: completion)
+        //return activityNames
+        //activityNames = ["Red", "blue"]
+        //name.filterStrings(activityNames!)
+    }
     /*func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // Set the max character limit
         let characterLimit = 140
