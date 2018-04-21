@@ -8,18 +8,31 @@
 
 import UIKit
 import Parse
+import SearchTextField
+
 class AddNewActivityVCViewController: UIViewController {
 
     @IBOutlet weak var actName: UITextField!
     @IBOutlet weak var actDescription: UITextField!
     @IBOutlet weak var location: UITextField!
     @IBOutlet weak var cost: UITextField!
-    var list = List()
     
+    var list = List()
+    var allActivities: [Activity]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("self.list", self.list)
+        Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
+            if error == nil {
+                self.allActivities = activities
+                print("list of all activities")
+            }
+            else {
+                print(error?.localizedDescription)
+            }
+        })
+        //allActivities = Activity.fetchAct
         // Do any additional setup after loading the view.
     }
 
@@ -48,6 +61,33 @@ class AddNewActivityVCViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /*func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Set the max character limit
+        let characterLimit = 140
+        
+        // Construct what the new text would be if we allowed the user's latest edit
+        let newText = NSString(string: textView.text!).replacingCharacters(in: range, with: text)
+        
+        // TODO: Update Character Count Label
+        
+        // The new text should be allowed? True/False
+        let count = newText.characters.count
+        charCount.text = String(count) + "/140"
+        
+        if count == 0 {
+            placeHolder.textColor = UIColor.lightGray
+            tweetButton.backgroundColor = lightBlue
+            tweetButton.isEnabled = false
+        }
+        else {
+            placeHolder.textColor = UIColor.clear
+            tweetButton.backgroundColor = blue
+            tweetButton.isEnabled = true
+        }
+        return count < characterLimit
+        // TODO: Check the proposed new text character count
+        // Allow or disallow the new text
+    }*/
 
     /*
     // MARK: - Navigation

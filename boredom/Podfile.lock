@@ -47,6 +47,7 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (4.5.1):
     - PromiseKit/CorePromise
+  - SearchTextField (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - OAuthSwiftAlamofire
   - Parse
   - PromiseKit
+  - SearchTextField
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -70,7 +72,8 @@ SPEC CHECKSUMS:
   OAuthSwiftAlamofire: 20bb998ac506f82c3bab0625fbc98a9c6fca783f
   Parse: 5b36dc2c2f0a2fd82a257ae018bc3d68cf2c24e7
   PromiseKit: 445dac9b2c3c3b4b31b5f842bc325700b848a8bd
+  SearchTextField: a5bb7e4c33affadb115afdbe8100d84ef10a8024
 
-PODFILE CHECKSUM: 4234bb060ff7f390c57fed63be3249e802d0a5de
+PODFILE CHECKSUM: 65a94cb21f59b3637c285008ac115c4450c9fd6b
 
 COCOAPODS: 1.4.0
