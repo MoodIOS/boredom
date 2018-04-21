@@ -23,9 +23,11 @@ class OptionsViewController: UIViewController {
     
     
     @IBAction func saveAction(_ sender: Any) {
+        
     }
     
     @IBAction func cancelAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 
