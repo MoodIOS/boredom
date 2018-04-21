@@ -17,6 +17,8 @@ class AddNewActivityVCViewController: UIViewController {
     @IBOutlet weak var location: UITextField!
     @IBOutlet weak var cost: UITextField!
     
+    @IBOutlet weak var name: SearchTextField!
+    
     var list = List()
     var allActivities: [Activity]?
     
