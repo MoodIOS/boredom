@@ -21,19 +21,31 @@ class AddNewActivityVCViewController: UIViewController {
     
     var list = List()
     var allActivities: [Activity]?
-    var activityNames: [String]?
+    var activityNames: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityNames = []
         print("self.list", self.list)
         Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
             if error == nil {
                 self.allActivities = activities
                 print("list of all activities")
-                self.getActivityNames(completion: { (activityNames: [String]?, error: Error?) in
+                print (self.allActivities?.count)
+                for act in self.allActivities! {
+                    self.activityNames?.append(act.actName)
+                    print (act.actName)
+                    //self.name.filterStrings(self.activityNames!)
+                }
+                print(self.activityNames?.count)
+                print("asdf")
+                self.name.filterStrings(self.activityNames!)
+                /*self.getActivityNames(completion: { (activityNames: [String]?, error: Error?) in
                     self.activityNames = activityNames
+                    
+                    
                     self.name.filterStrings(activityNames!)
-                })
+                })*/
                 
                 
             }
