@@ -41,8 +41,8 @@ import Parse
         let query = PFQuery(className: "List")
         query.includeKey("likeCount")
         query.includeKey("_p_author")
+        query.includeKey("_p_activity")
         query.includeKey("_created_at")
-        //query.addDescendingOrder("_created_at")
         query.addDescendingOrder("likeCount")
         
         return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in

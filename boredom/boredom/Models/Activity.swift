@@ -23,17 +23,16 @@ import Parse
         return "Activity"
     }
     
-    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: String, location: String?, withCompletion completion: PFBooleanResultBlock?){
+    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: String, location: String?, completion: @escaping (Activity?, Error?) -> Void){
         let activity = Activity()
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
-        //activity.actImageUrl = "//cdn.shopify.com/s/files/1/1061/1924/products/Blow_Kiss_Emoji_grande.png?v=1480481051"
-        //activity.list = list
-        //activity.done = false
         activity.location = location ?? "No location specified"
         activity.cost = cost
         activity.activityLikeCount = 0
-        activity.saveInBackground(block: completion)
+        return activity.saveInBackground { (success, error) in
+            completion(activity, nil)
+        }
     }
     
     class func fetchActivity (completion: @escaping ([Activity]?, Error?) -> Void) {
@@ -42,33 +41,23 @@ import Parse
         query.includeKey("activityLikeCount")
         query.includeKey("_p_list")
         query.includeKey("_created_at")
-<<<<<<< HEAD
-        query.addDescendingOrder("_created_at")
-=======
-        //query.addDescendingOrder("_created_at")
         query.addDescendingOrder("activityLikeCount")
->>>>>>> 5f7a0f3be8e45629d133a67cd86490927e6c6bd8
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
            completion(activities as? [Activity], nil)
         }
     }
     
-    /*class func fetchActivity (listId: String, completion: @escaping ([Activity]?, Error? ) -> Void) {
-        print("inside getActitivy")
+    class func fetchActivity (actId: String, completion: @escaping ([Activity]?, Error? ) -> Void) {
         let query = PFQuery(className: "Activity")
-        query.includeKey("_p_list")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
-        print("List$" + "\(listId)")
-        query.whereKey("list", equalTo: "List$" + listId)
-        //        query.whereKey("list", equalTo: "List$" + "qMDPU2MqRj")
-        return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
-            completion(activities as? [Activity], nil)
-        }*/
-
-    
-    
-    
+        print("Activity ID " + "\(actId)")
+        query.whereKey("objectId", equalTo: actId)
+        return query.findObjectsInBackground {(activity: [PFObject]? , error: Error?) in
+            completion(activity as? [Activity], nil)
+            print("return findObjectsInBackground() ", activity!)
+        }
+    }
 
 }
 

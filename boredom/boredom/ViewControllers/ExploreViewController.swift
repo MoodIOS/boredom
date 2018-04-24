@@ -103,7 +103,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             self.exploreLists = lists
             //print("self.exploreLists", self.exploreLists)
             var i = 0
-            while i <= 9 {
+            while i < (lists?.count)! {
                 //print("lists", lists)
                 print("listLikecount", lists![i].likeCount)
                 i = i + 1
@@ -117,7 +117,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
             self.exploreActivities = activities
             var i = 0
-            while i <= 4 {
+            while i < self.exploreActivities.count {
                 //print("lists", lists)
                 print("activityLikeCount", activities![i].activityLikeCount)
                 i = i + 1

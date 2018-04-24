@@ -26,15 +26,10 @@ import Parse
     
     class func addNewActivity(activity: Activity, list: List?, withCompletion completion: PFBooleanResultBlock?){
         let userActivity = UserActivity()
-        //userActivity.actName = actName ?? "No name"
-        //userActivity.actDescription = actDescription ?? "No description"
-        //activity.actImageUrl = "//cdn.shopify.com/s/files/1/1061/1924/products/Blow_Kiss_Emoji_grande.png?v=1480481051"
         userActivity.activity = activity
         userActivity.list = list
         userActivity.done = false
-        //activity.location = location ?? "No location specified"
-        //activity.cost = cost
-        //activity.likeCount = 0
+
         userActivity.saveInBackground(block: completion)
     }
     
@@ -42,6 +37,7 @@ import Parse
         print("inside getActitivy")
         let query = PFQuery(className: "UserActivity")
         query.includeKey("_p_list")
+        query.includeKey("_p_activity")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
         query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
@@ -53,11 +49,11 @@ import Parse
         print("inside getActitivy")
         let query = PFQuery(className: "UserActivity")
         query.includeKey("_p_list")
+        query.includeKey("_p_activity")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
         print("List$" + "\(listId)")
         query.whereKey("list", equalTo: "List$" + listId)
-        //        query.whereKey("list", equalTo: "List$" + "qMDPU2MqRj")
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
             completion(activities as? [UserActivity], nil)
         }

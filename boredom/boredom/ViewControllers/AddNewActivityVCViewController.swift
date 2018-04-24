@@ -21,56 +21,45 @@ class AddNewActivityVCViewController: UIViewController {
     
     var list = List()
     var allActivities: [Activity]?
-    var activityNames: [String]!
+    var activityNames: [SearchTextFieldItem]!
+    var activityId: [String]!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
         self.activityNames = []
+        self.activityId = []
+        
         print("self.list", self.list)
+        
         Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
             if error == nil {
                 self.allActivities = activities
-                print("list of all activities")
-                print (self.allActivities?.count)
-                for act in self.allActivities! {
-                    self.activityNames?.append(act.actName)
-                    print (act.actName)
-                    //self.name.filterStrings(self.activityNames!)
-                }
-                print(self.activityNames?.count)
-                print("asdf")
-                self.name.filterStrings(self.activityNames!)
-                /*self.getActivityNames(completion: { (activityNames: [String]?, error: Error?) in
-                    self.activityNames = activityNames
-                    
-                    
-                    self.name.filterStrings(activityNames!)
-                })*/
-                
-                
+                self.getActivityNames()
+                self.name.filterItems(self.activityNames)
+                self.handleUserPicker()
             }
             else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }
         })
         
-        //for act in allActivities! {
-            //activityNames?.append(act.actName)
-        //}
-        //activityNames = ["Red", "blue"]
-        //name.filterStrings(activityNames!)
-        //allActivities = Activity.fetchAct
-        // Do any additional setup after loading the view.
+        
     }
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
-//        let currentList = self.list
-//        print("Save list objectId:", currentList.objectId)
-        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (success, error) in
-            if success {
-                print("Activity created!")
-
-                self.dismiss(animated: true, completion: nil)
+        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (activity, error) in
+            if let activity = activity  {
+                print("Activity ID:", activity)
+                UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
+                    if success == true{
+                        print("User activity created")
+                        self.dismiss(animated: true, completion: nil)
+                    } else if let error = error {
+                        print("Problem saving User activity: \(error.localizedDescription)")
+                    }
+                })
             }
             else if let error = error {
                 print("Problem saving activity: \(error.localizedDescription)")
@@ -88,17 +77,31 @@ class AddNewActivityVCViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getActivityNames(completion: @escaping ([String]?, Error?) -> Void) {
+    func getActivityNames() {
         //let activityNames: [String]?
         for act in allActivities! {
-            activityNames?.append(act.actName)
+            let item = SearchTextFieldItem(title: act.actName)
+            activityNames?.append(item)
             print (act.actName)
         }
-        //return self.getActivityNames(completion: completion)
-        //return activityNames
-        //activityNames = ["Red", "blue"]
-        //name.filterStrings(activityNames!)
     }
+    
+    func handleUserPicker() {
+        self.name.itemSelectionHandler = {item, index in
+            let result = item[index]
+            self.name.text = "\(result.title)"
+            for (index, act) in (self.allActivities!).enumerated() {
+                if act.actName == result.title {
+                    self.actDescription.text = act.actDescription
+                    self.cost.text = act.cost
+                    self.location.text = act.location
+                }
+            }
+        }
+        
+        
+    }
+    
     /*func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // Set the max character limit
         let characterLimit = 140

@@ -35,44 +35,37 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                     print("self.activities", self.userActivities )
                 }
             } else{
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }
         }
     }
-        
-//        query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
-//            if error == nil {
-//                print(activities!)
-//                if let activities = activities {
-//                    self.activities = activities as! [Activity]
-//                    self.tableView.reloadData()
-//                    print("self.activities", self.activities )
-////                    print("lists[0]", self.lists[0].listName)
-//                }
-//            }
-//            else{
-//                print(error?.localizedDescription)
-//            }
-//        }
-    
 
-    
-    
+
     @IBAction func onBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userActivities.count
-    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
         let userActivities = self.userActivities
         let curAct = userActivities[indexPath.row]
-        let curActName = curAct.activity.actName
-        cell.activityName.text = curActName
+        let currentActID = curAct.activity.objectId
+        
+        Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
+            if activities != [] {
+                let activities = activities
+                print("ACTIVITIES:", activities![0])
+                let activity = activities![0]
+                cell.activityName.text = activity.actName
+            }
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userActivities.count
     }
     
 
