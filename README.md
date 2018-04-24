@@ -10,18 +10,20 @@ Individual:(user)
 - [x] User can retrieve their Lists of activities (getLists()-JJ and Justin, display lists-Melissa and Michelle)
 - [x] User can create an activity List (Melissa and Michelle)
 - [x] User can add Activity into a List (Melissa and Michelle)
+- [x] Autocomplete functionality when user tries to create an activity - Michelle and Melissa
 - [] User can edit activity description
 - [] User can search for description from our app (which will integrate the Yelp database)
-- [] User can edit information such as location, duration, cost, group size(big vs small group vs individual)
+- [x] User can edit information such as location, duration, cost, group size(big vs small group vs individual) (partially working) -Justin
 - [] User can like a List from different users(so lists are public, kinda like how spotify playlists are)
+    -- [x]programmatically have a likecount for each list, and sort top 10 lists with highest like counts. -JJ (still working on display)
 - [] User can like an Activity from his/her own List
+    -- [x]programmatically have a likecount for each activity, and sort top 10 activites with highest like counts. -JJ (still working on display)
 - [] User can push a button to generate an activity from their List(s)
 - [] User can use map to see their activities
 
 
 ## Optional user stories
 - [] User can use camera to take picture of activities
-- [] Users can like or dislike an activity and we sort initial list of activities based on number of likes
 - [] User can choose between different random search modes:
 - [] Individual Explore: from top 3 lists
 - [x]User will have a profile with their list of activities(the activities they have done) and maybe even some friends list
@@ -37,6 +39,10 @@ Individual:(user)
 Here's a walkthrough of implemented user stories:
 
 
+<img src='https://imgur.com/IpnmRZz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+older gifs:
 <img src='https://imgur.com/x5uo2Dd.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='https://imgur.com/bo78ciz.png' title='Wireframes' width='' alt='Wireframes' />

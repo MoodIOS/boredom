@@ -32,23 +32,14 @@ class AddNewActivityVCViewController: UIViewController {
         self.activityId = []
         
         print("self.list", self.list)
-        
-        Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
-            if error == nil {
-                self.allActivities = activities
-                self.getActivityNames()
-                self.name.filterItems(self.activityNames)
-                self.handleUserPicker()
-            }
-            else {
-                print(error?.localizedDescription as Any)
-            }
-        })
+        loadActivity()
+       
         
         
     }
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
+        // TO-DO: check if the data already has this item, if user already have this item in this list.
         Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (activity, error) in
             if let activity = activity  {
                 print("Activity ID:", activity)
@@ -56,6 +47,7 @@ class AddNewActivityVCViewController: UIViewController {
                     if success == true{
                         print("User activity created")
                         self.dismiss(animated: true, completion: nil)
+                        self.loadActivity()
                     } else if let error = error {
                         print("Problem saving User activity: \(error.localizedDescription)")
                     }
@@ -86,6 +78,18 @@ class AddNewActivityVCViewController: UIViewController {
         }
     }
     
+    func loadActivity(){
+        Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
+            if error == nil {
+                self.allActivities = activities
+                self.getActivityNames()
+                self.name.filterItems(self.activityNames)
+                self.handleUserPicker()
+            } else {
+                print(error?.localizedDescription as Any)
+            }
+        })
+    }
     func handleUserPicker() {
         self.name.itemSelectionHandler = {item, index in
             let result = item[index]
