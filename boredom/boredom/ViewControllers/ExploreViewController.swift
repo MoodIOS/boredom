@@ -21,7 +21,9 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
     var activitiesYelp: [Business]!
-    
+    var top10List: [List]! = []
+    var top10Act: [Activity]! = []
+    var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         let cellsPerLine: CGFloat = 2
         let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layout.itemSize = CGSize(width: 120, height: 120)
+        layout.itemSize = CGSize(width: 150, height: 150)
         
         let layoutActivities = activitiesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layoutActivities.minimumInteritemSpacing = 2
@@ -100,14 +102,21 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     func getTopLists(){
         //print(".............INSIDE TOP LISTS.........")
         List.fetchLists { (lists: [List]?, error: Error?) in
-            self.exploreLists = lists
-            //print("self.exploreLists", self.exploreLists)
-            var i = 0
-            while i < (lists?.count)! {
-                //print("lists", lists)
-                print("listLikecount", lists![i].likeCount)
-                i = i + 1
+            if error == nil {
+                self.exploreLists = lists
+                let lists = lists
+                var i = 0
+                while i < 10 {
+                    print("listLikecount", lists![i].likeCount)
+                    let list = lists![i]
+                    print("top list", i)
+                    print(list)
+                    self.top10List.append(list)
+                    i = i + 1
+                    self.userListsCollectionView.reloadData()
+                }
             }
+         
         }
         
         
@@ -115,15 +124,81 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     
     func getTopActivities() {
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
-            self.exploreActivities = activities
-            var i = 0
-            while i < self.exploreActivities.count {
-                //print("lists", lists)
-                print("activityLikeCount", activities![i].activityLikeCount)
-                i = i + 1
+            if error == nil {
+                self.exploreActivities = activities
+                let activities = activities
+                var i = 0
+                while i < 10 {
+                    print("activityLikeCount", activities![i].activityLikeCount)
+                    let act = activities![i]
+                    self.top10Act.append(act)
+                    self.activitiesCollectionView.reloadData()
+                    i = i + 1
+                }
             }
+            
         }
 
+    }
+    
+    
+    
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return top10Act.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if (collectionView == self.userListsCollectionView){
+            let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
+            let list = top10List[indexPath.item]
+            cell.listName.text = list.listName
+            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)) )
+            let background = bgURL[randomindex]
+            let backgroundURL = URL(string: background)
+            cell.userListsImageView.af_setImage(withURL: backgroundURL!)
+        
+        return cell
+        }
+        
+        else{
+            let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
+//            print(indexPath.item)
+//            print("count: ", top10Act.count)
+            let act = top10Act[indexPath.item]
+//            print("act = top10Act[indexPath.item] ",act)
+            activitiesCell.activityName.text = act.actName ?? "Label"
+            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)) )
+            let background = bgURL[randomindex]
+            let backgroundURL = URL(string: background)
+            activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL!)
+            
+//            let movie = movies[indexPath.item]
+//            if let posterPathString = movie["poster_path"] as? String {
+//                let baseURLString = "https://image.tmdb.org/t/p/w500"
+//                let posterURL = URL(string: baseURLString + posterPathString)!
+//                activitiesCell.activitiesImageView.af_setImage(withURL: posterURL)
+           // activitiesCell.activitiesImageView.af_setImage(withURL: URL(string: self.exploreActivity.actImageUrl)!)
+//            }
+            //activitiesCell.business = activitiesYelp[indexPath.item]
+            return activitiesCell
+        }
+        
+    }
+    
+    
+    
+    
+    @IBAction func didTapLogout(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.logout()
     }
     
     
@@ -161,7 +236,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             }
             else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
-//                print(dataDictionary)
+                //                print(dataDictionary)
                 let movies = dataDictionary["results"] as! [[String:Any]]
                 self.movies = movies
                 self.userListsCollectionView.reloadData()
@@ -173,70 +248,6 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         //ALWAYS NEED TO CALL THIS FUNCTION! this will actually start the task
         task.resume()
     }
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        /*if(collectionView == userListsCollectionView){
-            return movies.count
-        }
-        else{
-            return activitiesYelp!.count
-        }*/
-        return movies.count
-        
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if(collectionView == self.userListsCollectionView){
-        let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
-            
-        let movie = movies[indexPath.item]
-        if let posterPathString = movie["poster_path"] as? String {
-            let baseURLString = "https://image.tmdb.org/t/p/w500"
-            let posterURL = URL(string: baseURLString + posterPathString)!
-            cell.userListsImageView.af_setImage(withURL: posterURL)
- 
-            
-        }
-        
-        return cell
-            
-        }
-        
-        else{
-        
-            let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
-            let movie = movies[indexPath.item]
-            if let posterPathString = movie["poster_path"] as? String {
-                let baseURLString = "https://image.tmdb.org/t/p/w500"
-                let posterURL = URL(string: baseURLString + posterPathString)!
-                activitiesCell.activitiesImageView.af_setImage(withURL: posterURL)
-           // activitiesCell.activitiesImageView.af_setImage(withURL: URL(string: self.exploreActivity.actImageUrl)!)
-            }
-            //activitiesCell.business = activitiesYelp[indexPath.item]
-            return activitiesCell
-        }
-        
-    }
-    
-    
-    
-    
-    @IBAction func didTapLogout(_ sender: Any) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.logout()
-    }
-    
-    
-    
     
     
     /*

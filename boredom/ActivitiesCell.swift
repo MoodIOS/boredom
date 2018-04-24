@@ -11,6 +11,7 @@ import UIKit
 class ActivitiesCell: UICollectionViewCell {
     
     @IBOutlet weak var activitiesImageView: UIImageView!
+    @IBOutlet weak var activityName: UILabel!
     /*let url = NSURL(string: image.url)
     let data = NSData(contentsOfURL: url!)
     imageURL.image = UIImage(data: data!)
