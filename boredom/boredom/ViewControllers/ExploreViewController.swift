@@ -151,7 +151,13 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return top10Act.count
+        if(collectionView == activitiesCollectionView){
+        
+            return top10Act.count
+        }
+        else{
+            return top10List.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
