@@ -16,6 +16,8 @@
 		44116EF2208970D70037EB0D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF1208970D70037EB0D /* SignUpViewController.swift */; };
 		44116EF4208996600037EB0D /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF3208996600037EB0D /* YelpClient.swift */; };
 		44116EF620899C510037EB0D /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF520899C510037EB0D /* Business.swift */; };
+		44116EF82093E8E10037EB0D /* ActivitiesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */; };
+		44116EFA2093E9350037EB0D /* ListsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF92093E9350037EB0D /* ListsDetailViewController.swift */; };
 		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
@@ -64,6 +66,8 @@
 		44116EF1208970D70037EB0D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		44116EF3208996600037EB0D /* YelpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpClient.swift; sourceTree = "<group>"; };
 		44116EF520899C510037EB0D /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
+		44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDetailViewController.swift; sourceTree = "<group>"; };
+		44116EF92093E9350037EB0D /* ListsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailViewController.swift; sourceTree = "<group>"; };
 		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 				FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */,
 				44116EF1208970D70037EB0D /* SignUpViewController.swift */,
 				8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */,
+				44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */,
+				44116EF92093E9350037EB0D /* ListsDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 				FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */,
 				FFBA1639207C53DE00242310 /* List.swift in Sources */,
 				44116EF4208996600037EB0D /* YelpClient.swift in Sources */,
+				44116EFA2093E9350037EB0D /* ListsDetailViewController.swift in Sources */,
 				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
 				1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */,
@@ -578,6 +585,7 @@
 				FF68C84C2080D02B0005967E /* ActivityCell.swift in Sources */,
 				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
 				FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */,
+				44116EF82093E8E10037EB0D /* ActivitiesDetailViewController.swift in Sources */,
 				44116EF620899C510037EB0D /* Business.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,

@@ -168,6 +168,7 @@
                                         <connections>
                                             <outlet property="listName" destination="fRi-UM-RhY" id="mhH-zd-hVC"/>
                                             <outlet property="userListsImageView" destination="q1w-Qe-lGv" id="hpw-UT-1Vn"/>
+                                            <segue destination="RWm-ou-5eq" kind="show" id="mDm-Uz-j2p"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -205,6 +206,7 @@
                                         <connections>
                                             <outlet property="activitiesImageView" destination="VaO-SA-LqU" id="dyq-eq-5Th"/>
                                             <outlet property="activityName" destination="lUg-Nn-BAk" id="zMe-Bt-ZLb"/>
+                                            <segue destination="qjh-D9-UMc" kind="show" id="6It-hc-WgF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1125,6 +1127,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nLt-2o-Zvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3393" y="1970"/>
+        </scene>
+        <!--Activities Detail View Controller-->
+        <scene sceneID="yVZ-p3-nXc">
+            <objects>
+                <viewController id="qjh-D9-UMc" customClass="ActivitiesDetailViewController" customModule="boredom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gKk-Vg-fDr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="61w-SV-7CS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fyp-m5-tiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4490" y="2006"/>
+        </scene>
+        <!--Lists Detail View Controller-->
+        <scene sceneID="7Hg-XH-hbn">
+            <objects>
+                <viewController id="RWm-ou-5eq" customClass="ListsDetailViewController" customModule="boredom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TD3-ea-2tx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sCt-su-euk"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PHB-VN-u4q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5359" y="1267"/>
         </scene>
         <!--New List-->
         <scene sceneID="9SY-Al-9IQ">
