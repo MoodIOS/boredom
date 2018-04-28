@@ -168,7 +168,7 @@
                                         <connections>
                                             <outlet property="listName" destination="fRi-UM-RhY" id="mhH-zd-hVC"/>
                                             <outlet property="userListsImageView" destination="q1w-Qe-lGv" id="hpw-UT-1Vn"/>
-                                            <segue destination="RWm-ou-5eq" kind="show" id="mDm-Uz-j2p"/>
+                                            <segue destination="RWm-ou-5eq" kind="show" identifier="listDetailSegue" id="mDm-Uz-j2p"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -206,7 +206,7 @@
                                         <connections>
                                             <outlet property="activitiesImageView" destination="VaO-SA-LqU" id="dyq-eq-5Th"/>
                                             <outlet property="activityName" destination="lUg-Nn-BAk" id="zMe-Bt-ZLb"/>
-                                            <segue destination="qjh-D9-UMc" kind="show" id="6It-hc-WgF"/>
+                                            <segue destination="qjh-D9-UMc" kind="show" identifier="activityDetailSegue" id="6It-hc-WgF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
