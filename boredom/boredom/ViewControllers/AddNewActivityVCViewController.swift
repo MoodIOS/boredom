@@ -15,7 +15,7 @@ class AddNewActivityVCViewController: UIViewController {
     @IBOutlet weak var actName: UITextField!
     @IBOutlet weak var actDescription: UITextField!
     @IBOutlet weak var location: UITextField!
-    @IBOutlet weak var cost: UITextField!
+    @IBOutlet weak var costControl: UISegmentedControl!
     
     @IBOutlet weak var name: SearchTextField!
     
@@ -43,7 +43,7 @@ class AddNewActivityVCViewController: UIViewController {
         let newActName = actName.text
         let i = 0
         while i < (allActivities?.count)!{
-            if allActivities != [] {
+            if allActivities! != [] {
                 let activityInList = allActivities![i]
                 if (newActName == activityInList.actName ){
                     print("Activity is already added in list!")
