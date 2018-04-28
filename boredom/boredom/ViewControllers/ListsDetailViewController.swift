@@ -35,7 +35,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     }
 
     func getActivitiesInList(){
-        UserActivity.fetchActivity() { (activities: [UserActivity]?, error: Error?) in
+        let curList = self.list
+        let listId = curList?.objectId
+        UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
                 if activities != []{
                     self.activities = activities!
