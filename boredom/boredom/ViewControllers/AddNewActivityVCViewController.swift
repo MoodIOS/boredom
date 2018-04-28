@@ -47,6 +47,8 @@ class AddNewActivityVCViewController: UIViewController {
                 let activityInList = allActivities![i]
                 if (newActName == activityInList.actName ){
                     print("Activity is already added in list!")
+                    break
+                    
                 } else {
                     let choseMon = [1,2,3,4]
                     let result = choseMon[costControl.selectedSegmentIndex]
