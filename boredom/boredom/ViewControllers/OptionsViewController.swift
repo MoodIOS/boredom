@@ -10,6 +10,15 @@ import UIKit
 
 class OptionsViewController: UIViewController {
     
+ 
+    
+    @IBOutlet weak var costControl: UISegmentedControl!
+    
+    @IBOutlet weak var distanceControl: UISegmentedControl!
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +34,17 @@ class OptionsViewController: UIViewController {
     @IBAction func saveAction(_ sender: Any) {
         
     }
+    
+    @IBAction func costAction(_ sender: Any) {
+    }
+    
+    @IBAction func distanceAction(_ sender: Any) {
+    }
+    
+    
+    
+    
+   
     
     @IBAction func cancelAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

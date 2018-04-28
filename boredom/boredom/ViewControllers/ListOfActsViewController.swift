@@ -54,7 +54,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let currentActID = curAct.activity.objectId
         
         Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
-            if activities != [] {
+            if activities! != [] {
                 let activities = activities
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
