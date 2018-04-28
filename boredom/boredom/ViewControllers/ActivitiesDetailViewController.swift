@@ -20,11 +20,18 @@ class ActivitiesDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*let newLayer = CAGradientLayer()
+        newLayer.colors = [ UIColor.black.cgColor, UIColor.darkGray.cgColor]
+        newLayer.frame = view.frame
+        
+        view.layer.insertSublayer(newLayer, at: 0) //insert layer all the way in the back
+        */
         if let activity = activity{
             activityName.text = activity.actName
             activityLocation.text = activity.location
             activityCost.text = "\(activity.cost)"
-            activityDescription.text = activity.description
+            activityDescription.text = activity.actDescription
+        
             
             
         }
