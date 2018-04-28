@@ -125,16 +125,19 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     func getTopActivities() {
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
             if error == nil {
-                self.exploreActivities = activities
-                let activities = activities
-                var i = 0
-                while i < 10 {
-                    print("activityLikeCount", activities![i].activityLikeCount)
-                    let act = activities![i]
-                    self.top10Act.append(act)
-                    self.activitiesCollectionView.reloadData()
-                    i = i + 1
+                if self.exploreActivities != nil {
+                    self.exploreActivities = activities
+                    let activities = activities
+                    var i = 0
+                    while i < (activities?.count)! {
+                        print("activityLikeCount", activities![i].activityLikeCount)
+                        let act = activities![i]
+                        self.top10Act.append(act)
+                        self.activitiesCollectionView.reloadData()
+                        i = i + 1
+                    }
                 }
+                
             }
             
         }
