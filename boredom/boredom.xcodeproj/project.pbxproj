@@ -18,6 +18,7 @@
 		44116EF620899C510037EB0D /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF520899C510037EB0D /* Business.swift */; };
 		44116EF82093E8E10037EB0D /* ActivitiesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */; };
 		44116EFA2093E9350037EB0D /* ListsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF92093E9350037EB0D /* ListsDetailViewController.swift */; };
+		44116EFC2094383D0037EB0D /* ActivitiesInListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */; };
 		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
@@ -68,6 +69,7 @@
 		44116EF520899C510037EB0D /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDetailViewController.swift; sourceTree = "<group>"; };
 		44116EF92093E9350037EB0D /* ListsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailViewController.swift; sourceTree = "<group>"; };
+		44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesInListCell.swift; sourceTree = "<group>"; };
 		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				44116EAB2079F21A0037EB0D /* UserListsCell.swift */,
 				44116EB1207A17370037EB0D /* ActivitiesCell.swift */,
 				FF68C84B2080D02B0005967E /* ActivityCell.swift */,
+				44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */,
 			);
 			name = ViewCells;
 			path = ..;
@@ -587,6 +590,7 @@
 				FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */,
 				44116EF82093E8E10037EB0D /* ActivitiesDetailViewController.swift in Sources */,
 				44116EF620899C510037EB0D /* Business.swift in Sources */,
+				44116EFC2094383D0037EB0D /* ActivitiesInListCell.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,
 			);

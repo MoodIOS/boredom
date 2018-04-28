@@ -29,6 +29,7 @@ import Parse
         userActivity.activity = activity
         userActivity.list = list
         userActivity.done = false
+        
 
         userActivity.saveInBackground(block: completion)
     }
@@ -46,7 +47,7 @@ import Parse
     }
     
     class func fetchActivity (listId: String, completion: @escaping ([UserActivity]?, Error? ) -> Void) {
-        print("inside getActitivy")
+        print("inside getActitivy for user")
         let query = PFQuery(className: "UserActivity")
         query.includeKey("_p_list")
         query.includeKey("_p_activity")

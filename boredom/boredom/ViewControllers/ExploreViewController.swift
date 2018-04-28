@@ -222,6 +222,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         else if let indexPath = userListsCollectionView.indexPath(for: listCell){
             let list = top10List[indexPath.item]
             let listDetailViewController = segue.destination as! ListsDetailViewController
+            listDetailViewController.list = list
+            listDetailViewController.authorOfList = list.author
             
         }
     }

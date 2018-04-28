@@ -7,15 +7,42 @@
 //
 
 import UIKit
+import Parse
 
-class ListsDetailViewController: UIViewController {
-
+class ListsDetailViewController: UIViewController, UITableViewDataSource{
+    
+    @IBOutlet weak var listNameLabel: UILabel!
+    
+    @IBOutlet weak var noActivitiesLabel: UILabel!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var activities: [UserActivity]!
+    var authorOfList: PFUser!
     var list: List!
     var newList: List!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.dataSource = self
+        tableView.rowHeight = 150
+        tableView.reloadData()
         
+        listNameLabel.text = list.listName
+        if(list.activities?.count != 0){
+            noActivitiesLabel.text = ""
+        }
+        
+        UserActivity.fetchActivity(listId: list.objectId!) { (activities: [UserActivity]?, error: Error?) in
+            if error == nil{
+                self.activities = activities
+                print("..........",activities![0].activity)
+            }
+        }
+        
+        
+        //print(".............", activities[0].activity.actName)
+        tableView.reloadData()
         
         // Do any additional setup after loading the view.
     }
@@ -24,6 +51,32 @@ class ListsDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (list.activities?.count)!
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
+        let author = authorOfList
+        /*UserActivity.fetchActivity(listId: list.objectId!) { (activities: [UserActivity]?, error: Error?) in
+            if error == nil{
+                self.activities = activities
+            }
+        }*/
+        let activity = self.activities[indexPath.row]
+        print("oooooooooo",activity.activity.actName)
+        let activityName = activity.activity.actName as String?
+        
+        cell.activityNameLabel.text = activityName ?? "Label"
+        tableView.reloadData()
+        
+        //tableView.deselectRow(at: indexPath, animated: true)
+        return cell
+    }
+    
+
     
     @IBAction func copyList(_ sender: Any) {
         
