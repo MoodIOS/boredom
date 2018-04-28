@@ -16,19 +16,20 @@ import Parse
     //@NSManaged var list: List!
     //@NSManaged var done: BooleanLiteralType
     @NSManaged var location: String!
-    @NSManaged var cost: String // Free, $, $$, $$$
+    @NSManaged var cost: Int // Free, $, $$, $$$
     @NSManaged var activityLikeCount: Int
     
     class func parseClassName() -> String {
         return "Activity"
     }
     
-    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: String, location: String?, completion: @escaping (Activity?, Error?) -> Void){
+    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: Int, location: String?, completion: @escaping (Activity?, Error?) -> Void){
         let activity = Activity()
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
         activity.location = location ?? "No location specified"
         activity.cost = cost
+        print("cost: ", cost)
         activity.activityLikeCount = 0
         return activity.saveInBackground { (success, error) in
             completion(activity, nil)

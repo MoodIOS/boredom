@@ -9,7 +9,7 @@
 import Foundation
 import Parse
 
-@objc class List: PFObject, PFSubclassing {
+@objc class UserList: PFObject, PFSubclassing {
     @NSManaged var listName: String!
     @NSManaged var category: String!
     //@NSManaged var listImage: UIImage!
@@ -19,10 +19,10 @@ import Parse
     @NSManaged var likeCount: Int
     
     class func parseClassName() -> String {
-        return "List"
+        return "UserList"
     }
     
-    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: @escaping (List?, Error?) -> Void) {
+    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: PFBooleanResultBlock?) {
         // use subclass approach
         let list = List()
         
@@ -33,10 +33,7 @@ import Parse
         list.likeCount = likeCount ?? 0
         
         // Save object (following function will save the object in Parse asynchronously)
-        ///list.saveInBackground(block: completion)
-        //return list
-        return list.saveInBackground { (success,error) in completion(list,nil) }
-        //return list
+        list.saveInBackground(block: completion)
     }
     
     //fetching all lists possible
@@ -65,5 +62,10 @@ import Parse
             completion(lists as? [List], nil)
         }
     }
+    
+    
+    
+    
+    
 }
 

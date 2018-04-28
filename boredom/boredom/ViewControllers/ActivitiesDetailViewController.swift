@@ -23,7 +23,7 @@ class ActivitiesDetailViewController: UIViewController {
         if let activity = activity{
             activityName.text = activity.actName
             activityLocation.text = activity.location
-            activityCost.text = activity.cost
+            activityCost.text = "\(activity.cost)"
             activityDescription.text = activity.description
             
             
@@ -41,6 +41,8 @@ class ActivitiesDetailViewController: UIViewController {
     }
     
 
+    @IBAction func addActivity(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 
