@@ -47,6 +47,8 @@ class AddNewActivityVCViewController: UIViewController {
                 let activityInList = allActivities![i]
                 if (newActName == activityInList.actName ){
                     print("Activity is already added in list!")
+                    break
+                    
                 } else {
                     Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (activity, error) in
                         if let activity = activity  {
