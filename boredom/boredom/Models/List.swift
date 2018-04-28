@@ -22,7 +22,7 @@ import Parse
         return "List"
     }
     
-    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: PFBooleanResultBlock?) {
+    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: @escaping (List?, Error?) -> Void) {
         // use subclass approach
         let list = List()
         
@@ -33,7 +33,10 @@ import Parse
         list.likeCount = likeCount ?? 0
         
         // Save object (following function will save the object in Parse asynchronously)
-        list.saveInBackground(block: completion)
+        ///list.saveInBackground(block: completion)
+        //return list
+        return list.saveInBackground { (success,error) in completion(list,nil) }
+        //return list
     }
     
     //fetching all lists possible

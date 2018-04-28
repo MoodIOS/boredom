@@ -96,7 +96,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         fetchMovies()
         getTopLists()
-        getTopActivities()
+        //getTopActivities()
     }
     
     func getTopLists(){
@@ -255,7 +255,16 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         task.resume()
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "listDetailSegue" {
+            let cell = sender as! UICollectionViewCell
+            if let indexPath = userListsCollectionView.indexPath(for: cell) {
+                let list = top10List[indexPath.item]
+                let detailsViewController = segue.destination as! ListsDetailViewController
+                detailsViewController.list = list
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
