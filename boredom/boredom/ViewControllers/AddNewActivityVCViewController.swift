@@ -41,54 +41,57 @@ class AddNewActivityVCViewController: UIViewController {
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
         let newActName = actName.text
-        let i = 0
-        while i < (allActivities?.count)!{
-            if allActivities! != [] {
-                let activityInList = allActivities![i]
-                if (newActName == activityInList.actName ){
-                    print("Activity is already added in list!")
-                    break
-                    
-                } else {
-                    let choseMon = [1,2,3,4]
-                    let result = choseMon[costControl.selectedSegmentIndex]
-                    var savedValue = 5
-                    if(result == 1){
-                        savedValue = 0
-                    }
-                    else if(result == 2){
-                        savedValue = 1
-                    }
-                    else if(result == 3){
-                        savedValue = 2
-                    }
-                    else if(result == 4){
-                        savedValue = 3
-                    }
-                
-                
-                
-                    Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: savedValue, location: location.text){ (activity, error) in
-                        if let activity = activity  {
-                            print("Activity ID:", activity)
-                            UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
-                                if success == true{
-                                    print("User activity created")
-                                    self.dismiss(animated: true, completion: nil)
-                                    self.loadActivity()
-                                } else if let error = error {
-                                    print("Problem saving User activity: \(error.localizedDescription)")
-                                }
-                            })
-                        }
-                        else if let error = error {
-                            print("Problem saving activity: \(error.localizedDescription)")
-                        }
-                    }
-                }
-            }
-            
+        let choseMon = [1,2,3,4]
+        let result = choseMon[costControl.selectedSegmentIndex]
+        var savedValue = 5
+        if(result == 1){
+            savedValue = 0
         }
+        else if(result == 2){
+            savedValue = 1
+        }
+        else if(result == 3){
+            savedValue = 2
+        }
+        else if(result == 4){
+            savedValue = 3
+        }
+        
+        
+        
+        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: savedValue, location: location.text){ (activity, error) in
+            print("added cost: ", activity?.cost);
+            if let activity = activity  {
+                print("Activity ID:", activity)
+                UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
+                    if success == true {
+                        print("User activity created")
+                        self.dismiss(animated: true, completion: nil)
+                        self.loadActivity()
+                    } else if let error = error {
+                        print("Problem saving User activity: \(error.localizedDescription)")
+                    }
+                })
+            }
+            else if let error = error {
+                print("Problem saving activity: \(error.localizedDescription)")
+            }
+        }
+        
+        
+//        let i = 0
+//        while i < (allActivities?.count)!{
+//            if allActivities! != [] {
+//                let activityInList = allActivities![i]
+//                if (newActName == activityInList.actName ){
+//                    print("Activity is already added in list!")
+//
+//                } else {
+//
+//                }
+//            }
+            
+//        }
 
         
         
@@ -133,7 +136,7 @@ class AddNewActivityVCViewController: UIViewController {
             for (index, act) in (self.allActivities!).enumerated() {
                 if act.actName == result.title {
                     self.actDescription.text = act.actDescription
-                    self.cost.text = act.cost
+//                    self.cost.text = act.cost
                     self.location.text = act.location
                 }
             }

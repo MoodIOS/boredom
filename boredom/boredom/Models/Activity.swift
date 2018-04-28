@@ -28,7 +28,8 @@ import Parse
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
         activity.location = location ?? "No location specified"
-        activity.cost = cost  
+        activity.cost = cost
+        print("cost: ", cost)
         activity.activityLikeCount = 0
         return activity.saveInBackground { (success, error) in
             completion(activity, nil)
