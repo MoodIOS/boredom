@@ -17,10 +17,11 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     
     @IBOutlet weak var tableView: UITableView!
     
-    var activities: [UserActivity]!
+    var activities =  [UserActivity]()
     var authorOfList: PFUser!
     var list: List!
     var newList: List!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,24 +30,26 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         tableView.reloadData()
         
         listNameLabel.text = list.listName
-        if(list.activities?.count != 0){
+        
+        if (list.activities?.count != 0){
             noActivitiesLabel.text = ""
         }
         
-        UserActivity.fetchActivity(listId: list.objectId!) { (activities: [UserActivity]?, error: Error?) in
-            if error == nil{
-                self.activities = activities
-                print("..........",activities![0].activity)
-            }
-        }
-        
-        
-        //print(".............", activities[0].activity.actName)
-        tableView.reloadData()
-        
-        // Do any additional setup after loading the view.
+        getActivitiesInList()
     }
 
+    func getActivitiesInList(){
+        UserActivity.fetchActivity() { (activities: [UserActivity]?, error: Error?) in
+            if error == nil{
+                self.activities = activities!
+                print(".........." , activities![0].list)
+                self.tableView.reloadData()
+            } else {
+                print("problem fetching UserActivity", error?.localizedDescription )
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,7 +82,6 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
 
     
     @IBAction func copyList(_ sender: Any) {
-        
         // nameText = name of the list copying
         // categoryText = category
         // likeCount should be reset to 0 since copying list
@@ -111,9 +113,6 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                     }
                 })
             }
+        }
     }
-
-
-    }
-    
 }

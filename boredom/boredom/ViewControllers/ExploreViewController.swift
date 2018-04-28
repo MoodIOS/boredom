@@ -107,8 +107,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                 let lists = lists
                 var i = 0
                 while i < 10 {
-                    print("listLikecount", lists![i].likeCount)
                     let list = lists![i]
+                    print("listLikecount", lists![i].likeCount)
                     print("top list", i)
                     print(list)
                     self.top10List.append(list)

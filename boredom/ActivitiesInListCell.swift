@@ -12,6 +12,7 @@ class ActivitiesInListCell: UITableViewCell {
 
     
     @IBOutlet weak var activityNameLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

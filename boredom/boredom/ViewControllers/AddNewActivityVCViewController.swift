@@ -23,6 +23,7 @@ class AddNewActivityVCViewController: UIViewController {
     var allActivities: [Activity]?
     var activityNames: [SearchTextFieldItem]!
     var activityId: [String]!
+    var actNamesInList =  [String]()
     
     override func viewDidLoad() {
         
@@ -33,68 +34,58 @@ class AddNewActivityVCViewController: UIViewController {
         
         print("self.list", self.list)
         loadActivity()
-       
-        
-        
     }
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
-        let newActName = actName.text
-        let choseMon = [1,2,3,4]
-        let result = choseMon[costControl.selectedSegmentIndex]
-        var savedValue = 5
-        if(result == 1){
-            savedValue = 0
-        }
-        else if(result == 2){
-            savedValue = 1
-        }
-        else if(result == 3){
-            savedValue = 2
-        }
-        else if(result == 4){
-            savedValue = 3
-        }
-        
-        
-        
-        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: savedValue, location: location.text){ (activity, error) in
-            print("added cost: ", activity?.cost);
-            if let activity = activity  {
-                print("Activity ID:", activity)
-                UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
-                    if success == true {
-                        print("User activity created")
-                        self.dismiss(animated: true, completion: nil)
-                        self.loadActivity()
-                    } else if let error = error {
-                        print("Problem saving User activity: \(error.localizedDescription)")
+        checkForDuplicate { (duplicateAct: Int, error: Error?) in
+            if duplicateAct > 0 {
+                self.actName.text = ""
+                self.actDescription.text = ""
+                self.location.text = ""
+                self.costControl.selectedSegmentIndex = 0
+                let alertController = UIAlertController(title: "Can't Add Activity", message: "You already have this item in your list. Please add a different item." , preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in}
+                alertController.addAction(cancelAction)
+                let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                alertController.addAction(OKAction)
+                self.present(alertController, animated: true)
+            } else {
+                print("duplicate? ", duplicateAct)
+                let choseMon = [1,2,3,4]
+                let result = choseMon[self.costControl.selectedSegmentIndex]
+                var savedValue = 5
+                if(result == 1){
+                    savedValue = 0
+                }
+                else if(result == 2){
+                    savedValue = 1
+                }
+                else if(result == 3){
+                    savedValue = 2
+                }
+                else if(result == 4){
+                    savedValue = 3
+                }
+                Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, list: self.list, cost: savedValue, location: self.location.text){ (activity, error) in
+                    if let activity = activity  {
+                        print("Activity ID:", activity)
+                        UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
+                            if success == true {
+                                print("User activity created")
+                                self.dismiss(animated: true, completion: nil)
+                                self.loadActivity()
+                            } else if let error = error {
+                                print("Problem saving User activity: \(error.localizedDescription)")
+                            }
+                        })
                     }
-                })
-            }
-            else if let error = error {
-                print("Problem saving activity: \(error.localizedDescription)")
+                    else if let error = error {
+                        print("Problem saving activity: \(error.localizedDescription)")
+                    }
+                }
             }
         }
-        
-        
-//        let i = 0
-//        while i < (allActivities?.count)!{
-//            if allActivities! != [] {
-//                let activityInList = allActivities![i]
-//                if (newActName == activityInList.actName ){
-//                    print("Activity is already added in list!")
-//
-//                } else {
-//
-//                }
-//            }
-            
-//        }
-
-        
-        
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
@@ -107,13 +98,16 @@ class AddNewActivityVCViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getActivityNames() {
-        //let activityNames: [String]?
-        for act in allActivities! {
-            let item = SearchTextFieldItem(title: act.actName)
-            activityNames?.append(item)
-            print (act.actName)
+    
+    func checkForDuplicate(done: @escaping (Int, Error?) -> Void){
+        let newName = actName.text
+        var totalDuplicate = 0
+        for act in actNamesInList{
+            if act == newName{
+                totalDuplicate = totalDuplicate + 1
+            }
         }
+        return done(totalDuplicate, nil)
     }
     
     func loadActivity(){
@@ -133,7 +127,7 @@ class AddNewActivityVCViewController: UIViewController {
         self.name.itemSelectionHandler = {item, index in
             let result = item[index]
             self.name.text = "\(result.title)"
-            for (index, act) in (self.allActivities!).enumerated() {
+            for (_, act) in (self.allActivities!).enumerated() {
                 if act.actName == result.title {
                     self.actDescription.text = act.actDescription
 //                    self.cost.text = act.cost
@@ -145,33 +139,15 @@ class AddNewActivityVCViewController: UIViewController {
         
     }
     
-    /*func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // Set the max character limit
-        let characterLimit = 140
-        
-        // Construct what the new text would be if we allowed the user's latest edit
-        let newText = NSString(string: textView.text!).replacingCharacters(in: range, with: text)
-        
-        // TODO: Update Character Count Label
-        
-        // The new text should be allowed? True/False
-        let count = newText.characters.count
-        charCount.text = String(count) + "/140"
-        
-        if count == 0 {
-            placeHolder.textColor = UIColor.lightGray
-            tweetButton.backgroundColor = lightBlue
-            tweetButton.isEnabled = false
+    
+    func getActivityNames() {
+        for act in allActivities! {
+            let item = SearchTextFieldItem(title: act.actName)
+            activityNames?.append(item)
+            print (act.actName)
         }
-        else {
-            placeHolder.textColor = UIColor.clear
-            tweetButton.backgroundColor = blue
-            tweetButton.isEnabled = true
-        }
-        return count < characterLimit
-        // TODO: Check the proposed new text character count
-        // Allow or disallow the new text
-    }*/
+    }
+    
 
     /*
     // MARK: - Navigation

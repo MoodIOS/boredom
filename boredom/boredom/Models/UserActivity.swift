@@ -56,7 +56,7 @@ import Parse
         print("List$" + "\(listId)")
         query.whereKey("list", equalTo: "List$" + listId)
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
-            completion(activities as? [UserActivity], nil)
+            completion( activities as? [UserActivity], nil)
         }
     }
 }

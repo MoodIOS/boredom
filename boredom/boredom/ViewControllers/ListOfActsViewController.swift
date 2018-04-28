@@ -13,6 +13,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
     var userActivities = [UserActivity]()
     var list = List()
+    var actnamesInList = [String]()
     
     
     override func viewDidLoad() {
@@ -59,6 +60,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityName.text = activity.actName
+                self.actnamesInList.append(activity.actName)
             }
         }
         return cell
@@ -73,6 +75,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let navVC = segue.destination as! UINavigationController
         let addNewActVC = navVC.topViewController as! AddNewActivityVCViewController
         addNewActVC.list = self.list
+        addNewActVC.actNamesInList = actnamesInList
     }
 
     override func viewDidAppear(_ animated: Bool) {
