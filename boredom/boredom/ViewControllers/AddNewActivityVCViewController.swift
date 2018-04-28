@@ -48,7 +48,25 @@ class AddNewActivityVCViewController: UIViewController {
                 if (newActName == activityInList.actName ){
                     print("Activity is already added in list!")
                 } else {
-                    Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (activity, error) in
+                    let choseMon = [1,2,3,4]
+                    let result = choseMon[costControl.selectedSegmentIndex]
+                    var savedValue = 5
+                    if(result == 1){
+                        savedValue = 0
+                    }
+                    else if(result == 2){
+                        savedValue = 1
+                    }
+                    else if(result == 3){
+                        savedValue = 2
+                    }
+                    else if(result == 4){
+                        savedValue = 3
+                    }
+                
+                
+                
+                    Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: savedValue, location: location.text){ (activity, error) in
                         if let activity = activity  {
                             print("Activity ID:", activity)
                             UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
