@@ -15,8 +15,22 @@ class ActivitiesDetailViewController: UIViewController {
     @IBOutlet weak var activityCost: UILabel!
     @IBOutlet weak var activityDescription: UILabel!
     
+    var activity: Activity!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let activity = activity{
+            activityName.text = activity.actName
+            activityLocation.text = activity.location
+            activityCost.text = activity.cost
+            activityDescription.text = activity.description
+            
+            
+        }
+        
+        
+    
 
         // Do any additional setup after loading the view.
     }

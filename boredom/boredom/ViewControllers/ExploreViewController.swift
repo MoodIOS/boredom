@@ -128,7 +128,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                 self.exploreActivities = activities
                 let activities = activities
                 var i = 0
-                while i < 10 {
+                while i < 1 {
                     print("activityLikeCount", activities![i].activityLikeCount)
                     let act = activities![i]
                     self.top10Act.append(act)
@@ -199,7 +199,26 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let activityCell = sender as! UICollectionViewCell
+        let listCell = sender as! UICollectionViewCell
+        
+        if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
+            let activity = top10Act[indexPath.item] as! Activity
+            print(activity)
+            let activityDetailViewController = segue.destination as! ActivitiesDetailViewController
+            print(activity)
+            activityDetailViewController.activity = activity
+            //print(activityDetailViewController.activity)
+            
+            //activityDetailViewController.activityName.text = activity.actName ?? "Label"
+        }
+        else if let indexPath = userListsCollectionView.indexPath(for: listCell){
+            let list = top10List[indexPath.item]
+            let listDetailViewController = segue.destination as! ListsDetailViewController
+            
+        }
+    }
     
     
     @IBAction func didTapLogout(_ sender: Any) {
