@@ -27,6 +27,8 @@ class ActivitiesDetailViewController: UIViewController {
     }
     
 
+    @IBAction func addActivity(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 

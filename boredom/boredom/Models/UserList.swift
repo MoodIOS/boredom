@@ -9,7 +9,7 @@
 import Foundation
 import Parse
 
-@objc class List: PFObject, PFSubclassing {
+@objc class UserList: PFObject, PFSubclassing {
     @NSManaged var listName: String!
     @NSManaged var category: String!
     //@NSManaged var listImage: UIImage!
@@ -19,7 +19,7 @@ import Parse
     @NSManaged var likeCount: Int
     
     class func parseClassName() -> String {
-        return "List"
+        return "UserList"
     }
     
     class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: PFBooleanResultBlock?) {
@@ -62,5 +62,10 @@ import Parse
             completion(lists as? [List], nil)
         }
     }
+    
+    
+    
+    
+    
 }
 
