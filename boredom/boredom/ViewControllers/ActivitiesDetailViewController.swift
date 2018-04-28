@@ -9,7 +9,12 @@
 import UIKit
 
 class ActivitiesDetailViewController: UIViewController {
-
+    @IBOutlet weak var activityImage: UIImageView!
+    @IBOutlet weak var activityName: UILabel!
+    @IBOutlet weak var activityLocation: UILabel!
+    @IBOutlet weak var activityCost: UILabel!
+    @IBOutlet weak var activityDescription: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
