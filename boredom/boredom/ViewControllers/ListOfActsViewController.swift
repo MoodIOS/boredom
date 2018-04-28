@@ -60,7 +60,6 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityName.text = activity.actName
-                self.actnamesInList.append(activity.actName)
             }
         }
         return cell

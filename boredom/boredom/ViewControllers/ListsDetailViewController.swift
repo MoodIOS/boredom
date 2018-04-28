@@ -30,20 +30,23 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         tableView.reloadData()
         
         listNameLabel.text = list.listName
-        
-        if (list.activities?.count != 0){
-            noActivitiesLabel.text = ""
-        }
-        
+
         getActivitiesInList()
     }
 
     func getActivitiesInList(){
         UserActivity.fetchActivity() { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
-                self.activities = activities!
-                print(".........." , activities![0].list)
-                self.tableView.reloadData()
+                if activities != []{
+                    self.activities = activities!
+                    let curAct = activities![0]
+                    print("current Act : ", curAct)
+                    let curActGlobal = curAct.activity!
+                    print("current Act Global: ", curActGlobal)
+                    self.tableView.reloadData()
+                } else if (activities == []) {
+                    self.noActivitiesLabel.text = ""
+                }
             } else {
                 print("problem fetching UserActivity", error?.localizedDescription )
             }
@@ -56,26 +59,23 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (list.activities?.count)!
+        return activities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
-        let author = authorOfList
-        /*UserActivity.fetchActivity(listId: list.objectId!) { (activities: [UserActivity]?, error: Error?) in
-            if error == nil{
-                self.activities = activities
+        let userActivities = self.activities
+        let curAct = userActivities[indexPath.row]
+        let currentActId = curAct.activity.objectId
+        
+        Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
+            if activities! != [] {
+                let activities = activities
+                print("ACTIVITIES:", activities![0])
+                let activity = activities![0]
+                cell.activityNameLabel.text = activity.actName
             }
-        }*/
-        let activity = self.activities[indexPath.row]
-        print("oooooooooo",activity.activity.actName)
-        let activityName = activity.activity.actName as String?
-        
-        cell.activityNameLabel.text = activityName ?? "Label"
-        tableView.reloadData()
-        
-        //tableView.deselectRow(at: indexPath, animated: true)
+        }
         return cell
     }
     
