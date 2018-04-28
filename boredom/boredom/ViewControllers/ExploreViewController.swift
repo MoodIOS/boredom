@@ -96,7 +96,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         fetchMovies()
         getTopLists()
-        //getTopActivities()
+        getTopActivities()
     }
     
     func getTopLists(){
@@ -125,9 +125,9 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     func getTopActivities() {
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
             if error == nil {
-
+                self.exploreActivities = activities
                 if self.exploreActivities != nil {
-                    self.exploreActivities = activities
+                    //self.exploreActivities = activities
                     let activities = activities
                     var i = 0
                     while i < (activities?.count)! {
@@ -136,6 +136,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                         self.top10Act.append(act)
                         self.activitiesCollectionView.reloadData()
                         i = i + 1
+                        
                     }
 
                 }
