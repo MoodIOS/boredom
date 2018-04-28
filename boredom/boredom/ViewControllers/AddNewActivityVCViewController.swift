@@ -40,23 +40,38 @@ class AddNewActivityVCViewController: UIViewController {
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
-        Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (activity, error) in
-            if let activity = activity  {
-                print("Activity ID:", activity)
-                UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
-                    if success == true{
-                        print("User activity created")
-                        self.dismiss(animated: true, completion: nil)
-                        self.loadActivity()
-                    } else if let error = error {
-                        print("Problem saving User activity: \(error.localizedDescription)")
+        let newActName = actName.text
+        let i = 0
+        while i < (allActivities?.count)!{
+            if allActivities != [] {
+                let activityInList = allActivities![i]
+                if (newActName == activityInList.actName ){
+                    print("Activity is already added in list!")
+                } else {
+                    Activity.addNewActivity(actName: actName.text, actDescription: actDescription.text, list: self.list, cost: cost.text!, location: location.text){ (activity, error) in
+                        if let activity = activity  {
+                            print("Activity ID:", activity)
+                            UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
+                                if success == true{
+                                    print("User activity created")
+                                    self.dismiss(animated: true, completion: nil)
+                                    self.loadActivity()
+                                } else if let error = error {
+                                    print("Problem saving User activity: \(error.localizedDescription)")
+                                }
+                            })
+                        }
+                        else if let error = error {
+                            print("Problem saving activity: \(error.localizedDescription)")
+                        }
                     }
-                })
+                }
             }
-            else if let error = error {
-                print("Problem saving activity: \(error.localizedDescription)")
-            }
+            
         }
+
+        
+        
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
@@ -90,6 +105,7 @@ class AddNewActivityVCViewController: UIViewController {
             }
         })
     }
+    
     func handleUserPicker() {
         self.name.itemSelectionHandler = {item, index in
             let result = item[index]
