@@ -83,6 +83,8 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityNameLabel.text = activity.actName
+                cell.activity = activity
+                cell.userAct = curAct
             }
         }
         

@@ -14,13 +14,21 @@ class ActivitiesInListCell: UITableViewCell {
     
     @IBOutlet weak var activityNameLabel: UILabel!
     
+    
     var listViewController: ListsDetailViewController!
     var oldLikeCount:Int!
     var newLikeCount:Int!
     
+    var activity: Activity!
+    var userAct: UserActivity!
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     @IBAction func didTapFavoritesBtn(_ sender: Any) {
@@ -28,6 +36,9 @@ class ActivitiesInListCell: UITableViewCell {
         if(favoritesBtn.imageView?.image?.isEqual(UIImage(named:"favor-icon-1")))!{
             print("INSIDE IF STATEMENT")
             favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+            print("userAct", userAct)
+            print("activity", activity)
+            
             /* THis is all the code that's crashing since tableView is nil...
             let tableView = listViewController.tableView
             let indexPath = tableView?.indexPathForSelectedRow

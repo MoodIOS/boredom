@@ -24,6 +24,14 @@ import Parse
         return "UserActivity"
     }
     
+//    static func userActivities(with array: ([[String:Any]]) -> [Activity]){
+//        var userActivities: [UserActivity] = []
+//        for actDictionary in array {
+//            let act = UserActivity(dictionary: actDictionary )
+//            userActivities.append(act)
+//        }
+//    }
+    
     class func addNewActivity(activity: Activity, list: List?, withCompletion completion: PFBooleanResultBlock?){
         let userActivity = UserActivity()
         userActivity.activity = activity
