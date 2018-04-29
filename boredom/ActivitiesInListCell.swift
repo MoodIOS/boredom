@@ -38,17 +38,12 @@ class ActivitiesInListCell: UITableViewCell {
             favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
             print("userAct", userAct)
             print("activity", activity)
+            oldLikeCount = activity.activityLikeCount
+            print("............", oldLikeCount)
             
-            /* THis is all the code that's crashing since tableView is nil...
-            let tableView = listViewController.tableView
-            let indexPath = tableView?.indexPathForSelectedRow
-            var cell = tableView?.cellForRow(at: indexPath!)
-            oldLikeCount = listViewController.activities[(indexPath?.row)!].activity.activityLikeCount
-            print("............",oldLikeCount)
-            listViewController.activities[(indexPath?.row)!].activity.activityLikeCount = (listViewController.activities[(indexPath?.row)!].activity.activityLikeCount) + 1
-            newLikeCount = (listViewController.activities[(indexPath?.row)!].activity.activityLikeCount) + 1
-            print(newLikeCount)
-             */
+            //This function is in Activity model, still need to complete the function
+//            Activity.changeLikeCount()
+            
         }
         else{
             favoritesBtn.setImage(UIImage(named:"favor-icon"), for: UIControlState.normal)

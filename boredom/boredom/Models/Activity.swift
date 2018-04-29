@@ -60,6 +60,15 @@ import Parse
             print("return findObjectsInBackground() ", activity!)
         }
     }
+    
+    class func changeLikeCount(actId: String, likeCount: Int, completion: @escaping (Activity?, Error?) -> Void){
+        let query = PFQuery(className: "Activity")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        print("Activity ID " + "\(actId)")
+        query.whereKey("objectId", equalTo: actId)
+        // Need to save the new like count
+    }
 
 }
 
