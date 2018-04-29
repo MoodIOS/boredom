@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ActivitiesInListCell: UITableViewCell {
 
@@ -22,31 +23,60 @@ class ActivitiesInListCell: UITableViewCell {
     var activity: Activity!
     var userAct: UserActivity!
     
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
     }
+    
 
     @IBAction func didTapFavoritesBtn(_ sender: Any) {
         print("INSIDE METHOD")
+        //if means we pressed the like button
         if(favoritesBtn.imageView?.image?.isEqual(UIImage(named:"favor-icon-1")))!{
             print("INSIDE IF STATEMENT")
             favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
             print("userAct", userAct)
             print("activity", activity)
             oldLikeCount = activity.activityLikeCount
-            print("............", oldLikeCount)
+            print("............old like count is: ", oldLikeCount)
             
-            //This function is in Activity model, still need to complete the function
-//            Activity.changeLikeCount()
+            Activity.changeLikeCount(actId: activity.objectId!, likeCount: activity.activityLikeCount) { (activities: [Activity]?, error: Error?) in
+                if activities! != []{
+                    let activities = activities
+                    print("ACTIVITIES:", activities![0])
+                    let activity = activities![0]
+                    activity.activityLikeCount = activity.activityLikeCount + 1
+                    self.newLikeCount = activity.activityLikeCount
+                    /*let currUser = PFUser.current()
+                    var count = 0
+                    if(activity.activityLikedByUsers.count != 0)
+                    {
+                        count = activity.activityLikedByUsers.count - 1
+                    }
+                    activity.activityLikedByUsers.insert((currUser?.objectId)!, at: count)*/
+                    activity.saveInBackground()
+                }
+            }
+            
+            //newLikeCount = activity.activityLikeCount
+            print("....................new like count is: ", newLikeCount)
+            
             
         }
-        else{
-            favoritesBtn.setImage(UIImage(named:"favor-icon"), for: UIControlState.normal)
+        else{ //else means we pressed the like button again, hence, unlike
+            favoritesBtn.setImage(UIImage(named:"favor-icon-1"), for: UIControlState.normal)
+            Activity.changeLikeCount(actId: activity.objectId!, likeCount: activity.activityLikeCount) { (activities: [Activity]?, error: Error?) in
+                if activities! != []{
+                    let activities = activities
+                    print("ACTIVITIES:", activities![0])
+                    let activity = activities![0]
+                    activity.activityLikeCount = activity.activityLikeCount - 1
+                    self.newLikeCount = activity.activityLikeCount
+                    activity.saveInBackground()
+                }
+            }
+            
             
             print("INSIDE ELSE STATEMENT")
         }

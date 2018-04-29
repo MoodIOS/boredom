@@ -23,17 +23,22 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     var list: List!
     var newList: List!
     var listID: String!
+    var activityIsLiked: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getActivitiesInList()
 
         tableView.dataSource = self
         tableView.rowHeight = 150
         tableView.reloadData()
         
         listNameLabel.text = list.listName
+        noActivitiesLabel.isHidden = true
 
-        getActivitiesInList()
+        //getActivitiesInList()
+        
     }
   
     func tapFavoritesBtn(activity: Activity){
@@ -47,14 +52,16 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
                 if activities != []{
+                    self.noActivitiesLabel.isHidden = true
                     self.activities = activities!
                     let curAct = activities![0]
                     print("current Act : ", curAct)
                     let curActGlobal = curAct.activity!
                     print("current Act Global: ", curActGlobal)
                     self.tableView.reloadData()
+                    
                 } else if (activities == []) {
-                    self.noActivitiesLabel.text = ""
+                    self.noActivitiesLabel.isHidden = false
                 }
             } else {
                 print("problem fetching UserActivity", error?.localizedDescription )
@@ -77,6 +84,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         let curAct = userActivities[indexPath.row]
         let currentActId = curAct.activity.objectId
         
+        
         Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
                 let activities = activities
@@ -85,8 +93,23 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                 cell.activityNameLabel.text = activity.actName
                 cell.activity = activity
                 cell.userAct = curAct
+                
             }
         }
+        
+        /*var userId = PFUser.current()?.objectId
+        var index = 0
+        if (!curAct.activity.activityLikedByUsers.isEmpty) {
+            while index < curAct.activity.activityLikedByUsers.count{
+                if(curAct.activity.activityLikedByUsers[index] == userId)
+                {
+                    self.activityIsLiked = true
+                    cell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+                    
+                }
+            }
+        }*/
+        
         
         return cell
     }
