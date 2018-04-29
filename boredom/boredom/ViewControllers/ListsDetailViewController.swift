@@ -11,6 +11,7 @@ import Parse
 
 class ListsDetailViewController: UIViewController, UITableViewDataSource{
     
+    
     @IBOutlet weak var listNameLabel: UILabel!
     
     @IBOutlet weak var noActivitiesLabel: UILabel!
@@ -21,6 +22,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     var authorOfList: PFUser!
     var list: List!
     var newList: List!
+    var listID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,12 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
 
         getActivitiesInList()
     }
-
+  
+    func tapFavoritesBtn(activity: Activity){
+        var activity = activities
+    }
+    
+   
     func getActivitiesInList(){
         let curList = self.list
         let listId = curList?.objectId
@@ -78,6 +85,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                 cell.activityNameLabel.text = activity.actName
             }
         }
+        
         return cell
     }
     

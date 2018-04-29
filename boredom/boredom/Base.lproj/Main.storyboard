@@ -1190,11 +1190,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="61w-SV-7CS"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="SecondColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="activityCost" destination="as5-0y-bCL" id="lLg-q9-h90"/>
@@ -1252,6 +1247,9 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <accessibility key="accessibilityConfiguration" label="Like"/>
                                                     <state key="normal" title="like" image="favor-icon-1"/>
+                                                    <connections>
+                                                        <action selector="didTapFavoritesBtn:" destination="wVs-8d-3mE" eventType="touchUpInside" id="otm-rt-f6l"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPv-PC-D3E">
                                                     <rect key="frame" x="344" y="8" width="30" height="30"/>
@@ -1262,6 +1260,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityNameLabel" destination="V9m-LX-YuS" id="2PI-bD-W9F"/>
+                                            <outlet property="favoritesBtn" destination="JQN-YF-iSN" id="4qY-jS-iYw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
