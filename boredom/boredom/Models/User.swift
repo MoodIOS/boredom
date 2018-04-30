@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Parse
+
 class User {
     
     var name: String
@@ -17,9 +19,14 @@ class User {
     var password: String
 //    var userCoordinate: CGPoint!
     var userLocation: String
-    
+    var likedActivity: [String]
     // Define this:
     var randomActivity: Activity!
+    
+    class func parseClassName() -> String {
+        return "User"
+    }
+    
     
     private static var _current: User?
     static var current: User?{
@@ -54,6 +61,11 @@ class User {
         password = dictionary["password"] as! String
         userEmail = dictionary["userEmail"] as!  String
         userLocation = dictionary["userLocation"] as! String
-
+        likedActivity = dictionary["likeActivity"] as! [String]
+    }
+    
+    
+    class func updateUserLikedAct(curUserId: String, likedAct: String, completion: (User?, Error?) -> Void ){
+        current?.likedActivity.append(likedAct)
     }
 }

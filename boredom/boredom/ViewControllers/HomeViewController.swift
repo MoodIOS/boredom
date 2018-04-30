@@ -29,6 +29,9 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        getUserActs {
+            self.randomActivity()
+        }
         randomActivity()
     }
 
@@ -40,10 +43,8 @@ class HomeViewController: UIViewController {
     @IBAction func changeGenOptions(_ sender: Any) {
     }
     
-
-//    var completionHandlers: [() -> Void] = []
+    
     func getUserActs(completion: @escaping () -> Void) {
-//    func getUserActs(){
         let userId = currentUser?.objectId
         List.fetchLists(userId: userId! ){ (lists: [List]?, error: Error?) in
             if error == nil {
@@ -72,11 +73,13 @@ class HomeViewController: UIViewController {
             let userRandomAct = userActivities[randomindex]
             let actId = userRandomAct.activity.objectId
             print("actID", actId!)
-            Activity.fetchActivity(actId: actId!, completion: { (activity: [Activity]?, error: Error?) in
-                if error == nil{
-                    let randomAct = activity![0]
+            Activity.fetchActivity(actId: actId!, completion: { (activities: [Activity]?, error: Error?) in
+                if (error == nil) && (activities != nil) {
+                    let randomAct = activities![0]
                     print("randomAct", randomAct)
                     self.actName.text = randomAct.actName
+                    let curUser = User.current
+                    
                 }
             })
         }

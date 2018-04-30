@@ -228,7 +228,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         
         
         // copy all the activities from selected list to the one we just made
-        Activity.addNewActivity(actName: list.activities![0].actName, actDescription: list.activities![0].actDescription, list: newList, cost: list.activities![0].cost, location: "temp"){ (activity, error) in
+        Activity.addNewActivity(actName: list.activities![0].actName, actDescription: list.activities![0].actDescription, list: newList, cost: list.activities![0].cost, location: "temp", tags: ["tag": false]){ (activity, error) in
             if let activity = activity  {
                 print("Activity ID:", activity)
                 UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in

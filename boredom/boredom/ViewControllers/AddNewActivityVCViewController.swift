@@ -24,6 +24,19 @@ class AddNewActivityVCViewController: UIViewController {
     var activityNames: [SearchTextFieldItem]!
     var activityId: [String]!
     var actNamesInList =  [String]()
+    var tags = [String: Bool]()
+    
+    @IBOutlet weak var restaurantTag: UIButton!
+    @IBOutlet weak var brunchTag: UIButton!
+    @IBOutlet weak var movieTag: UIButton!
+    @IBOutlet weak var outdoorTag: UIButton!
+    @IBOutlet weak var bookTag: UIButton!
+    @IBOutlet weak var coffeeTag: UIButton!
+    @IBOutlet weak var nightlifeTag: UIButton!
+    @IBOutlet weak var happyhoursTag: UIButton!
+    
+
+    
     
     override func viewDidLoad() {
         
@@ -67,7 +80,9 @@ class AddNewActivityVCViewController: UIViewController {
                 else if(result == 4){
                     savedValue = 3
                 }
-                Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, list: self.list, cost: savedValue, location: self.location.text){ (activity, error) in
+                print("self.tags", self.tags)
+                
+                Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, list: self.list, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
                     if let activity = activity  {
                         print("Activity ID:", activity)
                         UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
@@ -86,6 +101,36 @@ class AddNewActivityVCViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @IBAction func clickedOnTags(_ sender: UIButton) {
+        let button = sender
+        print("button sender ", button.backgroundColor!)
+        let blueColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+        let grayColor = UIColor.lightGray
+        print("blueColor", blueColor)
+        print("grayColor", grayColor)
+        handleTags(tagName: button.currentTitle!) { (tags: [String: Bool]?, error: Error?) in
+            for (tag, value) in tags!{
+                if (value == true) && (button.currentTitle == tag)  {
+                    button.backgroundColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+                } else if (value == false) && (button.currentTitle == tag) {
+                    button.backgroundColor = UIColor.lightGray
+                }
+            }
+        }
+    }
+    
+    func handleTags (tagName: String, completion: @escaping ([String:Bool]?, Error? ) -> Void){
+        print("handleTag: ", tagName)
+        if tags[tagName] == false || tags[tagName] == nil {
+            tags[tagName] = true
+        } else {
+            tags[tagName] = false
+        }
+        print("tags: ", tags)
+        return completion(tags, nil)
+        
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
