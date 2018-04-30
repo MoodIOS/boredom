@@ -85,7 +85,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     
     func getTopLists(){
         List.fetchLists { (lists: [List]?, error: Error?) in
-            if error == nil {
+            if error == nil && lists != nil {
                 self.exploreLists = lists
                 let lists = lists
                 var i = 0
