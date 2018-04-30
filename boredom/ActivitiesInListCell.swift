@@ -23,6 +23,8 @@ class ActivitiesInListCell: UITableViewCell {
     var activity: Activity!
     var userAct: UserActivity!
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -34,6 +36,7 @@ class ActivitiesInListCell: UITableViewCell {
         print("INSIDE METHOD")
         //if means we pressed the like button
         if(favoritesBtn.imageView?.image?.isEqual(UIImage(named:"favor-icon-1")))!{
+           
             print("INSIDE IF STATEMENT")
             favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
             print("userAct", userAct)
@@ -48,13 +51,22 @@ class ActivitiesInListCell: UITableViewCell {
                     let activity = activities![0]
                     activity.activityLikeCount = activity.activityLikeCount + 1
                     self.newLikeCount = activity.activityLikeCount
-                    /*let currUser = PFUser.current()
+                    let currUser = PFUser.current()
                     var count = 0
-                    if(activity.activityLikedByUsers.count != 0)
+                    if(!activity.activityLikedByUsers.isEmpty)
                     {
                         count = activity.activityLikedByUsers.count - 1
                     }
-                    activity.activityLikedByUsers.insert((currUser?.objectId)!, at: count)*/
+                    print("...........", (currUser?.objectId)!)
+                    //var mergeString = ["userid": (currUser?.objectId)!]
+                    /*let newItem: [String: Any] = [
+                        "key": (currUser?.objectId)!
+                    ]*/
+
+                    //activity.activityLikedByUsers.insert((currUser?.objectId)!, at: count)
+                    //activity.activityLikedByUsers.append((currUser?.objectId)!)
+                    //activity.activityLikedByUsers.merge(mergeString, uniquingKeysWith: (Any, Any) -> Any)
+                    activity.activityLikedByUsers.append((currUser?.objectId)!)
                     activity.saveInBackground()
                 }
             }
@@ -65,6 +77,7 @@ class ActivitiesInListCell: UITableViewCell {
             
         }
         else{ //else means we pressed the like button again, hence, unlike
+            
             favoritesBtn.setImage(UIImage(named:"favor-icon-1"), for: UIControlState.normal)
             Activity.changeLikeCount(actId: activity.objectId!, likeCount: activity.activityLikeCount) { (activities: [Activity]?, error: Error?) in
                 if activities! != []{
@@ -83,6 +96,7 @@ class ActivitiesInListCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+       
 
         // Configure the view for the selected state
     }

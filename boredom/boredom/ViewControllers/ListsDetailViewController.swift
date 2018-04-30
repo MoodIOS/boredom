@@ -25,6 +25,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     var listID: String!
     var activityIsLiked: Bool = false
     
+    var curActGlobal: Activity!
+    var likeCell: ActivitiesInListCell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +39,45 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         
         listNameLabel.text = list.listName
         noActivitiesLabel.isHidden = true
+        
+        
+        
+        
+        
+        //randomStuff()
 
         //getActivitiesInList()
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            var userId = PFUser.current()?.objectId
+             var index = 0
+             if (!self.curAct.activity.activityLikedByUsers.isEmpty) {
+             while index < self.curAct.activity.activityLikedByUsers.count{
+             if(self.curAct.activity.activityLikedByUsers[index] == userId)
+             {
+             self.activityIsLiked = true
+             self.likeCell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+             
+             }
+             }
+             }
+        }*/
+        /*var userId = PFUser.current()?.objectId
+         var index = 0
+         if (!curAct.activity.activityLikedByUsers.isEmpty) {
+         while index < curAct.activity.activityLikedByUsers.count{
+             if(curAct.activity.activityLikedByUsers[index] == userId)
+             {
+             self.activityIsLiked = true
+             likeCell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+             
+             }
+            index = index + 1
+            }
+         }*/
+        
         
     }
+    
   
     func tapFavoritesBtn(activity: Activity){
         var activity = activities
@@ -49,16 +87,34 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     func getActivitiesInList(){
         let curList = self.list
         let listId = curList?.objectId
+        var activitesArray: [UserActivity] = []
+        var userId = PFUser.current()?.objectId
         UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
                 if activities != []{
                     self.noActivitiesLabel.isHidden = true
                     self.activities = activities!
+                    activitesArray = activities!
                     let curAct = activities![0]
                     print("current Act : ", curAct)
-                    let curActGlobal = curAct.activity!
-                    print("current Act Global: ", curActGlobal)
+                    self.curActGlobal = curAct.activity!
+                   // var index = 0
+                    
+                    /*if (!self.curActGlobal.fetchIfNeeded().activityLikedByUsers.isEmpty) {
+                        while index < self.curActGlobal.activityLikedByUsers.count{
+                            if(self.curActGlobal.activityLikedByUsers[index] == userId)
+                            {
+                                self.activityIsLiked = true
+                                self.likeCell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+                                
+                            }
+                            index = index + 1
+                        }
+                    }*/
+                    //self.randomStuff(curActivity: self.curActGlobal)
+                    print("current Act Global: ", self.curActGlobal)
                     self.tableView.reloadData()
+                    
                     
                 } else if (activities == []) {
                     self.noActivitiesLabel.isHidden = false
@@ -67,7 +123,32 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                 print("problem fetching UserActivity", error?.localizedDescription )
             }
         }
+        //self.randomStuff(curActivity: activitesArray[0].activity)
+        //self.randomStuff(curActivity: curActGlobal)
+        
     }
+    
+    
+    
+    /*func randomStuff(curActivity: Activity)
+    {
+        var userId = PFUser.current()?.objectId
+        var query = PFQuery(className: "Activity")
+        query.includeKey("activityLikedByUsers")
+        var index = 0
+       
+        if (!query.activity.activityLikedByUsers.isEmpty) {
+            while index < curActivity.activityLikedByUsers.count{
+                if(curActivity.activityLikedByUsers[index] == userId)
+                {
+                    self.activityIsLiked = true
+                    likeCell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+                    
+                }
+                index = index + 1
+            }
+        }
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -80,8 +161,10 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
+        likeCell = cell
         let userActivities = self.activities
         let curAct = userActivities[indexPath.row]
+        //curLikeAct = curAct
         let currentActId = curAct.activity.objectId
         
         
@@ -93,6 +176,14 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                 cell.activityNameLabel.text = activity.actName
                 cell.activity = activity
                 cell.userAct = curAct
+                
+                
+                try? cell.userAct.activity.fetchIfNeeded()
+                
+                print("ACTIVITY LIKED BY USERS:", cell.userAct.activity.activityLikedByUsers)
+                if(cell.userAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
+                        cell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+                    }
                 
             }
         }
@@ -107,8 +198,11 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                     cell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
                     
                 }
+                 index = index + 1
             }
         }*/
+        
+        
         
         
         return cell
