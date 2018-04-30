@@ -91,6 +91,15 @@ class ActivitiesInListCell: UITableViewCell {
             }
             
             
+            var indexOfUser = 0
+            while indexOfUser < activity.activityLikedByUsers.count{
+                if activity.activityLikedByUsers[indexOfUser] == PFUser.current()?.objectId{
+                    print("INSIDE REMOVE IF.........")
+                    activity.activityLikedByUsers.remove(at: indexOfUser)
+                    activity.saveInBackground()
+                }
+                indexOfUser = (indexOfUser + 1)
+            }
             print("INSIDE ELSE STATEMENT")
         }
     }
