@@ -23,6 +23,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         tableView.delegate = self
         getActivities()
+        print("actnamesInList", actnamesInList)
         // Do any additional setup after loading the view.
     }
     
@@ -43,10 +44,10 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         Activity.fetchActivity { (allActivities: [Activity]?, error: Error?) in
             if allActivities! != [] {
-                let activities = allActivities
-                print("ACTIVITIES:", activities![0])
+                print("ACTIVITIES:", allActivities![0])
                 self.allActs = allActivities!
-                for act in activities! {
+                
+                for act in allActivities! {
                     self.allActNames.append(act.actName)
                 }
                 
@@ -73,6 +74,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityName.text = activity.actName
+                self.actnamesInList.append(activity.actName)
                 self.actsInList.append(activities![0])
             }
         }
