@@ -27,6 +27,10 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     var index1 = [Int]()
     var index2 = [Int]()
     
+    @IBOutlet weak var searchScrolView: UIScrollView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +86,9 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         getTopLists()
         getTopActivities()
     }
+    
+    
+    
     
     func getTopLists(){
         List.fetchLists { (lists: [List]?, error: Error?) in
