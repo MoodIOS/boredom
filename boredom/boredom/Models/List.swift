@@ -22,13 +22,13 @@ import Parse
         return "List"
     }
     
-    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: @escaping (List?, Error?) -> Void) {
+    class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?,  completion: @escaping (List?, Error?) -> Void) {
         // use subclass approach
         let list = List()
         
         list.listName = name ?? "No name"
         list.category = category ?? "No category"
-        list.activities = []
+        list.activities = activities
         list.author = PFUser.current()
         list.likeCount = likeCount ?? 0
         

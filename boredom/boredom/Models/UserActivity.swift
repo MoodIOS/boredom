@@ -32,14 +32,14 @@ import Parse
 //        }
 //    }
     
-    class func addNewActivity(activity: Activity, list: List?, withCompletion completion: PFBooleanResultBlock?){
+    class func addNewActivity(activity: Activity, list: List?, completion: @escaping (UserActivity?, Error?) -> Void) {
         let userActivity = UserActivity()
         userActivity.activity = activity
         userActivity.list = list
         userActivity.done = false
-        
-
-        userActivity.saveInBackground(block: completion)
+        userActivity.saveInBackground { (success, error) in
+            completion(userActivity, nil)
+        }
     }
     
     class func fetchActivity (completion: @escaping ([UserActivity]?, Error?) -> Void) {

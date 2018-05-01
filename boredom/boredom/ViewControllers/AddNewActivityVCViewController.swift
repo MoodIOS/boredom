@@ -71,15 +71,29 @@ class AddNewActivityVCViewController: UIViewController {
             } else {
                 // database already has this activity, only create new UserActivity
                 if (duplicateInDatabase > 0 ) {
-                    UserActivity.addNewActivity(activity: self.actInDatabase, list: self.list, withCompletion: { (success, error) in
-                        if success == true {
+                    UserActivity.addNewActivity(activity: self.actInDatabase, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
+                        if error == nil {
                             print("User activity created")
+                            List.addActToList(currentList: self.list, userAct: userAct , completion: { (list: List?, error: Error?) in
+                                if error == nil {
+                                    print("list", list!)
+                                }
+                            })
                             self.dismiss(animated: true, completion: nil)
                             self.loadActivity()
                         } else if let error = error {
                             print("Problem saving User activity: \(error.localizedDescription)")
                         }
                     })
+//                    UserActivity.addNewActivity(activity: self.actInDatabase, list: self.list, withCompletion: { (success, error) in
+//                        if success == true {
+//                            print("User activity created")
+//                            self.dismiss(animated: true, completion: nil)
+//                            self.loadActivity()
+//                        } else if let error = error {
+//                            print("Problem saving User activity: \(error.localizedDescription)")
+//                        }
+//                    })
                 } else {
                     print("duplicate? ", duplicateInList)
                     let choseMon = [1,2,3,4]
@@ -102,9 +116,14 @@ class AddNewActivityVCViewController: UIViewController {
                     Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, list: self.list, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
                         if let activity = activity  {
                             print("Activity ID:", activity)
-                            UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
-                                if success == true {
+                            UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
+                                if error == nil {
                                     print("User activity created")
+                                    List.addActToList(currentList: self.list, userAct: userAct , completion: { (list: List?, error: Error?) in
+                                        if error == nil {
+                                            print("list", list!)
+                                        }
+                                    })
                                     self.dismiss(animated: true, completion: nil)
                                     self.loadActivity()
                                 } else if let error = error {

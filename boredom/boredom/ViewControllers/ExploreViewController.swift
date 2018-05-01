@@ -26,6 +26,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
     var index1 = [Int]()
     var index2 = [Int]()
+    var bgUrl1 = [String]()
+    var bgUrl2 = [String]()
     
     @IBOutlet weak var searchScrolView: UIScrollView!
     
@@ -33,6 +35,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getTopLists()
+        getTopActivities()
         
         userListsCollectionView.dataSource = self
         activitiesCollectionView.dataSource = self
@@ -41,31 +45,6 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         
         self.view.addSubview(userListsCollectionView)
         self.view.addSubview(activitiesCollectionView)
-        
-        let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.minimumInteritemSpacing = 2
-        layout.minimumLineSpacing = 0
-        let cellsPerLine: CGFloat = 2
-        let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
-        //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layout.itemSize = CGSize(width: 150, height: 150)
-        
-        let layoutActivities = activitiesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layoutActivities.minimumInteritemSpacing = 2
-        layoutActivities.minimumLineSpacing = 0
-        let cellsPerLineActivities: CGFloat = 2
-        let interItemSpacingTotalActivities = layoutActivities.minimumInteritemSpacing * (cellsPerLineActivities - 1)
-        //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layoutActivities.itemSize = CGSize(width: 120, height: 120)
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidLoad()
-        
-//        randomizeBG()
-        userListsCollectionView.dataSource = self
-        activitiesCollectionView.dataSource = self
         
         let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 2
@@ -82,19 +61,19 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         let interItemSpacingTotalActivities = layoutActivities.minimumInteritemSpacing * (cellsPerLineActivities - 1)
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
         layoutActivities.itemSize = CGSize(width: 120, height: 120)
-
-        getTopLists()
-        getTopActivities()
+        
     }
     
-    
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidLoad()
+    }
     
     func getTopLists(){
         List.fetchLists { (lists: [List]?, error: Error?) in
             if error == nil && lists != nil {
                 self.exploreLists = lists
                 let lists = lists
+                self.top10List = [List]()
                 var i = 0
                 while i < 10 {
                     let list = lists![i]
@@ -102,14 +81,11 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                     print("top list", i)
                     print(list)
                     self.top10List.append(list)
-                    i = i + 1
                     self.userListsCollectionView.reloadData()
+                    i = i + 1
                 }
             }
-         
         }
-        
-        
     }
     
     func getTopActivities() {
@@ -119,6 +95,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                 if self.exploreActivities != nil {
                     //self.exploreActivities = activities
                     let activities = activities
+                    self.top10Act = [Activity]()
                     var i = 0
                     while i < 10{
                         print("activityLikeCount", activities![i].activityLikeCount)
@@ -127,6 +104,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                         self.activitiesCollectionView.reloadData()
                         i = i + 1
                     }
+                } else {
+                    print("No Top Activity Available")
                 }
             }
         }
@@ -179,7 +158,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         let listCell = sender as! UICollectionViewCell
         
         if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
-            let activity = top10Act[indexPath.item] as! Activity
+            let activity = top10Act[indexPath.item]
             print(activity)
             let activityDetailViewController = segue.destination as! ActivitiesDetailViewController
             print(activity)
@@ -190,6 +169,12 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             let listDetailViewController = segue.destination as! ListsDetailViewController
             listDetailViewController.list = list
             listDetailViewController.authorOfList = list.author
+            UserActivity.fetchActivity(listId: list.objectId!) { (userActs: [UserActivity]?, error: Error?) in
+                if error == nil {
+                    listDetailViewController.activities = userActs!
+                }
+            }
+            
         }
     }
     
@@ -199,22 +184,16 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         appDelegate.logout()
     }
     
-    func randomizeBG (){
-        var i = 0
-        var j = 0
-        while i < top10Act.count {
-            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-            index1.append(randomindex)
-            i += 1
-        }
-        while j < top10Act.count {
-            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-            index2.append(randomindex)
-            j += 1
-        }
-        print ("index 2", index2)
-        print("index1", index1)
-    }
+//    func randomizeBG (index: Int, nameArr: String){
+//        let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+//        let randomLink = bgURL[randomindex]
+//        if nameArr == "bgUrl1"{
+//            self.bgUrl1.append(randomLink)
+//        } else if nameArr == "bgUrL2" {
+//            self.bgUrl2.append(randomLink)
+//        }
+//
+//    }
     
     // MARK: - Navigation
 
