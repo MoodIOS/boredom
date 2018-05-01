@@ -158,7 +158,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         let listCell = sender as! UICollectionViewCell
         
         if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
-            let activity = top10Act[indexPath.item]
+            let activity = top10Act[indexPath.item] as! Activity
             print(activity)
             let activityDetailViewController = segue.destination as! ActivitiesDetailViewController
             print(activity)
@@ -169,12 +169,16 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             let listDetailViewController = segue.destination as! ListsDetailViewController
             listDetailViewController.list = list
             listDetailViewController.authorOfList = list.author
-            UserActivity.fetchActivity(listId: list.objectId!) { (userActs: [UserActivity]?, error: Error?) in
+            UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
                 if error == nil {
-                    listDetailViewController.activities = userActs!
+                    print("userActivities", userActivities!)
+                    for userAct in userActivities! {
+                        let globalAct = userAct.activity
+                        listDetailViewController.globalActivities.append(globalAct!)
+                    }
+                    
                 }
             }
-            
         }
     }
     

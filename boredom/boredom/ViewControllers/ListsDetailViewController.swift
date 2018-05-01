@@ -8,7 +8,7 @@
 import UIKit
 import Parse
 
-class ListsDetailViewController: UIViewController, UITableViewDataSource{
+class ListsDetailViewController: UIViewController, UITableViewDataSource {
     
     
     @IBOutlet weak var listNameLabel: UILabel!
@@ -18,6 +18,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
     @IBOutlet weak var tableView: UITableView!
     
     var activities =  [UserActivity]()
+    var globalActivities = [Activity]()
     var authorOfList: PFUser!
     var list: List!
     var newList: List!
@@ -220,33 +221,22 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                     print("List created!")
                     print("copy list", addedList!)
 
-                    for act in self.activities {
-                        print("for act in actsInList!", act.objectId!, actsInList!)
-                        if act.objectId != "" {
-                            Activity.fetchActivity(actId: act.objectId!, completion: { (activities: [Activity]?, error: Error?) in
-                                if (error == nil)  && (activities! != []){
-                                    print("successfully fetch activity:", activities!)
-                                    UserActivity.addNewActivity(activity: activities![0], list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
-                                        if error == nil{
-                                            print("added userAct", userAct!)
-                                        }
-                                    })
-                                }
-                                
-                            })
-                        }
+                    for act in self.globalActivities {
+                        UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
+                            if error == nil {
+                                print ("userAct", userAct!)
+                            }
+                        })
                     }
-                    
-                    
                     self.dismiss(animated: true, completion: nil)
-                }
-                else if let error = error {
+                } else if let error = error {
                     print("Problem saving list: \(error.localizedDescription)")
                 }
             }
             
             
         }
+    
         getActivitiesInList()
         
         
