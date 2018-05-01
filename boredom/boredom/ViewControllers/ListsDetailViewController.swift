@@ -91,7 +91,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         var userId = PFUser.current()?.objectId
         UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
-                if activities != []{
+                if activities! != []{
                     self.noActivitiesLabel.isHidden = true
                     self.activities = activities!
                     activitesArray = activities!
@@ -114,9 +114,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                     //self.randomStuff(curActivity: self.curActGlobal)
                     print("current Act Global: ", self.curActGlobal)
                     self.tableView.reloadData()
-                    
-                    
-                } else if (activities == []) {
+
+                } else if (activities! == []) {
+
                     self.noActivitiesLabel.isHidden = false
                 }
             } else {
