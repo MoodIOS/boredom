@@ -21,15 +21,11 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUserActs {
-            self.randomActivity()
-        }
-        randomActivity()
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        randomActivity()
+        getUserActs()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,13 +33,20 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     @IBAction func changeGenOptions(_ sender: Any) {
     }
     
-
-//    var completionHandlers: [() -> Void] = []
-    func getUserActs(completion: @escaping () -> Void) {
-//    func getUserActs(){
+    @IBAction func randomizeAct(_ sender: UIButton) {
+        randomActivity()
+    }
+    
+    
+    
+    
+    func getUserActs(){
+//        (completion: @escaping () -> Void) {
         let userId = currentUser?.objectId
         List.fetchLists(userId: userId! ){ (lists: [List]?, error: Error?) in
             if error == nil {
@@ -57,9 +60,10 @@ class HomeViewController: UIViewController {
                                 self.userActivities.append(act)
                             }
                         }
+                        
                     })
                 }
-                
+               
             }
             
         }
@@ -72,11 +76,13 @@ class HomeViewController: UIViewController {
             let userRandomAct = userActivities[randomindex]
             let actId = userRandomAct.activity.objectId
             print("actID", actId!)
-            Activity.fetchActivity(actId: actId!, completion: { (activity: [Activity]?, error: Error?) in
-                if error == nil{
-                    let randomAct = activity![0]
+            Activity.fetchActivity(actId: actId!, completion: { (activities: [Activity]?, error: Error?) in
+                if (error == nil) && ((activities?.count)! > 0) {
+                    let randomAct = activities![0]
                     print("randomAct", randomAct)
                     self.actName.text = randomAct.actName
+//                    let curUser = User.current
+                    
                 }
             })
         }

@@ -45,6 +45,7 @@ import Parse
     class func fetchActivity (completion: @escaping ([UserActivity]?, Error?) -> Void) {
         print("inside getActitivy")
         let query = PFQuery(className: "UserActivity")
+        query.includeKey("activityLikedByUsers")
         query.includeKey("_p_list")
         query.includeKey("_p_activity")
         query.includeKey("_created_at")
@@ -57,6 +58,7 @@ import Parse
     class func fetchActivity (listId: String, completion: @escaping ([UserActivity]?, Error? ) -> Void) {
         print("inside getActitivy for user")
         let query = PFQuery(className: "UserActivity")
+        query.includeKey("activityLikedByUsers")
         query.includeKey("_p_list")
         query.includeKey("_p_activity")
         query.includeKey("_created_at")

@@ -20,13 +20,13 @@ import Parse
     @NSManaged var activityLikeCount: Int
     @NSManaged var usersLikedActivity: [String]!
     @NSManaged var activityLikedByUsers: [String]!
-    
+    @NSManaged var tags: [String: Bool]!
     
     class func parseClassName() -> String {
         return "Activity"
     }
     
-    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: Int, location: String?, completion: @escaping (Activity?, Error?) -> Void){
+    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: Int, location: String?,tags: [String: Bool], completion: @escaping (Activity?, Error?) -> Void){
         let activity = Activity()
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
@@ -34,7 +34,8 @@ import Parse
         activity.cost = cost
         print("cost: ", cost)
         activity.activityLikeCount = 0
-        activity.activityLikedByUsers = [""]
+        activity.activityLikedByUsers = []
+        activity.tags = tags
         return activity.saveInBackground { (success, error) in
             completion(activity, nil)
         }
@@ -150,6 +151,7 @@ import Parse
                     if userId == currentUserId {
                         userDidLike = userDidLike + 1
                     }
+                    i = i + 1
                 }
                 // If return 0, user doesn't like this activity
                 // if return > 0, user likes this activity
@@ -157,31 +159,7 @@ import Parse
             }
         }
     }
-    
-    /*class func fetchUserThatLikesThisActivity(actId: String, userId: String, completion: @escaping ([PFUser]?, Error?) -> Void){
-        let query = PFQuery(className: "User")
-        query.includeKey("_created_at")
-        query.addDescendingOrder("_created_at")
-        print("Activity ID " + "\(actId)")
-        query.whereKey("objectId", equalTo: userId)
-        return query.findObjectsInBackground{(activity: [PFObject]? , error: Error?) in
-            completion(activity as? [PFUser], nil)
-            
-            //saveChangedLikeCount(actId: actId)
-            print("return..... findObjectsInBackground() ", activity!)
-        }
-        
-        // Need to save the new like count
-        //return query.
-    }*/
-    
-    
-   /* class func saveChangedLikeCount(actId: String){
-        return actId.saveInBackground { (success, error) in
-            completion(actId, nil)
-        }
-    }*/
-    
+
 
 }
 
