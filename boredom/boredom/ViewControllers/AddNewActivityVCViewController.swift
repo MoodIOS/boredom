@@ -23,7 +23,12 @@ class AddNewActivityVCViewController: UIViewController {
     var allActivities: [Activity]?
     var activityNames: [SearchTextFieldItem]!
     var activityId: [String]!
+    
     var actNamesInList =  [String]()
+    var allActNames = [String]()
+    var actsInList =  [Activity]()
+    var allActs = [Activity]()
+    var actInDatabase = Activity()
     var tags = [String: Bool]()
     
     @IBOutlet weak var restaurantTag: UIButton!
@@ -51,8 +56,8 @@ class AddNewActivityVCViewController: UIViewController {
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
-        checkForDuplicate { (duplicateAct: Int, error: Error?) in
-            if duplicateAct > 0 {
+        checkForDuplicate { (duplicateInList: Int, duplicateInDatabase:Int, error: Error?) in
+            if duplicateInList > 0 {
                 self.actName.text = ""
                 self.actDescription.text = ""
                 self.location.text = ""
@@ -64,41 +69,55 @@ class AddNewActivityVCViewController: UIViewController {
                 alertController.addAction(OKAction)
                 self.present(alertController, animated: true)
             } else {
-                print("duplicate? ", duplicateAct)
-                let choseMon = [1,2,3,4]
-                let result = choseMon[self.costControl.selectedSegmentIndex]
-                var savedValue = 5
-                if(result == 1){
-                    savedValue = 0
+                // database already has this activity, only create new UserActivity
+                if (duplicateInDatabase > 0 ) {
+                    UserActivity.addNewActivity(activity: self.actInDatabase, list: self.list, withCompletion: { (success, error) in
+                        if success == true {
+                            print("User activity created")
+                            self.dismiss(animated: true, completion: nil)
+                            self.loadActivity()
+                        } else if let error = error {
+                            print("Problem saving User activity: \(error.localizedDescription)")
+                        }
+                    })
+                } else {
+                    print("duplicate? ", duplicateInList)
+                    let choseMon = [1,2,3,4]
+                    let result = choseMon[self.costControl.selectedSegmentIndex]
+                    var savedValue = 5
+                    if(result == 1){
+                        savedValue = 0
+                    }
+                    else if(result == 2){
+                        savedValue = 1
+                    }
+                    else if(result == 3){
+                        savedValue = 2
+                    }
+                    else if(result == 4){
+                        savedValue = 3
+                    }
+                    print("self.tags", self.tags)
+
+                    Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, list: self.list, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
+                        if let activity = activity  {
+                            print("Activity ID:", activity)
+                            UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
+                                if success == true {
+                                    print("User activity created")
+                                    self.dismiss(animated: true, completion: nil)
+                                    self.loadActivity()
+                                } else if let error = error {
+                                    print("Problem saving User activity: \(error.localizedDescription)")
+                                }
+                            })
+                        }
+                        else if let error = error {
+                            print("Problem saving activity: \(error.localizedDescription)")
+                        }
+                    }
                 }
-                else if(result == 2){
-                    savedValue = 1
-                }
-                else if(result == 3){
-                    savedValue = 2
-                }
-                else if(result == 4){
-                    savedValue = 3
-                }
-                print("self.tags", self.tags)
                 
-                Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, list: self.list, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
-                    if let activity = activity  {
-                        print("Activity ID:", activity)
-                        UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
-                            if success == true {
-                                print("User activity created")
-                                self.dismiss(animated: true, completion: nil)
-                                self.loadActivity()
-                            } else if let error = error {
-                                print("Problem saving User activity: \(error.localizedDescription)")
-                            }
-                        })
-                    }
-                    else if let error = error {
-                        print("Problem saving activity: \(error.localizedDescription)")
-                    }
-                }
             }
         }
     }
@@ -144,15 +163,23 @@ class AddNewActivityVCViewController: UIViewController {
     }
     
     
-    func checkForDuplicate(done: @escaping (Int, Error?) -> Void){
+    func checkForDuplicate(done: @escaping (Int, Int, Error?) -> Void){
         let newName = actName.text
-        var totalDuplicate = 0
-        for act in actNamesInList{
-            if act == newName{
-                totalDuplicate = totalDuplicate + 1
+        var duplicateInList = 0
+        var duplicateInDatabase = 0
+        for act in allActs {
+            let curName = act.actName
+            if curName == newName! {
+                duplicateInDatabase = duplicateInDatabase + 1
+                actInDatabase = act
             }
         }
-        return done(totalDuplicate, nil)
+        for act in actNamesInList {
+            if act == newName {
+                duplicateInList = duplicateInList + 1
+            }
+        }
+        return done(duplicateInList,duplicateInDatabase,  nil)
     }
     
     func loadActivity(){
