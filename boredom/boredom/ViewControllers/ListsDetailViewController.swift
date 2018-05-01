@@ -51,7 +51,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
         let listId = curList?.objectId
         UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
-                if activities != []{
+                if activities! != []{
                     self.noActivitiesLabel.isHidden = true
                     self.activities = activities!
                     let curAct = activities![0]
@@ -60,7 +60,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                     print("current Act Global: ", curActGlobal)
                     self.tableView.reloadData()
                     
-                } else if (activities == []) {
+                } else if (activities! == []) {
                     self.noActivitiesLabel.isHidden = false
                 }
             } else {
