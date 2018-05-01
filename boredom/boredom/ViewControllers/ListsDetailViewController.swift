@@ -225,23 +225,12 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource{
                 print("Problem saving list: \(error.localizedDescription)")
             }
         }
+        getActivitiesInList()
         
-        
+
+        print("-----------" ,self.activities[0].activity.actName)
         // copy all the activities from selected list to the one we just made
-//        Activity.addNewActivity(actName: list.activities![0].actName, actDescription: list.activities![0].actDescription, list: newList, cost: list.activities![0].cost, location: "temp", tags: ["tag": false]){ (activity, error) in
-//            if let activity = activity  {
-//                print("Activity ID:", activity)
-//                UserActivity.addNewActivity(activity: activity, list: self.list, withCompletion: { (success, error) in
-//                    if success == true{
-//                        print("User activity created")
-//                        self.dismiss(animated: true, completion: nil)
-//                        print(activity.actName)
-//                        //self.loadActivity()
-//                    } else if let error = error {
-//                        print("Problem saving User activity: \(error.localizedDescription)")
-//                    }
-//                })
-//            }
-//        }
+        
+        
     }
 }
