@@ -26,8 +26,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
     var index1 = [Int]()
     var index2 = [Int]()
-    var bgUrl1 = [String]()
-    var bgUrl2 = [String]()
+    var bgUrlAct = [URL]()
+    var bgUrlList = [URL]()
     
     @IBOutlet weak var searchScrolView: UIScrollView!
     
@@ -66,6 +66,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
+//        getTopLists()
+//        getTopActivities()
     }
     
     func getTopLists(){
@@ -134,6 +136,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)) )
             let background = bgURL[randomindex]
             let backgroundURL = URL(string: background)
+            bgUrlList.append(backgroundURL!)
             cell.userListsImageView.af_setImage(withURL: backgroundURL!)
         
         return cell
@@ -144,10 +147,27 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             let act = top10Act[indexPath.item]
             activitiesCell.activityName.text = act.actName ?? "Label"
             let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)) )
-            let background = bgURL[randomindex]
-            let backgroundURL = URL(string: background)
-            activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL!)
-            
+            if bgUrlAct.count < 11 {
+                let background = bgURL[randomindex]
+                let backgroundURL = URL(string: background)
+                bgUrlAct.append(backgroundURL!)
+                print("bgUrlAct",bgUrlAct)
+                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL!)
+            } else if bgUrlAct.count == 10 {
+                print("bgUrlAct",bgUrlAct)
+                let backgroundURL = bgUrlAct[indexPath.item]
+                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
+            }
+//            if bgUrlAct[indexPath.item] != nil  {
+//                let background = bgURL[randomindex]
+//                let backgroundURL = URL(string: background)
+//                bgUrlAct.append(backgroundURL!)
+//                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL!)
+//            } else if bgUrlAct[indexPath.item] as? URL == nil {
+//                let backgroundURL = bgUrlAct[indexPath.item]
+//                bgUrlAct.append(backgroundURL)
+//                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
+//            }
             return activitiesCell
         }
         
@@ -158,7 +178,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         let listCell = sender as! UICollectionViewCell
         
         if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
-            let activity = top10Act[indexPath.item] as! Activity
+            let activity = top10Act[indexPath.item]
             print(activity)
             let activityDetailViewController = segue.destination as! ActivitiesDetailViewController
             print(activity)

@@ -161,15 +161,15 @@
 		FFBA1634207C532E00242310 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				FFBA163D207C61B400242310 /* HomeViewController.swift */,
-				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
+				44116EF1208970D70037EB0D /* SignUpViewController.swift */,
 				FFE94683204F76E30070B150 /* LoginViewController.swift */,
+				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
+				FFBA163D207C61B400242310 /* HomeViewController.swift */,
 				FFBA163F207C61CE00242310 /* ProfileViewController.swift */,
 				FFBA1641207C61E900242310 /* SettingViewController.swift */,
 				FFF7695E207EED7000B1F21E /* AddNewListViewController.swift */,
 				FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */,
 				FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */,
-				44116EF1208970D70037EB0D /* SignUpViewController.swift */,
 				8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */,
 				44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */,
 				44116EF92093E9350037EB0D /* ListsDetailViewController.swift */,
