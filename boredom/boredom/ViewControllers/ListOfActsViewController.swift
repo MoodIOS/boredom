@@ -14,13 +14,16 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var userActivities = [UserActivity]()
     var list = List()
     var actnamesInList = [String]()
-    
+    var allActNames = [String]()
+    var actsInList =  [Activity]()
+    var allActs = [Activity]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         getActivities()
+        print("actnamesInList", actnamesInList)
         // Do any additional setup after loading the view.
     }
     
@@ -37,6 +40,17 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             } else{
                 print(error?.localizedDescription as Any)
+            }
+        }
+        Activity.fetchActivity { (allActivities: [Activity]?, error: Error?) in
+            if allActivities! != [] {
+                print("ACTIVITIES:", allActivities![0])
+                self.allActs = allActivities!
+                
+                for act in allActivities! {
+                    self.allActNames.append(act.actName)
+                }
+                
             }
         }
     }
@@ -60,6 +74,8 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityName.text = activity.actName
+                self.actnamesInList.append(activity.actName)
+                self.actsInList.append(activities![0])
             }
         }
         return cell
@@ -75,6 +91,9 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let addNewActVC = navVC.topViewController as! AddNewActivityVCViewController
         addNewActVC.list = self.list
         addNewActVC.actNamesInList = actnamesInList
+        addNewActVC.allActNames = allActNames
+        addNewActVC.allActs = allActs
+        addNewActVC.actsInList = actsInList
     }
 
     override func viewDidAppear(_ animated: Bool) {

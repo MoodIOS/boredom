@@ -13,7 +13,7 @@ import Parse
     @NSManaged var listName: String!
     @NSManaged var category: String!
     //@NSManaged var listImage: UIImage!
-    @NSManaged var activities: [Activity]?
+    @NSManaged var activities: [UserActivity]?
     //var rating: Int?
     @NSManaged var author: PFUser!
     @NSManaged var likeCount: Int
@@ -22,13 +22,13 @@ import Parse
         return "List"
     }
     
-    class func addNewList(name: String?, category: String?, likeCount: Int?, withCompletion completion: @escaping (List?, Error?) -> Void) {
+    class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?,  completion: @escaping (List?, Error?) -> Void) {
         // use subclass approach
         let list = List()
         
         list.listName = name ?? "No name"
         list.category = category ?? "No category"
-        list.activities = []
+        list.activities = activities
         list.author = PFUser.current()
         list.likeCount = likeCount ?? 0
         
@@ -64,6 +64,12 @@ import Parse
         return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
             completion(lists as? [List], nil)
         }
+    }
+    
+    class func addActToList(currentList: List, userAct: UserActivity!, completion: @escaping (List?, Error?) -> Void){
+        let list = currentList
+        list.activities?.append(userAct)
+        list.saveInBackground{ (success,error) in completion(list, nil) }
     }
 }
 

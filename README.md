@@ -7,26 +7,31 @@ Time spent: **X** hours spent in total
 ## User Stories(required)
 Individual:(user)
 - [x] User can sign up and login (JJ)
-- [x] User can retrieve their Lists of activities (getLists()-JJ and Justin, display lists-Melissa and Michelle)
+- [x] User can retrieve their Lists of activities (getLists()-JJ and Justin, display lists- JJ, Melissa and Michelle)
 - [x] User can create an activity List (Melissa and Michelle)
 - [x] User can add Activity into a List (Melissa and Michelle)
 - [x] Autocomplete functionality when user tries to create an activity - Michelle and Melissa
-- [] User can edit activity description
-- [] User can search for description from our app (which will integrate the Yelp database)
+- [x] User can search for description from our app (which will integrate the Yelp database)-edit:making our own database, not using Yelp
 - [x] User can edit information such as location, duration, cost, group size(big vs small group vs individual) (partially working) -Justin
-- [] User can like a List from different users(so lists are public, kinda like how spotify playlists are)
+- [x] User can like a List from different users(so lists are public, kinda like how spotify playlists are)
     -- [x]programmatically have a likecount for each list, and sort top 10 lists with highest like counts. -JJ (still working on display)
-- [] User can like an Activity from his/her own List
-    -- [x]programmatically have a likecount for each activity, and sort top 10 activites with highest like counts. -JJ (still working on display)
-- [] User can push a button to generate an activity from their List(s)
-- [] User can use map to see their activities
+- [x] User can push a button to generate an (Random) activity from their List(s) - Melissa
+- [x]User will have a profile with their list of activities(the activities they have done) and maybe even some friends list - Melissa and Michelle
+- [x] Individual Explore: from top 10 lists with highest like counts - JJ
+- [x] Individual Explore: from top 10 activities with highest like counts- JJ
+- [x] Users can add a list they like into their own lists and edit that lists' contents. The activities of the liked list are also copied over - Melissa and Michelle
+- [x] Alert controllers pop up to guide user in the right direction and stop them from creating another list with the same name as a list that is already in the database. - Melissa
+- [x] options function on the home page to change cost, location, and type of activity -- mostly done -Justin 
+- [x] incorporate tags for an activity (such as food, entertainment, music, etc) instead of long descriptions, since tags are faster to sort by - Melissa
+
 
 
 ## Optional user stories
+- [] User can like an Activity from his/her own List - working on it
+- [] User can edit activity description
+- [] User can use map to see their activities
 - [] User can use camera to take picture of activities
 - [] User can choose between different random search modes:
-- [] Individual Explore: from top 3 lists
-- [x]User will have a profile with their list of activities(the activities they have done) and maybe even some friends list
 - [] Users can see if their friends also plan on going to the same activity, so they can go together
 
 ## Database/ API
@@ -39,10 +44,15 @@ Individual:(user)
 Here's a walkthrough of implemented user stories:
 
 
+
+<img src='https://i.imgur.com/CxcLl2k.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+
+## older gifs:
+
 <img src='https://imgur.com/IpnmRZz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-
-older gifs:
 <img src='https://imgur.com/x5uo2Dd.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='https://imgur.com/bo78ciz.png' title='Wireframes' width='' alt='Wireframes' />

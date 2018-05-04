@@ -26,7 +26,7 @@ import Parse
         return "Activity"
     }
     
-    class func addNewActivity(actName: String?, actDescription: String?, list: List?, cost: Int, location: String?,tags: [String: Bool], completion: @escaping (Activity?, Error?) -> Void){
+    class func addNewActivity(actName: String?, actDescription: String?, cost: Int, location: String?,tags: [String: Bool], completion: @escaping (Activity?, Error?) -> Void){
         let activity = Activity()
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
@@ -46,7 +46,7 @@ import Parse
         let query = PFQuery(className: "Activity")
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
-        query.includeKey("_p_list")
+        query.includeKey("actName")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
         query.addDescendingOrder("activityLikeCount")
