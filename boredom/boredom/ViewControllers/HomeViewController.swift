@@ -59,7 +59,16 @@ class HomeViewController: UIViewController {
                         if error == nil {
                             let actsInList = activities
                             for act in actsInList! {
-                                self.userActivities.append(act)
+                               let actId = act.activity.objectId
+                                
+                                
+                                Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
+                                    let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
+                                    if (acts![0].cost == firstOption){
+                                        self.userActivities.append(act)
+                                    }
+                                    
+                                })
                             }
                         }
                         
