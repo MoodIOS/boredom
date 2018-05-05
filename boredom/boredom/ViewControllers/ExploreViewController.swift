@@ -139,14 +139,11 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                 let background = bgURL[randomindex]
                 let backgroundURL = URL(string: background)
                 bgUrlList.append(backgroundURL!)
-                print("bgUrlAct",bgUrlAct)
             }
-            
-            print("bgURLlist",bgUrlList)
             let backgroundURL = bgUrlList[indexPath.item]
             cell.userListsImageView.af_setImage(withURL: backgroundURL)
         
-        return cell
+            return cell
         }
         
         else{
@@ -158,9 +155,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
                 let background = bgURL[randomindex]
                 let backgroundURL = URL(string: background)
                 bgUrlAct.append(backgroundURL!)
-                print("bgUrlAct",bgUrlAct)
             }
-            print("bgUrlAct",bgUrlAct)
             let backgroundURL = bgUrlAct[indexPath.item]
             activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
 
