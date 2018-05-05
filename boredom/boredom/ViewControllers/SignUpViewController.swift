@@ -68,7 +68,7 @@ class SignUpViewController: UIViewController, CLLocationManagerDelegate{
     
     @IBAction func onTapSignUp(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let newUser = PFUser()
+        let newUser = User()
         newUser.username = usernameField.text
         newUser.password = userPasswordField.text
         newUser.signUpInBackground{ (success:Bool, error:Error?) -> Void in

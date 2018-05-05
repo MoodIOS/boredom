@@ -304,6 +304,9 @@
                                 <rect key="frame" x="124" y="214" width="127" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit Profile Picture"/>
+                                <connections>
+                                    <action selector="editProfPic:" destination="4a9-uX-hgg" eventType="touchUpInside" id="7iC-Hs-4sh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gau-cj-5Y0">
                                 <rect key="frame" x="163" y="419" width="48" height="30"/>
