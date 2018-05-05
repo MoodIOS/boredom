@@ -66,8 +66,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
-//        getTopLists()
-//        getTopActivities()
+        getTopLists()
+        getTopActivities()
     }
     
     func getTopLists(){
@@ -133,11 +133,18 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
             let list = top10List[indexPath.item]
             cell.listName.text = list.listName
-            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)) )
-            let background = bgURL[randomindex]
-            let backgroundURL = URL(string: background)
-            bgUrlList.append(backgroundURL!)
-            cell.userListsImageView.af_setImage(withURL: backgroundURL!)
+            
+            while bgUrlList.count < 11 {
+                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+                let background = bgURL[randomindex]
+                let backgroundURL = URL(string: background)
+                bgUrlList.append(backgroundURL!)
+                print("bgUrlAct",bgUrlAct)
+            }
+            
+            print("bgURLlist",bgUrlList)
+            let backgroundURL = bgUrlList[indexPath.item]
+            cell.userListsImageView.af_setImage(withURL: backgroundURL)
         
         return cell
         }
@@ -146,32 +153,64 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
             let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             let act = top10Act[indexPath.item]
             activitiesCell.activityName.text = act.actName ?? "Label"
-            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)) )
-            if bgUrlAct.count < 11 {
+            while bgUrlAct.count < 11 {
+                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
                 let backgroundURL = URL(string: background)
                 bgUrlAct.append(backgroundURL!)
                 print("bgUrlAct",bgUrlAct)
-                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL!)
-            } else if bgUrlAct.count == 10 {
-                print("bgUrlAct",bgUrlAct)
-                let backgroundURL = bgUrlAct[indexPath.item]
-                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
             }
-//            if bgUrlAct[indexPath.item] != nil  {
-//                let background = bgURL[randomindex]
-//                let backgroundURL = URL(string: background)
-//                bgUrlAct.append(backgroundURL!)
-//                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL!)
-//            } else if bgUrlAct[indexPath.item] as? URL == nil {
-//                let backgroundURL = bgUrlAct[indexPath.item]
-//                bgUrlAct.append(backgroundURL)
-//                activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
-//            }
+            print("bgUrlAct",bgUrlAct)
+            let backgroundURL = bgUrlAct[indexPath.item]
+            activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
+
             return activitiesCell
         }
         
     }
+    
+    // ACTION OUTLETS
+//    func clickedOnTags(_ sender: UIButton){
+//        let button = sender
+//        print("button sender ", button.backgroundColor!)
+//        let blueColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+//        let grayColor = UIColor.lightGray
+//        print("blueColor", blueColor)
+//        print("grayColor", grayColor)
+//        handleTags(tagName: button.currentTitle!) { (tags: [String: Bool]?, error: Error?) in
+//            for (tag, value) in tags!{
+//                if (value == true) && (button.currentTitle == tag)  {
+//                    button.backgroundColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+//                } else if (value == false) && (button.currentTitle == tag) {
+//                    button.backgroundColor = UIColor.lightGray
+//                }
+//            }
+//        }
+//    }
+    
+//    func handleTags (tagName: String, completion: @escaping ([String:Bool]?, Error? ) -> Void){
+//        print("handleTag: ", tagName)
+//        if tags[tagName] == false || tags[tagName] == nil {
+//            tags[tagName] = true
+//        } else {
+//            tags[tagName] = false
+//        }
+//        print("tags: ", tags)
+//        return completion(tags, nil)
+//
+//    }
+//
+//    // After users clicked on tags -> display only activities with tags
+//    // Need a tag array to loop through
+//    func filterActsWithTags(_: tagArray, _ :activities){
+//        for tag in tagArray {
+//            for act in activities {
+//
+//            }
+//        }
+//
+//    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let activityCell = sender as! UICollectionViewCell
@@ -207,6 +246,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.logout()
     }
+    
     
 //    func randomizeBG (index: Int, nameArr: String){
 //        let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
