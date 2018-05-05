@@ -40,6 +40,20 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         //APIManager.shared.getLists()
         
         // Do any additional setup after loading the view.
+        if let imageFile = User.current()?.profileImage {
+            imageFile.getDataInBackground(block: { (data, error) in
+                if error == nil {
+                    DispatchQueue.main.async {
+                        // Async main thread
+                        let image = UIImage(data: data!)
+                        self.profileImage.image = image
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            })
+        }
+        self.username.text = User.current()?.username
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,7 +62,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func getLists() {
-        let curUser = PFUser.current()
+        let curUser = User.current()
         let userId = curUser?.objectId
         List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
             if lists?.count == 0 {
@@ -104,6 +118,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     
     @IBAction func changeProfilePic(_ sender: UIButton) {
+        
         
     }
     

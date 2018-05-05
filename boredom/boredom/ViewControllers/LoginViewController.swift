@@ -31,13 +31,13 @@ class LoginViewController: UIViewController {
             print("incorrect login credentials, try again")
         }
         else{//TODO might have to use prepareforsegue isntead(or something else), since right now, we are still proceeding to the user page even with incorrect login credentials, because of our segue.
-                PFUser.logInWithUsername(inBackground: usernameField.text!, password: userPasswordField.text!) { (user: PFUser?, error:Error?) -> Void in
+                User.logInWithUsername(inBackground: usernameField.text!, password: userPasswordField.text!) { (user: PFUser?, error:Error?) -> Void in
                 if user != nil {
                     appDelegate.login()
                     print("you are logged in!")
                 }
                 //self.performSegue(withIdentifier: "loginSegue", sender: nil)
-            }
+                    }
             
         }
        

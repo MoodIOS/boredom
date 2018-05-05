@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
+//import ParseUI
 
-class SettingViewController: UIViewController{
+class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 //, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        <#code#>
@@ -23,18 +24,32 @@ class SettingViewController: UIViewController{
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userPassword: UILabel!
     @IBOutlet weak var userImage: UIImageView!
+    var pickedImage: UIImage?
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        usernameLabel.text = PFUser.current()?.username
-        userPassword.text = PFUser.current()?.password
+        usernameLabel.text = User.current()?.username
+        userPassword.text = User.current()?.password
         userImage.isUserInteractionEnabled = true
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTap))
 //        userImage.addGestureRecognizer(tapGesture)
 
         // Do any additional setup after loading the view.
+        if let imageFile = User.current()?.profileImage {
+            imageFile.getDataInBackground(block: { (data, error) in
+                if error == nil {
+                    DispatchQueue.main.async {
+                        // Async main thread
+                        let image = UIImage(data: data!)
+                        self.userImage.image = image
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,14 +63,15 @@ class SettingViewController: UIViewController{
     }
     
     func getUserInfo(){
-        let user = PFUser.current()
+        let user = User.current()
         let username = user!["username"] as! String
         if  username != "username" {
             self.usernameLabel.text = user!["username"] as? String
         } else {
             self.usernameLabel.text = "Unknown Username"
         }
-        if let getParseImg = user!["profilePic"] as? PFFile {
+        print("in getuserinfo()")
+        if let getParseImg = user!["profileImage"] as? PFFile {
             getParseImg.getDataInBackground{(imageData, error) in
                 if (error == nil) {
                     if let imageData = imageData{
@@ -66,6 +82,47 @@ class SettingViewController: UIViewController{
                 }
             }
         }
+
+    }
+    
+    
+    @IBAction func editProfPic(_ sender: Any) {
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = .photoLibrary
+        //self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: true, completion:nil)
+            //let user = User.current
+            
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        // Get the image captured by the UIImagePickerController
+        //let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        self.pickedImage = editedImage
+        //temp.image = originalImage
+        
+        // Do something with the images (based on your use case)
+        
+        
+        // Dismiss UIImagePickerController to go back to your original view controller
+        dismiss(animated: true, completion: {
+            User.makeProfPic(image: self.pickedImage) { (success, error) in
+                if success {
+                    self.userImage.image = self.pickedImage
+                    print("image saved")
+                    
+                }
+                else if let error = error {
+                    print("Problem saving image \(error.localizedDescription)")
+                }
+        }
+    })
+        
     }
     
 //    @objc func didTap(){
