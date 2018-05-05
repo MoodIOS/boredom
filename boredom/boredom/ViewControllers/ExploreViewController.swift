@@ -12,8 +12,10 @@ import AlamofireImage
 import PromiseKit
 
 
-class ExploreViewController: UIViewController, UICollectionViewDataSource{
+class ExploreViewController: UIViewController, UICollectionViewDataSource, UITableViewDataSource, UICollectionViewDelegate, UITableViewDelegate{
 
+    
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
@@ -41,6 +43,9 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         userListsCollectionView.dataSource = self
         activitiesCollectionView.dataSource = self
         
+        self.userListsCollectionView.isScrollEnabled = true
+        
+        
         activitiesCollectionView.backgroundView?.tintColor = UIColor.white
         
         self.view.addSubview(userListsCollectionView)
@@ -62,6 +67,15 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
         layoutActivities.itemSize = CGSize(width: 120, height: 120)
         
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExploreTableViewCell") as! ExploreTableViewCell
+        return cell
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -119,12 +133,14 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if(collectionView == activitiesCollectionView){
+        return 10
+        
+        /*if(collectionView == activitiesCollectionView){
             return top10Act.count
         }
         else{
             return top10List.count
-        }
+        }*/
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

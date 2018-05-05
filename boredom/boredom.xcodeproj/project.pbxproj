@@ -10,6 +10,7 @@
 		1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317D9F6208AAD810026CD0D /* UserActivity.swift */; };
 		25E5CEBFFD7A40B894BF5CBE /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */; };
 		3494FA0A1FE948776617FFB6 /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */; };
+		440E738D209D5F6A00393728 /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */; };
 		44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EA72079E4F10037EB0D /* ExploreViewController.swift */; };
 		44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EAB2079F21A0037EB0D /* UserListsCell.swift */; };
 		44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EB1207A17370037EB0D /* ActivitiesCell.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		1317D9F6208AAD810026CD0D /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
 		2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
+		440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
 		44116EA72079E4F10037EB0D /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		44116EAB2079F21A0037EB0D /* UserListsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListsCell.swift; sourceTree = "<group>"; };
 		44116EB1207A17370037EB0D /* ActivitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCell.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				44116EB1207A17370037EB0D /* ActivitiesCell.swift */,
 				FF68C84B2080D02B0005967E /* ActivityCell.swift */,
 				44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */,
+				440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */,
 			);
 			name = ViewCells;
 			path = ..;
@@ -587,6 +590,7 @@
 				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
 				1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */,
+				440E738D209D5F6A00393728 /* ExploreTableViewCell.swift in Sources */,
 				8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
 				FFBA163E207C61B400242310 /* HomeViewController.swift in Sources */,
