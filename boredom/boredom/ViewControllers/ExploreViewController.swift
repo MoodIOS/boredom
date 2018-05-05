@@ -15,6 +15,7 @@ import PromiseKit
 class ExploreViewController: UIViewController, UICollectionViewDataSource, UITableViewDataSource, UICollectionViewDelegate, UITableViewDelegate{
 
     
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
@@ -40,32 +41,40 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
         getTopLists()
         getTopActivities()
         
-        userListsCollectionView.dataSource = self
-        activitiesCollectionView.dataSource = self
+        view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = 150
+        tableView.reloadData()
         
-        self.userListsCollectionView.isScrollEnabled = true
+        print("----------------------", top10List)
+        
+        //userListsCollectionView.dataSource = self
+        //activitiesCollectionView.dataSource = self
+        
+        //self.userListsCollectionView.isScrollEnabled = true
         
         
-        activitiesCollectionView.backgroundView?.tintColor = UIColor.white
+        //activitiesCollectionView.backgroundView?.tintColor = UIColor.white
         
-        self.view.addSubview(userListsCollectionView)
-        self.view.addSubview(activitiesCollectionView)
+        //self.view.addSubview(userListsCollectionView)
+        //self.view.addSubview(activitiesCollectionView)
         
-        let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+       /* let layout = tableViewCe.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 2
         layout.minimumLineSpacing = 0
         let cellsPerLine: CGFloat = 2
         let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layout.itemSize = CGSize(width: 120, height: 120)
+        layout.itemSize = CGSize(width: 120, height: 120)*/
         
-        let layoutActivities = activitiesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        /*let layoutActivities = activitiesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layoutActivities.minimumInteritemSpacing = 2
         layoutActivities.minimumLineSpacing = 0
         let cellsPerLineActivities: CGFloat = 2
         let interItemSpacingTotalActivities = layoutActivities.minimumInteritemSpacing * (cellsPerLineActivities - 1)
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layoutActivities.itemSize = CGSize(width: 120, height: 120)
+        layoutActivities.itemSize = CGSize(width: 120, height: 120)*/
         
     }
     
@@ -74,14 +83,26 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExploreTableViewCell") as! ExploreTableViewCell
-        return cell
+        let tableCell = tableView.dequeueReusableCell(withIdentifier: "ExploreTableViewCell") as! ExploreTableViewCell
+        /*if(indexPath.row == 0){
+            //getTopLists()
+            print("##########################")
+            tableCell.listArray = self.top10List
+        }
+        else if(indexPath.row == 1){
+            //getTopActivities()
+            tableCell.actArray = self.top10Act
+        }*/
+        
+        tableCell.actArray = self.top10Act
+        tableCell.listArray = self.top10List
+        return tableCell
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
-        getTopLists()
-        getTopActivities()
+        //getTopLists()
+        //getTopActivities()
     }
     
     func getTopLists(){
@@ -97,7 +118,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
                     print("top list", i)
                     print(list)
                     self.top10List.append(list)
-                    self.userListsCollectionView.reloadData()
+                    //self.userListsCollectionView.reloadData()
+                    self.tableView.reloadData()
                     i = i + 1
                 }
             }
@@ -117,7 +139,8 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
                         print("activityLikeCount", activities![i].activityLikeCount)
                         let act = activities![i]
                         self.top10Act.append(act)
-                        self.activitiesCollectionView.reloadData()
+                        //self.activitiesCollectionView.reloadData()
+                        self.tableView.reloadData()
                         i = i + 1
                     }
                 } else {
@@ -144,8 +167,41 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIndexPath:IndexPath = tableView.indexPathForSelectedRow!
+        let cellIndex:Int = cellIndexPath.row
+        let tableViewCell = tableView.cellForRow(at: cellIndexPath) as! ExploreTableViewCell
+        print("-------------", cellIndex, "-------------")
+        let collectionView = tableViewCell.insideTableCollectionView
         
-        if (collectionView == self.userListsCollectionView){
+        if(cellIndex == 0){
+           print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!inside if")
+            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
+            let list = //tableViewCell.listArray[indexPath.item]
+                top10List[indexPath.item]
+            //cell.listName.text = list.listName
+            
+            while bgUrlList.count < 11 {
+                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+                let background = bgURL[randomindex]
+                let backgroundURL = URL(string: background)
+                bgUrlList.append(backgroundURL!)
+            }
+            let backgroundURL = bgUrlList[indexPath.item]
+            //---------cell.collectionImageView.af_setImage(withURL: backgroundURL)
+            //tableView.reloadData()
+            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+            layout.minimumInteritemSpacing = 2
+            layout.minimumLineSpacing = 0
+            let cellsPerLine: CGFloat = 2
+            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
+            layout.itemSize = CGSize(width: 120, height: 120)
+            collectionView?.reloadData()
+            tableView.reloadData()
+            return cell
+        }
+        
+        /*if (collectionView == self.userListsCollectionView){
             let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
             let list = top10List[indexPath.item]
             cell.listName.text = list.listName
@@ -160,12 +216,14 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
             cell.userListsImageView.af_setImage(withURL: backgroundURL)
         
             return cell
-        }
+        }*/
         
         else{
-            let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
-            let act = top10Act[indexPath.item]
-            activitiesCell.activityName.text = act.actName ?? "Label"
+            print("!!!!!!!!!!!!!!!!!!!!!!!inside else")
+            let activitiesCell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
+            let act = tableViewCell.actArray[indexPath.item]
+                //top10Act[indexPath.item]
+            //activitiesCell.activityName.text = act.actName ?? "Label"
             while bgUrlAct.count < 11 {
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
@@ -173,7 +231,17 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
                 bgUrlAct.append(backgroundURL!)
             }
             let backgroundURL = bgUrlAct[indexPath.item]
-            activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
+            //--------activitiesCell.collectionImageView.af_setImage(withURL: backgroundURL)
+            //tableView.reloadData()
+            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+            layout.minimumInteritemSpacing = 2
+            layout.minimumLineSpacing = 0
+            let cellsPerLine: CGFloat = 2
+            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
+            layout.itemSize = CGSize(width: 120, height: 120)
+            collectionView?.reloadData()
+            tableView.reloadData()
 
             return activitiesCell
         }
@@ -227,6 +295,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
         let activityCell = sender as! UICollectionViewCell
         let listCell = sender as! UICollectionViewCell
         
+        
         if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
             let activity = top10Act[indexPath.item]
             print(activity)
@@ -250,6 +319,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
                 }
             }
         }
+        
     }
     
     

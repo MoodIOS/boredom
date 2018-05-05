@@ -9,12 +9,14 @@
 import UIKit
 
 class ExploreTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var tableCollectionView: UICollectionView!
     
+    @IBOutlet weak var insideTableCollectionView: UICollectionView!
+    var listArray:[List]!
+    var actArray:[Activity]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.insideTableCollectionView.backgroundColor = UIColor.clear;
         // Initialization code
     }
 
@@ -23,14 +25,17 @@ class ExploreTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
 }
 
 extension ExploreTableViewCell{
     func setCollectionViewDataSourceDelegate <D: UICollectionViewDelegate & UICollectionViewDataSource>(_ dataSourceDelegate:D, forRow row:Int){
-            tableCollectionView.delegate = dataSourceDelegate
-            tableCollectionView.dataSource = dataSourceDelegate
         
-            tableCollectionView.reloadData()
+        insideTableCollectionView.delegate = dataSourceDelegate
+        insideTableCollectionView.dataSource = dataSourceDelegate
+        
+            insideTableCollectionView.reloadData()
         
         }
     }
