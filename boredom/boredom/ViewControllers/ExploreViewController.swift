@@ -12,11 +12,12 @@ import AlamofireImage
 import PromiseKit
 
 
-class ExploreViewController: UIViewController, UICollectionViewDataSource, UITableViewDataSource, UICollectionViewDelegate, UITableViewDelegate{
+class ExploreViewController: UIViewController, UITableViewDataSource, UICollectionViewDelegate, UITableViewDelegate{
 
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
@@ -99,6 +100,100 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
         return tableCell
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+        
+        /*if(collectionView == activitiesCollectionView){
+         return top10Act.count
+         }
+         else{
+         return top10List.count
+         }*/
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIndexPath:IndexPath = tableView.indexPathForSelectedRow!
+        let cellIndex:Int = cellIndexPath.row
+        let tableViewCell = tableView.cellForRow(at: cellIndexPath) as! ExploreTableViewCell
+        print("-------------", cellIndex, "-------------")
+        let collectionView = tableViewCell.insideTableCollectionView
+        
+        if(cellIndex == 0){
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!inside if")
+            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
+            let list = //tableViewCell.listArray[indexPath.item]
+                top10List[indexPath.item]
+            //cell.listName.text = list.listName
+            
+            while bgUrlList.count < 11 {
+                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+                let background = bgURL[randomindex]
+                let backgroundURL = URL(string: background)
+                bgUrlList.append(backgroundURL!)
+            }
+            let backgroundURL = bgUrlList[indexPath.item]
+            //---------cell.collectionImageView.af_setImage(withURL: backgroundURL)
+            //tableView.reloadData()
+            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+            layout.minimumInteritemSpacing = 2
+            layout.minimumLineSpacing = 0
+            let cellsPerLine: CGFloat = 2
+            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
+            layout.itemSize = CGSize(width: 120, height: 120)
+            collectionView?.reloadData()
+            tableView.reloadData()
+            return cell
+        }
+            
+            /*if (collectionView == self.userListsCollectionView){
+             let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
+             let list = top10List[indexPath.item]
+             cell.listName.text = list.listName
+             
+             while bgUrlList.count < 11 {
+             let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+             let background = bgURL[randomindex]
+             let backgroundURL = URL(string: background)
+             bgUrlList.append(backgroundURL!)
+             }
+             let backgroundURL = bgUrlList[indexPath.item]
+             cell.userListsImageView.af_setImage(withURL: backgroundURL)
+             
+             return cell
+             }*/
+            
+        else{
+            print("!!!!!!!!!!!!!!!!!!!!!!!inside else")
+            let activitiesCell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
+            let act = tableViewCell.actArray[indexPath.item]
+            //top10Act[indexPath.item]
+            //activitiesCell.activityName.text = act.actName ?? "Label"
+            while bgUrlAct.count < 11 {
+                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+                let background = bgURL[randomindex]
+                let backgroundURL = URL(string: background)
+                bgUrlAct.append(backgroundURL!)
+            }
+            let backgroundURL = bgUrlAct[indexPath.item]
+            //--------activitiesCell.collectionImageView.af_setImage(withURL: backgroundURL)
+            //tableView.reloadData()
+            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+            layout.minimumInteritemSpacing = 2
+            layout.minimumLineSpacing = 0
+            let cellsPerLine: CGFloat = 2
+            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
+            layout.itemSize = CGSize(width: 120, height: 120)
+            collectionView?.reloadData()
+            tableView.reloadData()
+            
+            return activitiesCell
+        }
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
         //getTopLists()
@@ -155,98 +250,7 @@ class ExploreViewController: UIViewController, UICollectionViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-        
-        /*if(collectionView == activitiesCollectionView){
-            return top10Act.count
-        }
-        else{
-            return top10List.count
-        }*/
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellIndexPath:IndexPath = tableView.indexPathForSelectedRow!
-        let cellIndex:Int = cellIndexPath.row
-        let tableViewCell = tableView.cellForRow(at: cellIndexPath) as! ExploreTableViewCell
-        print("-------------", cellIndex, "-------------")
-        let collectionView = tableViewCell.insideTableCollectionView
-        
-        if(cellIndex == 0){
-           print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!inside if")
-            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
-            let list = //tableViewCell.listArray[indexPath.item]
-                top10List[indexPath.item]
-            //cell.listName.text = list.listName
-            
-            while bgUrlList.count < 11 {
-                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-                let background = bgURL[randomindex]
-                let backgroundURL = URL(string: background)
-                bgUrlList.append(backgroundURL!)
-            }
-            let backgroundURL = bgUrlList[indexPath.item]
-            //---------cell.collectionImageView.af_setImage(withURL: backgroundURL)
-            //tableView.reloadData()
-            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.minimumInteritemSpacing = 2
-            layout.minimumLineSpacing = 0
-            let cellsPerLine: CGFloat = 2
-            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
-            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-            layout.itemSize = CGSize(width: 120, height: 120)
-            collectionView?.reloadData()
-            tableView.reloadData()
-            return cell
-        }
-        
-        /*if (collectionView == self.userListsCollectionView){
-            let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
-            let list = top10List[indexPath.item]
-            cell.listName.text = list.listName
-            
-            while bgUrlList.count < 11 {
-                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-                let background = bgURL[randomindex]
-                let backgroundURL = URL(string: background)
-                bgUrlList.append(backgroundURL!)
-            }
-            let backgroundURL = bgUrlList[indexPath.item]
-            cell.userListsImageView.af_setImage(withURL: backgroundURL)
-        
-            return cell
-        }*/
-        
-        else{
-            print("!!!!!!!!!!!!!!!!!!!!!!!inside else")
-            let activitiesCell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
-            let act = tableViewCell.actArray[indexPath.item]
-                //top10Act[indexPath.item]
-            //activitiesCell.activityName.text = act.actName ?? "Label"
-            while bgUrlAct.count < 11 {
-                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-                let background = bgURL[randomindex]
-                let backgroundURL = URL(string: background)
-                bgUrlAct.append(backgroundURL!)
-            }
-            let backgroundURL = bgUrlAct[indexPath.item]
-            //--------activitiesCell.collectionImageView.af_setImage(withURL: backgroundURL)
-            //tableView.reloadData()
-            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.minimumInteritemSpacing = 2
-            layout.minimumLineSpacing = 0
-            let cellsPerLine: CGFloat = 2
-            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
-            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-            layout.itemSize = CGSize(width: 120, height: 120)
-            collectionView?.reloadData()
-            tableView.reloadData()
-
-            return activitiesCell
-        }
-        
-    }
     
     // ACTION OUTLETS
 //    func clickedOnTags(_ sender: UIButton){
