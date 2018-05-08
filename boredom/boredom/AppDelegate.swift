@@ -25,10 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
-        /*if PFUser.current() != nil {
+        // persisting user
+        if PFUser.current() != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "userMainPage")
-        }*/
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "tabViewController")
+        }
         
         return true
     }
