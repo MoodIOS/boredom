@@ -125,6 +125,27 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
+    
+    @IBAction func changePassword(_ sender: Any) {
+        let user = User.current()
+        user!.password = "q"
+        user!.saveInBackground() { (success,error) in
+            if success {
+                /*User.logInWithUsername(inBackground: user!.username!, password: user!.password!) { (user, error) in
+                    // Your code here...
+                }*/
+                //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                User.logInWithUsername(inBackground: user!.username!, password: user!.password!) { (user: PFUser?, error:Error?) -> Void in
+                    if user != nil {
+                        //appDelegate.login()
+                        print("you are logged in!")
+                    }
+                    //self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                }
+            }
+        }
+    }
+    
 //    @objc func didTap(){
 //        print("User did tap")
 //        let  vc = UIImagePickerController()

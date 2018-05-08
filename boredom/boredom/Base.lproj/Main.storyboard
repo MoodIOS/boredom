@@ -356,6 +356,9 @@
                                 <rect key="frame" x="126" y="364" width="123" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change Password"/>
+                                <connections>
+                                    <action selector="changePassword:" destination="4a9-uX-hgg" eventType="touchUpInside" id="HZ4-g1-Ndo"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQf-CO-mD9">
                                 <rect key="frame" x="124" y="214" width="127" height="30"/>
