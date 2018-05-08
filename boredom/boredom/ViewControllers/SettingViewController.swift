@@ -22,16 +22,17 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     
 
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var userPassword: UILabel!
+
     @IBOutlet weak var userImage: UIImageView!
     var pickedImage: UIImage?
     
+    @IBOutlet weak var password1: UITextField!
+    @IBOutlet weak var password2: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameLabel.text = User.current()?.username
-        userPassword.text = User.current()?.password
         userImage.isUserInteractionEnabled = true
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTap))
 //        userImage.addGestureRecognizer(tapGesture)
@@ -128,21 +129,26 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func changePassword(_ sender: Any) {
         let user = User.current()
-        user!.password = "q"
-        user!.saveInBackground() { (success,error) in
-            if success {
-                /*User.logInWithUsername(inBackground: user!.username!, password: user!.password!) { (user, error) in
-                    // Your code here...
-                }*/
-                //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                User.logInWithUsername(inBackground: user!.username!, password: user!.password!) { (user: PFUser?, error:Error?) -> Void in
-                    if user != nil {
-                        //appDelegate.login()
-                        print("you are logged in!")
+        if password1.text == password2.text {
+            user!.password = password1.text
+            user!.saveInBackground() { (success,error) in
+                if success {
+                    /*User.logInWithUsername(inBackground: user!.username!, password: user!.password!) { (user, error) in
+                        // Your code here...
+                    }*/
+                    //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    User.logInWithUsername(inBackground: user!.username!, password: user!.password!) { (user: PFUser?, error:Error?) -> Void in
+                        if user != nil {
+                            //appDelegate.login()
+                            print("Password changed!")
+                        }
+                        //self.performSegue(withIdentifier: "loginSegue", sender: nil)
                     }
-                    //self.performSegue(withIdentifier: "loginSegue", sender: nil)
                 }
             }
+        }
+        else {
+            print("Passwords not the same!")
         }
     }
     
