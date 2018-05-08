@@ -215,7 +215,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
         // likeCount should be reset to 0 since copying list
         let actsInList = list.activities
         print("actInList", actsInList!)
-        if actsInList != [] {
+        if actsInList! != [] {
             List.addNewList(name: list.listName, category: list.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
                 if (addedList != nil) {
                     print("List created!")

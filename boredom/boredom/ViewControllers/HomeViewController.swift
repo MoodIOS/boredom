@@ -18,16 +18,24 @@ class HomeViewController: UIViewController {
     var userList = [List]()
     var currentUser = PFUser.current()
     var currentRandomAct = Activity()
+    var isSaved = 1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUserActs()
-        randomActivity()
+//        getUserActs()
+//        randomActivity()
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        isSaved = UserDefaults.standard.integer(forKey: "savedBoolean")
+        if(isSaved == 2){
+            self.userActivities.removeAll()
+            print("whatttttttttt", isSaved)
+            getUserActs()
+            randomActivity()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +73,7 @@ class HomeViewController: UIViewController {
                                 Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
                                     let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
                                     if (acts![0].cost == firstOption){
+                                        //need to add distance, tags, etc. to filter out activities.
                                         self.userActivities.append(act)
                                     }
                                     

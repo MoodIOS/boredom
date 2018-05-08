@@ -26,6 +26,8 @@ class OptionsViewController: UIViewController {
         let saved = UserDefaults.standard
         let which = saved.integer(forKey: "whichOne")
         let whichTwo = saved.integer(forKey: "whichTwo")
+        let savedBoolean = saved.integer(forKey: "savedBoolean")
+        
 
         costControl.selectedSegmentIndex = which
         distanceControl.selectedSegmentIndex = whichTwo
@@ -77,10 +79,17 @@ class OptionsViewController: UIViewController {
             savedBool.set(3, forKey: "whichTwo")
             print("yah2")
         }
+        
+//        let navView = navigationController as? UINavigationController
+//        let homeView = navView?.topViewController as? HomeViewController
+        savedBool.set(2, forKey: "savedBoolean")
+        
+        
         self.dismiss(animated: true, completion: nil)
         
-        
     }
+    
+    
     
     
    
