@@ -11,27 +11,14 @@ import Parse
 
 @objc class UserActivity: PFObject, PFSubclassing {
     @NSManaged var activity: Activity!
-    //@NSManaged var actName: String!
-    //@NSManaged var actDescription: String!
-    //@NSManaged var actImageUrl: String!
     @NSManaged var list: List!
-    @NSManaged var done: BooleanLiteralType
-    //@NSManaged var location: String!
-    //@NSManaged var cost: String // Free, $, $$, $$$
-    //@NSManaged var likeCount: Int
+    @NSManaged var done: Bool
+
     
     class func parseClassName() -> String {
         return "UserActivity"
     }
-    
-//    static func userActivities(with array: ([[String:Any]]) -> [Activity]){
-//        var userActivities: [UserActivity] = []
-//        for actDictionary in array {
-//            let act = UserActivity(dictionary: actDictionary )
-//            userActivities.append(act)
-//        }
-//    }
-    
+
     class func addNewActivity(activity: Activity, list: List?, completion: @escaping (UserActivity?, Error?) -> Void) {
         let userActivity = UserActivity()
         userActivity.activity = activity
@@ -41,6 +28,7 @@ import Parse
             completion(userActivity, nil)
         }
     }
+        
     
     class func fetchActivity (completion: @escaping ([UserActivity]?, Error?) -> Void) {
         print("inside getActitivy")
@@ -69,6 +57,22 @@ import Parse
             completion( activities as? [UserActivity], nil)
         }
     }
+    
+    class func updateUserAct (updatedAct: UserActivity ,completion: @escaping ([UserActivity]?, Error? ) -> Void){
+        let userAct = updatedAct
+        userAct.saveInBackground { (success, error) in
+            if success {
+                let query = PFQuery(className: "UserActivity")
+                query.whereKey("objectId", equalTo: userAct.objectId!)
+                return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+                    completion( activities as? [UserActivity], nil)
+                }
+            } else if let error = error {
+                print( "error update user activity" ,error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 
