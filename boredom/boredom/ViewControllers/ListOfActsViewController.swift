@@ -11,6 +11,8 @@ import Parse
 class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    
     var userActivities = [UserActivity]()
     var list = List()
     var actnamesInList = [String]()

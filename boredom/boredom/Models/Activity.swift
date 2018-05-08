@@ -21,6 +21,7 @@ import Parse
     @NSManaged var usersLikedActivity: [String]!
     @NSManaged var activityLikedByUsers: [String]!
     @NSManaged var tags: [String: Bool]!
+    @NSManaged var actImgs: [PFFile]!
     
     class func parseClassName() -> String {
         return "Activity"
