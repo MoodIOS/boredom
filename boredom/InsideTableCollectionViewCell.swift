@@ -11,4 +11,9 @@ import UIKit
 class InsideTableCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var collectionImageView: UIImageView!
     
+    @IBOutlet weak var listOrActNameLabel: UILabel!
+    
+    
+    
+    
 }

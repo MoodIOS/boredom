@@ -11,12 +11,20 @@ import UIKit
 class ExploreTableViewCell: UITableViewCell {
     
     @IBOutlet weak var insideTableCollectionView: UICollectionView!
+    var collectionViewVariable: CollectionViewClass!
     var listArray:[List]!
     var actArray:[Activity]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.insideTableCollectionView.backgroundColor = UIColor.clear;
+        self.insideTableCollectionView = self.collectionViewVariable
+        //self.collectionViewVariable = self.insideTableCollectionView as! CollectionViewClass?
+//        self.collectionViewVariable.listArray = self.listArray
+//        self.collectionViewVariable.actArray = self.actArray
+        
+        
+        
         // Initialization code
     }
 
@@ -29,7 +37,7 @@ class ExploreTableViewCell: UITableViewCell {
     
 }
 
-extension ExploreTableViewCell{
+/*extension ExploreTableViewCell{
     func setCollectionViewDataSourceDelegate <D: UICollectionViewDelegate & UICollectionViewDataSource>(_ dataSourceDelegate:D, forRow row:Int){
         
         insideTableCollectionView.delegate = dataSourceDelegate
@@ -39,5 +47,5 @@ extension ExploreTableViewCell{
         
         }
     }
-
+*/
 

@@ -49,7 +49,7 @@ import Parse
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")
         query.includeKey("_created_at")
-        query.addDescendingOrder("_created_at")
+        //query.addDescendingOrder("_created_at")
         query.addDescendingOrder("activityLikeCount")
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
            completion(activities as? [Activity], nil)
