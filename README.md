@@ -27,11 +27,13 @@ Individual:(user)
 
 
 ## Optional user stories
-- [] User can like an Activity from his/her own List - working on it
-- [] User can edit activity description
+- [x] User can change their password - Michelle
+- [x] persistent login(so users don't have to login over and over again) - Michelle
+- [-] User can like an Activity from his/her own List - working on it
+- [-] User can edit activity description --working on it -Melissa
 - [] User can use map to see their activities
 - [] User can use camera to take picture of activities
-- [] User can choose between different random search modes:
+- [-] User can choose between different random search modes: --working on it -Justin(options page)
 - [] Users can see if their friends also plan on going to the same activity, so they can go together
 
 ## Database/ API
@@ -44,12 +46,15 @@ Individual:(user)
 Here's a walkthrough of implemented user stories:
 
 
+<img src='https://imgur.com/A6AihUh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<img src='https://i.imgur.com/CxcLl2k.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 
 
 ## older gifs:
+
+<img src='https://i.imgur.com/CxcLl2k.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='https://imgur.com/IpnmRZz.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
