@@ -21,7 +21,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var allActs = [Activity]()
 //    var doneAct = UserActivity()
     private var completionPopup: UIView!
-    
+    var deleteIndexPath: NSIndexPath? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +107,60 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         return userActivities.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deleteIndexPath = indexPath as NSIndexPath
+            let thisAct = userActivities[indexPath.row]
+            let name = actsInList[indexPath.row].actName
+            //delete act
+            print("deleting act")
+            confirmDelete(act: thisAct,name: name! )
+        }
+    }
 
+    func confirmDelete(act: UserActivity , name: String) {
+        let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to permanently delete \(name)?", preferredStyle: .actionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeleteAct)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelDeleteAct)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        // Support display in iPad
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.width / 2.0, width: 1.0, height: 1.0)
+//            CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func handleDeleteAct(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deleteIndexPath{
+            tableView.beginUpdates()
+            let thisAct = userActivities[indexPath.row]
+            self.userActivities.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            deleteIndexPath = nil
+            tableView.endUpdates()
+            
+            UserActivity.deleteAct(deleting: thisAct) { (acts, error) in
+                if (acts == nil){
+                    print("deleting successfully")
+                    
+                } else {
+                    print("error?", error?.localizedDescription)
+                }
+            }
+            
+        }
+    }
+    
+    func cancelDeleteAct(alertAction: UIAlertAction!) {
+        deleteIndexPath = nil
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navVC = segue.destination as! UINavigationController
         let addNewActVC = navVC.topViewController as! AddNewActivityVCViewController

@@ -21,10 +21,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
-    var movies: [[String:Any]] = []
+//    var movies: [[String:Any]] = []
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
-    var activitiesYelp: [Business]!
+    
+//    var activitiesYelp: [Business]!
     var top10List: [List]! = []
     var top10Act: [Activity]! = []
     var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
@@ -32,21 +33,23 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var index2 = [Int]()
     var bgUrlAct = [URL]()
     var bgUrlList = [URL]()
+    
     var tableIndex1:Bool!
     var tableIndex2:Bool!
     var selectedIndexInTable:IndexPath!
     var tableCell: ExploreTableViewCell!
     var colView1 : UICollectionView!
+    
     var popup: PopupDialog!
+    var actInfo: Activity!
+    var likeActs: [Activity]!
     
     @IBOutlet weak var searchScrolView: UIScrollView!
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         
@@ -93,7 +96,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func popupSetup(){
 //  https://github.com/Orderella/PopupDialog
-
+        
         let title = "Name of Act/List"
         let message = """
                      Description:
@@ -113,7 +116,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         let likeBtn = DefaultButton(title: "") {
             //like this activity
             print("like this item")
+            
         }
+
+        //check if User has already like this activity
         likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
         
         let addBtn = DefaultButton(title: "") {

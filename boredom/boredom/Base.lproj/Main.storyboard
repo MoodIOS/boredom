@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -554,11 +555,14 @@
                         <viewLayoutGuide key="safeArea" id="BlE-cS-QNy"/>
                     </view>
                     <navigationItem key="navigationItem" title="YOUR LIST" id="OuX-ze-kpX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Rg0-sY-el5">
-                            <connections>
-                                <segue destination="P2w-61-nVM" kind="presentation" id="aEa-4i-bsz"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="edit" id="bjS-q3-rpp"/>
+                            <barButtonItem systemItem="add" id="Rg0-sY-el5">
+                                <connections>
+                                    <segue destination="P2w-61-nVM" kind="presentation" id="aEa-4i-bsz"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="colView" destination="XqE-ST-ve5" id="vO5-QF-pbu"/>
