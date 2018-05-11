@@ -13,6 +13,13 @@ class UserListsCell: UICollectionViewCell {
 //    @IBOutlet weak var listName: UILabel!
     @IBOutlet weak var listName: UILabel!
     
-    @IBOutlet weak var userListsImageView2: UIImageView!
+//    @IBOutlet weak var userListsImageView2: UIImageView!
+//
+    @IBOutlet weak var infoBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var addBtn: UIButton!
+    
+    
+    
     
 }

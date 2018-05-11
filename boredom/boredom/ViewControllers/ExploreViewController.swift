@@ -40,6 +40,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var tableCell: ExploreTableViewCell!
     var colView1 : UICollectionView!
     
+    var infoForIndex: NSIndexPath! = nil
     var popup: PopupDialog!
     var actInfo: Activity!
     var likeActs: [Activity]!
@@ -134,9 +135,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
+    
    /* func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -288,24 +287,24 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             return cell*/
        // }
             
-            if (collectionView == self.userListsCollectionView){
+        if (collectionView == self.userListsCollectionView){
              let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
              let list = top10List[indexPath.item]
              cell.listName.text = list.listName
-             
+            
              while bgUrlList.count < 11 {
-             let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-             let background = bgURL[randomindex]
-             let backgroundURL = URL(string: background)
-             bgUrlList.append(backgroundURL!)
+                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
+                 let background = bgURL[randomindex]
+                 let backgroundURL = URL(string: background)
+                 bgUrlList.append(backgroundURL!)
              }
              let backgroundURL = bgUrlList[indexPath.item]
              cell.userListsImageView.af_setImage(withURL: backgroundURL)
-             
-             return cell
-             }
+            cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
+            return cell
+        }
             
-        else{
+        else {
           
                 let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             //let act = top10Act[indexPath.item]
@@ -324,65 +323,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidLoad()
-        getTopLists()
-        getTopActivities()
-    }
-    
-    func getTopLists(){
-        List.fetchLists { (lists: [List]?, error: Error?) in
-            if error == nil && lists != nil {
-                self.exploreLists = lists
-                let lists = lists
-                self.top10List = [List]()
-                var i = 0
-                while i < 10 {
-                    let list = lists![i]
-                    print("listLikecount", lists![i].likeCount)
-                    print("top list", i)
-                    print(list)
-                    self.top10List.append(list)
-                    print("~~~~~~~~~~~~~~~~~~~", self.top10List)
-                    self.userListsCollectionView.reloadData()
-                    //self.tableView.reloadData()
-                    i = i + 1
-                }
-            }
-        }
-    }
-    
-    func getTopActivities() {
-        Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
-            if error == nil {
-                self.exploreActivities = activities
-                if self.exploreActivities != nil {
-                    self.exploreActivities = activities
-                    let activities = activities
-                    self.top10Act = [Activity]()
-                    var i = 0
-                    while i < 10{
-                        print("activityLikeCount", activities![i].activityLikeCount)
-                        let act = activities![i]
-                        self.top10Act.append(act)
-                        print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                        self.activitiesCollectionView.reloadData()
-                        //self.tableView.reloadData()
-                        i = i + 1
-                    }
-                } else {
-                    print("No Top Activity Available")
-                }
-            }
-            else{
-                print(error?.localizedDescription)
-            }
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @objc func infoBtnClicked(){
+        
     }
     
     
@@ -492,24 +434,72 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidLoad()
+        getTopLists()
+        getTopActivities()
+    }
     
+    func getTopLists(){
+        List.fetchLists { (lists: [List]?, error: Error?) in
+            if error == nil && lists != nil {
+                self.exploreLists = lists
+                let lists = lists
+                self.top10List = [List]()
+                var i = 0
+                while i < 10 {
+                    let list = lists![i]
+                    print("listLikecount", lists![i].likeCount)
+                    print("top list", i)
+                    print(list)
+                    self.top10List.append(list)
+                    print("~~~~~~~~~~~~~~~~~~~", self.top10List)
+                    self.userListsCollectionView.reloadData()
+                    //self.tableView.reloadData()
+                    i = i + 1
+                }
+            }
+        }
+    }
+    
+    func getTopActivities() {
+        Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
+            if error == nil {
+                self.exploreActivities = activities
+                if self.exploreActivities != nil {
+                    self.exploreActivities = activities
+                    let activities = activities
+                    self.top10Act = [Activity]()
+                    var i = 0
+                    while i < 10{
+                        print("activityLikeCount", activities![i].activityLikeCount)
+                        let act = activities![i]
+                        self.top10Act.append(act)
+                        print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                        self.activitiesCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        i = i + 1
+                    }
+                } else {
+                    print("No Top Activity Available")
+                }
+            }
+            else{
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     @IBAction func didTapLogout(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.logout()
     }
-    
-    
-//    func randomizeBG (index: Int, nameArr: String){
-//        let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-//        let randomLink = bgURL[randomindex]
-//        if nameArr == "bgUrl1"{
-//            self.bgUrl1.append(randomLink)
-//        } else if nameArr == "bgUrL2" {
-//            self.bgUrl2.append(randomLink)
-//        }
-//
-//    }
+
     
     // MARK: - Navigation
 

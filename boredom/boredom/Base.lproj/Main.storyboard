@@ -275,6 +275,9 @@
                                             </subviews>
                                         </view>
                                         <connections>
+                                            <outlet property="addBtn" destination="iIK-gQ-V2B" id="FAF-sN-UAD"/>
+                                            <outlet property="infoBtn" destination="yw2-dm-bG2" id="dKa-wj-uQ2"/>
+                                            <outlet property="likeBtn" destination="VDg-ex-cRg" id="Ro6-xi-Lcy"/>
                                             <outlet property="listName" destination="fRi-UM-RhY" id="mhH-zd-hVC"/>
                                             <outlet property="userListsImageView" destination="q1w-Qe-lGv" id="hpw-UT-1Vn"/>
                                             <segue destination="RWm-ou-5eq" kind="show" identifier="listDetailSegue" id="mDm-Uz-j2p"/>

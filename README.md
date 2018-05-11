@@ -14,7 +14,7 @@ Individual:(user)
 - [x] User can search for description from our app (which will integrate the Yelp database)-edit:making our own database, not using Yelp
 - [x] User can edit information such as location, duration, cost, group size(big vs small group vs individual) (partially working) -Justin
 - [x] User can like a List from different users(so lists are public, kinda like how spotify playlists are)
-    -- [x]programmatically have a likecount for each list, and sort top 10 lists with highest like counts. -JJ (still working on display)
+- [x]programmatically have a likecount for each list, and sort top 10 lists with highest like counts. -JJ (still working on display)
 - [x] User can push a button to generate an (Random) activity from their List(s) - Melissa
 - [x]User will have a profile with their list of activities(the activities they have done) and maybe even some friends list - Melissa and Michelle
 - [x] Individual Explore: from top 10 lists with highest like counts - JJ
@@ -29,6 +29,8 @@ Individual:(user)
 ## Optional user stories
 - [x] User can change their password - Michelle
 - [x] persistent login(so users don't have to login over and over again) - Michelle
+- [x] User can delete activity from list - Melissa
+- [] User can see activity information, like or add that activity through popup - Melissa [working on it]
 - [-] User can like an Activity from his/her own List - working on it
 - [-] User can edit activity description --working on it -Melissa
 - [] User can use map to see their activities
