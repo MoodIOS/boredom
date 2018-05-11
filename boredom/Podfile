@@ -11,7 +11,8 @@ target 'boredom' do
   pod 'OAuthSwiftAlamofire'
   pod 'KeychainAccess'
   pod 'SearchTextField'
-  
+  pod 'PopupDialog', '~> 0.7'
+
   # Promise function
   pod 'PromiseKit'
 

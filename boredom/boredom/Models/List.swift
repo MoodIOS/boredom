@@ -71,5 +71,9 @@ import Parse
         list.activities?.append(userAct)
         list.saveInBackground{ (success,error) in completion(list, nil) }
     }
+    
+    class func deleteList(){
+        
+    }
 }
 

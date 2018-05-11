@@ -27,6 +27,7 @@ PODS:
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
   - Bolts/Tasks (1.9.0)
+  - DynamicBlurView (2.0.2)
   - KeychainAccess (3.1.0)
   - OAuthSwift (1.2.0)
   - OAuthSwiftAlamofire (0.1.0):
@@ -36,6 +37,8 @@ PODS:
     - Parse/Core (= 1.16.0)
   - Parse/Core (1.16.0):
     - Bolts/Tasks (~> 1.9)
+  - PopupDialog (0.7.0):
+    - DynamicBlurView (~> 2.0)
   - PromiseKit (4.5.1):
     - PromiseKit/Foundation (= 4.5.1)
     - PromiseKit/QuartzCore (= 4.5.1)
@@ -58,6 +61,7 @@ DEPENDENCIES:
   - OAuthSwift
   - OAuthSwiftAlamofire
   - Parse
+  - PopupDialog (~> 0.7)
   - PromiseKit
   - SearchTextField
 
@@ -67,13 +71,15 @@ SPEC CHECKSUMS:
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
   KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
   OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
   OAuthSwiftAlamofire: 20bb998ac506f82c3bab0625fbc98a9c6fca783f
   Parse: 5b36dc2c2f0a2fd82a257ae018bc3d68cf2c24e7
+  PopupDialog: 4abc6db5b22b7c8029e2162bde8891ee6aa4b6c8
   PromiseKit: 445dac9b2c3c3b4b31b5f842bc325700b848a8bd
   SearchTextField: a5bb7e4c33affadb115afdbe8100d84ef10a8024
 
-PODFILE CHECKSUM: 65a94cb21f59b3637c285008ac115c4450c9fd6b
+PODFILE CHECKSUM: fc5f96b8cbe38613d74da129be29af2d2e5622b0
 
 COCOAPODS: 1.4.0

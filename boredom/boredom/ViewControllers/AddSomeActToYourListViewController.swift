@@ -13,6 +13,7 @@ class AddSomeActToYourListViewController: UIViewController , UIPickerViewDelegat
 
     @IBOutlet weak var listPicker: UIPickerView!
     var userLists = [List]()
+    // getting List and UserActivity from parent VC
     var selectedList = List()
     var selectedAct = UserActivity()
     

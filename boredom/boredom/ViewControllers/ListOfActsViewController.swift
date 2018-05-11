@@ -19,14 +19,28 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var allActNames = [String]()
     var actsInList =  [Activity]()
     var allActs = [Activity]()
+//    var doneAct = UserActivity()
+    private var completionPopup: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView.dataSource = self
         tableView.delegate = self
         getActivities()
         print("actnamesInList", actnamesInList)
         // Do any additional setup after loading the view.
+        
+//        completionPopup.isHidden = true
+    }
+    
+    //OPTIONAL: If user clicks on completion btn ->  popup asking for picture?
+    func loadCompletionPopup() {
+        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
+        completionPopup = UIView(frame: customViewFrame)
+        view.addSubview(completionPopup)
+        completionPopup.isHidden = false
     }
     
     func getActivities() {
@@ -69,6 +83,12 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let userActivities = self.userActivities
         let curAct = userActivities[indexPath.row]
         let currentActID = curAct.activity.objectId
+        cell.thisAct = curAct
+        if curAct.done == false {
+            cell.completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+        } else {
+            cell.completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+        }
         
         Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
@@ -98,6 +118,8 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         addNewActVC.actsInList = actsInList
     }
 
+
+    
     override func viewDidAppear(_ animated: Bool) {
         getActivities()
     }

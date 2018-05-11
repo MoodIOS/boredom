@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import AlamofireImage
 import PromiseKit
-
+import PopupDialog
 
 class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -37,7 +37,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var selectedIndexInTable:IndexPath!
     var tableCell: ExploreTableViewCell!
     var colView1 : UICollectionView!
-    
+    var popup: PopupDialog!
     
     @IBOutlet weak var searchScrolView: UIScrollView!
     
@@ -86,9 +86,51 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         getTopLists()
         getTopActivities()
+        popupSetup()
+        self.present(popup, animated: true, completion: nil)
+    }
+    
+    
+    func popupSetup(){
+//  https://github.com/Orderella/PopupDialog
+
+        let title = "Name of Act/List"
+        let message = """
+                     Description:
+                     Category:
+                     """
+        let image = UIImage(named: "pexels-photo-103290")
+        
+        // Create the dialog
+        self.popup = PopupDialog(title: title, message: message , image: image)
+
+        // Create buttons
+        let okBtn = CancelButton(title: "OK") {
+            print("You canceled the car dialog.")
+        }
+        
+        
+        let likeBtn = DefaultButton(title: "") {
+            //like this activity
+            print("like this item")
+        }
+        likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
+        
+        let addBtn = DefaultButton(title: "") {
+            print("add this item")
+        }
+        addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+
+        popup.addButtons([likeBtn, okBtn, addBtn])
+        popup.buttonAlignment = .horizontal
+
         
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
    /* func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
