@@ -240,7 +240,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
         getActivitiesInList()
         
         
-        print("-----------" ,self.activities[0].activity.actName)
+        //print("-----------" ,self.activities[0].activity.actName)
         
         
         
