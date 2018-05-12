@@ -254,6 +254,9 @@
                                         <connections>
                                             <outlet property="activitiesImageView" destination="VaO-SA-LqU" id="dyq-eq-5Th"/>
                                             <outlet property="activityName" destination="lUg-Nn-BAk" id="zMe-Bt-ZLb"/>
+                                            <outlet property="addBtn" destination="EgA-4e-aBP" id="Rpz-Hs-Q00"/>
+                                            <outlet property="infoBtn" destination="vOZ-vu-dee" id="9A1-Cz-V4l"/>
+                                            <outlet property="likeBtn" destination="IUl-uH-1yL" id="Oc6-9Z-ejg"/>
                                             <segue destination="qjh-D9-UMc" kind="show" identifier="activityDetailSegue" id="6It-hc-WgF"/>
                                         </connections>
                                     </collectionViewCell>
