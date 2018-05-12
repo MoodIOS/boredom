@@ -26,6 +26,8 @@ class UserListsCell: UICollectionViewCell {
     var delegate: InfoButtonDelegate!
     var indexPath: IndexPath!
     
+    @IBAction func infoBtnClicked(_ sender: UIButton) {
+    }
     
     
     
