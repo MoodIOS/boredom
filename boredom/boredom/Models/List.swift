@@ -54,6 +54,21 @@ import Parse
         }
     }
     
+    //fetching all lists possible
+    class func fetchRecentLists(completion: @escaping ([List]?, Error?) -> Void){
+        let query = PFQuery(className: "List")
+        query.includeKey("likeCount")
+        query.includeKey("_p_author")
+        query.includeKey("_p_activity")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("likeCount")
+        
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion( lists as? [List], nil)
+            
+        }
+    }
+    
     //fetching lists for each specific user
     class func fetchLists(userId: String, completion: @escaping ([List]?, Error?) -> Void ){
         let query = PFQuery(className: "List")

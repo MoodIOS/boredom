@@ -14,6 +14,8 @@ import PopupDialog
 
 class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var recentlyAddedBtn: UIButton!
+    @IBOutlet weak var mostlyLikedBtn: UIButton!
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -54,6 +56,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
+        
+        
         
         //view.addSubview(tableView)
        // tableView.dataSource = self
@@ -96,11 +100,19 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         //  https://github.com/Orderella/PopupDialog
     }
     
+    @IBAction func didTapRecentlyAdded(_ sender: Any) {
+        
+    }
+    
+    @IBOutlet weak var didTapMostLiked: UIButton!
+    
+    
     
 
 
 
 
+    
     
     
    /* func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -275,8 +287,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         else {
           
                 let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
-            //let act = top10Act[indexPath.item]
-            //activitiesCell.activityName.text = act.actName ?? "Label"
+            let act = top10Act[indexPath.item]
+            activitiesCell.activityName.text = act.actName ?? "Label"
             while bgUrlAct.count < 11 {
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
@@ -457,6 +469,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 }
             }
         }
+    }
+    
+    func getRecentLists(){
+        
     }
     
     func getTopActivities() {
