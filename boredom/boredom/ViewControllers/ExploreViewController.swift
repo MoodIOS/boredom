@@ -104,7 +104,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         //getRecentActivities()
         //getRecentLists()
         //popupSetup()
-        self.present(popup, animated: true, completion: nil)
+//        self.present(popup, animated: true, completion: nil)
 
     }
     
@@ -151,9 +151,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
              let list = top10List[indexPath.item]
             cell.delegate = self
             cell.indexPath = indexPath
-             cell.listName.text = list.listName
-             listInfo = list
-             while bgUrlList.count < 11 {
+            cell.listName.text = list.listName
+            while bgUrlList.count < 11 {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                  let background = bgURL[randomindex]
                  let backgroundURL = URL(string: background)
@@ -187,11 +186,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
    func infoBtnClicked(at index: IndexPath){
         print("info clicked")
-    
+        self.listInfo = self.top10List[index.row]
         if (self.listInfo != nil ){
-            let title = "\(self.listInfo.listName)"
+            let title = "\(self.listInfo.listName!)"
             let message = """
-            Category: \(self.listInfo.category)
+            Category: \(self.listInfo.category!)
             \(self.listInfo.likeCount) likes
             """
             let image = UIImage(named: "pexels-photo-103290")
