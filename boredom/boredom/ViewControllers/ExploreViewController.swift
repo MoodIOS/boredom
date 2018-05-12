@@ -12,7 +12,7 @@ import AlamofireImage
 import PromiseKit
 import PopupDialog
 
-class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoButtonDelegate {
 
     @IBOutlet weak var recentlyAddedBtn: UIButton!
     @IBOutlet weak var mostlyLikedBtn: UIButton!
@@ -269,6 +269,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         if (collectionView == self.userListsCollectionView){
              let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
              let list = top10List[indexPath.item]
+            cell.delegate = self
+            cell.indexPath = indexPath
              cell.listName.text = list.listName
              listInfo = list
              while bgUrlList.count < 11 {
@@ -279,14 +281,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
              }
              let backgroundURL = bgUrlList[indexPath.item]
              cell.userListsImageView.af_setImage(withURL: backgroundURL)
-            cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
+//            cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
             
             return cell
         }
             
         else {
-          
-                let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
+            
+            let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             let act = top10Act[indexPath.item]
             activitiesCell.activityName.text = act.actName ?? "Label"
             while bgUrlAct.count < 11 {
@@ -303,8 +305,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    @objc func infoBtnClicked(){
+   func infoBtnClicked(at index: IndexPath){
         print("info clicked")
+    
         if (self.listInfo != nil ){
             let title = "\(self.listInfo.listName)"
             let message = """
@@ -447,6 +450,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         getTopLists()
         getTopActivities()
+        actInfo = nil
+        listInfo = nil
+        infoForIndex = nil
     }
     
     func getTopLists(){
