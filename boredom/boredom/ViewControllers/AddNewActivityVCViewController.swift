@@ -236,6 +236,7 @@ class AddNewActivityVCViewController: UIViewController {
             let item = SearchTextFieldItem(title: name)
             activityNames?.append(item)
             print (name)
+            
         }
     }
     
