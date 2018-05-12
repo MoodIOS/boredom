@@ -35,10 +35,10 @@ class ActivitiesInListCell: UITableViewCell {
     @IBAction func didTapFavoritesBtn(_ sender: Any) {
         print("INSIDE METHOD")
         //if means we pressed the like button
-        if(favoritesBtn.imageView?.image?.isEqual(UIImage(named:"favor-icon-1")))!{
+        if(favoritesBtn.imageView?.image?.isEqual(UIImage(named:"heart-gray")))!{
            
             print("INSIDE IF STATEMENT")
-            favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+            favoritesBtn.setImage(UIImage(named:"heart-red"), for: UIControlState.normal)
             print("userAct", userAct)
             print("activity", activity)
             oldLikeCount = activity.activityLikeCount
@@ -78,7 +78,7 @@ class ActivitiesInListCell: UITableViewCell {
         }
         else{ //else means we pressed the like button again, hence, unlike
             
-            favoritesBtn.setImage(UIImage(named:"favor-icon-1"), for: UIControlState.normal)
+            favoritesBtn.setImage(UIImage(named:"heart-gray"), for: UIControlState.normal)
             Activity.changeLikeCount(actId: activity.objectId!, likeCount: activity.activityLikeCount) { (activities: [Activity]?, error: Error?) in
                 if activities! != []{
                     let activities = activities

@@ -195,11 +195,17 @@
                                                     <rect key="frame" x="80" y="102" width="15" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="heart-white"/>
+                                                    <connections>
+                                                        <action selector="likeBtnClicked:" destination="tIm-Fv-rwt" eventType="touchUpInside" id="7Em-6N-GgM"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIK-gQ-V2B">
                                                     <rect key="frame" x="11" y="105" width="10" height="10"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="add-white"/>
+                                                    <connections>
+                                                        <action selector="addBtnClicked:" destination="tIm-Fv-rwt" eventType="touchUpInside" id="nFP-uM-vLc"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -246,16 +252,25 @@
                                                     <rect key="frame" x="39" y="91" width="16" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="info-white"/>
+                                                    <connections>
+                                                        <action selector="infoBtnClicked:" destination="LUK-aN-kSL" eventType="touchUpInside" id="ofx-fr-YSe"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUl-uH-1yL">
                                                     <rect key="frame" x="76" y="91" width="15" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="heart-white"/>
+                                                    <connections>
+                                                        <action selector="likeBtnClicked:" destination="LUK-aN-kSL" eventType="touchUpInside" id="SrU-9A-INC"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgA-4e-aBP">
                                                     <rect key="frame" x="7" y="94" width="10" height="10"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="add-white"/>
+                                                    <connections>
+                                                        <action selector="addBtnClicked:" destination="LUK-aN-kSL" eventType="touchUpInside" id="H7w-IB-EFN"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -265,7 +280,6 @@
                                             <outlet property="addBtn" destination="EgA-4e-aBP" id="Rpz-Hs-Q00"/>
                                             <outlet property="infoBtn" destination="vOZ-vu-dee" id="9A1-Cz-V4l"/>
                                             <outlet property="likeBtn" destination="IUl-uH-1yL" id="Oc6-9Z-ejg"/>
-                                            <segue destination="qjh-D9-UMc" kind="show" identifier="activityDetailSegue" id="6It-hc-WgF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -945,7 +959,7 @@
                                                     <rect key="frame" x="7" y="9" width="22" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <accessibility key="accessibilityConfiguration" label="Like"/>
-                                                    <state key="normal" title="like" image="favor-icon-1"/>
+                                                    <state key="normal" title="like" image="heart-gray"/>
                                                     <connections>
                                                         <action selector="didTapFavoritesBtn:" destination="wVs-8d-3mE" eventType="touchUpInside" id="otm-rt-f6l"/>
                                                     </connections>
@@ -1421,6 +1435,7 @@
     <resources>
         <image name="add-white" width="32" height="32"/>
         <image name="favor-icon-1" width="30" height="30"/>
+        <image name="heart-gray" width="32" height="32"/>
         <image name="heart-white" width="32" height="32"/>
         <image name="info-white" width="32" height="32"/>
         <image name="login2" width="180" height="180"/>

@@ -17,10 +17,11 @@ import Parse
     //var rating: Int?
     @NSManaged var author: PFUser!
     @NSManaged var likeCount: Int
-    
+//    @NSManaged var usersThatLikeAct: [User]!
     class func parseClassName() -> String {
         return "List"
     }
+    
     
     class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?,  completion: @escaping (List?, Error?) -> Void) {
         // use subclass approach

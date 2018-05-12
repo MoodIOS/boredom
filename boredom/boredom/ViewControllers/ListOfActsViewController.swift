@@ -127,10 +127,8 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         alert.addAction(DeleteAction)
         alert.addAction(CancelAction)
         
-        // Support display in iPad
         alert.popoverPresentationController?.sourceView = self.view
         alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.width / 2.0, width: 1.0, height: 1.0)
-//            CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
         
         self.present(alert, animated: true, completion: nil)
     }

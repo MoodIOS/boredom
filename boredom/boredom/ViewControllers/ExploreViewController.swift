@@ -12,7 +12,10 @@ import AlamofireImage
 import PromiseKit
 import PopupDialog
 
-class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoButtonDelegate {
+class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate {
+
+
+    
 
     @IBOutlet weak var recentlyAddedBtn: UIButton!
     @IBOutlet weak var mostlyLikedBtn: UIButton!
@@ -33,6 +36,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
     var top10Act: [Activity]! = []
+    
     var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
     var index1 = [Int]()
     var index2 = [Int]()
@@ -47,9 +51,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     var infoForIndex: NSIndexPath! = nil
     var popup: PopupDialog!
-    var actInfo: Activity!
-    var listInfo: List!
-    var likeActs: [Activity]!
+    
+    var actsIdLiked = [String]()
+    var listsIdLiked = [String]()
     
     var recentlyAddedBtnClicked:Bool!
     var mostlyLikedBtnClicked:Bool!
@@ -107,13 +111,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         getTopLists()
         getTopActivities()
-
-        //getRecentActivities()
-        //getRecentLists()
-        //popupSetup()
-
-//        self.present(popup, animated: true, completion: nil)
-
+        
+        let curUser = User.current()
+        self.actsIdLiked = (curUser?.likedActivities)!
+        self.listsIdLiked = (curUser?.likedLists)!
 
     }
     
@@ -141,9 +142,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         getTopLists()
         
     }
-    
-    
-    
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -154,41 +152,48 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         else{
             return top10List.count
         }
-        /*if(collectionView == activitiesCollectionView){
-         return top10Act.count
-         }
-         else{
-         return top10List.count
-         }*/
+
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
         if (collectionView == self.userListsCollectionView){
              let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
              let list = top10List[indexPath.item]
             cell.delegate = self
             cell.indexPath = indexPath
             cell.listName.text = list.listName
+            cell.listId = list.objectId
+            cell.listsUserLiked = self.listsIdLiked
+            //randomize bg
             while bgUrlList.count < 11 {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                  let background = bgURL[randomindex]
                  let backgroundURL = URL(string: background)
                  bgUrlList.append(backgroundURL!)
              }
-             let backgroundURL = bgUrlList[indexPath.item]
-             cell.userListsImageView.af_setImage(withURL: backgroundURL)
-//            cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
-            
+            let backgroundURL = bgUrlList[indexPath.item]
+            cell.userListsImageView.af_setImage(withURL: backgroundURL)
+            //check if user liked this:
+
+            for id in listsIdLiked {
+                if id == list.objectId {
+                    cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+                } else {
+                     cell.likeBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                }
+            }
+
             return cell
         }
-            
         else {
-            
             let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
+            activitiesCell.delegate = self
+            activitiesCell.indexPath = indexPath
             let act = top10Act[indexPath.item]
             activitiesCell.activityName.text = act.actName ?? "Label"
+            activitiesCell.actId = act.objectId
+            activitiesCell.actsIdLike = self.actsIdLiked
             while bgUrlAct.count < 11 {
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
@@ -197,129 +202,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             let backgroundURL = bgUrlAct[indexPath.item]
             activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
-//            activitiesCell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
             return activitiesCell
         }
         
     }
-    
-   func infoBtnClicked(at index: IndexPath){
-        print("info clicked")
-        self.listInfo = self.top10List[index.row]
-        if (self.listInfo != nil ){
-            let title = "\(self.listInfo.listName!)"
-            let message = """
-            Category: \(self.listInfo.category!)
-            \(self.listInfo.likeCount) likes
-            """
-            let image = UIImage(named: "pexels-photo-103290")
-            self.popup = PopupDialog(title: title, message: message , image: image)
-            // Create buttons
-            let okBtn = CancelButton(title: "OK") {
-                print("You canceled the car dialog.")
-            }
-            let likeBtn = DefaultButton(title: "") {
-                //like this activity
-                print("like this item")
-            }
-            //check if User has already like this activity
-            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
-            let addBtn = DefaultButton(title: "") {
-                print("add this item")
-            }
-            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-            popup.addButtons([likeBtn, okBtn, addBtn])
-            popup.buttonAlignment = .horizontal
-            
-            self.present(popup, animated: true, completion: nil)
-        }
 
-       
-    }
-    
-    
-    
-    // ACTION OUTLETS
-//    func clickedOnTags(_ sender: UIButton){
-//        let button = sender
-//        print("button sender ", button.backgroundColor!)
-//        let blueColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
-//        let grayColor = UIColor.lightGray
-//        print("blueColor", blueColor)
-//        print("grayColor", grayColor)
-//        handleTags(tagName: button.currentTitle!) { (tags: [String: Bool]?, error: Error?) in
-//            for (tag, value) in tags!{
-//                if (value == true) && (button.currentTitle == tag)  {
-//                    button.backgroundColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
-//                } else if (value == false) && (button.currentTitle == tag) {
-//                    button.backgroundColor = UIColor.lightGray
-//                }
-//            }
-//        }
-//    }
-    
-//    func handleTags (tagName: String, completion: @escaping ([String:Bool]?, Error? ) -> Void){
-//        print("handleTag: ", tagName)
-//        if tags[tagName] == false || tags[tagName] == nil {
-//            tags[tagName] = true
-//        } else {
-//            tags[tagName] = false
-//        }
-//        print("tags: ", tags)
-//        return completion(tags, nil)
-//
-//    }
-//
-//    // After users clicked on tags -> display only activities with tags
-//    // Need a tag array to loop through
-//    func filterActsWithTags(_: tagArray, _ :activities){
-//        for tag in tagArray {
-//            for act in activities {
-//
-//            }
-//        }
-//
-//    }
-    
-    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(tableView.indexPathForSelectedRow?.row == 0){
-            self.tableIndex1 = true
-            self.tableIndex2 = false
-        }
-    }*/
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let activityCell = sender as! UICollectionViewCell
         let listCell = sender as! UICollectionViewCell
-        //var tableViewCell: ExploreTableViewCell
-        //var collectionViewCell: CollectionViewClass
-        
-      /* if(self.tableIndex1 == true && self.tableIndex2 == false){
-        //print("tableIndex1...............and 2", self.tableIndex1, self.tableIndex2)
-        //tableViewCell = tableView(tableView, cellForRowAt: self.selectedIndexInTable) as! ExploreTableViewCell
-        //collectionViewCell = collectionView(collectionViewCell, cellForItemAt: self.)
-            print("=======================", self.selectedIndexInTable.row)
-            if let indexPath = self.tableCell.insideTableCollectionView.indexPath(for: listCell){
-               // print("INSIDE INDEXPATH IF CONDITION!!!!!!!!!!!!!!!!!!")
-                let list = top10List[indexPath.row]
-                let listDetailViewController = segue.destination as! ListsDetailViewController
-                listDetailViewController.list = list
-                listDetailViewController.authorOfList = list.author
-                UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
-                    if error == nil {
-                        print("userActivities", userActivities!)
-                        for userAct in userActivities! {
-                            let globalAct = userAct.activity
-                            listDetailViewController.globalActivities.append(globalAct!)
-                        }
-                        
-                    }
-                }
-            }*/
-        //}
-        
-        
-       if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
+        if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
             let activity = top10Act[indexPath.item]
             print(activity)
             let activityDetailViewController = segue.destination as! ActivitiesDetailViewController
@@ -344,13 +235,100 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
     }
+
+        
+    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton){
+        print("like clicked")
+        if type == "List"{
+            let likeBtn = btn.imageView?.image
+            let like = UIImage(named:"heart-gray")
+            let unlike = UIImage(named:"heart-red")
+            if (likeBtn?.isEqual(like))! {
+                
+            } else if (likeBtn?.isEqual(unlike))!{
+                
+            }
+        } else if type == "Act"{
+            
+        }
+    }
+    
+    func addBtnClicked (at index: IndexPath, type: String){
+        print("add clicked")
+        if type == "List"{
+            
+        } else if type == "Act"{
+            
+        }
+    }
+    
+    func infoBtnClicked(at index: IndexPath, type: String){
+        print("info clicked")
+        if type == "List" {
+            let info = self.top10List[index.row]
+            print("info list",info)
+            let title = "\(info.listName!)"
+            let message = """
+            Category: \(info.category!)
+            \(info.likeCount) likes
+            """
+            let image = UIImage(named: "pexels-photo-103290")
+            self.popup = PopupDialog(title: title, message: message , image: image)
+            // Create buttons
+            let okBtn = CancelButton(title: "OK") {
+                print("You canceled the car dialog.")
+            }
+            let likeBtn = DefaultButton(title: "") {
+                //like this activity
+                print("like this item")
+            }
+            //check if User has already like this activity
+            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
+            let addBtn = DefaultButton(title: "") {
+                print("add this item")
+            }
+            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+            popup.addButtons([likeBtn, okBtn, addBtn])
+            popup.buttonAlignment = .horizontal
+            
+            self.present(popup, animated: true, completion: nil)
+        } else if type == "Act" {
+            let info = self.top10Act[index.row]
+            print("info act", info)
+            let title = "\(info.actName!)"
+            let message = """
+            Description: \(info.actDescription!)
+            \(info.activityLikeCount) likes
+            """
+            let image = UIImage(named: "pexels-photo-103290")
+            self.popup = PopupDialog(title: title, message: message , image: image)
+            // Create buttons
+            let okBtn = CancelButton(title: "OK") {
+                print("You canceled the car dialog.")
+            }
+            let likeBtn = DefaultButton(title: "") {
+                //like this activity
+                print("like this item")
+            }
+            //check if User has already like this activity
+            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
+            let addBtn = DefaultButton(title: "") {
+                print("add this item")
+            }
+            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+            popup.addButtons([likeBtn, okBtn, addBtn])
+            popup.buttonAlignment = .horizontal
+            
+            self.present(popup, animated: true, completion: nil)
+        }
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
         getTopLists()
         getTopActivities()
 
-        actInfo = nil
-        listInfo = nil
         infoForIndex = nil
     }
     
