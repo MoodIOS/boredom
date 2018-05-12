@@ -14,6 +14,8 @@ import PopupDialog
 
 class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var recentlyAddedBtn: UIButton!
+    @IBOutlet weak var mostlyLikedBtn: UIButton!
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -43,6 +45,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var infoForIndex: NSIndexPath! = nil
     var popup: PopupDialog!
     var actInfo: Activity!
+    var listInfo: List!
     var likeActs: [Activity]!
     
     @IBOutlet weak var searchScrolView: UIScrollView!
@@ -53,6 +56,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
+        
+        
         
         //view.addSubview(tableView)
        // tableView.dataSource = self
@@ -90,49 +95,23 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         getTopLists()
         getTopActivities()
-        popupSetup()
-        self.present(popup, animated: true, completion: nil)
+//        popupSetup()
+//        self.present(popup, animated: true, completion: nil)
+        //  https://github.com/Orderella/PopupDialog
     }
     
-    
-    func popupSetup(){
-//  https://github.com/Orderella/PopupDialog
-        
-        let title = "Name of Act/List"
-        let message = """
-                     Description:
-                     Category:
-                     """
-        let image = UIImage(named: "pexels-photo-103290")
-        
-        // Create the dialog
-        self.popup = PopupDialog(title: title, message: message , image: image)
-
-        // Create buttons
-        let okBtn = CancelButton(title: "OK") {
-            print("You canceled the car dialog.")
-        }
-        
-        
-        let likeBtn = DefaultButton(title: "") {
-            //like this activity
-            print("like this item")
-            
-        }
-
-        //check if User has already like this activity
-        likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
-        
-        let addBtn = DefaultButton(title: "") {
-            print("add this item")
-        }
-        addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-
-        popup.addButtons([likeBtn, okBtn, addBtn])
-        popup.buttonAlignment = .horizontal
-
+    @IBAction func didTapRecentlyAdded(_ sender: Any) {
         
     }
+    
+    @IBOutlet weak var didTapMostLiked: UIButton!
+    
+    
+    
+
+
+
+
     
     
     
@@ -291,7 +270,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
              let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
              let list = top10List[indexPath.item]
              cell.listName.text = list.listName
-            
+             listInfo = list
              while bgUrlList.count < 11 {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                  let background = bgURL[randomindex]
@@ -301,14 +280,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
              let backgroundURL = bgUrlList[indexPath.item]
              cell.userListsImageView.af_setImage(withURL: backgroundURL)
             cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
+            
             return cell
         }
             
         else {
           
                 let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
-            //let act = top10Act[indexPath.item]
-            //activitiesCell.activityName.text = act.actName ?? "Label"
+            let act = top10Act[indexPath.item]
+            activitiesCell.activityName.text = act.actName ?? "Label"
             while bgUrlAct.count < 11 {
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
@@ -317,14 +297,43 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             let backgroundURL = bgUrlAct[indexPath.item]
             activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
-            
+//            activitiesCell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
             return activitiesCell
         }
         
     }
     
     @objc func infoBtnClicked(){
-        
+        print("info clicked")
+        if (self.listInfo != nil ){
+            let title = "\(self.listInfo.listName)"
+            let message = """
+            Category: \(self.listInfo.category)
+            \(self.listInfo.likeCount) likes
+            """
+            let image = UIImage(named: "pexels-photo-103290")
+            self.popup = PopupDialog(title: title, message: message , image: image)
+            // Create buttons
+            let okBtn = CancelButton(title: "OK") {
+                print("You canceled the car dialog.")
+            }
+            let likeBtn = DefaultButton(title: "") {
+                //like this activity
+                print("like this item")
+            }
+            //check if User has already like this activity
+            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
+            let addBtn = DefaultButton(title: "") {
+                print("add this item")
+            }
+            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+            popup.addButtons([likeBtn, okBtn, addBtn])
+            popup.buttonAlignment = .horizontal
+            
+            self.present(popup, animated: true, completion: nil)
+        }
+
+       
     }
     
     
@@ -460,6 +469,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 }
             }
         }
+    }
+    
+    func getRecentLists(){
+        
     }
     
     func getTopActivities() {
