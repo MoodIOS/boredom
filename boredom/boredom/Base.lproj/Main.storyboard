@@ -149,14 +149,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Top 10 Lists" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sge-d8-aH9">
-                                <rect key="frame" x="142" y="163" width="91" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="scrollview top 10 activites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBy-mD-GHi">
-                                <rect key="frame" x="89" y="401" width="196" height="21"/>
+                                <rect key="frame" x="142" y="163" width="91" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -194,6 +187,9 @@
                                                     <rect key="frame" x="43" y="102" width="16" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="info-white"/>
+                                                    <connections>
+                                                        <action selector="infoBtnClicked:" destination="tIm-Fv-rwt" eventType="touchUpInside" id="bgO-tC-HHO"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDg-ex-cRg">
                                                     <rect key="frame" x="80" y="102" width="15" height="15"/>
@@ -296,6 +292,13 @@
                                     <action selector="didTapRecentlyAdded:" destination="Ol9-U0-lL2" eventType="touchUpInside" id="Lbo-El-Ttu"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Top 10 activities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBy-mD-GHi">
+                                <rect key="frame" x="126" y="402" width="123" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.31010044642857143" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="QgN-Lo-xS7"/>
@@ -303,6 +306,8 @@
                     <navigationItem key="navigationItem" title="EXPLORE" id="rvV-ZT-tj7"/>
                     <connections>
                         <outlet property="activitiesCollectionView" destination="ahb-bt-XvV" id="526-ly-bUm"/>
+                        <outlet property="activitiesLabel" destination="wBy-mD-GHi" id="ShW-A1-T5E"/>
+                        <outlet property="listsLabel" destination="Sge-d8-aH9" id="Iyw-AH-wZS"/>
                         <outlet property="mostlyLikedBtn" destination="r5F-zd-KrE" id="fuh-o4-LUc"/>
                         <outlet property="recentlyAddedBtn" destination="H53-93-vw0" id="aeK-kl-Xr8"/>
                         <outlet property="searchDisplayController" destination="vw0-Kr-KwW" id="bO2-Nu-kFz"/>

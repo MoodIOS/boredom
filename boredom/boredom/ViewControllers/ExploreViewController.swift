@@ -12,11 +12,14 @@ import AlamofireImage
 import PromiseKit
 import PopupDialog
 
-class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoButtonDelegate {
 
     @IBOutlet weak var recentlyAddedBtn: UIButton!
     @IBOutlet weak var mostlyLikedBtn: UIButton!
     
+    @IBOutlet weak var listsLabel: UILabel!
+    
+    @IBOutlet weak var activitiesLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -64,6 +67,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         mostlyLikedBtnClicked = true
         
+        listsLabel.text = "Top 10 Lists"
+        activitiesLabel.text = "Top 10 Activities"
+        
         
         //view.addSubview(tableView)
        // tableView.dataSource = self
@@ -105,7 +111,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         //getRecentActivities()
         //getRecentLists()
         //popupSetup()
-        //self.present(popup, animated: true, completion: nil)
+
+//        self.present(popup, animated: true, completion: nil)
+
 
     }
     
@@ -114,6 +122,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         recentlyAddedBtn.backgroundColor = UIColor.blue
         mostlyLikedBtn.backgroundColor = UIColor.gray
         recentlyAddedBtnClicked = true
+        listsLabel.text = "Recently Added Lists"
+        activitiesLabel.text = "Recently Added Activities"
         getRecentActivities()
         getRecentLists()
         
@@ -125,6 +135,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         mostlyLikedBtn.backgroundColor = UIColor.blue
         recentlyAddedBtn.backgroundColor = UIColor.gray
         mostlyLikedBtnClicked = true
+        listsLabel.text = "Top 10 Lists"
+        activitiesLabel.text = "Top 10 Activities"
         getTopActivities()
         getTopLists()
         
@@ -156,9 +168,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         if (collectionView == self.userListsCollectionView){
              let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
              let list = top10List[indexPath.item]
-             cell.listName.text = list.listName
-             listInfo = list
-             while bgUrlList.count < 11 {
+            cell.delegate = self
+            cell.indexPath = indexPath
+            cell.listName.text = list.listName
+            while bgUrlList.count < 11 {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                  let background = bgURL[randomindex]
                  let backgroundURL = URL(string: background)
@@ -166,14 +179,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
              }
              let backgroundURL = bgUrlList[indexPath.item]
              cell.userListsImageView.af_setImage(withURL: backgroundURL)
-            cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
+//            cell.infoBtn.addTarget(self, action: #selector(infoBtnClicked), for: .allTouchEvents)
             
             return cell
         }
             
         else {
-          
-                let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
+            
+            let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             let act = top10Act[indexPath.item]
             activitiesCell.activityName.text = act.actName ?? "Label"
             while bgUrlAct.count < 11 {
@@ -190,12 +203,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    @objc func infoBtnClicked(){
+   func infoBtnClicked(at index: IndexPath){
         print("info clicked")
+        self.listInfo = self.top10List[index.row]
         if (self.listInfo != nil ){
-            let title = "\(self.listInfo.listName)"
+            let title = "\(self.listInfo.listName!)"
             let message = """
-            Category: \(self.listInfo.category)
+            Category: \(self.listInfo.category!)
             \(self.listInfo.likeCount) likes
             """
             let image = UIImage(named: "pexels-photo-103290")
@@ -334,10 +348,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         getTopLists()
         getTopActivities()
-       // getRecentLists()
-       // getRecentActivities()
-        
+
+        actInfo = nil
+        listInfo = nil
+        infoForIndex = nil
     }
+    
     
     func getTopLists(){
         List.fetchLists { (lists: [List]?, error: Error?) in
