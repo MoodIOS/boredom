@@ -60,7 +60,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
-        recentlyAddedBtn.backgroundColor = UIColor.white
+        recentlyAddedBtn.backgroundColor = UIColor.gray
+        
         mostlyLikedBtnClicked = true
         
         
@@ -104,13 +105,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         //getRecentActivities()
         //getRecentLists()
         //popupSetup()
-        self.present(popup, animated: true, completion: nil)
+        //self.present(popup, animated: true, completion: nil)
 
     }
     
     @IBAction func didTapRecentlyAdded(_ sender: Any) {
         print("inside recently tapped-------------------------")
         recentlyAddedBtn.backgroundColor = UIColor.blue
+        mostlyLikedBtn.backgroundColor = UIColor.gray
         recentlyAddedBtnClicked = true
         getRecentActivities()
         getRecentLists()
@@ -120,6 +122,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func didTapMostlyLiked(_ sender: Any) {
         print("inside mostly liked tapped-------------------------")
+        mostlyLikedBtn.backgroundColor = UIColor.blue
+        recentlyAddedBtn.backgroundColor = UIColor.gray
+        mostlyLikedBtnClicked = true
+        getTopActivities()
+        getTopLists()
         
     }
     
