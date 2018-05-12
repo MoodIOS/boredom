@@ -12,10 +12,16 @@ class ActivitiesCell: UICollectionViewCell {
     
     @IBOutlet weak var activitiesImageView: UIImageView!
     @IBOutlet weak var activityName: UILabel!
+    
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var infoBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    
     /*let url = NSURL(string: image.url)
     let data = NSData(contentsOfURL: url!)
     imageURL.image = UIImage(data: data!)
-    
+   
+     
     var imgListArray :[String] = ["imageURL1", "imageURL2"...]
     
     self.imageView.animationImages = imgListArray;

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol InfoButtonDelegate {
+    func infoBtnClicked(at index: IndexPath)
+}
+
 class UserListsCell: UICollectionViewCell {
     @IBOutlet weak var userListsImageView: UIImageView!
 //    @IBOutlet weak var listName: UILabel!
@@ -19,7 +23,14 @@ class UserListsCell: UICollectionViewCell {
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var addBtn: UIButton!
     
+    var delegate: InfoButtonDelegate!
+    var indexPath: IndexPath!
+    
+    @IBAction func infoBtnClicked(_ sender: UIButton) {
+        self.delegate.infoBtnClicked(at: indexPath)
+    }
     
     
     
 }
+
