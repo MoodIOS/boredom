@@ -47,6 +47,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var actInfo: Activity!
     var likeActs: [Activity]!
     
+    var recentlyAddedBtnClicked:Bool!
+    var mostlyLikedBtnClicked:Bool!
+    
+    
     @IBOutlet weak var searchScrolView: UIScrollView!
 
     
@@ -55,7 +59,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
-        
+        recentlyAddedBtn.backgroundColor = UIColor.white
+        mostlyLikedBtnClicked = true
         
         
         //view.addSubview(tableView)
@@ -94,15 +99,25 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         getTopLists()
         getTopActivities()
+        //getRecentActivities()
+        //getRecentLists()
         popupSetup()
         self.present(popup, animated: true, completion: nil)
     }
     
     @IBAction func didTapRecentlyAdded(_ sender: Any) {
+        print("inside recently tapped-------------------------")
+        recentlyAddedBtn.backgroundColor = UIColor.blue
+        recentlyAddedBtnClicked = true
+        getRecentActivities()
+        getRecentLists()
+        
         
     }
     
     @IBOutlet weak var didTapMostLiked: UIButton!
+    
+    
     
     
     
@@ -145,108 +160,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    
-    
-    
-   /* func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
-        
-        
-        //        if(self.indexList == true && self.indexAct == false){
-        while bgUrlList.count < 11 {
-            let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-            let background = bgURL[randomindex]
-            let backgroundURL = URL(string: background)
-            bgUrlList.append(backgroundURL!)
-        }
-        let backgroundURL = bgUrlList[indexPath.item]
-        cell.collectionImageView.af_setImage(withURL: backgroundURL)
-        //            let curList = listArray
-        //print("//////////////////////////////",self.listArray)
-        cell.listOrActNameLabel.text = top10List[indexPath.item].listName
-        return cell
-        
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(tableView.indexPathForSelectedRow?.row == 0){
-            self.tableIndex1 = true
-            self.selectedIndexInTable = indexPath
-            //self.tableIndex2 = false
-        }
-        else{
-            //self.tableIndex1 = false
-            self.selectedIndexInTable = indexPath
-            self.tableIndex2 = true
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        tableCell = tableView.dequeueReusableCell(withIdentifier: "ExploreTableViewCell") as! ExploreTableViewCell
-        if(indexPath.row == 0){
-            //getTopLists()
-            print("##########################")
-            
-            List.fetchLists { (lists: [List]?, error: Error?) in
-                if error == nil && lists != nil {
-                    self.exploreLists = lists
-                    let lists = lists
-                    self.top10List = [List]()
-                    var i = 0
-                    while i < 10 {
-                        let list = lists![i]
-                        print("listLikecount", lists![i].likeCount)
-                        print("top list", i)
-                        print(list)
-                        //----var colListArray =  self.tableCell.collectionViewVariable.listArray
-                        //----colListArray?.append(list)
-//                        self.top10List.append(list)
-                        //----print("~~~~~~~~~~~~~~~~~~~", self.tableCell.collectionViewVariable.listArray)
-                        //self.userListsCollectionView.reloadData()
-                        //self.tableCell.insideTableCollectionView.
-                       //-- self.tableCell.collectionViewVariable.indexAct = false
-                       //-- self.tableCell.collectionViewVariable.indexList = true
-                       //-- self.tableCell.insideTableCollectionView.reloadData()
-                        self.tableView.reloadData()
-                        i = i + 1
-                        
-                    }
-                }
-            }
-            
-        }
-        else if(indexPath.row == 1){
-            //getTopActivities()
-            //---tableCell.collectionViewVariable.actArray = self.top10Act
-            //tableCell.insideTableCollectionView.
-            //---tableCell.collectionViewVariable.indexAct = true
-            //----tableCell.collectionViewVariable.indexList = false
-            //self.tableIndex1 = false
-            //self.tableIndex2 = true
-            //self.selectedIndexInTable = indexPath
-            print("TOP TEN ACTIVITIES..........",self.top10Act)
-            print("******************", tableCell.collectionViewVariable.actArray)
-        }
-        
-        
-        return tableCell
-    }
-    */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if(collectionView == activitiesCollectionView){
@@ -265,39 +178,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        /*let cellIndexPath:IndexPath = tableView.indexPathForSelectedRow!
-        let cellIndex:Int = cellIndexPath.row
-        let tableViewCell = tableView.cellForRow(at: cellIndexPath) as! ExploreTableViewCell
-        print("-------------", cellIndex, "-------------")
-        let collectionView = tableViewCell.insideTableCollectionView
-        
-        if(cellIndex == 0){
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!inside if")
-            let cell = collectionView?.dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
-            let list = //tableViewCell.listArray[indexPath.item]
-                top10List[indexPath.item]
-            //cell.listName.text = list.listName
-            
-            while bgUrlList.count < 11 {
-                let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
-                let background = bgURL[randomindex]
-                let backgroundURL = URL(string: background)
-                bgUrlList.append(backgroundURL!)
-            }
-            let backgroundURL = bgUrlList[indexPath.item]
-            //---------cell.collectionImageView.af_setImage(withURL: backgroundURL)
-            //tableView.reloadData()
-            let layout = tableViewCell.insideTableCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.minimumInteritemSpacing = 2
-            layout.minimumLineSpacing = 0
-            let cellsPerLine: CGFloat = 2
-            let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
-            //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-            layout.itemSize = CGSize(width: 120, height: 120)
-            collectionView?.reloadData()
-            tableView.reloadData()
-            return cell*/
-       // }
             
         if (collectionView == self.userListsCollectionView){
              let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
@@ -450,6 +330,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         getTopLists()
         getTopActivities()
+       // getRecentLists()
+       // getRecentActivities()
+        
     }
     
     func getTopLists(){
@@ -475,7 +358,26 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func getRecentLists(){
-        
+        List.fetchRecentLists{(lists: [List]?, error: Error?) in
+            if error == nil && lists != nil {
+                self.exploreLists = lists
+                let lists = lists
+                self.top10List = [List]()
+                var i = 0
+                while i < 10 {
+                    let list = lists![i]
+                    print("listLikecount", lists![i].likeCount)
+                    print("top list", i)
+                    print(list)
+                    self.top10List.append(list)
+                    print("----------------recent lists-----", self.top10List)
+                    self.userListsCollectionView.reloadData()
+                    //self.tableView.reloadData()
+                    i = i + 1
+                }
+            }
+            
+        }
     }
     
     func getTopActivities() {
@@ -498,6 +400,34 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     }
                 } else {
                     print("No Top Activity Available")
+                }
+            }
+            else{
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    func getRecentActivities() {
+        Activity.fetchRecentActivity{ (activities: [Activity]?, error: Error?) in
+            if error == nil {
+                self.exploreActivities = activities
+                if self.exploreActivities != nil {
+                    self.exploreActivities = activities
+                    let activities = activities
+                    self.top10Act = [Activity]()
+                    var i = 0
+                    while i < 10{
+                        print("activityLikeCount", activities![i].activityLikeCount)
+                        let act = activities![i]
+                        self.top10Act.append(act)
+                        print("~~~~~~~~~~recent activities~~~~~~~~~", self.top10Act)
+                        self.activitiesCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        i = i + 1
+                    }
+                } else {
+                    print("No Recent Activity Available")
                 }
             }
             else{

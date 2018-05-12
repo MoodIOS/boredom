@@ -56,6 +56,20 @@ import Parse
         }
     }
     
+    class func fetchRecentActivity (completion: @escaping ([Activity]?, Error?) -> Void) {
+        print("inside getActitivy")
+        let query = PFQuery(className: "Activity")
+        query.includeKey("activityLikeCount")
+        query.includeKey("activityLikedByUsers")
+        query.includeKey("actName")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        //query.addDescendingOrder("activityLikeCount")
+        return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+            completion(activities as? [Activity], nil)
+        }
+    }
+    
     class func fetchActivity (actId: String, completion: @escaping ([Activity]?, Error? ) -> Void) {
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
