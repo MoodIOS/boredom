@@ -9,10 +9,13 @@
 import UIKit
 import Parse
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
+    var locationManager:CLLocationManager!
+    let userLocation:CLLocation! = nil
+    
     var userActivities = [UserActivity]()
     var allActivities = [Activity]()
     var userList = [List]()
@@ -21,8 +24,17 @@ class HomeViewController: UIViewController {
     var isSaved = 1
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.startUpdatingLocation()
+        }
 //        getUserActs()
 //        randomActivity()
         // Do any additional setup after loading the view.
@@ -36,6 +48,36 @@ class HomeViewController: UIViewController {
             getUserActs()
             randomActivity()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation :CLLocation = locations[0] as CLLocation
+        
+        
+        print("user latitude = \(userLocation.coordinate.latitude)")
+        print("user longitude = \(userLocation.coordinate.longitude)")
+        
+        //self.labelL.text = "\(userLocation.coordinate.latitude)"
+        //self.labelLongi.text = "\(userLocation.coordinate.longitude)"
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+            if (error != nil){
+                print("error in reverseGeocode")
+            }
+            let placemark = placemarks! as [CLPlacemark]
+            if placemark.count>0{
+                let placemark = placemarks![0]
+                print(placemark.locality!)
+                print(placemark.administrativeArea!)
+                print(placemark.country!)
+                
+            }
+        }
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error \(error)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,8 +114,10 @@ class HomeViewController: UIViewController {
                                 
                                 Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
                                     let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
+                                    let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
                                     if (acts![0].cost == firstOption){
                                         //need to add distance, tags, etc. to filter out activities.
+                                        
                                         self.userActivities.append(act)
                                     }
                                     

@@ -72,11 +72,11 @@ class OptionsViewController: UIViewController {
             print("yah1")
         }
         else if(resultTwo == 3){
-            savedBool.set(2, forKey: "whichTwo")
+            savedBool.set(5, forKey: "whichTwo")
             print("yah1")
         }
         else{
-            savedBool.set(3, forKey: "whichTwo")
+            savedBool.set(20, forKey: "whichTwo")
             print("yah2")
         }
         

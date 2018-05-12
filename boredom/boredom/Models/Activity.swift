@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 import Parse
 
 @objc class Activity: PFObject, PFSubclassing {
@@ -22,6 +23,7 @@ import Parse
     @NSManaged var activityLikedByUsers: [String]!
     @NSManaged var tags: [String: Bool]!
     @NSManaged var actImgs: [PFFile]!
+    
     
     class func parseClassName() -> String {
         return "Activity"
@@ -160,6 +162,22 @@ import Parse
             }
         }
     }
+    
+    class func findCoordinates() -> CLLocation {
+        let geocoder = CLGeocoder()
+        var longAndLat = CLLocation()
+        geocoder.geocodeAddressString("your address") {
+            placemarks, error in
+            let placemark = placemarks?.first
+            let lat = placemark?.location?.coordinate.latitude
+            let lon = placemark?.location?.coordinate.longitude
+            //print("Lat: \(lat), Lon: \(lon)")
+            longAndLat = CLLocation(latitude: lat!, longitude: lon!)
+            
+        }
+        return longAndLat
+    }
+    
 
 
 }
