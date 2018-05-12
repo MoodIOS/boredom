@@ -281,6 +281,9 @@
                                 <state key="normal" title="Most Liked">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapMostlyLiked:" destination="Ol9-U0-lL2" eventType="touchUpInside" id="TbL-Iv-bWX"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H53-93-vw0">
                                 <rect key="frame" x="188" y="105" width="153" height="30"/>
@@ -300,7 +303,6 @@
                     <navigationItem key="navigationItem" title="EXPLORE" id="rvV-ZT-tj7"/>
                     <connections>
                         <outlet property="activitiesCollectionView" destination="ahb-bt-XvV" id="526-ly-bUm"/>
-                        <outlet property="didTapMostLiked" destination="r5F-zd-KrE" id="164-c0-4DZ"/>
                         <outlet property="mostlyLikedBtn" destination="r5F-zd-KrE" id="fuh-o4-LUc"/>
                         <outlet property="recentlyAddedBtn" destination="H53-93-vw0" id="aeK-kl-Xr8"/>
                         <outlet property="searchDisplayController" destination="vw0-Kr-KwW" id="bO2-Nu-kFz"/>

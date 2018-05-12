@@ -118,7 +118,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    @IBOutlet weak var didTapMostLiked: UIButton!
+    @IBAction func didTapMostlyLiked(_ sender: Any) {
+        print("inside mostly liked tapped-------------------------")
+        
+    }
+    
+    
     
 
 
