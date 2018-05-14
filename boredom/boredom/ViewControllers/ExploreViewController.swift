@@ -37,7 +37,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
     var top10Act: [Activity]! = []
-    
+    var tags: [String] = ["Restaurant", "Brunch", "Movie", "Outdoor", "Book", "Coffee", "Nightlife", "Happy hours"]
     var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
     var index1 = [Int]()
     var index2 = [Int]()
@@ -153,9 +153,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         else if(collectionView == userListsCollectionView){
             return top10List.count
         }
-        else{
+        else {
             //return tagsCollectionView count... just returning 10 for now, you can change that :)
-            return 10
+            return tags.count
         }
 
     }
@@ -201,8 +201,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
             return cell
         }
-        //else if(collectionView == self.activitiesCollectionView){ uncomment this line once you add the else case below..
-        else{
+        else if (collectionView == self.activitiesCollectionView){ //uncomment this line once you add the else case below..
+//        else{
             let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             activitiesCell.delegate = self
             activitiesCell.indexPath = indexPath
@@ -238,11 +238,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             
             return activitiesCell
-        }
-       /* else{ TODO
-            //return a tagCell...
-        }*/
         
+        } else {
+            let tagsCell = tagsCollectionView.dequeueReusableCell(withReuseIdentifier: "TagBtnCell", for: indexPath) as! TagsCollectionViewCell
+            print("tags[indexPath.item]",tags[indexPath.item])
+            tagsCell.tagBtn.setTitle(tags[indexPath.item], for: .normal)
+            return tagsCell
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
