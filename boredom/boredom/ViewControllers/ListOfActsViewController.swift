@@ -30,6 +30,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.rowHeight = 100
         getActivities()
+        tableView.reloadData()
         print("actnamesInList", actnamesInList)
         // Do any additional setup after loading the view.
         
@@ -97,10 +98,24 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityName.text = activity.actName
+    
                 self.actnamesInList.append(activity.actName)
                 self.actsInList.append(activities![0])
+                
+                try? cell.thisAct.activity.fetchIfNeeded()
+                
+                print("ACTIVITY LIKED BY USERS:", cell.thisAct.activity.activityLikedByUsers)
+                print("CURRENT USER:", PFUser.current()?.objectId)
+                if(cell.thisAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
+                    cell.likeBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+                }
+                
+                
+                cell.likeCountLabel.text = "\(cell.thisAct.activity.activityLikeCount)"
+                
             }
         }
+        
         return cell
     }
     
@@ -174,6 +189,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         getActivities()
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
