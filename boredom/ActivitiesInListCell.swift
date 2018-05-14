@@ -58,14 +58,7 @@ class ActivitiesInListCell: UITableViewCell {
                         count = activity.activityLikedByUsers.count - 1
                     }
                     print("...........", (currUser?.objectId)!)
-                    //var mergeString = ["userid": (currUser?.objectId)!]
-                    /*let newItem: [String: Any] = [
-                        "key": (currUser?.objectId)!
-                    ]*/
-
-                    //activity.activityLikedByUsers.insert((currUser?.objectId)!, at: count)
-                    //activity.activityLikedByUsers.append((currUser?.objectId)!)
-                    //activity.activityLikedByUsers.merge(mergeString, uniquingKeysWith: (Any, Any) -> Any)
+                    
                     activity.activityLikedByUsers.append((currUser?.objectId)!)
                     activity.saveInBackground()
                 }
