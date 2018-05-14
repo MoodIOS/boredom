@@ -11,4 +11,5 @@ import UIKit
 class TagsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var tagBtn: UIButton!
+    
 }

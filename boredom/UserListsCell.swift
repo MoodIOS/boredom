@@ -61,8 +61,21 @@ class UserListsCell: UICollectionViewCell {
             print("just unliked")
             self.likeBtn.setImage(unlike, for: .normal)
             // need to remove the id from array:
-            
-            User.updateUserLikedList(curUserId: (curUser?.objectId)!, likedList: listId) { (user: User?, error: Error?) in
+            var newArray = [String]()
+            var i = 0
+            while i < listsUserLiked.count {
+                let id = listsUserLiked[i]
+                if listId != id {
+                    print(listId, "is different than", id)
+                    newArray.append(listsUserLiked[i])
+                }
+                i = i + 1
+            }
+            print("newArray", newArray)
+            let curUser = User.current()
+            curUser?.likedLists = newArray
+            print("current User liked lists", curUser?.likedLists)
+            User.updateUserListArray(updateArray: newArray) { (user: User?, error: Error?) in
                 if let user = user {
                     print("user", user)
                     
@@ -70,6 +83,7 @@ class UserListsCell: UICollectionViewCell {
                     print("error updating user liked act", error?.localizedDescription)
                 }
             }
+
         } else {
             print("just liked")
             self.likeBtn.setImage(like, for: .normal)

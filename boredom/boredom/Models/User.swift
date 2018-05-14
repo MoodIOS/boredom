@@ -35,6 +35,18 @@ class User: PFUser {
         user?.saveInBackground()
     }
     
+    class func updateUserListArray(updateArray: [String], completion: (User?, Error?) -> Void ){
+        let user = current()
+        user?.likedLists = updateArray
+        user?.saveInBackground()
+    }
+    
+    class func updateUserActArray(updateArray: [String], completion: (User?, Error?) -> Void ){
+        let user = current()
+        user?.likedActivities = updateArray
+        user?.saveInBackground()
+    }
+    
     
     class func getPFFileFromImage(image: UIImage?) -> PFFile? {
         // check if image is not nil

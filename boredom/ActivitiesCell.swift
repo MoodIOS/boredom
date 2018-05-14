@@ -38,11 +38,25 @@ class ActivitiesCell: UICollectionViewCell {
         print("like clicked")
         let curUser = User.current()
         let likeBtn = self.likeBtn.imageView?.image
-        let like = UIImage(named:"heart-gray")
-        let unlike = UIImage(named:"heart-red")
+        let like = UIImage(named:"heart-red")
+        let unlike = UIImage(named:"heart-white")
         if (likeBtn?.isEqual(like))! {
             self.likeBtn.setImage(unlike, for: .normal)
-            User.updateUserLikedAct(curUserId: (curUser?.objectId)!, likedAct: actId) { (user:User?, error: Error?) in
+            var newArray = [String]()
+            var i = 0
+            while i < actsIdLike.count {
+                let id = actsIdLike[i]
+                if actId != id {
+                    print(actId, "is different than", id)
+                    newArray.append(actsIdLike[i])
+                }
+                i = i + 1
+            }
+            print("newArray", newArray)
+            let curUser = User.current()
+            curUser?.likedActivities = newArray
+            print("current User liked lists", curUser?.likedActivities)
+            User.updateUserActArray(updateArray: newArray) { (user: User?, error: Error?) in
                 if let user = user {
                     print("user", user)
                     
@@ -50,8 +64,10 @@ class ActivitiesCell: UICollectionViewCell {
                     print("error updating user liked act", error?.localizedDescription)
                 }
             }
+
         } else if (likeBtn?.isEqual(unlike))!{
             self.likeBtn.setImage(like, for: .normal)
+            curUser?.likedActivities.append(actId)
             User.updateUserLikedAct(curUserId: (curUser?.objectId)!, likedAct: actId) { (user:User?, error: Error?) in
                 if let user = user {
                     print("user", user)
