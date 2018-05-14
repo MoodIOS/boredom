@@ -26,6 +26,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var tagsCollectionView: UICollectionView!
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
@@ -149,8 +150,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         if(collectionView == activitiesCollectionView){
             return top10Act.count
         }
-        else{
+        else if(collectionView == userListsCollectionView){
             return top10List.count
+        }
+        else{
+            //return tagsCollectionView count... just returning 10 for now, you can change that :)
+            return 10
         }
 
     }
@@ -186,7 +191,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
             return cell
         }
-        else {
+        //else if(collectionView == self.activitiesCollectionView){ uncomment this line once you add the else case below..
+        else{
             let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             activitiesCell.delegate = self
             activitiesCell.indexPath = indexPath
@@ -204,6 +210,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
             return activitiesCell
         }
+       /* else{ TODO
+            //return a tagCell...
+        }*/
         
     }
 

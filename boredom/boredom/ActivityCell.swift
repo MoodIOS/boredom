@@ -12,6 +12,9 @@ class ActivityCell: UITableViewCell {
 
     @IBOutlet weak var activityName: UILabel!
     @IBOutlet weak var completionBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var likeCountLabel: UILabel!
+    
     
     var thisAct = UserActivity()
     

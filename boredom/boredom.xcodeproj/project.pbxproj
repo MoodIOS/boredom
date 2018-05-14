@@ -23,6 +23,7 @@
 		44116EFC2094383D0037EB0D /* ActivitiesInListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */; };
 		44116EFE209522390037EB0D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFD209522390037EB0D /* GradientView.swift */; };
 		4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425C84120A14DC200A63D67 /* CollectionViewClass.swift */; };
+		4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */; };
 		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
@@ -79,6 +80,7 @@
 		44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesInListCell.swift; sourceTree = "<group>"; };
 		44116EFD209522390037EB0D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4425C84120A14DC200A63D67 /* CollectionViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
+		4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewCell.swift; sourceTree = "<group>"; };
 		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */,
 				440E738E209D684E00393728 /* InsideTableCollectionViewCell.swift */,
 				4425C84120A14DC200A63D67 /* CollectionViewClass.swift */,
+				4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */,
 			);
 			name = ViewCells;
 			path = ..;
@@ -589,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF6294FC208A8C7000646128 /* Movie.swift in Sources */,
+				4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */,
 				FFF82431209D3F2B004CB2B4 /* AddSomeActToYourListViewController.swift in Sources */,
 				FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */,
 				4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */,

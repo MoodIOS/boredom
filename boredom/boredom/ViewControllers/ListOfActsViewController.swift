@@ -28,6 +28,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = 100
         getActivities()
         print("actnamesInList", actnamesInList)
         // Do any additional setup after loading the view.
@@ -63,7 +64,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", allActivities![0])
                 self.allActs = allActivities!
                 
-                for act in allActivities! {
+                for act in allActivities! {//the activity we want.......
                     self.allActNames.append(act.actName)
                 }
                 
