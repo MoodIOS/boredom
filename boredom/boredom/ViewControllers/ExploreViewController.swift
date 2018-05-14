@@ -180,14 +180,24 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let backgroundURL = bgUrlList[indexPath.item]
             cell.userListsImageView.af_setImage(withURL: backgroundURL)
             //check if user liked this:
-
-            for id in listsIdLiked {
+            print("listsIdLiked", listsIdLiked)
+            var liked: Int = 0
+            var i = 0
+            
+            while i < listsIdLiked.count{
+                let id = listsIdLiked[i]
                 if id == list.objectId {
-                    cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
-                } else {
-                     cell.likeBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                    liked = liked + 1
                 }
+                i = i + 1
             }
+            
+            if liked == 0 {
+                cell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
+            } else if liked > 0 {
+                cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+            }
+            
 
             return cell
         }
@@ -208,6 +218,25 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             let backgroundURL = bgUrlAct[indexPath.item]
             activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
+            
+            print("listsIdLiked", actsIdLiked)
+            var liked: Int = 0
+            var i = 0
+            
+            while i < actsIdLiked.count{
+                let id = actsIdLiked[i]
+                if id == act.objectId {
+                    liked = liked + 1
+                }
+                i = i + 1
+            }
+            
+            if liked == 0 {
+                activitiesCell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
+            } else if liked > 0 {
+                activitiesCell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+            }
+            
             return activitiesCell
         }
        /* else{ TODO
@@ -339,6 +368,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         getTopActivities()
 
         infoForIndex = nil
+        let curUser = User.current()
+        self.actsIdLiked = (curUser?.likedActivities)!
+        self.listsIdLiked = (curUser?.likedLists)!
     }
     
     
