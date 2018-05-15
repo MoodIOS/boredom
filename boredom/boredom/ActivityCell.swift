@@ -40,7 +40,7 @@ class ActivityCell: UITableViewCell {
         
         print("INSIDE METHOD")
         //if means we pressed the like button
-        if(likeBtn.imageView?.image?.isEqual(UIImage(named:"favor-icon-1")))!{
+        if (likeBtn.imageView?.image?.isEqual(UIImage(named:"favor-icon-1")))!{
             
             print("INSIDE IF STATEMENT")
             likeBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)

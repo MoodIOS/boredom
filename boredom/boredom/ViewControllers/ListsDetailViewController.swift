@@ -28,6 +28,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
     var curActGlobal: Activity!
     var likeCell: ActivitiesInListCell!
     
+    @IBAction func backToExplore(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

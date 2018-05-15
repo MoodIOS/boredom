@@ -158,15 +158,19 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                             for act in actsInList! {
                                let actId = act.activity.objectId
                                 
-                                
                                 Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
-                                    let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
-                                    let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
-                                    if (acts![0].cost == firstOption){
-                                        //need to add distance, tags, etc. to filter out activities.
-                                        
-                                        self.userActivities.append(act)
+                                    if (acts != []){
+                                        let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
+                                        let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
+                                        if (acts![0].cost == firstOption){
+                                            //need to add distance, tags, etc. to filter out activities.
+                                            
+                                            self.userActivities.append(act)
+                                        }
+                                    } else {
+                                        print("error", error?.localizedDescription)
                                     }
+                                   
                                     
                                 })
                             }

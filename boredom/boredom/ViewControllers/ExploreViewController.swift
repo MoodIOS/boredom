@@ -267,7 +267,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         else if let indexPath = userListsCollectionView.indexPath(for: listCell){
             let list = top10List[indexPath.item]
-            let listDetailViewController = segue.destination as! ListsDetailViewController
+            let navVC = segue.destination as! UINavigationController
+            let listDetailViewController = navVC.topViewController as! ListsDetailViewController
             listDetailViewController.list = list
             listDetailViewController.authorOfList = list.author
             UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
@@ -320,23 +321,25 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             Category: \(info.category!)
             \(info.likeCount) likes
             """
+            let img = bgUrlList[index.row]
             let image = UIImage(named: "pexels-photo-103290")
             self.popup = PopupDialog(title: title, message: message , image: image)
             // Create buttons
             let okBtn = CancelButton(title: "OK") {
                 print("You canceled the car dialog.")
             }
-            let likeBtn = DefaultButton(title: "") {
-                //like this activity
-                print("like this item")
-            }
-            //check if User has already like this activity
-            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
-            let addBtn = DefaultButton(title: "") {
-                print("add this item")
-            }
-            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-            popup.addButtons([likeBtn, okBtn, addBtn])
+//            let likeBtn = DefaultButton(title: "") {
+//                //like this activity
+//                print("like this item")
+//            }
+//            //check if User has already like this activity?
+//            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
+//            let addBtn = DefaultButton(title: "") {
+//                print("add this item")
+//            }
+//            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+//            popup.addButtons([likeBtn, okBtn, addBtn])
+            popup.addButton(okBtn)
             popup.buttonAlignment = .horizontal
             
             self.present(popup, animated: true, completion: nil)
@@ -354,17 +357,18 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let okBtn = CancelButton(title: "OK") {
                 print("You canceled the car dialog.")
             }
-            let likeBtn = DefaultButton(title: "") {
-                //like this activity
-                print("like this item")
-            }
+//            let likeBtn = DefaultButton(title: "") {
+//                //like this activity
+//                print("like this item")
+//            }
             //check if User has already like this activity
-            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
-            let addBtn = DefaultButton(title: "") {
-                print("add this item")
-            }
-            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-            popup.addButtons([likeBtn, okBtn, addBtn])
+//            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
+//            let addBtn = DefaultButton(title: "") {
+//                print("add this item")
+//            }
+//            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+            popup.addButton(okBtn)
+//            popup.addButtons([likeBtn, okBtn, addBtn])
             popup.buttonAlignment = .horizontal
             
             self.present(popup, animated: true, completion: nil)

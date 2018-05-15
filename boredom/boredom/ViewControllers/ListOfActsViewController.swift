@@ -23,6 +23,8 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     private var completionPopup: UIView!
     var deleteIndexPath: NSIndexPath? = nil
     
+    var actsIdLiked = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +34,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         getActivities()
         tableView.reloadData()
         print("actnamesInList", actnamesInList)
+        
         // Do any additional setup after loading the view.
         
 //        completionPopup.isHidden = true
@@ -91,6 +94,23 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
+        
+        var liked: Int = 0
+        var i = 0
+        
+//        while i < actsIdLiked.count{
+//            let id = actsIdLiked[i]
+//            if id == act.objectId {
+//                liked = liked + 1
+//            }
+//            i = i + 1
+//        }
+//
+//        if liked == 0 {
+//            activitiesCell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
+//        } else if liked > 0 {
+//            activitiesCell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+//        }
         
         Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
