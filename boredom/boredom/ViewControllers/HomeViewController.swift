@@ -34,6 +34,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //listPicker.setValue(UIColor.white, forKeyPath: "textColor")
         listPicker.dataSource = self
         listPicker.delegate = self
         getLists()
@@ -60,13 +61,23 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         }
     }
     
+    // make font white
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let titleData = userLists[row].listName
+        let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        
+        return myTitle
+    }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return userLists.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
         let list = userLists[row]
         let listName = list.listName
+        
         return listName
     }
     
