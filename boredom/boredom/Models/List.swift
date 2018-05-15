@@ -91,5 +91,14 @@ import Parse
     class func deleteList(){
         
     }
+    
+    class func updateListLikeCount(updateList: List,  completion: @escaping (List?, Error?) -> Void){
+        let list = updateList
+        return list.saveInBackground { (success, error) in
+            if error == nil {
+                completion(list, nil)
+            }
+        }
+    }
 }
 

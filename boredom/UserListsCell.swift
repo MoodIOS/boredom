@@ -27,6 +27,7 @@ class UserListsCell: UICollectionViewCell {
     
     var delegate: InfoListButtonDelegate!
     var indexPath: IndexPath!
+    var currentList: List!
     var listId: String!
     var type: String = "List"
     var listsUserLiked = [String]()
@@ -75,6 +76,18 @@ class UserListsCell: UICollectionViewCell {
             let curUser = User.current()
             curUser?.likedLists = newArray
             print("current User liked lists", curUser?.likedLists)
+            
+            let newLikeCount = currentList.likeCount - 1
+            currentList.likeCount = newLikeCount
+            List.updateListLikeCount(updateList: currentList) { (list: List?, error: Error?) in
+                if error == nil{
+                    print("update list:", list)
+                } else {
+                    print("error updating user liked list", error?.localizedDescription)
+                }
+            }
+            
+            
             User.updateUserListArray(updateArray: newArray) { (user: User?, error: Error?) in
                 if let user = user {
                     print("user", user)
@@ -87,6 +100,15 @@ class UserListsCell: UICollectionViewCell {
         } else {
             print("just liked")
             self.likeBtn.setImage(like, for: .normal)
+            let newLikeCount = currentList.likeCount + 1
+            currentList.likeCount = newLikeCount
+            List.updateListLikeCount(updateList: currentList) { (list: List?, error: Error?) in
+                if error == nil{
+                    print("update list:", list)
+                } else {
+                    print("error updating user liked list", error?.localizedDescription)
+                }
+            }
             User.updateUserLikedList(curUserId: (curUser?.objectId)!, likedList: listId) { (user:User?, error: Error?) in
                 if let user = user {
                     print("user", user)

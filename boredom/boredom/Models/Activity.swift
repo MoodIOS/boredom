@@ -104,23 +104,11 @@ import Parse
         //return query.
     }
     
-    class func changeLikeCount00(actId: String, likeCount: Int, completion: @escaping (Activity?, Error?) -> Void){
-        let query = PFQuery(className: "Activity")
-        query.includeKey("_created_at")
-        query.includeKey("activityLikedByUsers")
-        query.includeKey("activityLikeCount")
-        query.addDescendingOrder("_created_at")
-        print("Activity ID " + "\(actId)")
-        query.whereKey("objectId", equalTo: actId)
-        query.findObjectsInBackground{(activities: [PFObject]? , error: Error?) in
-            if activities! != []{
-                let activities = activities
-                print("ACTIVITIES:", activities![0])
-                let activity = activities![0] as! Activity
-                activity.activityLikeCount = likeCount
-                return activity.saveInBackground { (success, error) in
-                    completion(activity, nil)
-                }
+    class func updateActivityLikeCount(updateAct: Activity,  completion: @escaping (Activity?, Error?) -> Void){
+        let activity = updateAct
+        return activity.saveInBackground { (success, error) in
+            if error == nil {
+                completion(activity, nil)
             }
         }
     }

@@ -172,6 +172,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
              let list = top10List[indexPath.item]
             cell.delegate = self
             cell.indexPath = indexPath
+            cell.currentList = list
             cell.listName.text = list.listName
             cell.listId = list.objectId
             cell.listsUserLiked = self.listsIdLiked
@@ -215,6 +216,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             activitiesCell.activityName.text = act.actName ?? "Label"
             activitiesCell.actId = act.objectId
             activitiesCell.actsIdLike = self.actsIdLiked
+            activitiesCell.currentAct = act
             while bgUrlAct.count < 11 {
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]

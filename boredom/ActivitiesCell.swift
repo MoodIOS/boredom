@@ -25,6 +25,7 @@ class ActivitiesCell: UICollectionViewCell {
     
     var delegate: InfoActButtonDelegate!
     var indexPath: IndexPath!
+    var currentAct: Activity!
     var actId: String!
     var type: String! = "Act"
     var img: URL!
@@ -56,6 +57,15 @@ class ActivitiesCell: UICollectionViewCell {
             let curUser = User.current()
             curUser?.likedActivities = newArray
             print("current User liked lists", curUser?.likedActivities)
+            let newLikeCount = currentAct.activityLikeCount - 1
+            currentAct.activityLikeCount = newLikeCount
+            Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
+                if error == nil{
+                    print("activity", activity)
+                } else {
+                     print("error updating user liked act", error?.localizedDescription)
+                }
+            }
             User.updateUserActArray(updateArray: newArray) { (user: User?, error: Error?) in
                 if let user = user {
                     print("user", user)
@@ -68,6 +78,15 @@ class ActivitiesCell: UICollectionViewCell {
         } else if (likeBtn?.isEqual(unlike))!{
             self.likeBtn.setImage(like, for: .normal)
             curUser?.likedActivities.append(actId)
+            let newLikeCount = currentAct.activityLikeCount +  1
+            currentAct.activityLikeCount = newLikeCount
+            Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
+                if error == nil{
+                    print("activity", activity)
+                } else {
+                    print("error updating user liked act", error?.localizedDescription)
+                }
+            }
             User.updateUserLikedAct(curUserId: (curUser?.objectId)!, likedAct: actId) { (user:User?, error: Error?) in
                 if let user = user {
                     print("user", user)
