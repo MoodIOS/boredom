@@ -9,7 +9,12 @@
 import UIKit
 import Parse
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
 
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
@@ -23,10 +28,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     var currentRandomAct = Activity()
     var isSaved = 1
     
+    var userLists = [List]()
+    @IBOutlet weak var listPicker: UIPickerView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        listPicker.dataSource = self
+        listPicker.delegate = self
+        getLists()
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -47,6 +57,43 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             print("whatttttttttt", isSaved)
             getUserActs()
             randomActivity()
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return userLists.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let list = userLists[row]
+        let listName = list.listName
+        return listName
+    }
+    
+    func getLists() {
+        let curUser = PFUser.current()
+        let userId = curUser?.objectId
+        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
+            if lists?.count == 0 {
+                //                self.noListsLabel.isHidden = false
+                print("user has no lists yet")
+            }
+            else {
+                if error == nil {
+                    let lists = lists!
+                    //                    self.noListsLabel.isHidden = true
+                    print(lists)
+                    let allList = List()
+                    allList.listName = "All lists"
+                    self.userLists = lists
+                    self.userList.insert(allList, at: 0)
+                    self.listPicker.reloadAllComponents()
+                    print("self.lists", self.userLists )
+                    print("lists[0]", self.userLists[0].listName)
+                } else {
+                    print(error?.localizedDescription)
+                }
+            }
         }
     }
     

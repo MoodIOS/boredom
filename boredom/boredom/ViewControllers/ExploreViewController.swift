@@ -129,6 +129,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         getRecentActivities()
         getRecentLists()
         
+        bgUrlList = []
+        bgUrlAct = []
         
     }
     
@@ -141,6 +143,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         activitiesLabel.text = "Top 10 Activities"
         getTopActivities()
         getTopLists()
+        
+        bgUrlAct=[]
+        bgUrlList=[]
         
     }
 
@@ -155,7 +160,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         else {
             //return tagsCollectionView count... just returning 10 for now, you can change that :)
-            return tags.count
+            return 8
         }
 
     }
@@ -240,9 +245,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             return activitiesCell
         
         } else {
-            let tagsCell = tagsCollectionView.dequeueReusableCell(withReuseIdentifier: "TagBtnCell", for: indexPath) as! TagsCollectionViewCell
+            let tagsCell = tagsCollectionView.dequeueReusableCell(withReuseIdentifier: "TagsCollectionView", for: indexPath) as! TagsCollectionViewCell
             print("tags[indexPath.item]",tags[indexPath.item])
-            tagsCell.tagBtn.setTitle(tags[indexPath.item], for: .normal)
+            
+            let tagName = tags[indexPath.item] as! String
+            tagsCell.tagBtn.setTitle("tagName", for: .normal)
+            
             return tagsCell
         }
     }
