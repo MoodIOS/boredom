@@ -103,6 +103,17 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 let activities = activities
                 print("ACTIVITIES:", activities![0])
                 let curAct = activities![0]
+                
+//                if curAct.cost == 0 {
+//                    cell.costLabel.text = "$"
+//                } else if curAct.cost == 1 {
+//                    cell.costLabel.text = "$$"
+//                } else if curAct.cost == 2 {
+//                    cell.costLabel.text = "$$$"
+//                } else {
+//                    cell.costLabel.text = "$$$$"
+//                }
+    
                 var liked: Int = 0
                 var i = 0
                 while i < self.userLikedActs.count{
