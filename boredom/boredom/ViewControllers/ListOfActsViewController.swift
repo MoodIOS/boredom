@@ -104,15 +104,15 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let curAct = activities![0]
                 
-//                if curAct.cost == 0 {
-//                    cell.costLabel.text = "$"
-//                } else if curAct.cost == 1 {
-//                    cell.costLabel.text = "$$"
-//                } else if curAct.cost == 2 {
-//                    cell.costLabel.text = "$$$"
-//                } else {
-//                    cell.costLabel.text = "$$$$"
-//                }
+                if curAct.cost == 0 {
+                    cell.costLabel.text = "$"
+                } else if curAct.cost == 1 {
+                    cell.costLabel.text = "$$"
+                } else if curAct.cost == 2 {
+                    cell.costLabel.text = "$$$"
+                } else {
+                    cell.costLabel.text = "$$$$"
+                }
     
                 var liked: Int = 0
                 var i = 0

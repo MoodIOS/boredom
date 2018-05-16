@@ -781,6 +781,7 @@
                                         <connections>
                                             <outlet property="activityName" destination="hea-IZ-MB8" id="Ogh-QS-QfJ"/>
                                             <outlet property="completionBtn" destination="meb-8d-9Qe" id="oE1-hV-uOG"/>
+                                            <outlet property="costLabel" destination="kfR-U3-W6D" id="wPB-YY-sE9"/>
                                             <outlet property="likeBtn" destination="nOR-6G-7DN" id="47f-Nu-LGa"/>
                                             <outlet property="likeCountLabel" destination="pJ8-nk-Z2A" id="gOu-Dj-qyz"/>
                                         </connections>
