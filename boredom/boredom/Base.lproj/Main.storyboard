@@ -763,7 +763,7 @@
                                                     <rect key="frame" x="15" y="32" width="22" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <accessibility key="accessibilityConfiguration" label="Like"/>
-                                                    <state key="normal" title="like" image="favor-icon-1"/>
+                                                    <state key="normal" title="like" image="heart-gray"/>
                                                     <connections>
                                                         <action selector="onLikeAct:" destination="G1d-B7-GnO" eventType="touchUpInside" id="4Xl-AE-SsT"/>
                                                     </connections>
@@ -1114,14 +1114,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ActivityName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9m-LX-YuS">
-                                                    <rect key="frame" x="37" y="14" width="312" height="21"/>
+                                                    <rect key="frame" x="7" y="12" width="334" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQN-YF-iSN">
-                                                    <rect key="frame" x="7" y="9" width="22" height="26"/>
+                                                    <rect key="frame" x="7" y="38" width="22" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <accessibility key="accessibilityConfiguration" label="Like"/>
                                                     <state key="normal" title="like" image="heart-gray"/>
@@ -1129,19 +1129,35 @@
                                                         <action selector="didTapFavoritesBtn:" destination="wVs-8d-3mE" eventType="touchUpInside" id="otm-rt-f6l"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPv-PC-D3E">
-                                                    <rect key="frame" x="344" y="8" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPv-PC-D3E">
+                                                    <rect key="frame" x="340" y="15" width="20" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="+"/>
+                                                    <state key="normal" title="+" image="add"/>
                                                     <connections>
                                                         <segue destination="x46-yJ-HG0" kind="presentation" identifier="addSomeActToYourList" id="2vn-Nl-j72"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="123" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brT-Jp-ovm">
+                                                    <rect key="frame" x="37" y="41" width="45" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$$" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJ5-fh-2JR">
+                                                    <rect key="frame" x="315" y="40" width="45" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityNameLabel" destination="V9m-LX-YuS" id="2PI-bD-W9F"/>
+                                            <outlet property="costLabel" destination="jJ5-fh-2JR" id="WWi-YZ-LZn"/>
                                             <outlet property="favoritesBtn" destination="JQN-YF-iSN" id="4qY-jS-iYw"/>
+                                            <outlet property="likeCount" destination="brT-Jp-ovm" id="qTG-Ua-BbX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1665,8 +1681,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="32" height="32"/>
         <image name="add-white" width="32" height="32"/>
-        <image name="favor-icon-1" width="30" height="30"/>
         <image name="heart-gray" width="32" height="32"/>
         <image name="heart-white" width="32" height="32"/>
         <image name="info-white" width="32" height="32"/>

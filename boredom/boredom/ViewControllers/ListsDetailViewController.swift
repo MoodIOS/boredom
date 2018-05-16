@@ -154,6 +154,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
                 cell.activityNameLabel.text = curAct.actName
                 cell.activity = curAct
                 cell.userAct = currentAct
+                cell.likeCount.text = "\(curAct.activityLikeCount)"
             }
         }
 //        Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
