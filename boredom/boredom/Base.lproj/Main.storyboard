@@ -1459,6 +1459,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Shuffle" id="efs-FB-C6h"/>
                     <connections>
+                        <outlet property="actDescriptionLabel" destination="ar4-GR-U1d" id="uGK-xP-DCq"/>
                         <outlet property="actImage" destination="ar4-GR-U1d" id="sVP-OT-1dz"/>
                         <outlet property="actName" destination="hY8-T7-iG8" id="yQR-EX-px7"/>
                         <outlet property="listPicker" destination="loZ-5e-IvE" id="nV8-jJ-0ez"/>

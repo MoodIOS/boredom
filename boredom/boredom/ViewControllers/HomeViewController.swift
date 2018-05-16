@@ -4,7 +4,7 @@
 //
 //  Created by Melissa Phuong Nguyen on 4/9/18.
 //  Copyright © 2018 Melissa Phuong Nguyen. All rights reserved.
-//
+// //////////////Shuffle Page//////////////////
 
 import UIKit
 import Parse
@@ -18,6 +18,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
 
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
+    @IBOutlet weak var actDescriptionLabel: UIImageView!
+    
     var locationManager:CLLocationManager!
     let userLocation:CLLocation! = nil
     
@@ -27,6 +29,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     var currentUser = PFUser.current()
     var currentRandomAct = Activity()
     var isSaved = 1
+    
+    var actDescription:String!
     
     var userLists = [List]()
     @IBOutlet weak var listPicker: UIPickerView!
@@ -207,6 +211,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                     let randomAct = activities![0]
                     print("randomAct", randomAct)
                     self.actName.text = randomAct.actName
+                    //self.actDescriptionLabel.text = 
 //                    let curUser = User.current
                     
                 }
