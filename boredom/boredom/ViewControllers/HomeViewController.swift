@@ -18,7 +18,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
 
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
-    @IBOutlet weak var actDescriptionLabel: UIImageView!
+    @IBOutlet weak var actDescriptionLabel: UILabel!
+    
     
     var locationManager:CLLocationManager!
     let userLocation:CLLocation! = nil
@@ -211,7 +212,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                     let randomAct = activities![0]
                     print("randomAct", randomAct)
                     self.actName.text = randomAct.actName
-                    //self.actDescriptionLabel.text = 
+                    self.actDescriptionLabel.text = randomAct.actDescription ?? "no Description available"
 //                    let curUser = User.current
                     
                 }

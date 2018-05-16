@@ -75,14 +75,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         listsLabel.text = "Top 10 Lists"
         activitiesLabel.text = "Top 10 Activities"
         
-        
-        //view.addSubview(tableView)
-       // tableView.dataSource = self
-       // tableView.delegate = self
-       // tableView.rowHeight = 200
-       // tableView.reloadData()
-        
-        //colView1 = table
+    
         userListsCollectionView.dataSource = self
         activitiesCollectionView.dataSource = self
         
@@ -110,8 +103,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
         layoutActivities.itemSize = CGSize(width: 120, height: 120)
         
-        getTopLists()
-        getTopActivities()
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            getRecentLists()
+            getRecentActivities()
+        }
+        else{
+           
+            getTopLists()
+            getTopActivities()
+        }
         
         let curUser = User.current()
         self.actsIdLiked = (curUser?.likedActivities)!
@@ -380,8 +380,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
-        getTopLists()
-        getTopActivities()
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            getRecentLists()
+            getRecentActivities()
+        }
+        else{
+            
+            getTopLists()
+            getTopActivities()
+        }
+        //getTopLists()
+        //getTopActivities()
 
         infoForIndex = nil
         let curUser = User.current()
