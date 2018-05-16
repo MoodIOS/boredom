@@ -28,6 +28,8 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
     var curActGlobal: Activity!
     var likeCell: ActivitiesInListCell!
     
+    var userLikedActs = [String]()
+    
     @IBAction func backToExplore(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -53,6 +55,8 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
     
     
     func getActivitiesInList(){
+        let curUser = User.current()
+        userLikedActs = (curUser?.likedActivities)!
         let curList = self.list
         let listId = curList?.objectId
         var activitesArray: [UserActivity] = []
@@ -92,23 +96,19 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
         return activities.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    /*func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
-        likeCell = cell
-        let userActivities = self.activities
-        let curAct = userActivities[indexPath.row]
-        //curLikeAct = curAct
-        let currentActId = curAct.activity.objectId
-        
-        
-        Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
+        let currentAct = self.activities[indexPath.row]
+        let currActId = currentAct.activity.objectId
+        Activity.fetchActivity(actId: currActId!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
                 let activities = activities
                 print("ACTIVITIES:", activities![0])
                 let activity = activities![0]
                 cell.activityNameLabel.text = activity.actName
                 cell.activity = activity
-                cell.userAct = curAct
+                cell.userAct = currentAct
                 
                 
                 try? cell.userAct.activity.fetchIfNeeded()
@@ -120,6 +120,61 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
                 
             }
         }
+    }*/
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
+        likeCell = cell
+        let userActivities = self.activities
+        let currentAct = userActivities[indexPath.row]
+        //curLikeAct = curAct
+        let currentActId = currentAct.activity.objectId
+        
+        Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
+            if activities! != [] {
+                let activities = activities
+                print("ACTIVITIES:", activities![0])
+                let curAct = activities![0]
+                var liked: Int = 0
+                var i = 0
+                while i < self.userLikedActs.count{
+                    let id = self.userLikedActs[i]
+                    if id == curAct.objectId {
+                        liked = liked + 1
+                    }
+                    i = i + 1
+                }
+                
+                if liked == 0 {
+                    cell.favoritesBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                } else if liked > 0 {
+                    cell.favoritesBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+                }
+                
+                cell.activityNameLabel.text = curAct.actName
+                cell.activity = curAct
+                cell.userAct = currentAct
+            }
+        }
+//        Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
+//            if activities! != [] {
+//                let activities = activities
+//                print("ACTIVITIES:", activities![0])
+//                let activity = activities![0]
+//                cell.activityNameLabel.text = activity.actName
+//                cell.activity = activity
+//                cell.userAct = curAct
+//
+//
+//                try? cell.userAct.activity.fetchIfNeeded()
+//
+//                print("ACTIVITY LIKED BY USERS:", cell.userAct.activity.activityLikedByUsers)
+//                if(cell.userAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
+//                    cell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+//                }
+//
+//            }
+//        }
 
         return cell
     }

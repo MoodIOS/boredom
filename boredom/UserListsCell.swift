@@ -75,7 +75,7 @@ class UserListsCell: UICollectionViewCell {
             print("newArray", newArray)
             let curUser = User.current()
             curUser?.likedLists = newArray
-            print("current User liked lists", curUser?.likedLists)
+            print("current User liked lists", curUser?.likedLists )
             
             let newLikeCount = currentList.likeCount - 1
             currentList.likeCount = newLikeCount
@@ -83,7 +83,7 @@ class UserListsCell: UICollectionViewCell {
                 if error == nil{
                     print("update list:", list)
                 } else {
-                    print("error updating user liked list", error?.localizedDescription)
+                    print("error updating user liked list", "\(String(describing: error?.localizedDescription))")
                 }
             }
             
@@ -93,7 +93,7 @@ class UserListsCell: UICollectionViewCell {
                     print("user", user)
                     
                 } else {
-                    print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }
             }
 
@@ -106,7 +106,7 @@ class UserListsCell: UICollectionViewCell {
                 if error == nil{
                     print("update list:", list)
                 } else {
-                    print("error updating user liked list", error?.localizedDescription)
+                    print("error updating user liked list", "\(String(describing: error?.localizedDescription))")
                 }
             }
             User.updateUserLikedList(curUserId: (curUser?.objectId)!, likedList: listId) { (user:User?, error: Error?) in
@@ -114,7 +114,7 @@ class UserListsCell: UICollectionViewCell {
                     print("user", user)
                     
                 } else {
-                    print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }
             }
             

@@ -71,15 +71,18 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             else {
                 if error == nil {
-                    let lists = lists!
-                    self.noListsLabel.isHidden = true
-                    print(lists)
-                    self.lists = lists
-                    self.colView.reloadData()
-                    print("self.lists", self.lists )
-                    print("lists[0]", self.lists[0].listName)
-                } else {
-                print(error?.localizedDescription)
+                    if lists != nil{
+                        let lists = lists!
+                        self.noListsLabel.isHidden = true
+                        print(lists)
+                        self.lists = lists
+                        self.colView.reloadData()
+                        print("self.lists", self.lists )
+                        print("lists[0]", self.lists[0].listName)
+                    } else {
+                        print(error?.localizedDescription)
+                    }
+                
                 }
             }
         }

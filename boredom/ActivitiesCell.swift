@@ -61,9 +61,9 @@ class ActivitiesCell: UICollectionViewCell {
             currentAct.activityLikeCount = newLikeCount
             Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
                 if error == nil{
-                    print("activity", activity)
+                    print("activity", activity!)
                 } else {
-                     print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))" )
                 }
             }
             User.updateUserActArray(updateArray: newArray) { (user: User?, error: Error?) in

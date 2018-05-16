@@ -23,7 +23,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     private var completionPopup: UIView!
     var deleteIndexPath: NSIndexPath? = nil
     
-    var actsIdLiked = [String]()
+    var userLikedActs = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = 100
         getActivities()
         tableView.reloadData()
-        print("actnamesInList", actnamesInList)
+        print("actnamesInList", userLikedActs)
         
         // Do any additional setup after loading the view.
         
@@ -49,8 +49,11 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func getActivities() {
+        let curUser = User.current()
+        userLikedActs = (curUser?.likedActivities)!
         let curList = self.list
         let listId = curList.objectId
+        
         UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil {
                 print(activities!)
@@ -86,55 +89,59 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
         let userActivities = self.userActivities
-        let curAct = userActivities[indexPath.row]
-        let currentActID = curAct.activity.objectId
-        cell.thisAct = curAct
-        if curAct.done == false {
+        let currentAct = userActivities[indexPath.row]
+        let currentActID = currentAct.activity.objectId
+        cell.thisAct = currentAct
+        if currentAct.done == false {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
         } else {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
         
-        var liked: Int = 0
-        var i = 0
-        
-//        while i < actsIdLiked.count{
-//            let id = actsIdLiked[i]
-//            if id == act.objectId {
-//                liked = liked + 1
-//            }
-//            i = i + 1
-//        }
-//
-//        if liked == 0 {
-//            activitiesCell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
-//        } else if liked > 0 {
-//            activitiesCell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
-//        }
-        
         Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
                 let activities = activities
                 print("ACTIVITIES:", activities![0])
-                let activity = activities![0]
-                cell.activityName.text = activity.actName
-    
-                self.actnamesInList.append(activity.actName)
-                self.actsInList.append(activities![0])
-                
-                try? cell.thisAct.activity.fetchIfNeeded()
-                
-                print("ACTIVITY LIKED BY USERS:", cell.thisAct.activity.activityLikedByUsers)
-                print("CURRENT USER:", PFUser.current()?.objectId)
-                if(cell.thisAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
-                    cell.likeBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+                let curAct = activities![0]
+                var liked: Int = 0
+                var i = 0
+                while i < self.userLikedActs.count{
+                    let id = self.userLikedActs[i]
+                    if id == curAct.objectId {
+                        liked = liked + 1
+                    }
+                    i = i + 1
                 }
+                
+                if liked == 0 {
+                    cell.likeBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                } else if liked > 0 {
+                    cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+                }
+                
+                cell.activityName.text = curAct.actName
+                cell.currentAct = curAct
+                cell.actID = curAct.objectId!
+                self.actnamesInList.append(curAct.actName)
+                self.actsInList.append(activities![0])
+    
+                try? cell.thisAct.activity.fetchIfNeeded() 
+                
+//                print("ACTIVITY LIKED BY USERS:", cell.thisAct.activity.activityLikedByUsers)
+//                print("CURRENT USER:", PFUser.current()?.objectId)
+                
+//                if(cell.thisAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
+//                    cell.likeBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
+//                }
                 
                 
                 cell.likeCountLabel.text = "\(cell.thisAct.activity.activityLikeCount)"
                 
             }
         }
+        
+       
+        
         
         return cell
     }
