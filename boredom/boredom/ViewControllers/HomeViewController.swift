@@ -28,11 +28,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     var userList = [List]()
     var currentUser = PFUser.current()
     var currentRandomAct = Activity()
-    var isSaved = 1
+    var isSaved = 0
     
     var actDescription:String!
     
     var userLists = [List]()
+    
+    var itemForPickerView = [[String : [String]]]()
+    var pickedListID = [String]()
     @IBOutlet weak var listPicker: UIPickerView!
     
     
@@ -50,39 +53,54 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         if CLLocationManager.locationServicesEnabled(){
             locationManager.startUpdatingLocation()
         }
-//        getUserActs()
-//        randomActivity()
-        // Do any additional setup after loading the view.
+        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         isSaved = UserDefaults.standard.integer(forKey: "savedBoolean")
-        if(isSaved == 2){
+        if(isSaved == 2) {
             self.userActivities.removeAll()
             print("whatttttttttt", isSaved)
-            getUserActs()
-            randomActivity()
+            getActFromList()
+//            randomActivity()
         }
     }
     
     // make font white
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let titleData = userLists[row].listName
-        let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        let list = itemForPickerView[row]
+        let titleData = list["name"]![0]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         
         return myTitle
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return userLists.count
+        return itemForPickerView.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        let list = userLists[row]
-        let listName = list.listName
+        let list = itemForPickerView[row]
+        let name = list["name"]
+        let listName = name![0]
         
         return listName
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        let list = itemForPickerView[row]
+        self.pickedListID = list["ids"]!
+        getActFromList()
+        print("self.pickedList", self.pickedListID)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navVC = segue.destination as! UINavigationController
+        let optionVC = navVC.topViewController as! OptionsViewController
+        optionVC.pickedListId = self.pickedListID
     }
     
     func getLists() {
@@ -97,16 +115,34 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                 if error == nil {
                     let lists = lists!
                     //                    self.noListsLabel.isHidden = true
-                    print(lists)
-                    let allList = List()
-                    allList.listName = "All lists"
                     self.userLists = lists
-                    self.userList.insert(allList, at: 0)
+                    print(lists)
+                    var allOptions = [[String : [String]]]()
+                    
+                    var listIDsArr = [String]()
+                    
+                    for list in lists{
+                        listIDsArr.append(list.objectId!)
+                    }
+                    
+                    let allLists : [String : [String]]
+                    allLists = ["name" : ["All Lists"], "ids": listIDsArr]
+                    
+                    allOptions.append(allLists)
+
+                    for list in lists{
+                        let option : [String : [String]]
+                        let id = list.objectId
+                        option = ["name" : [list.listName ], "ids": [id]] as! [String : [String]]
+                        allOptions.append(option)
+                    }
+                    
+                    self.itemForPickerView = allOptions
+                    self.pickedListID = listIDsArr
+                    self.getActFromList()
                     self.listPicker.reloadAllComponents()
-                    print("self.lists", self.userLists )
-                    print("lists[0]", self.userLists[0].listName)
                 } else {
-                    print(error?.localizedDescription)
+                    print("\(error?.localizedDescription)")
                 }
             }
         }
@@ -150,55 +186,48 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     
     @IBAction func changeGenOptions(_ sender: Any) {
+        
     }
     
     @IBAction func randomizeAct(_ sender: UIButton) {
         randomActivity()
     }
     
+
     
-    
-    
-    func getUserActs(){
-//        (completion: @escaping () -> Void) {
-        let userId = currentUser?.objectId
-        List.fetchLists(userId: userId! ){ (lists: [List]?, error: Error?) in
-            if error == nil {
-                let userLits = lists
-                for list in userLits! {
-                    let listId = list.objectId
-                    UserActivity.fetchActivity(listId: listId!, completion: { (activities: [UserActivity]?, error: Error?) in
-                        if error == nil {
-                            let actsInList = activities
-                            for act in actsInList! {
-                               let actId = act.activity.objectId
+    func getActFromList(){
+        print("getActFromList")
+        print("pickedListID", pickedListID)
+        for id in pickedListID {
+            UserActivity.fetchActivity(listId: id, completion: { (activities: [UserActivity]?, error: Error?) in
+                if error == nil {
+                    let actsInList = activities
+                    for act in actsInList! {
+                        let actId = act.activity.objectId
+                        self.userActivities = []
+                        Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
+                            if (acts != []){
+                                let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
+                                let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
                                 
-                                Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
-                                    if (acts != []){
-                                        let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
-                                        let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
-                                        if (acts![0].cost == firstOption){
-                                            //need to add distance, tags, etc. to filter out activities.
-                                            
-                                            self.userActivities.append(act)
-                                        }
-                                    } else {
-                                        print("error", error?.localizedDescription)
-                                    }
-                                   
+                                if (acts![0].cost == firstOption){
+                                    //need to add distance, tags, etc. to filter out activities.
                                     
-                                })
+                                    self.userActivities.append(act)
+                                }
+                            } else {
+                                print("error", "\(String(describing: error?.localizedDescription))")
                             }
-                        }
-                        
-                    })
+                        })
+                    }
                 }
-               
-            }
-            
+            })
         }
     }
-
+    
+    func filterByOption(){
+        
+    }
     
     func randomActivity(){
         if userActivities != [] {
@@ -211,11 +240,25 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                     let randomAct = activities![0]
                     print("randomAct", randomAct)
                     self.actName.text = randomAct.actName
-                    //self.actDescriptionLabel.text = 
-//                    let curUser = User.current
-                    
+
+                }else {
+                    print("error", "\(String(describing: error?.localizedDescription))")
+                    let alertController = UIAlertController(title: "Error Generating Your Activity ", message: "\(error?.localizedDescription ?? "Please narrow down your options")" , preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in}
+                    alertController.addAction(cancelAction)
+                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true)
                 }
             })
+        } else {
+            print("userActivities in random", userActivities)
+            let alertController = UIAlertController(title: "No Matched Activity ", message: "Please narrow down your options" , preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in}
+            alertController.addAction(cancelAction)
+            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+            alertController.addAction(OKAction)
+            self.present(alertController, animated: true)
         }
     }
     

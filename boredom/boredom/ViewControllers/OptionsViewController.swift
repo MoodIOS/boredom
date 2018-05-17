@@ -16,6 +16,7 @@ class OptionsViewController: UIViewController {
     
     @IBOutlet weak var distanceControl: UISegmentedControl!
     
+    var pickedListId = [String]()
     
     
     
