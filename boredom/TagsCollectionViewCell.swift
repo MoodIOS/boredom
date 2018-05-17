@@ -12,4 +12,8 @@ class TagsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var tagBtn: UIButton!
     
+    @IBAction func onTapTagBtn(_ sender: Any) {
+        tagBtn.backgroundColor = UIColor.yellow
+    }
+    
 }
