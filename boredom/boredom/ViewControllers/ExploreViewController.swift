@@ -96,6 +96,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         pickerView.delegate = self
         viewWithPicker.isHidden = true
         
+        self.tagsBool["Restaurant"] = false
+        self.tagsBool["Brunch"] = false
+        self.tagsBool["Movie"] = false
+        self.tagsBool["Outdoor"] = false
+        self.tagsBool["Book"] = false
+        self.tagsBool["Coffee"] = false
+        self.tagsBool["Nightlife"] = false
+        self.tagsBool["Happy hours"] = false
+        
+        
         
        let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 2
@@ -151,7 +161,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         mostlyLikedBtnClicked = true
         listsLabel.text = "Top 10 Lists"
         activitiesLabel.text = "Top 10 Activities"
-        getTopActivities()
+        getTagActivities()
         getTopLists()
         
         bgUrlAct=[]
@@ -227,8 +237,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
             return cell
         }
-        else if (collectionView == self.activitiesCollectionView){ //uncomment this line once you add the else case below..
-//        else{
+        else if (collectionView == self.activitiesCollectionView){
+
             let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
             activitiesCell.delegate = self
             activitiesCell.indexPath = indexPath
@@ -272,10 +282,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             let tagName = tags[indexPath.item] as! String
             tagsCell.tagBtn.setTitle(tagName, for: .normal)
-            
+            //handleTagsFilter(button: tagsCell.tagBtn)
+            //tagsCell.onTapTagBtn(getTagActivities())
+            //activitiesCollectionView.reloadData()
             return tagsCell
         }
     }
+    
+   
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let activityCell = sender as! UICollectionViewCell
@@ -424,7 +438,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         else{
             
             getTopLists()
-            getTopActivities()
+            getTagActivities()
         }
         //getTopLists()
         //getTopActivities()
@@ -498,6 +512,117 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         self.activitiesCollectionView.reloadData()
                         //self.tableView.reloadData()
                         i = i + 1
+                    }
+                } else {
+                    print("No Top Activity Available")
+                }
+            }
+            else{
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    func getTagActivities() {
+        var noTagsSelected:Bool!
+        
+        Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
+            if error == nil {
+                self.exploreActivities = activities
+                if self.exploreActivities != nil {
+                    self.exploreActivities = activities
+                    let activities = activities
+                    self.top10Act = [Activity]()
+                    if(self.tagsBool["Restaurant"] == false && self.tagsBool["Brunch"] == false && self.tagsBool["Movie"] == false && self.tagsBool["Outdoor"] == false && self.tagsBool["Book"] == false && self.tagsBool["Coffee"] == false && self.tagsBool["Nightlife"] == false && self.tagsBool["Happy hours"] == false){
+                        noTagsSelected = true
+                    }
+                    var i = 0
+                    while i < 10{
+                        print("activityLikeCount", activities![i].activityLikeCount)
+                        let act = activities![i]
+                        
+                        if(noTagsSelected == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            //continue
+                        }
+                        
+                        else if(self.tagsBool["Restaurant"] == true && act.tags["Restaurant"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Brunch"] == true && act.tags["Brunch"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Movie"] == true && act.tags["Movie"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Outdoor"] == true && act.tags["Outdoor"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Book"] == true && act.tags["Book"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Coffee"] == true && act.tags["Coffee"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Nightlife"] == true && act.tags["Nightlife"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        else if(self.tagsBool["Happy hours"] == true && act.tags["Happy hours"] == true){
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                            continue
+                        }
+                        
+                        //i = i + 1
+                        
+                        //self.top10Act.append(act)
+                        //print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                        self.activitiesCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        //i = i + 1
+                        
                     }
                 } else {
                     print("No Top Activity Available")
