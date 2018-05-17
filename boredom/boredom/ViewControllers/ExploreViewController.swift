@@ -38,7 +38,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
     
-    @IBOutlet weak var addedBtn: UIButton!
+    
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var doneBtn: UIButton!
     
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
@@ -75,7 +78,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         recentlyAddedBtn.backgroundColor = UIColor.gray
@@ -98,7 +101,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         pickerView.dataSource = self
         pickerView.delegate = self
         viewWithPicker.isHidden = true
-        
+        doneBtn.isHidden = true
         
        let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 2
@@ -360,6 +363,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("add clicked")
         if type == "Act"{
             viewWithPicker.isHidden = false
+            if viewWithPicker.isHidden == false {
+                doneBtn.isHidden = true
+                addBtn.isHidden = false
+                cancelBtn.isHidden = false
+                
+            }
             addingActivity = top10Act[index.row]
             print("addingActivity", addingActivity)
         }
@@ -431,13 +440,21 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             getTopLists()
             getTopActivities()
         }
-        //getTopLists()
-        //getTopActivities()
+        
+        getLists()
+
 
         infoForIndex = nil
         let curUser = User.current()
         self.actsIdLiked = (curUser?.likedActivities)!
         self.listsIdLiked = (curUser?.likedLists)!
+        
+        if viewWithPicker.isHidden == false {
+            doneBtn.isHidden = true
+            addBtn.isHidden = false
+            cancelBtn.isHidden = false
+            
+        }
     }
     
     
@@ -571,6 +588,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.pickedList = list
 //        getActFromList()
         print("self.pickedList", self.pickedList)
+        if viewWithPicker.isHidden == true {
+            pickerView.selectedRow(inComponent: 0)
+        }
     }
     
    
@@ -579,6 +599,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("on cancel adding")
     }
     
+//    @IBAction func onDoneAdding(_ sender: UIButton) {
+//        viewWithPicker.isHidden = true
+//        print("on done adding")
+//    }
+    
+    //ERROR: When hide the viewwithpicjer, adding doesnt work
     @IBAction func onAddingActToList(_ sender: UIButton) {
         print("adding Act to list")
         if pickedList == nil {
@@ -587,14 +613,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             UserActivity.addNewActivity(activity: addingActivity, list: pickedList ) { (userAct: UserActivity?, error: Error?) in
                 if error == nil{
                     List.addActToList(currentList: self.pickedList, userAct: userAct, completion: { (list: List?, error: Error?) in
-                        if error == nil{
-                            print(" added act to list", list)
-
-                            sender.setTitle("Added", for: .normal)
-                            self.addedBtn.setTitle("Done", for: .normal)
-                            self.addedBtn.setTitleColor(UIColor.blue, for: .normal)
-                            
-//                            self.viewWithPicker.isHidden = true
+                        if error == nil {
+                            print("done")
                         } else {
                             print("Error adding activity to list \(error?.localizedDescription)")
                         }

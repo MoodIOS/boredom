@@ -84,8 +84,20 @@ import Parse
     
     class func addActToList(currentList: List, userAct: UserActivity!, completion: @escaping (List?, Error?) -> Void){
         let list = currentList
-        list.activities?.append(userAct)
-        list.saveInBackground{ (success,error) in completion(list, nil) }
+        if list.activities == nil {
+            list.activities = [userAct]
+        } else {
+            list.activities?.append(userAct)
+        }
+        
+//        try? list.save()
+        list.saveInBackground(block: { (success, error) in
+            if success {
+                completion(list, nil)
+            } else{
+                print("error ", error?.localizedDescription)
+            }
+        })
     }
     
     class func deleteList(){

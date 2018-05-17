@@ -490,6 +490,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUy-x2-4Oe">
+                                        <rect key="frame" x="0.0" y="158" width="375" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="onDoneAdding:" destination="Ol9-U0-lL2" eventType="touchUpInside" id="vMm-f2-ecE"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -518,7 +526,9 @@
                     <connections>
                         <outlet property="activitiesCollectionView" destination="ahb-bt-XvV" id="526-ly-bUm"/>
                         <outlet property="activitiesLabel" destination="wBy-mD-GHi" id="ShW-A1-T5E"/>
-                        <outlet property="addedBtn" destination="rTZ-w1-bR8" id="eQC-Il-EgO"/>
+                        <outlet property="addBtn" destination="B7f-d7-tgY" id="v1o-Eo-1uj"/>
+                        <outlet property="cancelBtn" destination="rTZ-w1-bR8" id="SqI-R8-daj"/>
+                        <outlet property="doneBtn" destination="tUy-x2-4Oe" id="tx5-6t-Ruy"/>
                         <outlet property="listsLabel" destination="Sge-d8-aH9" id="Iyw-AH-wZS"/>
                         <outlet property="mostlyLikedBtn" destination="r5F-zd-KrE" id="fuh-o4-LUc"/>
                         <outlet property="pickerView" destination="KV6-LM-zMR" id="Tha-Pl-t9b"/>
