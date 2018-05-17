@@ -12,11 +12,9 @@ import AlamofireImage
 import PromiseKit
 import PopupDialog
 
-class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate {
-
-
+class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
+    
     @IBOutlet weak var recentlyAddedBtn: UIButton!
     @IBOutlet weak var mostlyLikedBtn: UIButton!
     
@@ -30,7 +28,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
     @IBOutlet weak var userListsCollectionView: UICollectionView!
-//    var movies: [[String:Any]] = []
+
+    @IBOutlet weak var viewWithPicker: UIView!
+    @IBOutlet weak var pickerView: UIPickerView!
+    var itemForPickerView = [[String : String]]()
+    var pickedListID = String()
+    
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
     
@@ -38,6 +41,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var top10List: [List]! = []
     var top10Act: [Activity]! = []
     var tags: [String] = ["Restaurant", "Brunch", "Movie", "Outdoor", "Book", "Coffee", "Nightlife", "Happy hours"]
+    var tagsBool =  [String: Bool]()
     var bgURL: [String] = ["https://i.imgur.com/2GOE7w9.png", "https://imgur.com/spLeglN.png", "https://imgur.com/SVdeXmg.png", "https://imgur.com/es6rQag.png", "https://imgur.com/VrD2OI3.png", "https://imgur.com/HkECUoG.png", "https://imgur.com/J8lQzBz.png", "https://imgur.com/jpdbJvU.png", "https://imgur.com/3Qm9GDx.png"]
     var index1 = [Int]()
     var index2 = [Int]()
@@ -49,6 +53,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var selectedIndexInTable:IndexPath!
     var tableCell: ExploreTableViewCell!
     var colView1 : UICollectionView!
+    
+    var globalAct = [Activity]()
+    var userLists = [List]()
     
     var infoForIndex: NSIndexPath! = nil
     var popup: PopupDialog!
@@ -80,12 +87,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         activitiesCollectionView.dataSource = self
         
         //self.userListsCollectionView.isScrollEnabled = true
-        
-        
         //activitiesCollectionView.backgroundView?.tintColor = UIColor.white
-        
         //self.view.addSubview(userListsCollectionView)
         //self.view.addSubview(activitiesCollectionView)
+        getLists()
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        viewWithPicker.isHidden = true
+        
         
        let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 2
@@ -159,7 +168,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             return top10List.count
         }
         else {
-            //return tagsCollectionView count... just returning 10 for now, you can change that :)
             return 8
         }
 
@@ -168,8 +176,19 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (collectionView == self.userListsCollectionView){
-             let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
-             let list = top10List[indexPath.item]
+            let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
+            let list = top10List[indexPath.item]
+            var globalAct = [Activity]()
+            UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
+                if error == nil {
+                    print("userActivities", userActivities!)
+                    for userAct in userActivities! {
+                        let act = userAct.activity
+                        globalAct.append(act!)
+                    }
+                    cell.globalAct = globalAct
+                }
+            }
             cell.delegate = self
             cell.indexPath = indexPath
             cell.currentList = list
@@ -278,6 +297,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     print("userActivities", userActivities!)
                     for userAct in userActivities! {
                         let globalAct = userAct.activity
+                        
                         listDetailViewController.globalActivities.append(globalAct!)
                     }
                     
@@ -286,30 +306,56 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
     }
-
-        
-    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton){
-        print("like clicked")
-        if type == "List"{
-            let likeBtn = btn.imageView?.image
-            let like = UIImage(named:"heart-gray")
-            let unlike = UIImage(named:"heart-red")
-            if (likeBtn?.isEqual(like))! {
-                
-            } else if (likeBtn?.isEqual(unlike))!{
-                
+    
+    func handleTagsFilter(button : UIButton){
+        print("button sender ", button.backgroundColor!)
+        let blueColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+        let grayColor = UIColor.lightGray
+        print("blueColor", blueColor)
+        print("grayColor", grayColor)
+        handleTags(tagName: button.currentTitle!) { (tags: [String: Bool]?, error: Error?) in
+            for (tag, value) in tags!{
+                if (value == true) && (button.currentTitle == tag)  {
+                    button.backgroundColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+                } else if (value == false) && (button.currentTitle == tag) {
+                    button.backgroundColor = UIColor.lightGray
+                }
             }
-        } else if type == "Act"{
-            
         }
     }
+
+    func handleTags (tagName: String, completion: @escaping ([String:Bool]?, Error? ) -> Void){
+        print("handleTag: ", tagName)
+        if tagsBool[tagName] == false || tagsBool[tagName] == nil {
+            tagsBool[tagName] = true
+        } else {
+            tagsBool[tagName] = false
+        }
+        print("tags: ", tags)
+        return completion(tagsBool, nil)
+
+    }
+        
+//    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton){
+//        print("like clicked")
+//        if type == "List"{
+//            let likeBtn = btn.imageView?.image
+//            let like = UIImage(named:"heart-gray")
+//            let unlike = UIImage(named:"heart-red")
+//            if (likeBtn?.isEqual(like))! {
+//
+//            } else if (likeBtn?.isEqual(unlike))!{
+//
+//            }
+//        } else if type == "Act"{
+//
+//        }
+//    }
     
     func addBtnClicked (at index: IndexPath, type: String){
         print("add clicked")
-        if type == "List"{
-            
-        } else if type == "Act"{
-            
+        if type == "Act"{
+            viewWithPicker.isHidden = false
         }
     }
     
@@ -330,17 +376,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let okBtn = CancelButton(title: "OK") {
                 print("You canceled the car dialog.")
             }
-//            let likeBtn = DefaultButton(title: "") {
-//                //like this activity
-//                print("like this item")
-//            }
-//            //check if User has already like this activity?
-//            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
-//            let addBtn = DefaultButton(title: "") {
-//                print("add this item")
-//            }
-//            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-//            popup.addButtons([likeBtn, okBtn, addBtn])
+
             popup.addButton(okBtn)
             popup.buttonAlignment = .horizontal
             
@@ -500,6 +536,93 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // make font white
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let list = itemForPickerView[row]
+        let titleData = list["name"]
+        let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
+        
+        return myTitle
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return itemForPickerView.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let list = itemForPickerView[row]
+        let name = list["name"]
+        return name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        let list = itemForPickerView[row]
+        self.pickedListID = list["id"]!
+//        getActFromList()
+        print("self.pickedList", self.pickedListID)
+    }
+    
+   
+    @IBAction func onCancelAdding(_ sender: UIButton) {
+        viewWithPicker.isHidden = true
+        print("on cancel adding")
+    }
+    
+    @IBAction func onAddingActToList(_ sender: UIButton) {
+        print("adding Act to list")
+    }
+    
+    
+    func getLists() {
+        let curUser = PFUser.current()
+        let userId = curUser?.objectId
+        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
+            if lists?.count == 0 {
+                //                self.noListsLabel.isHidden = false
+                print("user has no lists yet")
+            }
+            else {
+                if error == nil {
+                    let lists = lists!
+                    //                    self.noListsLabel.isHidden = true
+                    self.userLists = lists
+                    print(lists)
+                    var allOptions = [[String : String]]()
+                    
+                    var listIDsArr = [String]()
+                    
+                    for list in lists{
+                        listIDsArr.append(list.objectId!)
+                    }
+                    
+//                    let allLists : [String : [String]]
+//                    allLists = ["name" : ["All Lists"], "ids": listIDsArr]
+                    
+//                    allOptions.append(allLists)
+                    
+                    for list in lists{
+                        let option : [String : String]
+                        let id = list.objectId
+                        option = ["name" : list.listName , "id": id ] as! [String : String]
+                        allOptions.append(option)
+                    }
+                    
+                    self.itemForPickerView = allOptions
+//                    self.pickedListID = listIDsArr
+//                    self.getActFromList()
+                    self.pickerView.reloadAllComponents()
+                } else {
+                    print("\(error?.localizedDescription)")
+                }
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -510,7 +633,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         appDelegate.logout()
     }
 
-    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -31,9 +31,11 @@ class UserListsCell: UICollectionViewCell {
     var listId: String!
     var type: String = "List"
     var listsUserLiked = [String]()
-    
+    var globalAct = [Activity]()
+        
     override func awakeFromNib() {
         print("hi")
+
 //        let likeBtn = self.likeBtn.imageView?.image
 //        let like = UIImage(named:"heart-gray")
 //        let unlike = UIImage(named:"heart-red")
@@ -45,6 +47,7 @@ class UserListsCell: UICollectionViewCell {
 //        }
         
     }
+    
 
     
     @IBAction func infoBtnClicked(_ sender: UIButton) {
@@ -125,6 +128,28 @@ class UserListsCell: UICollectionViewCell {
     }
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
+        let actsInList = currentList.activities
+        print("actInList", actsInList!)
+        if actsInList! != [] {
+            List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
+                if (addedList != nil) {
+                    print("List created!")
+                    print("copy list", addedList!)
+                    print("Add Btn globalAct", self.globalAct)
+                    for act in self.globalAct {
+                        UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
+                            if error == nil {
+                                print ("userAct", userAct!)
+                            }
+                        })
+                    }
+                } else if let error = error {
+                    print("Problem saving list: \(error.localizedDescription)")
+                }
+            }
+        }
+
+        
 //        self.delegate.addBtnClicked(at: indexPath, type: self.type)
     }
 

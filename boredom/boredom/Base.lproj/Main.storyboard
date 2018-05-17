@@ -454,6 +454,35 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfb-hW-maL">
+                                <rect key="frame" x="0.0" y="270" width="375" height="186"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KV6-LM-zMR">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7f-d7-tgY">
+                                        <rect key="frame" x="0.0" y="158" width="171" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Add"/>
+                                        <connections>
+                                            <action selector="onAddingActToList:" destination="Ol9-U0-lL2" eventType="touchUpInside" id="lZg-sc-snp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTZ-w1-bR8">
+                                        <rect key="frame" x="190" y="158" width="185" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onCancelAdding:" destination="Ol9-U0-lL2" eventType="touchUpInside" id="qxl-rr-0uQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.31010044642857143" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -481,10 +510,12 @@
                         <outlet property="activitiesLabel" destination="wBy-mD-GHi" id="ShW-A1-T5E"/>
                         <outlet property="listsLabel" destination="Sge-d8-aH9" id="Iyw-AH-wZS"/>
                         <outlet property="mostlyLikedBtn" destination="r5F-zd-KrE" id="fuh-o4-LUc"/>
+                        <outlet property="pickerView" destination="KV6-LM-zMR" id="Tha-Pl-t9b"/>
                         <outlet property="recentlyAddedBtn" destination="H53-93-vw0" id="aeK-kl-Xr8"/>
                         <outlet property="searchDisplayController" destination="vw0-Kr-KwW" id="bO2-Nu-kFz"/>
                         <outlet property="tagsCollectionView" destination="jJn-dU-piU" id="kds-1q-obM"/>
                         <outlet property="userListsCollectionView" destination="DIH-zT-7PL" id="UBh-Bq-8YN"/>
+                        <outlet property="viewWithPicker" destination="lfb-hW-maL" id="xdG-Rn-zY9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="flA-Rp-VXx" userLabel="First Responder" sceneMemberID="firstResponder"/>
