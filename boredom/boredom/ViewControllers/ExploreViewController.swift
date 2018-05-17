@@ -85,6 +85,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
         userListsCollectionView.dataSource = self
         activitiesCollectionView.dataSource = self
+        tagsCollectionView.dataSource = self
         
         //self.userListsCollectionView.isScrollEnabled = true
         //activitiesCollectionView.backgroundView?.tintColor = UIColor.white
@@ -270,7 +271,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             print("tags[indexPath.item]",tags[indexPath.item])
             
             let tagName = tags[indexPath.item] as! String
-            tagsCell.tagBtn.setTitle("tagName", for: .normal)
+            tagsCell.tagBtn.setTitle(tagName, for: .normal)
             
             return tagsCell
         }

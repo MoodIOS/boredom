@@ -50,6 +50,7 @@ import Parse
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")
+        query.includeKey("tags")
         query.includeKey("_created_at")
         //query.addDescendingOrder("_created_at")
         query.addDescendingOrder("activityLikeCount")
@@ -64,6 +65,7 @@ import Parse
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")
+        query.includeKey("tags")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
         //query.addDescendingOrder("activityLikeCount")
@@ -76,6 +78,7 @@ import Parse
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
         query.includeKey("activityLikedByUsers")
+        query.includeKey("tags")
         query.addDescendingOrder("_created_at")
         print("Activity ID " + "\(actId)")
         query.whereKey("objectId", equalTo: actId)
@@ -88,6 +91,7 @@ import Parse
     class func changeLikeCount(actId: String, likeCount: Int, completion: @escaping ([Activity]?, Error?) -> Void){
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
+        query.includeKey("tags")
         query.includeKey("activityLikedByUsers")
         query.includeKey("activityLikeCount")
         query.addDescendingOrder("_created_at")
@@ -116,6 +120,7 @@ import Parse
     class func saveUserIDLikedAct(actId: String, userId: String, completion: @escaping (Activity?, Error?) -> Void){
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
+        query.includeKey("tags")
         query.includeKey("activityLikedByUsers")
         query.includeKey("activityLikeCount")
         query.addDescendingOrder("_created_at")
@@ -138,6 +143,7 @@ import Parse
     class func isLikedByUser(actId: String, currentUserId: String, completion: @escaping (Int, Error?) -> Void){
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
+        query.includeKey("tags")
         query.includeKey("activityLikedByUsers")
         query.includeKey("activityLikeCount")
         query.addDescendingOrder("_created_at")
