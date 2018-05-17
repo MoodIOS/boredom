@@ -31,11 +31,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     @IBOutlet weak var viewWithPicker: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
-    var itemForPickerView = [[String : String]]()
-    var pickedListID = String()
-    
+    var itemForPickerView = [List]()
+//        [[String : String]]()
+    var pickedList = List()
+    var addingActivity = Activity()
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
+    
+    @IBOutlet weak var addedBtn: UIButton!
     
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
@@ -357,6 +360,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("add clicked")
         if type == "Act"{
             viewWithPicker.isHidden = false
+            addingActivity = top10Act[index.row]
+            print("addingActivity", addingActivity)
         }
     }
     
@@ -544,7 +549,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     // make font white
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let list = itemForPickerView[row]
-        let titleData = list["name"]
+        let titleData = list.listName
         let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
         
         return myTitle
@@ -556,16 +561,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let list = itemForPickerView[row]
-        let name = list["name"]
+        let name = list.listName
         return name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         let list = itemForPickerView[row]
-        self.pickedListID = list["id"]!
+        self.pickedList = list
 //        getActFromList()
-        print("self.pickedList", self.pickedListID)
+        print("self.pickedList", self.pickedList)
     }
     
    
@@ -576,6 +581,31 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func onAddingActToList(_ sender: UIButton) {
         print("adding Act to list")
+        if pickedList == nil {
+            print("please pick a list")
+        } else {
+            UserActivity.addNewActivity(activity: addingActivity, list: pickedList ) { (userAct: UserActivity?, error: Error?) in
+                if error == nil{
+                    List.addActToList(currentList: self.pickedList, userAct: userAct, completion: { (list: List?, error: Error?) in
+                        if error == nil{
+                            print(" added act to list", list)
+
+                            sender.setTitle("Added", for: .normal)
+                            self.addedBtn.setTitle("Done", for: .normal)
+                            self.addedBtn.setTitleColor(UIColor.blue, for: .normal)
+                            
+//                            self.viewWithPicker.isHidden = true
+                        } else {
+                            print("Error adding activity to list \(error?.localizedDescription)")
+                        }
+                    })
+                } else {
+                    print("Error adding activity to userAct \(error?.localizedDescription)")
+                }
+                
+            }
+            
+        }
     }
     
     
@@ -589,31 +619,31 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             else {
                 if error == nil {
-                    let lists = lists!
-                    //                    self.noListsLabel.isHidden = true
-                    self.userLists = lists
-                    print(lists)
-                    var allOptions = [[String : String]]()
-                    
-                    var listIDsArr = [String]()
-                    
-                    for list in lists{
-                        listIDsArr.append(list.objectId!)
-                    }
-                    
+//                    let lists = lists!
+//                    //                    self.noListsLabel.isHidden = true
+//                    self.userLists = lists
+//                    print(lists)
+//                    var allOptions = [[String : String]]()
+//
+//                    var listIDsArr = [String]()
+//
+//                    for list in lists{
+//                        listIDsArr.append(list.objectId!)
+//                    }
+//
 //                    let allLists : [String : [String]]
-//                    allLists = ["name" : ["All Lists"], "ids": listIDsArr]
+//                    let defaultOne = ["name" : "Choose List", "id": nil]
+//
+//                    allOptions.append(defaultOne as! [String : String])
+//
+//                    for list in lists{
+//                        let option : [String : String]
+//                        let id = list.objectId
+//                        option = ["name" : list.listName , "id": id ] as! [String : String]
+//                        allOptions.append(option)
+//                    }
                     
-//                    allOptions.append(allLists)
-                    
-                    for list in lists{
-                        let option : [String : String]
-                        let id = list.objectId
-                        option = ["name" : list.listName , "id": id ] as! [String : String]
-                        allOptions.append(option)
-                    }
-                    
-                    self.itemForPickerView = allOptions
+                    self.itemForPickerView = lists!
 //                    self.pickedListID = listIDsArr
 //                    self.getActFromList()
                     self.pickerView.reloadAllComponents()

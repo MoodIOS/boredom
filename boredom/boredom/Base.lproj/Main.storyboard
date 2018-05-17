@@ -518,6 +518,7 @@
                     <connections>
                         <outlet property="activitiesCollectionView" destination="ahb-bt-XvV" id="526-ly-bUm"/>
                         <outlet property="activitiesLabel" destination="wBy-mD-GHi" id="ShW-A1-T5E"/>
+                        <outlet property="addedBtn" destination="rTZ-w1-bR8" id="eQC-Il-EgO"/>
                         <outlet property="listsLabel" destination="Sge-d8-aH9" id="Iyw-AH-wZS"/>
                         <outlet property="mostlyLikedBtn" destination="r5F-zd-KrE" id="fuh-o4-LUc"/>
                         <outlet property="pickerView" destination="KV6-LM-zMR" id="Tha-Pl-t9b"/>
