@@ -33,12 +33,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var pickerView: UIPickerView!
     var itemForPickerView = [List]()
 //        [[String : String]]()
-    var pickedList = List()
+//    var pickedList = List()
+    var pickedListID = String()
     var addingActivity = Activity()
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
-    
-    
+    var itemForPickerview = [[String : String]]()
+    var pickerRow = Int()
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var doneBtn: UIButton!
@@ -385,7 +386,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 doneBtn.isHidden = true
                 addBtn.isHidden = false
                 cancelBtn.isHidden = false
-                
+                pickerView.selectRow(0, inComponent: 0, animated: false)
             }
             addingActivity = top10Act[index.row]
             print("addingActivity", addingActivity)
@@ -694,33 +695,45 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // make font white
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let list = itemForPickerView[row]
-        let titleData = list.listName
+//        let list = itemForPickerView[row]
+//        let titleData = list.listName
+        let list = itemForPickerview[row]
+        let titleData = list["name"]
         let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
         
         return myTitle
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return itemForPickerView.count
+        return itemForPickerview.count
+//        return itemForPickerView.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let list = itemForPickerView[row]
-        let name = list.listName
+//        let list = itemForPickerView[row]
+        let list = itemForPickerview[row]
+//        let name = list.listName
+        let name = list["name"]
         return name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
-        let list = itemForPickerView[row]
-        self.pickedList = list
+//        let list = itemForPickerView[row]
+        
+//        self.pickedList = itemForPickerView[row]
+        let picked = itemForPickerview[row]
+        self.pickedListID = picked["id"]!
+//        self.pickedListID = self.pickedList.objectId!
 //        getActFromList()
-        print("self.pickedList", self.pickedList)
-        if viewWithPicker.isHidden == true {
-            pickerView.selectedRow(inComponent: 0)
-        }
+        print("itemForPickerView", itemForPickerview)
+        print("self.pickedList", self.pickedListID)
+        self.pickerRow = row
+//        if viewWithPicker.isHidden == true {
+//            self.pickerView(pickerView, didSelectRow: -1, inComponent: 0)
+//        }
     }
+    
     
    
     @IBAction func onCancelAdding(_ sender: UIButton) {
@@ -728,32 +741,50 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("on cancel adding")
     }
     
-//    @IBAction func onDoneAdding(_ sender: UIButton) {
-//        viewWithPicker.isHidden = true
-//        print("on done adding")
-//    }
+    @IBAction func onDoneAdding(_ sender: UIButton) {
+        
+        viewWithPicker.isHidden = true
+        print("on done adding")
+        
+    }
     
     //ERROR: When hide the viewwithpicjer, adding doesnt work
     @IBAction func onAddingActToList(_ sender: UIButton) {
         print("adding Act to list")
-        if pickedList == nil {
+        if pickerRow == 0 {
             print("please pick a list")
-        } else {
-            UserActivity.addNewActivity(activity: addingActivity, list: pickedList ) { (userAct: UserActivity?, error: Error?) in
-                if error == nil{
-                    List.addActToList(currentList: self.pickedList, userAct: userAct, completion: { (list: List?, error: Error?) in
-                        if error == nil {
-                            print("done")
-                        } else {
-                            print("Error adding activity to list \(error?.localizedDescription)")
+        } else if pickerRow != 0 {
+            print ("before UserAct.addnewact", addingActivity)
+
+            print("pickedListID", pickedListID)
+            List.fetchWithID(listID: pickedListID) { (lists: [List]?, error: Error?) in
+                if error == nil {
+                    if let lists = lists {
+                        print("listtttt for adding", lists)
+                        UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
+                            if error == nil{
+                                List.addActToList(currentList: lists[0], userAct: userAct, completion: { (list: List?, error: Error?) in
+                                    if error == nil {
+                                        print("done")
+                                        self.addBtn.isHidden = true
+                                        self.cancelBtn.isHidden = true
+                                        self.doneBtn.isHidden = false
+                                    } else {
+                                        print("Error adding activity to list \(String(describing: error?.localizedDescription))")
+                                    }
+                                })
+                            } else {
+                                print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
+                            }
+                            
                         }
-                    })
-                } else {
-                    print("Error adding activity to userAct \(error?.localizedDescription)")
+                    }
                 }
                 
             }
-            
+
+
+
         }
     }
     
@@ -768,34 +799,34 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             else {
                 if error == nil {
-//                    let lists = lists!
-//                    //                    self.noListsLabel.isHidden = true
-//                    self.userLists = lists
-//                    print(lists)
-//                    var allOptions = [[String : String]]()
-//
-//                    var listIDsArr = [String]()
-//
-//                    for list in lists{
-//                        listIDsArr.append(list.objectId!)
-//                    }
-//
+                    let lists = lists!
+                    self.userLists = lists
+                    print("iiiii list",lists)
+                    var allOptions = [[String : String]]()
+
+                    var listIDsArr = [String]()
+
+                    for list in lists{
+                        listIDsArr.append(list.objectId!)
+                    }
+
 //                    let allLists : [String : [String]]
-//                    let defaultOne = ["name" : "Choose List", "id": nil]
-//
-//                    allOptions.append(defaultOne as! [String : String])
-//
-//                    for list in lists{
-//                        let option : [String : String]
-//                        let id = list.objectId
-//                        option = ["name" : list.listName , "id": id ] as! [String : String]
-//                        allOptions.append(option)
-//                    }
-                    
-                    self.itemForPickerView = lists!
+                    let defaultOne = ["name" : "Choose List to add", "id": "no id"]
+
+                    allOptions.append(defaultOne )
+
+                    for list in lists{
+                        let option : [String : String]
+                        let id = list.objectId
+                        option = ["name" : list.listName , "id": id ] as! [String : String]
+                        allOptions.append(option)
+                    }
+                    self.itemForPickerview = allOptions
+                    self.itemForPickerView = lists
 //                    self.pickedListID = listIDsArr
 //                    self.getActFromList()
                     self.pickerView.reloadAllComponents()
+                    
                 } else {
                     print("\(error?.localizedDescription)")
                 }

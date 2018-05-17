@@ -163,15 +163,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
             if (error != nil){
                 print("error in reverseGeocode")
+            } else {
+                let placemark = placemarks! as [CLPlacemark]
+                if placemark.count>0{
+                    let placemark = placemarks![0]
+                    print(placemark.locality!)
+                    print(placemark.administrativeArea!)
+                    print(placemark.country!)
+                    
+                }
             }
-            let placemark = placemarks! as [CLPlacemark]
-            if placemark.count>0{
-                let placemark = placemarks![0]
-                print(placemark.locality!)
-                print(placemark.administrativeArea!)
-                print(placemark.country!)
-                
-            }
+            
         }
         
     }

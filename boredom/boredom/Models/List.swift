@@ -76,6 +76,7 @@ import Parse
         query.includeKey("_p_author")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
+        query.includeKey("activities")
         query.whereKey("author", equalTo: "_User$" + userId)
         return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
             completion(lists as? [List], nil)
@@ -110,6 +111,17 @@ import Parse
             if error == nil {
                 completion(list, nil)
             }
+        }
+    }
+    
+    class func fetchWithID(listID: String, completion: @escaping ([List]?, Error?) -> Void ){
+        let query = PFQuery(className: "List")
+        query.includeKey("_p_author")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        query.whereKey("objectId", equalTo: listID)
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion(lists as? [List], nil)
         }
     }
 }
