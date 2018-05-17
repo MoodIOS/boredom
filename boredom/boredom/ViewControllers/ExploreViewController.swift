@@ -31,11 +31,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     @IBOutlet weak var viewWithPicker: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
-    var itemForPickerView = [[String : String]]()
-    var pickedListID = String()
-    
+    var itemForPickerView = [List]()
+//        [[String : String]]()
+    var pickedList = List()
+    var addingActivity = Activity()
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
+    
+    
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var doneBtn: UIButton!
     
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
@@ -72,7 +78,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         recentlyAddedBtn.backgroundColor = UIColor.gray
@@ -95,6 +101,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         pickerView.dataSource = self
         pickerView.delegate = self
         viewWithPicker.isHidden = true
+
         
         self.tagsBool["Restaurant"] = false
         self.tagsBool["Brunch"] = false
@@ -106,6 +113,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.tagsBool["Happy hours"] = false
         
         
+
+        doneBtn.isHidden = true
+
         
        let layout = userListsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 2
@@ -371,6 +381,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("add clicked")
         if type == "Act"{
             viewWithPicker.isHidden = false
+            if viewWithPicker.isHidden == false {
+                doneBtn.isHidden = true
+                addBtn.isHidden = false
+                cancelBtn.isHidden = false
+                
+            }
+            addingActivity = top10Act[index.row]
+            print("addingActivity", addingActivity)
         }
     }
     
@@ -440,13 +458,21 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             getTopLists()
             getTagActivities()
         }
-        //getTopLists()
-        //getTopActivities()
+        
+        getLists()
+
 
         infoForIndex = nil
         let curUser = User.current()
         self.actsIdLiked = (curUser?.likedActivities)!
         self.listsIdLiked = (curUser?.likedLists)!
+        
+        if viewWithPicker.isHidden == false {
+            doneBtn.isHidden = true
+            addBtn.isHidden = false
+            cancelBtn.isHidden = false
+            
+        }
     }
     
     
@@ -669,7 +695,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     // make font white
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let list = itemForPickerView[row]
-        let titleData = list["name"]
+        let titleData = list.listName
         let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
         
         return myTitle
@@ -681,16 +707,19 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let list = itemForPickerView[row]
-        let name = list["name"]
+        let name = list.listName
         return name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         let list = itemForPickerView[row]
-        self.pickedListID = list["id"]!
+        self.pickedList = list
 //        getActFromList()
-        print("self.pickedList", self.pickedListID)
+        print("self.pickedList", self.pickedList)
+        if viewWithPicker.isHidden == true {
+            pickerView.selectedRow(inComponent: 0)
+        }
     }
     
    
@@ -699,8 +728,33 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("on cancel adding")
     }
     
+//    @IBAction func onDoneAdding(_ sender: UIButton) {
+//        viewWithPicker.isHidden = true
+//        print("on done adding")
+//    }
+    
+    //ERROR: When hide the viewwithpicjer, adding doesnt work
     @IBAction func onAddingActToList(_ sender: UIButton) {
         print("adding Act to list")
+        if pickedList == nil {
+            print("please pick a list")
+        } else {
+            UserActivity.addNewActivity(activity: addingActivity, list: pickedList ) { (userAct: UserActivity?, error: Error?) in
+                if error == nil{
+                    List.addActToList(currentList: self.pickedList, userAct: userAct, completion: { (list: List?, error: Error?) in
+                        if error == nil {
+                            print("done")
+                        } else {
+                            print("Error adding activity to list \(error?.localizedDescription)")
+                        }
+                    })
+                } else {
+                    print("Error adding activity to userAct \(error?.localizedDescription)")
+                }
+                
+            }
+            
+        }
     }
     
     
@@ -714,31 +768,31 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             else {
                 if error == nil {
-                    let lists = lists!
-                    //                    self.noListsLabel.isHidden = true
-                    self.userLists = lists
-                    print(lists)
-                    var allOptions = [[String : String]]()
-                    
-                    var listIDsArr = [String]()
-                    
-                    for list in lists{
-                        listIDsArr.append(list.objectId!)
-                    }
-                    
+//                    let lists = lists!
+//                    //                    self.noListsLabel.isHidden = true
+//                    self.userLists = lists
+//                    print(lists)
+//                    var allOptions = [[String : String]]()
+//
+//                    var listIDsArr = [String]()
+//
+//                    for list in lists{
+//                        listIDsArr.append(list.objectId!)
+//                    }
+//
 //                    let allLists : [String : [String]]
-//                    allLists = ["name" : ["All Lists"], "ids": listIDsArr]
+//                    let defaultOne = ["name" : "Choose List", "id": nil]
+//
+//                    allOptions.append(defaultOne as! [String : String])
+//
+//                    for list in lists{
+//                        let option : [String : String]
+//                        let id = list.objectId
+//                        option = ["name" : list.listName , "id": id ] as! [String : String]
+//                        allOptions.append(option)
+//                    }
                     
-//                    allOptions.append(allLists)
-                    
-                    for list in lists{
-                        let option : [String : String]
-                        let id = list.objectId
-                        option = ["name" : list.listName , "id": id ] as! [String : String]
-                        allOptions.append(option)
-                    }
-                    
-                    self.itemForPickerView = allOptions
+                    self.itemForPickerView = lists!
 //                    self.pickedListID = listIDsArr
 //                    self.getActFromList()
                     self.pickerView.reloadAllComponents()
