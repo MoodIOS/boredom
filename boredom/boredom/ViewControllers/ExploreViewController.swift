@@ -448,6 +448,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         print("tags: ", tags)
         print("tagsBool", tagsBool)
+        
         if(mostlyLikedBtn.backgroundColor == UIColor.gray){
             var filterTags = 0
             for (_, value) in tagsBool {
@@ -455,6 +456,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     filterTags += 1
                 }
             }
+            
             if filterTags == 0 {
                 
                 getRecentLists()
@@ -515,8 +517,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                             if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
                                     if self.top10List != [] {
+                                        var duplicate = 0
                                         for addedList in self.top10List{
-                                            if list != addedList{
+                                            if list == addedList{
+                                                duplicate += 1
+                                            }
+                                            if duplicate == 0 {
                                                 self.top10List.append(list)
                                             }
                                         }
@@ -540,10 +546,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                             if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
                                     if self.top10Act != [] {
+                                        var duplicate = 0
                                         for addedAct in self.top10Act{
-                                            if  activity != addedAct {
-                                                self.top10Act.append(activity)
+                                            if  activity == addedAct {
+                                                duplicate += 1
                                             }
+                                        }
+                                        if duplicate == 0 {
+                                            self.top10Act.append(activity)
                                         }
                                     } else {
                                         self.top10Act.append(activity)
@@ -587,10 +597,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                             if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
                                     if self.top10List != [] {
+                                        var duplicate = 0
                                         for addedList in self.top10List{
-                                            if list != addedList{
-                                                self.top10List.append(list)
+                                            if list == addedList{
+                                                duplicate += 1
                                             }
+                                        }
+                                        if duplicate == 0 {
+                                            self.top10List.append(list)
                                         }
                                     } else {
                                         self.top10List.append(list)
@@ -612,10 +626,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                             if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
                                     if self.top10Act != [] {
+                                        var duplicate = 0
                                         for addedAct in self.top10Act{
-                                            if  activity != addedAct {
-                                                self.top10Act.append(activity)
+                                            if  activity == addedAct {
+                                                duplicate += 1
                                             }
+                                        }
+                                        if duplicate == 0 {
+                                            self.top10Act.append(activity)
                                         }
                                     } else {
                                         self.top10Act.append(activity)
