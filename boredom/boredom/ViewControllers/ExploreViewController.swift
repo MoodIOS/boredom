@@ -301,6 +301,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             cell.listName.text = list.listName
             cell.listId = list.objectId
             cell.listsUserLiked = self.listsIdLiked
+            cell.backgroundColor?.withAlphaComponent(0.5)
             //randomize bg
             while bgUrlList.count < 11 {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
@@ -589,7 +590,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 for list in lists {
                     let listTag = list.tags
                     print("list.tag", list.tags)
-                    // actTags is the tags that this current activity has
+                    // actTags is the tags that this current activity has'
                     for (listTag, tagValue) in listTag! {
                         // want to loop actTags through tags in Explore and compare name
                         // if both equal true then add to user.exploreActivities
