@@ -54,7 +54,6 @@ class ActivitiesCell: UICollectionViewCell {
                 i = i + 1
             }
             print("newArray", newArray)
-            let curUser = User.current()
             curUser?.likedActivities = newArray
             print("current User liked lists", curUser?.likedActivities)
             let newLikeCount = currentAct.activityLikeCount - 1
@@ -80,6 +79,7 @@ class ActivitiesCell: UICollectionViewCell {
             curUser?.likedActivities.append(actId)
             let newLikeCount = currentAct.activityLikeCount +  1
             currentAct.activityLikeCount = newLikeCount
+            curUser?.likedActivities.append(actId)
             Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
                 if error == nil{
                     print("activity", activity!)

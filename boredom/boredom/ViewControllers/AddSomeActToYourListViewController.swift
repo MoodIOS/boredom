@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 
+
+
 class AddSomeActToYourListViewController: UIViewController , UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var listPicker: UIPickerView!
@@ -16,6 +18,9 @@ class AddSomeActToYourListViewController: UIViewController , UIPickerViewDelegat
     // getting List and UserActivity from parent VC
     var selectedList = List()
     var selectedAct = UserActivity()
+    var globalAct = Activity()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +31,10 @@ class AddSomeActToYourListViewController: UIViewController , UIPickerViewDelegat
     }
     
     
+    
     @IBAction func onSaveAct(_ sender: UIBarButtonItem) {
-        List.addActToList(currentList: self.selectedList, userAct: self.selectedAct) { (list: List?, error: Error?) in
+        
+        List.addActToList(currentList: self.selectedList, userAct: self.selectedAct, tags: globalAct.tags ) { (list: List?, error: Error?) in
             print("successfully added activity to list")
         }
     }

@@ -9,6 +9,11 @@
 import UIKit
 import Parse
 
+protocol AddSomeActDelegate {
+    func handleAddingAct (at index: IndexPath)
+}
+
+
 class ActivitiesInListCell: UITableViewCell {
 
     @IBOutlet weak var favoritesBtn: UIButton!
@@ -27,15 +32,22 @@ class ActivitiesInListCell: UITableViewCell {
     var activity: Activity!
     var userAct: UserActivity!
     
-    
+    var delegate: AddSomeActDelegate!
+    var indexPath: IndexPath!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
     }
-    
 
+
+    @IBAction func onAddingAct(_ sender: UIButton) {
+        self.delegate.handleAddingAct(at: indexPath)
+    }
+
+    
+    
     @IBAction func didTapFavoritesBtn(_ sender: Any) {
         print("like clicked.....")
         let curUser = User.current()

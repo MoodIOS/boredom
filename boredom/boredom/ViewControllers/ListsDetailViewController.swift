@@ -8,7 +8,9 @@
 import UIKit
 import Parse
 
-class ListsDetailViewController: UIViewController, UITableViewDataSource {
+
+
+class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSomeActDelegate {
     
     
     @IBOutlet weak var listNameLabel: UILabel!
@@ -33,6 +35,8 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
     @IBAction func backToExplore(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +51,25 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
   
         
     }
+    
+    func handleAddingAct(at index: IndexPath){
+        print("handlingAddingAct")
+//        let curUserAct = activities[index.row]
+//        let curActID = curUserAct.activity.objectId
+//        for act in globalActivities{
+//            if curActID = act.objectId{
+//                
+//            }
+//        }
+        
+    }
+    
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let navVC = segue.destination as! UINavigationController
+//        let addVC = navVC.topViewController as! AddSomeActToYourListViewController
+//        addVC.globalAct = curActGlobal
+//    }
     
     
     func tapFavoritesBtn(activity: Activity){
@@ -129,7 +152,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource {
         let currentAct = userActivities[indexPath.row]
         //curLikeAct = curAct
         let currentActId = currentAct.activity.objectId
-        
+        cell.indexPath = indexPath
         Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
                 let activities = activities

@@ -41,7 +41,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="logo2" translatesAutoresizingMaskIntoConstraints="NO" id="TNQ-gd-S2q">
-                                <rect key="frame" x="57" y="-8" width="260" height="260"/>
+                                <rect key="frame" x="57.5" y="-8" width="260" height="260"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="BSp-Qr-FBL"/>
                                     <constraint firstAttribute="height" constant="260" id="tw9-1Z-6in"/>
@@ -776,7 +776,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityCell" rowHeight="72" id="G1d-B7-GnO" customClass="ActivityCell" customModule="boredom" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityCell" rowHeight="72" id="G1d-B7-GnO" customClass="ActivityCell" customModule="boredom" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G1d-B7-GnO" id="0GI-zb-UZm">
@@ -1152,7 +1152,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivitiesInListCell" rowHeight="134" id="wVs-8d-3mE" customClass="ActivitiesInListCell" customModule="boredom" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivitiesInListCell" rowHeight="134" id="wVs-8d-3mE" customClass="ActivitiesInListCell" customModule="boredom" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wVs-8d-3mE" id="fT4-v6-EOc">
@@ -1180,6 +1180,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="+" image="add"/>
                                                     <connections>
+                                                        <action selector="onAddingAct:" destination="wVs-8d-3mE" eventType="touchUpInside" id="e62-ym-LGc"/>
                                                         <segue destination="x46-yJ-HG0" kind="presentation" identifier="addSomeActToYourList" id="2vn-Nl-j72"/>
                                                     </connections>
                                                 </button>

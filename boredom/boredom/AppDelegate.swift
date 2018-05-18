@@ -22,9 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Parse.initialize(
             with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
-                configuration.applicationId = "boredomID"
-                configuration.clientKey = "boredomMasterKey"  // set to nil assuming you have not set clientKey
-                configuration.server = "https://boredom-ios.herokuapp.com/parse"
+//                configuration.applicationId = "boredomID"
+//                configuration.clientKey = "boredomMasterKey"  // set to nil assuming you have not set clientKey
+//                configuration.server = "https://boredom-ios.herokuapp.com/parse"
+                configuration.applicationId = "Spark"
+                configuration.clientKey = "fiv94sjvo3g_gh2/gidie0335{fi"
+                configuration.server = "https://spark-adventureawaits.herokuapp.com/parse"
             })
         )
         

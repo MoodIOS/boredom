@@ -86,16 +86,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         let list = itemForPickerView[row]
         let name = list["name"]
         let listName = name![0]
-        
+        print("listName", listName)
         return listName
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-        let list = itemForPickerView[row]
-        self.pickedListID = list["ids"]!
-        getActFromList()
-        print("self.pickedList", self.pickedListID)
+        if userList != nil {
+            let list = itemForPickerView[row]
+            self.pickedListID = list["ids"]!
+            getActFromList()
+            print("self.pickedList", self.pickedListID)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -109,8 +110,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         let userId = curUser?.objectId
         List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
             if lists?.count == 0 {
-                //                self.noListsLabel.isHidden = false
                 print("user has no lists yet")
+                self.itemForPickerView.append(["name" : ["You have no list"], "ids": ["id"]])
             }
             else {
                 if error == nil {

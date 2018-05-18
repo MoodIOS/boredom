@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+
 
 protocol InfoListButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
@@ -75,8 +77,8 @@ class UserListsCell: UICollectionViewCell {
                 }
                 i = i + 1
             }
+            // updating the current data in User in session
             print("newArray", newArray)
-            let curUser = User.current()
             curUser?.likedLists = newArray
             print("current User liked lists", curUser?.likedLists )
             
@@ -105,6 +107,8 @@ class UserListsCell: UICollectionViewCell {
             self.likeBtn.setImage(like, for: .normal)
             let newLikeCount = currentList.likeCount + 1
             currentList.likeCount = newLikeCount
+            // updating the current data in User in session
+            curUser?.likedLists.append(currentList.objectId!)
             List.updateListLikeCount(updateList: currentList) { (list: List?, error: Error?) in
                 if error == nil{
                     print("update list:", list)
@@ -115,7 +119,8 @@ class UserListsCell: UICollectionViewCell {
             User.updateUserLikedList(curUserId: (curUser?.objectId)!, likedList: listId) { (user:User?, error: Error?) in
                 if let user = user {
                     print("user", user)
-                    
+                    let curUser = User.current()
+                    curUser?.likedLists = user.likedLists
                 } else {
                     print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }

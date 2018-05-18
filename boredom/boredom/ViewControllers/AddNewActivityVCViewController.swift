@@ -52,6 +52,14 @@ class AddNewActivityVCViewController: UIViewController {
         
         print("self.list", self.list)
         loadActivity()
+        self.tags["Restaurant"] = false
+        self.tags["Brunch"] = false
+        self.tags["Movie"] = false
+        self.tags["Outdoor"] = false
+        self.tags["Book"] = false
+        self.tags["Coffee"] = false
+        self.tags["Nightlife"] = false
+        self.tags["Happy hours"] = false
     }
 
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
@@ -76,7 +84,7 @@ class AddNewActivityVCViewController: UIViewController {
                         UserActivity.addNewActivity(activity: self.actInDatabase, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
                             if error == nil {
                                 print("User activity created")
-                                List.addActToList(currentList: self.list, userAct: userAct , completion: { (list: List?, error: Error?) in
+                                List.addActToList(currentList: self.list, userAct: userAct!, tags: self.actInDatabase.tags , completion: { (list: List?, error: Error?) in
                                     if error == nil {
                                         print("list", list!)
                                     }
@@ -112,7 +120,7 @@ class AddNewActivityVCViewController: UIViewController {
                                 UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
                                     if error == nil {
                                         print("User activity created")
-                                        List.addActToList(currentList: self.list, userAct: userAct , completion: { (list: List?, error: Error?) in
+                                        List.addActToList(currentList: self.list, userAct: userAct!, tags: self.tags, completion: { (list: List?, error: Error?) in
                                             if error == nil {
                                                 print("list", list!)
                                             }

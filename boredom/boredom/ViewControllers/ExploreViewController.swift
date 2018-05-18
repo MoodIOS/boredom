@@ -14,7 +14,7 @@ import PopupDialog
 
 
 
-class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate, UIPickerViewDelegate, UIPickerViewDataSource, TagsCollectionViewCellDelegate {
     
     
     @IBOutlet weak var recentlyAddedBtn: UIButton!
@@ -38,8 +38,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 //    var pickedList = List()
     var pickedListID = String()
     var addingActivity = Activity()
+    
     var exploreActivities: [Activity]!
     var exploreLists: [List]!
+    
+    var allRecentActs = [Activity]()
+    var allRecentLists = [List]()
+    var allLikedActs = [Activity]()
+    var allLikedLists = [List]()
+    
+    
+    
     var itemForPickerview = [[String : String]]()
     var pickerRow = Int()
     @IBOutlet weak var addBtn: UIButton!
@@ -81,7 +90,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        recentlyAddedBtn.backgroundColor = UIColor.gray
+        mostlyLikedBtn.backgroundColor = UIColor.blue
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         recentlyAddedBtn.backgroundColor = UIColor.gray
@@ -137,13 +147,36 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         layoutActivities.itemSize = CGSize(width: 120, height: 120)
         
         if(mostlyLikedBtn.backgroundColor == UIColor.gray){
-            getRecentLists()
-            getRecentActivities()
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getRecentLists()
+                getRecentActivities()
+            } else {
+                self.filterByTags()
+            }
+            
         }
-        else{
-           
-            getTopLists()
-            getTopActivities()
+        else {
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getTopLists()
+                getTopActivities()
+            } else {
+                self.filterByTags()
+            }
+            
         }
         
         let curUser = User.current()
@@ -152,12 +185,64 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     }
     
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidLoad()
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getRecentLists()
+                getRecentActivities()
+            } else {
+                self.filterByTags()
+            }
+
+        }
+        else {
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getTopLists()
+                getTopActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
+        
+        getLists()
+        infoForIndex = nil
+        let curUser = User.current()
+        self.actsIdLiked = (curUser?.likedActivities)!
+        self.listsIdLiked = (curUser?.likedLists)!
+        
+        if viewWithPicker.isHidden == false {
+            doneBtn.isHidden = true
+            addBtn.isHidden = false
+            cancelBtn.isHidden = false
+            
+        }
+    }
+    
+    
     func tagCellButtonPressed(data: Bool, button: UIButton)
     {
-        if data == true{
+        if data == true {
             print("bruhhhhhhhhhhhh...........................")
-            handleTagsFilter(button: button)
-            getTagActivities()
+//            handleTagsFilter(button: button)
+//            getTagActivities()
             activitiesCollectionView.reloadData()
         }
         
@@ -173,6 +258,40 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         getRecentActivities()
         getRecentLists()
         
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getRecentLists()
+                getRecentActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
+        else {
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getTopLists()
+                getTopActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
+        
+        
         bgUrlList = []
         bgUrlAct = []
         
@@ -185,8 +304,39 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         mostlyLikedBtnClicked = true
         listsLabel.text = "Top 10 Lists"
         activitiesLabel.text = "Top 10 Activities"
-        getTagActivities()
         getTopLists()
+        
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                getRecentLists()
+                getRecentActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
+        else {
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getTopLists()
+                getTopActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
         
         bgUrlAct=[]
         bgUrlList=[]
@@ -304,8 +454,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let tagsCell = tagsCollectionView.dequeueReusableCell(withReuseIdentifier: "TagsCollectionView", for: indexPath) as! TagsCollectionViewCell
             print("tags[indexPath.item]",tags[indexPath.item])
             
-            let tagName = tags[indexPath.item] as! String
+            let tagName = tags[indexPath.item]
+            let grayColor = UIColor.lightGray
+            tagsCell.tagBtn.backgroundColor = UIColor.lightGray
             tagsCell.tagBtn.setTitle(tagName, for: .normal)
+            tagsCell.delegate = self
             //handleTagsFilter(button: tagsCell.tagBtn)
             //tagsCell.onTapTagBtn(getTagActivities())
             //activitiesCollectionView.reloadData()
@@ -356,8 +509,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             for (tag, value) in tags!{
                 if (value == true) && (button.currentTitle == tag)  {
                     button.backgroundColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+                    
                 } else if (value == false) && (button.currentTitle == tag) {
                     button.backgroundColor = UIColor.lightGray
+
                 }
             }
         }
@@ -367,30 +522,167 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("handleTag: ", tagName)
         if tagsBool[tagName] == false || tagsBool[tagName] == nil {
             tagsBool[tagName] = true
-        } else {
+        } else if tagsBool[tagName] == true {
             tagsBool[tagName] = false
         }
         print("tags: ", tags)
+        print("tagsBool", tagsBool)
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getRecentLists()
+                getRecentActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
+        else {
+            var filterTags = 0
+            for (_, value) in tagsBool {
+                if value == true {
+                    filterTags += 1
+                }
+            }
+            if filterTags == 0 {
+                
+                getTopLists()
+                getTopActivities()
+            } else {
+                self.filterByTags()
+            }
+            
+        }
+        
+//        userListsCollectionView.reloadData()
+//        activitiesCollectionView.reloadData()
         return completion(tagsBool, nil)
 
     }
-        
-//    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton){
-//        print("like clicked")
-//        if type == "List"{
-//            let likeBtn = btn.imageView?.image
-//            let like = UIImage(named:"heart-gray")
-//            let unlike = UIImage(named:"heart-red")
-//            if (likeBtn?.isEqual(like))! {
-//
-//            } else if (likeBtn?.isEqual(unlike))!{
-//
-//            }
-//        } else if type == "Act"{
-//
-//        }
-//    }
     
+    func filterByTags(){
+        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            print("allRecentLists","allRecentActs" )
+            if (self.allRecentLists != []) && (self.allRecentActs != []){
+                //filter recent lists and append into top10lists
+                self.top10List = []
+                self.top10Act = []
+                var activities = [Activity]()
+                var lists = [List]()
+                
+                for list in self.allRecentLists {
+                    lists.append(list)
+                }
+                for act in self.allRecentActs {
+                    activities.append(act)
+                }
+                
+                for list in lists {
+                    let listTag = list.tags
+                    print("list.tag", list.tags)
+                    // actTags is the tags that this current activity has
+                    for (listTag, tagValue) in listTag! {
+                        // want to loop actTags through tags in Explore and compare name
+                        // if both equal true then add to user.exploreActivities
+                        for (pickedTag, pickedTagValue) in self.tagsBool {
+                            if listTag == pickedTag {
+                                if (tagValue == true) && (pickedTagValue == true){
+                                    self.top10List.append(list)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for activity in activities {
+                    let actTags = activity.tags
+                    print("activity.tags", activity.tags)
+                    // actTags is the tags that this current activity has
+                    for (actTag, tagValue) in actTags! {
+                        // want to loop actTags through tags in Explore and compare name
+                        // if both equal true then add to user.exploreActivities
+                        for (pickedTag, pickedTagValue) in self.tagsBool{
+                            if actTag == pickedTag {
+                                if (tagValue == true) && (pickedTagValue == true){
+                                    self.top10Act.append(activity)
+                                }
+                            }
+                        }
+                    }
+                }
+                print("After filtering self.exploreActivities", self.top10List)
+                
+                //filter recent acts and append into top10acts
+                self.userListsCollectionView.reloadData()
+                self.activitiesCollectionView.reloadData()
+            }
+        }
+        else {
+            print("allLikedLists","allLikedActs" )
+            if (self.allLikedLists != []) && (self.allLikedActs != []){
+                //filter recent lists and append into top10lists
+                self.top10List = []
+                self.top10Act = []
+                var activities = [Activity]()
+                var lists = [List]()
+                
+                for list in self.allLikedLists {
+                    lists.append(list)
+                }
+                for act in self.allLikedActs {
+                    activities.append(act)
+                }
+                
+                for list in lists {
+                    let listTag = list.tags
+                    print("list.tag", list.tags)
+                    // actTags is the tags that this current activity has
+                    for (listTag, tagValue) in listTag! {
+                        // want to loop actTags through tags in Explore and compare name
+                        // if both equal true then add to user.exploreActivities
+                        for (pickedTag, pickedTagValue) in self.tagsBool {
+                            if listTag == pickedTag {
+                                if (tagValue == true) && (pickedTagValue == true){
+                                    self.top10List.append(list)
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                for activity in activities {
+                    let actTags = activity.tags
+                    print("activity.tags", activity.tags)
+                    // actTags is the tags that this current activity has
+                    for (actTag, tagValue) in actTags! {
+                        // want to loop actTags through tags in Explore and compare name
+                        // if both equal true then add to user.exploreActivities
+                        for (pickedTag, pickedTagValue) in self.tagsBool{
+                            if actTag == pickedTag {
+                                if (tagValue == true) && (pickedTagValue == true){
+                                    self.top10Act.append(activity)
+                                }
+                            }
+                        }
+                    }
+                }
+                print("After filtering self.exploreActivities", self.top10List)
+                
+                //filter recent acts and append into top10acts
+                self.userListsCollectionView.reloadData()
+                self.activitiesCollectionView.reloadData()
+            }
+
+        }
+        
+    }
+
     func addBtnClicked (at index: IndexPath, type: String){
         print("add clicked")
         if type == "Act"{
@@ -442,18 +734,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let okBtn = CancelButton(title: "OK") {
                 print("You canceled the car dialog.")
             }
-//            let likeBtn = DefaultButton(title: "") {
-//                //like this activity
-//                print("like this item")
-//            }
-            //check if User has already like this activity
-//            likeBtn.setImage(#imageLiteral(resourceName: "heart-gray"), for: .normal)
-//            let addBtn = DefaultButton(title: "") {
-//                print("add this item")
-//            }
-//            addBtn.setImage(#imageLiteral(resourceName: "add"), for: .normal)
             popup.addButton(okBtn)
-//            popup.addButtons([likeBtn, okBtn, addBtn])
+
             popup.buttonAlignment = .horizontal
             
             self.present(popup, animated: true, completion: nil)
@@ -461,52 +743,43 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidLoad()
-        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
-            getRecentLists()
-            getRecentActivities()
-        }
-        else{
-            
-            getTopLists()
-            getTagActivities()
-        }
-        
-        getLists()
-
-
-        infoForIndex = nil
-        let curUser = User.current()
-        self.actsIdLiked = (curUser?.likedActivities)!
-        self.listsIdLiked = (curUser?.likedLists)!
-        
-        if viewWithPicker.isHidden == false {
-            doneBtn.isHidden = true
-            addBtn.isHidden = false
-            cancelBtn.isHidden = false
-            
-        }
-    }
     
     
     func getTopLists(){
         List.fetchLists { (lists: [List]?, error: Error?) in
-            if error == nil && lists != nil {
-                self.exploreLists = lists
-                let lists = lists
-                self.top10List = [List]()
-                var i = 0
-                while i < 10 {
-                    let list = lists![i]
-                    print("listLikecount", lists![i].likeCount)
-                    print("top list", i)
-                    print(list)
-                    self.top10List.append(list)
-                    print("~~~~~~~~~~~~~~~~~~~", self.top10List)
-                    self.userListsCollectionView.reloadData()
-                    //self.tableView.reloadData()
-                    i = i + 1
+            if error == nil && lists != [] {
+                self.allLikedLists = lists!
+                if lists != [] {
+                    self.exploreLists = lists
+                    let lists = lists
+                    self.top10List = [List]()
+                    var i = 0
+                    if (lists?.count)! > 9 {
+                        while i < 10 {
+                            let list = lists![i]
+                            print("listLikecount", lists![i].likeCount)
+                            print("top list", i)
+                            print(list)
+                            self.top10List.append(list)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10List)
+                            self.userListsCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                        }
+                    }else {
+                        while i < lists!.count {
+                            let list = lists![i]
+                            print("listLikecount", lists![i].likeCount)
+                            print("top list", i)
+                            print(list)
+                            self.top10List.append(list)
+                            print("----------------recent lists-----", self.top10List)
+                            self.userListsCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                        }
+                    }
+                    
                 }
             }
         }
@@ -514,21 +787,36 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func getRecentLists(){
         List.fetchRecentLists{(lists: [List]?, error: Error?) in
-            if error == nil && lists != nil {
+            if error == nil && lists != [] {
+                self.allRecentLists = lists!
                 self.exploreLists = lists
                 let lists = lists
                 self.top10List = [List]()
                 var i = 0
-                while i < 10 {
-                    let list = lists![i]
-                    print("listLikecount", lists![i].likeCount)
-                    print("top list", i)
-                    print(list)
-                    self.top10List.append(list)
-                    print("----------------recent lists-----", self.top10List)
-                    self.userListsCollectionView.reloadData()
-                    //self.tableView.reloadData()
-                    i = i + 1
+                if (lists?.count)! > 9 {
+                    while i < 10 {
+                        let list = lists![i]
+                        print("listLikecount", lists![i].likeCount)
+                        print("top list", i)
+                        print(list)
+                        self.top10List.append(list)
+                        print("----------------recent lists-----", self.top10List)
+                        self.userListsCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        i = i + 1
+                    }
+                } else {
+                    while i < lists!.count {
+                        let list = lists![i]
+                        print("listLikecount", lists![i].likeCount)
+                        print("top list", i)
+                        print(list)
+                        self.top10List.append(list)
+                        print("----------------recent lists-----", self.top10List)
+                        self.userListsCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        i = i + 1
+                    }
                 }
             }
             
@@ -538,137 +826,41 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     func getTopActivities() {
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
             if error == nil {
-                self.exploreActivities = activities
-                if self.exploreActivities != nil {
+                if activities != [] {
+                    self.top10Act = []
+                    self.allLikedActs = activities!
                     self.exploreActivities = activities
-                    let activities = activities
-                    self.top10Act = [Activity]()
-                    var i = 0
-                    while i < 10{
-                        print("activityLikeCount", activities![i].activityLikeCount)
-                        let act = activities![i]
-                        self.top10Act.append(act)
-                        print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                        self.activitiesCollectionView.reloadData()
-                        //self.tableView.reloadData()
-                        i = i + 1
+                    if self.exploreActivities != nil {
+                        self.exploreActivities = activities
+                        let activities = activities
+                        self.top10Act = [Activity]()
+                        var i = 0
+                        if activities!.count > 9 {
+                            while i < 10 {
+                                print("activityLikeCount", activities![i].activityLikeCount)
+                                let act = activities![i]
+                                self.top10Act.append(act)
+                                print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                                self.activitiesCollectionView.reloadData()
+                                //self.tableView.reloadData()
+                                i = i + 1
+                            }
+                        }else {
+                            self.top10Act = []
+                            while i < activities!.count {
+                                print("activityLikeCount", activities![i].activityLikeCount)
+                                let act = activities![i]
+                                self.top10Act.append(act)
+                                print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                                self.activitiesCollectionView.reloadData()
+                                //self.tableView.reloadData()
+                                i = i + 1
+                            }
+                        }
+                        
+                    } else {
+                        print("No Top Activity Available")
                     }
-                } else {
-                    print("No Top Activity Available")
-                }
-            }
-            else{
-                print(error?.localizedDescription)
-            }
-        }
-    }
-    
-    func getTagActivities() {
-        var noTagsSelected:Bool!
-        
-        Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
-            if error == nil {
-                self.exploreActivities = activities
-                if self.exploreActivities != nil {
-                    self.exploreActivities = activities
-                    let activities = activities
-                    self.top10Act = [Activity]()
-                    if(self.tagsBool["Restaurant"] == false && self.tagsBool["Brunch"] == false && self.tagsBool["Movie"] == false && self.tagsBool["Outdoor"] == false && self.tagsBool["Book"] == false && self.tagsBool["Coffee"] == false && self.tagsBool["Nightlife"] == false && self.tagsBool["Happy hours"] == false){
-                        noTagsSelected = true
-                    }
-                    var i = 0
-                    while i < 10{
-                        print("activityLikeCount", activities![i].activityLikeCount)
-                        let act = activities![i]
-                        print(self.tagsBool["Restaurant"])
-                        print("act is..........",act)
-                        //print(act.tags["Restaurant"])
-                        
-                        if(noTagsSelected == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            //continue
-                        }
-                        
-                        else if(self.tagsBool["Restaurant"] == true && act.tags["Restaurant"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Brunch"] == true && act.tags["Brunch"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Movie"] == true && act.tags["Movie"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Outdoor"] == true && act.tags["Outdoor"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Book"] == true && act.tags["Book"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Coffee"] == true && act.tags["Coffee"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Nightlife"] == true && act.tags["Nightlife"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        else if(self.tagsBool["Happy hours"] == true && act.tags["Happy hours"] == true){
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                            continue
-                        }
-                        
-                        //i = i + 1
-                        
-                        //self.top10Act.append(act)
-                        //print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                        self.activitiesCollectionView.reloadData()
-                        //self.tableView.reloadData()
-                        //i = i + 1
-                        
-                    }
-                } else {
-                    print("No Top Activity Available")
                 }
             }
             else{
@@ -679,21 +871,36 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func getRecentActivities() {
         Activity.fetchRecentActivity{ (activities: [Activity]?, error: Error?) in
-            if error == nil {
+            if error == nil && activities != [] {
+                self.top10Act = []
                 self.exploreActivities = activities
+                self.allRecentActs = activities!
                 if self.exploreActivities != nil {
                     self.exploreActivities = activities
                     let activities = activities
                     self.top10Act = [Activity]()
                     var i = 0
-                    while i < 10{
-                        print("activityLikeCount", activities![i].activityLikeCount)
-                        let act = activities![i]
-                        self.top10Act.append(act)
-                        print("~~~~~~~~~~recent activities~~~~~~~~~", self.top10Act)
-                        self.activitiesCollectionView.reloadData()
-                        //self.tableView.reloadData()
-                        i = i + 1
+                    if (activities?.count)! > 9 {
+                        while i < 10{
+                            print("activityLikeCount", activities![i].activityLikeCount)
+                            let act = activities![i]
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~recent activities~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                        }
+                    }else {
+                        self.top10Act = []
+                        while i < activities!.count {
+                            print("activityLikeCount", activities![i].activityLikeCount)
+                            let act = activities![i]
+                            self.top10Act.append(act)
+                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+                            self.activitiesCollectionView.reloadData()
+                            //self.tableView.reloadData()
+                            i = i + 1
+                        }
                     }
                 } else {
                     print("No Recent Activity Available")
@@ -705,14 +912,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
+    
+    
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     // make font white
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//        let list = itemForPickerView[row]
-//        let titleData = list.listName
         let list = itemForPickerview[row]
         let titleData = list["name"]
         let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
@@ -722,32 +930,21 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return itemForPickerview.count
-//        return itemForPickerView.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let list = itemForPickerView[row]
         let list = itemForPickerview[row]
-//        let name = list.listName
         let name = list["name"]
         return name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-//        let list = itemForPickerView[row]
-        
-//        self.pickedList = itemForPickerView[row]
         let picked = itemForPickerview[row]
         self.pickedListID = picked["id"]!
-//        self.pickedListID = self.pickedList.objectId!
-//        getActFromList()
+
         print("itemForPickerView", itemForPickerview)
         print("self.pickedList", self.pickedListID)
         self.pickerRow = row
-//        if viewWithPicker.isHidden == true {
-//            self.pickerView(pickerView, didSelectRow: -1, inComponent: 0)
-//        }
     }
     
     
@@ -757,14 +954,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         print("on cancel adding")
     }
     
+    //Clicked Done and view picker is hidden
     @IBAction func onDoneAdding(_ sender: UIButton) {
-        
         viewWithPicker.isHidden = true
         print("on done adding")
         
     }
     
-    //ERROR: When hide the viewwithpicjer, adding doesnt work
+
     @IBAction func onAddingActToList(_ sender: UIButton) {
         print("adding Act to list")
         if pickerRow == 0 {
@@ -779,7 +976,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         print("listtttt for adding", lists)
                         UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
                             if error == nil{
-                                List.addActToList(currentList: lists[0], userAct: userAct, completion: { (list: List?, error: Error?) in
+                                List.addActToList(currentList: lists[0], userAct: userAct!, tags: self.addingActivity.tags, completion: { (list: List?, error: Error?) in
                                     if error == nil {
                                         print("done")
                                         self.addBtn.isHidden = true
@@ -792,15 +989,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                             } else {
                                 print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
                             }
-                            
                         }
                     }
                 }
                 
             }
-
-
-
         }
     }
     
@@ -819,14 +1012,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     self.userLists = lists
                     print("iiiii list",lists)
                     var allOptions = [[String : String]]()
-
                     var listIDsArr = [String]()
-
                     for list in lists{
                         listIDsArr.append(list.objectId!)
                     }
-
-//                    let allLists : [String : [String]]
                     let defaultOne = ["name" : "Choose List to add", "id": "no id"]
 
                     allOptions.append(defaultOne )
@@ -839,10 +1028,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     }
                     self.itemForPickerview = allOptions
                     self.itemForPickerView = lists
-//                    self.pickedListID = listIDsArr
-//                    self.getActFromList()
                     self.pickerView.reloadAllComponents()
-                    
                 } else {
                     print("\(error?.localizedDescription)")
                 }
@@ -859,12 +1045,5 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.logout()
     }
-
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
-    
 
 }

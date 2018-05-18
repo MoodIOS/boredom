@@ -17,6 +17,7 @@ import Parse
     //var rating: Int?
     @NSManaged var author: PFUser!
     @NSManaged var likeCount: Int
+    @NSManaged var tags: [String: Bool]!
 //    @NSManaged var usersThatLikeAct: [User]!
     class func parseClassName() -> String {
         return "List"
@@ -26,7 +27,16 @@ import Parse
     class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?,  completion: @escaping (List?, Error?) -> Void) {
         // use subclass approach
         let list = List()
-        
+        list.tags = [
+            "Coffee": false,
+            "Brunch": false,
+            "Book": false,
+            "Happy hours": false,
+            "Restaurant": false,
+            "Nightlife": false,
+            "Movie": false,
+            "Outdoor": false
+        ]
         list.listName = name ?? "No name"
         list.category = category ?? "No category"
         list.activities = activities
@@ -83,13 +93,21 @@ import Parse
         }
     }
     
-    class func addActToList(currentList: List, userAct: UserActivity!, completion: @escaping (List?, Error?) -> Void){
+    class func addActToList(currentList: List, userAct: UserActivity, tags: [String: Bool]!, completion: @escaping (List?, Error?) -> Void){
         let list = currentList
+        for (tag, value) in tags {
+            print("tag, value:", tag, " ", value)
+            if value == true {
+                list.tags[tag] = true
+            }
+        }
+        
         if list.activities == nil {
             list.activities = [userAct]
         } else {
             list.activities?.append(userAct)
         }
+        print("saving List: ", list)
         
 //        try? list.save()
         list.saveInBackground(block: { (success, error) in
