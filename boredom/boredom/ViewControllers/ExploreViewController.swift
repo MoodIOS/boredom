@@ -12,6 +12,8 @@ import AlamofireImage
 import PromiseKit
 import PopupDialog
 
+
+
 class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
@@ -148,6 +150,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.actsIdLiked = (curUser?.likedActivities)!
         self.listsIdLiked = (curUser?.likedLists)!
 
+    }
+    
+    func tagCellButtonPressed(data: Bool, button: UIButton)
+    {
+        if data == true{
+            print("bruhhhhhhhhhhhh...........................")
+            handleTagsFilter(button: button)
+            getTagActivities()
+            activitiesCollectionView.reloadData()
+        }
+        
     }
     
     @IBAction func didTapRecentlyAdded(_ sender: Any) {
@@ -567,6 +580,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     while i < 10{
                         print("activityLikeCount", activities![i].activityLikeCount)
                         let act = activities![i]
+                        print(self.tagsBool["Restaurant"])
+                        print("act is..........",act)
+                        //print(act.tags["Restaurant"])
                         
                         if(noTagsSelected == true){
                             self.top10Act.append(act)

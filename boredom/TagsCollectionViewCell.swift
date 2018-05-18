@@ -8,19 +8,30 @@
 
 import UIKit
 
+protocol TagsCollectionViewCellDelegate: class {
+    func tagCellButtonPressed(data: Bool, button: UIButton)
+}
+
 class TagsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var tagBtn: UIButton!
     var tagBtnClicked:Bool!
     var tags: [String] = ["Restaurant", "Brunch", "Movie", "Outdoor", "Book", "Coffee", "Nightlife", "Happy hours"]
     var tagsBool =  [String: Bool]()
-    
+    var delegate: TagsCollectionViewCellDelegate? = nil
     
     @IBAction func onTapTagBtn(_ sender: Any) {
         handleTagsFilter(button: tagBtn)
         tagBtnClicked = true
         
-        
+        if delegate != nil
+        {
+            let data = true
+            
+            delegate?.tagCellButtonPressed(data: data, button: tagBtn)
+                
+            
+        }
         /*if(tagBtn.backgroundColor == UIColor.yellow)
         {
             tagBtn.backgroundColor = UIColor.blue
