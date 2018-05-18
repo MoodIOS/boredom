@@ -43,7 +43,10 @@ class ActivitiesInListCell: UITableViewCell {
 
 
     @IBAction func onAddingAct(_ sender: UIButton) {
+        
+        
         self.delegate.handleAddingAct(at: indexPath)
+
     }
 
     

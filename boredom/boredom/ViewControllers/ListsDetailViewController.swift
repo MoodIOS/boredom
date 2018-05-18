@@ -32,6 +32,11 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     
     var userLikedActs = [String]()
     
+    var itemForPickerview = [[String : String]]()
+    var pickerRow = Int()
+    
+    
+    
     @IBAction func backToExplore(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -54,6 +59,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     
     func handleAddingAct(at index: IndexPath){
         print("handlingAddingAct")
+        
+        
+        
 //        let curUserAct = activities[index.row]
 //        let curActID = curUserAct.activity.objectId
 //        for act in globalActivities{
@@ -64,12 +72,102 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         
     }
     
+// ============ Picker View for adding ================
+/*
+    @IBAction func onAddingActToList(_ sender: UIButton) {
+        print("adding Act to list")
+        if pickerRow == 0 {
+            print("please pick a list")
+        } else if pickerRow != 0 {
+            print ("before UserAct.addnewact", addingActivity)
+            
+            print("pickedListID", pickedListID)
+            List.fetchWithID(listID: pickedListID) { (lists: [List]?, error: Error?) in
+                if error == nil {
+                    if let lists = lists {
+                        print("listtttt for adding", lists)
+                        UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
+                            if error == nil{
+                                List.addActToList(currentList: lists[0], userAct: userAct!, tags: self.addingActivity.tags, completion: { (list: List?, error: Error?) in
+                                    if error == nil {
+                                        print("done")
+                                        self.addBtn.isHidden = true
+                                        self.cancelBtn.isHidden = true
+                                        self.doneBtn.isHidden = false
+                                    } else {
+                                        print("Error adding activity to list \(String(describing: error?.localizedDescription))")
+                                    }
+                                })
+                            } else {
+                                print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let thisList = userLists[row]
+        self.selectedList = thisList
+        print("self.selectedList",self.selectedList)
+        
+    }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let navVC = segue.destination as! UINavigationController
-//        let addVC = navVC.topViewController as! AddSomeActToYourListViewController
-//        addVC.globalAct = curActGlobal
-//    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return userLists.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let list = userLists[row]
+        let listName = list.listName
+        return listName
+    }
+    
+    
+    func getLists() {
+        let curUser = PFUser.current()
+        let userId = curUser?.objectId
+        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
+            if lists?.count == 0 {
+                //                self.noListsLabel.isHidden = false
+                print("user has no lists yet")
+            }
+            else {
+                if error == nil {
+                    let lists = lists!
+                    //                    self.noListsLabel.isHidden = true
+                    print(lists)
+                    self.userLists = lists
+                    self.listPicker.reloadAllComponents()
+                    print("self.lists", self.userLists )
+                    print("lists[0]", self.userLists[0].listName)
+                } else {
+                    print(error?.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    @IBAction func onCancelAdding(_ sender: UIButton) {
+        viewWithPicker.isHidden = true
+        print("on cancel adding")
+    }
+    
+    //Clicked Done and view picker is hidden
+    @IBAction func onDoneAdding(_ sender: UIButton) {
+        viewWithPicker.isHidden = true
+        print("on done adding")
+        
+    }
+*/
+// ===================================
     
     
     func tapFavoritesBtn(activity: Activity){
@@ -119,31 +217,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         return activities.count
     }
     
-    
-    /*func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
-        let currentAct = self.activities[indexPath.row]
-        let currActId = currentAct.activity.objectId
-        Activity.fetchActivity(actId: currActId!) { (activities: [Activity]?, error: Error?) in
-            if activities! != [] {
-                let activities = activities
-                print("ACTIVITIES:", activities![0])
-                let activity = activities![0]
-                cell.activityNameLabel.text = activity.actName
-                cell.activity = activity
-                cell.userAct = currentAct
-                
-                
-                try? cell.userAct.activity.fetchIfNeeded()
-                
-                print("ACTIVITY LIKED BY USERS:", cell.userAct.activity.activityLikedByUsers)
-                if(cell.userAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
-                    cell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
-                }
-                
-            }
-        }
-    }*/
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivitiesInListCell", for: indexPath) as! ActivitiesInListCell
@@ -152,6 +226,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         let currentAct = userActivities[indexPath.row]
         //curLikeAct = curAct
         let currentActId = currentAct.activity.objectId
+        cell.delegate = self
         cell.indexPath = indexPath
         Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
             if activities! != [] {
@@ -190,25 +265,6 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
                 
             }
         }
-//        Activity.fetchActivity(actId: currentActId!) { (activities: [Activity]?, error: Error?) in
-//            if activities! != [] {
-//                let activities = activities
-//                print("ACTIVITIES:", activities![0])
-//                let activity = activities![0]
-//                cell.activityNameLabel.text = activity.actName
-//                cell.activity = activity
-//                cell.userAct = curAct
-//
-//
-//                try? cell.userAct.activity.fetchIfNeeded()
-//
-//                print("ACTIVITY LIKED BY USERS:", cell.userAct.activity.activityLikedByUsers)
-//                if(cell.userAct.activity.activityLikedByUsers.contains((PFUser.current()?.objectId)!)){
-//                    cell.favoritesBtn.setImage(UIImage(named:"favor-icon-red"), for: UIControlState.normal)
-//                }
-//
-//            }
-//        }
 
         return cell
     }
