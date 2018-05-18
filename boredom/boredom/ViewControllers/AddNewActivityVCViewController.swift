@@ -61,7 +61,12 @@ class AddNewActivityVCViewController: UIViewController {
         self.tags["Nightlife"] = false
         self.tags["Happy hours"] = false
     }
-
+    
+    
+    @IBAction func hideKeyboard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
         checkForDuplicateInList { (duplicateInList: Int, error: Error?) in

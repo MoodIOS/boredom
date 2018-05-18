@@ -33,7 +33,12 @@ class SignUpViewController: UIViewController, CLLocationManagerDelegate{
         }
         // Do any additional setup after loading the view.
     }
-
+    
+    
+    @IBAction func hideKeyBoard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     //MARK: - location delegate methods
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation :CLLocation = locations[0] as CLLocation
