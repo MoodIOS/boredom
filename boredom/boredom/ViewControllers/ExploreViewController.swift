@@ -94,7 +94,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         mostlyLikedBtn.backgroundColor = UIColor.blue
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
-        recentlyAddedBtn.backgroundColor = UIColor.gray
         
         mostlyLikedBtnClicked = true
         
@@ -146,38 +145,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
         layoutActivities.itemSize = CGSize(width: 120, height: 120)
         
-        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
-            var filterTags = 0
-            for (_, value) in tagsBool {
-                if value == true {
-                    filterTags += 1
-                }
-            }
-            if filterTags == 0 {
-                
-                getRecentLists()
-                getRecentActivities()
-            } else {
-                self.filterByTags()
-            }
-            
-        }
-        else {
-            var filterTags = 0
-            for (_, value) in tagsBool {
-                if value == true {
-                    filterTags += 1
-                }
-            }
-            if filterTags == 0 {
-                
-                getTopLists()
-                getTopActivities()
-            } else {
-                self.filterByTags()
-            }
-            
-        }
+        getTopLists()
+        getTopActivities()
+        
         
         let curUser = User.current()
         self.actsIdLiked = (curUser?.likedActivities)!
@@ -237,60 +207,29 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     
-    func tagCellButtonPressed(data: Bool, button: UIButton)
-    {
-        if data == true {
-            print("bruhhhhhhhhhhhh...........................")
-//            handleTagsFilter(button: button)
-//            getTagActivities()
-            activitiesCollectionView.reloadData()
-        }
-        
-    }
-    
     @IBAction func didTapRecentlyAdded(_ sender: Any) {
         print("inside recently tapped-------------------------")
         recentlyAddedBtn.backgroundColor = UIColor.blue
         mostlyLikedBtn.backgroundColor = UIColor.gray
+        
         recentlyAddedBtnClicked = true
         listsLabel.text = "Recently Added Lists"
         activitiesLabel.text = "Recently Added Activities"
-        getRecentActivities()
-        getRecentLists()
-        
-        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
-            var filterTags = 0
-            for (_, value) in tagsBool {
-                if value == true {
-                    filterTags += 1
-                }
+
+        var filterTags = 0
+        for (_, value) in tagsBool {
+            if value == true {
+                filterTags += 1
             }
-            if filterTags == 0 {
-                
-                getRecentLists()
-                getRecentActivities()
-            } else {
-                self.filterByTags()
-            }
-            
         }
-        else {
-            var filterTags = 0
-            for (_, value) in tagsBool {
-                if value == true {
-                    filterTags += 1
-                }
-            }
-            if filterTags == 0 {
-                
-                getTopLists()
-                getTopActivities()
-            } else {
-                self.filterByTags()
-            }
+        if filterTags == 0 {
             
+            getRecentLists()
+            getRecentActivities()
+        } else {
+            self.filterByTags()
         }
-        
+
         
         bgUrlList = []
         bgUrlAct = []
@@ -304,38 +243,20 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         mostlyLikedBtnClicked = true
         listsLabel.text = "Top 10 Lists"
         activitiesLabel.text = "Top 10 Activities"
-        getTopLists()
+
         
-        if(mostlyLikedBtn.backgroundColor == UIColor.gray){
-            var filterTags = 0
-            for (_, value) in tagsBool {
-                if value == true {
-                    filterTags += 1
-                }
+        var filterTags = 0
+        for (_, value) in tagsBool {
+            if value == true {
+                filterTags += 1
             }
-            if filterTags == 0 {
-                getRecentLists()
-                getRecentActivities()
-            } else {
-                self.filterByTags()
-            }
-            
         }
-        else {
-            var filterTags = 0
-            for (_, value) in tagsBool {
-                if value == true {
-                    filterTags += 1
-                }
-            }
-            if filterTags == 0 {
-                
-                getTopLists()
-                getTopActivities()
-            } else {
-                self.filterByTags()
-            }
+        if filterTags == 0 {
             
+            getTopLists()
+            getTopActivities()
+        } else {
+            self.filterByTags()
         }
         
         bgUrlAct=[]
@@ -593,7 +514,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool {
                             if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    self.top10List.append(list)
+                                    if self.top10List != [] {
+                                        for addedList in self.top10List{
+                                            if list != addedList{
+                                                self.top10List.append(list)
+                                            }
+                                        }
+                                    }else {
+                                        self.top10List.append(list)
+                                    }
                                 }
                             }
                         }
@@ -610,7 +539,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool{
                             if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    self.top10Act.append(activity)
+                                    if self.top10Act != [] {
+                                        for addedAct in self.top10Act{
+                                            if  activity != addedAct {
+                                                self.top10Act.append(activity)
+                                            }
+                                        }
+                                    } else {
+                                        self.top10Act.append(activity)
+                                    }
                                 }
                             }
                         }
@@ -649,7 +586,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool {
                             if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    self.top10List.append(list)
+                                    if self.top10List != [] {
+                                        for addedList in self.top10List{
+                                            if list != addedList{
+                                                self.top10List.append(list)
+                                            }
+                                        }
+                                    } else {
+                                        self.top10List.append(list)
+                                    }
                                 }
                             }
                         }
@@ -666,7 +611,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool{
                             if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    self.top10Act.append(activity)
+                                    if self.top10Act != [] {
+                                        for addedAct in self.top10Act{
+                                            if  activity != addedAct {
+                                                self.top10Act.append(activity)
+                                            }
+                                        }
+                                    } else {
+                                        self.top10Act.append(activity)
+                                    }
                                 }
                             }
                         }
