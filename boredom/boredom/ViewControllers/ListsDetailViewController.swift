@@ -34,6 +34,11 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     
     var itemForPickerview = [[String : String]]()
     var pickerRow = Int()
+    @IBOutlet weak var viewWithPicker: UIView!
+    @IBOutlet weak var listPicker: UIPickerView!
+    @IBOutlet weak var doneBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var addBtn: UIButton!
     
     
     
@@ -53,7 +58,8 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         
         listNameLabel.text = list.listName
         noActivitiesLabel.isHidden = true
-  
+        
+        viewWithPicker.isHidden = true
         
     }
     
@@ -70,6 +76,20 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
 //            }
 //        }
         
+        
+    }
+    
+    
+    
+    @IBAction func onDoneAdding(_ sender: UIButton) {
+        
+    }
+    
+    
+    @IBAction func onAddingThisAct(_ sender: UIButton) {
+    }
+    
+    @IBAction func onCancelAdding(_ sender: UIButton) {
     }
     
 // ============ Picker View for adding ================
