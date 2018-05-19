@@ -17,7 +17,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var noListsLabel: UILabel!
     
     var lists = [List]()
-
+    var selectedLists = [List]()
+    var selecting: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +55,37 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             })
         }
         self.username.text = User.current()?.username
-        
-        colView.allowsMultipleSelection = true
+        selecting = false
+        colView.allowsMultipleSelection = false
+        colView.selectItem(at: nil, animated: false, scrollPosition: UICollectionViewScrollPosition())
     }
-    
     
     @IBAction func onEditBtn(_ sender: UIBarButtonItem) {
-
+        selecting = true
+        sender.title = "Done"
+        
     }
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        selecting = true
+        return selecting
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if selecting == true  {
+            let list = lists[indexPath.row]
+            selectedLists.append(list)
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let list = lists[indexPath.row]
+        if let index = selectedLists.index(of: list){
+            selectedLists.remove(at: index)
+        }
+        
+    }
     
     
     
