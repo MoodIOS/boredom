@@ -54,7 +54,12 @@ import Parse
         print("List$" + "\(listId)")
         query.whereKey("list", equalTo: "List$" + listId)
         return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
-            completion( activities as? [UserActivity], nil)
+            if error == nil {
+                completion( activities as? [UserActivity], nil)
+            } else {
+                completion( nil, error)
+            }
+            
         }
     }
     
@@ -88,7 +93,20 @@ import Parse
         
     }
     
-    
+//    class func deleteAct (withListID: String, completion: @escaping ([UserActivity]?, Error? ) -> Void){
+//        deleting.deleteInBackground { (success, error) in
+//            if success {
+//                let query = PFQuery(className: "UserActivity")
+//                query.whereKey("objectId", equalTo: deleting.objectId!)
+//                return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+//                    completion( activities as? [UserActivity], nil)
+//                }
+//            } else if let error = error {
+//                print( "error update user activity", error.localizedDescription)
+//            }
+//        }
+//
+//    }
     
     
 }

@@ -57,6 +57,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                     self.lists.remove(at: index.row)
                     self.getLists()
                     self.colView.deleteItems(at: [index])
+                    self.deleteUserActInList(list: list!)
                 } else {
                     print("\(String(describing: error?.localizedDescription))")
                 }
@@ -70,26 +71,25 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.present(deletePermision, animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        selecting = true
-        return selecting
-    }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if selecting == true  {
-            let list = lists[indexPath.row]
-            selectedLists.append(list)
+    func deleteUserActInList(list: List){
+        UserActivity.fetchActivity(listId: list.objectId!) { (userActs: [UserActivity]?, error: Error?) in
+            if error == nil{
+                for act in userActs! {
+                    UserActivity.deleteAct(deleting: act, completion: { (userAct: [UserActivity]?, error: Error?) in
+                        if error == nil {
+                            print("delete user act in list")
+                        } else {
+                            print("\(String(describing: error?.localizedDescription))")
+                        }
+                    })
+                }
+                
+            }
         }
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let list = lists[indexPath.row]
-        if let index = selectedLists.index(of: list){
-            selectedLists.remove(at: index)
-        }
-        
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +122,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         self.username.text = User.current()?.username
         selecting = false
+        editBtn.title = "Edit"
         colView.allowsMultipleSelection = false
         colView.selectItem(at: nil, animated: false, scrollPosition: UICollectionViewScrollPosition())
         
@@ -131,7 +132,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         getLists()
-        
     }
     
     func getLists() {
@@ -185,8 +185,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let cell = sender as? UICollectionViewCell{
+            
             if let indexPath = colView.indexPath(for: cell){
+
                 let curList = lists[indexPath.row]
                 print("list to be send for adding act:", curList)
                 let navVC = segue.destination as! UINavigationController
@@ -194,8 +197,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 print("ListofAct VC", listOfActVC)
                 listOfActVC.list = curList
                 print("send current List:", listOfActVC.list)
+                editBtn.title = "Edit"
+                selecting = false
+                colView.reloadData()
             }
+        } else {
+            editBtn.title = "Edit"
+            selecting = false
+            colView.reloadData()
         }
+        
     }
 
     
