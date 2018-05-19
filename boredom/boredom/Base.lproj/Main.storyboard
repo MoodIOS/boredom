@@ -747,10 +747,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wk-Rh-spI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="28" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="red-minus"/>
+                                                    <connections>
+                                                        <action selector="onDeleteList:" destination="i7o-Ta-NGT" eventType="touchUpInside" id="hrc-pW-hLe"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.82086417742214079" green="0.80228035971035894" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="deleteListBtn" destination="1Wk-Rh-spI" id="xPv-2y-g2U"/>
                                             <outlet property="listName" destination="QwK-HF-2BB" id="x2X-YN-jbX"/>
                                             <segue destination="A0Z-kx-Jjr" kind="show" id="yLh-di-C2E"/>
                                         </connections>
@@ -769,7 +778,7 @@
                         <viewLayoutGuide key="safeArea" id="BlE-cS-QNy"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="OuX-ze-kpX">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="bjS-q3-rpp">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="bjS-q3-rpp">
                             <connections>
                                 <action selector="onEditBtn:" destination="AO5-EO-i6w" id="yuE-l5-gpT"/>
                             </connections>
@@ -782,6 +791,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="colView" destination="XqE-ST-ve5" id="vO5-QF-pbu"/>
+                        <outlet property="editBtn" destination="bjS-q3-rpp" id="GjE-im-Y0r"/>
                         <outlet property="noListsLabel" destination="dLG-nk-T7e" id="kg4-PJ-pjW"/>
                         <outlet property="profileImage" destination="tFQ-WD-Fou" id="DxY-Rx-72V"/>
                         <outlet property="username" destination="oJ9-cW-bIM" id="Bj0-rT-l3M"/>
@@ -1697,6 +1707,7 @@
         <image name="new-idea" width="32" height="32"/>
         <image name="obama" width="240" height="240"/>
         <image name="random" width="32" height="32"/>
+        <image name="red-minus" width="32" height="32"/>
         <image name="settings-work-tool" width="32" height="32"/>
         <image name="signupbutton" width="75" height="35"/>
         <image name="uncheck" width="64" height="64"/>

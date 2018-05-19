@@ -13,6 +13,7 @@ import Parse
 class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSomeActDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     
+    
     @IBOutlet weak var listNameLabel: UILabel!
     
     @IBOutlet weak var noActivitiesLabel: UILabel!

@@ -11,6 +11,7 @@ import Parse
 
 protocol AddSomeActDelegate {
     func handleAddingAct (at index: IndexPath)
+
 }
 
 
@@ -38,10 +39,8 @@ class ActivitiesInListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
 
-    
     
     @IBAction func onAddingAct(_ sender: UIButton) {
         print("adding act")

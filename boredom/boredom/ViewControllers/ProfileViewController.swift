@@ -9,61 +9,42 @@
 import UIKit
 import Parse
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ListsInYourListDelegate {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var colView: UICollectionView!
     @IBOutlet weak var noListsLabel: UILabel!
+    @IBOutlet weak var editBtn: UIBarButtonItem!
+    
     
     var lists = [List]()
     var selectedLists = [List]()
     var selecting: Bool!
+    var indexPaths = [IndexPath]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        colView.dataSource = self
-        colView.delegate = self
-        noListsLabel.isHidden = true
-        
-        let layout = colView.collectionViewLayout as! UICollectionViewFlowLayout
-        // Adjust cell size and layout
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = layout.minimumInteritemSpacing
-        let cellsPerLine: CGFloat = 2
-        let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
-        let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
-        layout.itemSize = CGSize(width: width, height: width) //width*3/2
-
-        
-        getLists()
-        
-        //APIManager.shared.getLists()
-        
-        // Do any additional setup after loading the view.
-        if let imageFile = User.current()?.profileImage {
-            imageFile.getDataInBackground(block: { (data, error) in
-                if error == nil {
-                    DispatchQueue.main.async {
-                        // Async main thread
-                        let image = UIImage(data: data!)
-                        self.profileImage.image = image
-                    }
-                } else {
-                    print(error!.localizedDescription)
-                }
-            })
-        }
-        self.username.text = User.current()?.username
-        selecting = false
-        colView.allowsMultipleSelection = false
-        colView.selectItem(at: nil, animated: false, scrollPosition: UICollectionViewScrollPosition())
-    }
     
     @IBAction func onEditBtn(_ sender: UIBarButtonItem) {
-        selecting = true
-        sender.title = "Done"
+        let button = sender
+        print("sender.title", button.title)
+        if editBtn.title == "Edit"  {
+            editBtn.title = "Done"
+            selecting = true
+            colView.reloadData()
+            
+        } else {
+            editBtn.title = "Edit"
+            selecting = false
+            colView.reloadData()
+        }
         
+    }
+    
+    
+    
+    
+    func handlingDeleteList(at index: IndexPath){
+        print("handlingDeleteList")
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -87,7 +68,47 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        colView.dataSource = self
+        colView.delegate = self
+        noListsLabel.isHidden = true
+        let layout = colView.collectionViewLayout as! UICollectionViewFlowLayout
+        // Adjust cell size and layout
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = layout.minimumInteritemSpacing
+        let cellsPerLine: CGFloat = 2
+        let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
+        let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
+        layout.itemSize = CGSize(width: width, height: width) //width*3/2
+        
+        
+        getLists()
+        
+        //APIManager.shared.getLists()
+        
+        // Do any additional setup after loading the view.
+        if let imageFile = User.current()?.profileImage {
+            imageFile.getDataInBackground(block: { (data, error) in
+                if error == nil {
+                    DispatchQueue.main.async {
+                        // Async main thread
+                        let image = UIImage(data: data!)
+                        self.profileImage.image = image
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            })
+        }
+        self.username.text = User.current()?.username
+        selecting = false
+        colView.allowsMultipleSelection = false
+        colView.selectItem(at: nil, animated: false, scrollPosition: UICollectionViewScrollPosition())
+        
+        
+        
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         getLists()
@@ -133,7 +154,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let curList = userLists[indexPath.row]
         let curListName = curList.listName
         cell.listName.text = curListName
-        
+        cell.delegate2 = self
+        cell.indexPath = indexPath
+        if selecting == true {
+            cell.deleteListBtn.isHidden = false
+        } else {
+            cell.deleteListBtn.isHidden = true
+        }
         return cell
     }
     
