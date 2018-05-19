@@ -12,7 +12,8 @@ import Parse
 
 protocol InfoListButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
-    func addBtnClicked (adding: Bool, type: String, message: String)
+    func addBtnClicked (actsInList: [UserActivity], currentList: List)
+    func emptyListAlert()
 }
 
 protocol ListsInYourListDelegate{
@@ -131,29 +132,13 @@ class UserListsCell: UICollectionViewCell {
     }
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
-        
-        let actsInList = currentList.activities
-        print("actInList", actsInList!)
-        if actsInList! != [] {
-            List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
-                if (addedList != nil) {
-                    print("List created!")
-                    print("copy list", addedList!)
-                    print("Add Btn globalAct", self.globalAct)
-                    for act in self.globalAct {
-                        UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
-                            if error == nil {
-                                print ("userAct", userAct!)
-                                self.delegate.addBtnClicked(adding: true, type: "List", message: "You have successfully added this item to your account")
-                            }
-                        })
-                    }
-                } else if let error = error {
-                    self.delegate.addBtnClicked(adding: true, type: "List", message: "Error Adding: \(error.localizedDescription)")
-//                    print("Problem saving list: \(error.localizedDescription)")
-                }
-            }
+        if let actsInList = currentList.activities{
+            self.delegate.addBtnClicked(actsInList: actsInList, currentList: currentList)
+        }else {
+            
+            self.delegate.emptyListAlert()
         }
+        
 
         
 //        self.delegate.addBtnClicked(at: indexPath, type: self.type)

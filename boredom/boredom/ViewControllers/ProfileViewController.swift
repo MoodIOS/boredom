@@ -44,31 +44,37 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     func handlingDeleteList(at index: IndexPath){
-        print("handlingDeleteList")
-        print("[index.row]",[index.row])
-        let list = self.lists[index.row]
-        let listName = list.listName as String?
-        let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")", preferredStyle: .actionSheet)
-        let OKAction = UIAlertAction(title: "Delete", style: .destructive){ (action) in
-            print("deletinggggg....")
-            List.deleteList(deletingList: list, completion: { (list: List?, error:Error?) in
-                if error == nil{
-                    print("deleted", list!)
-                    self.lists.remove(at: index.row)
-                    self.getLists()
-                    self.colView.deleteItems(at: [index])
-                    self.deleteUserActInList(list: list!)
-                } else {
-                    print("\(String(describing: error?.localizedDescription))")
-                }
-            })
+        if (index.row) < lists.count{
             
+            print("handlingDeleteList")
+            print("[index.row]",[index.row])
+            let list = self.lists[index.row]
+            let listName = list.listName as String?
+            let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")", preferredStyle: .actionSheet)
+            let OKAction = UIAlertAction(title: "Delete", style: .destructive){ (action) in
+                print("deletinggggg....")
+                self.lists.remove(at: index.row)
+                
+                self.colView.deleteItems(at: [index])
+                
+                List.deleteList(deletingList: list, completion: { (list: List?, error:Error?) in
+                    if error == nil{
+                        print("deleted", list!)
+                        self.getLists()
+                        self.deleteUserActInList(list: list!)
+                    } else {
+                        print("\(String(describing: error?.localizedDescription))")
+                    }
+                })
+                
+            }
+            
+            deletePermision.addAction(OKAction)
+            let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
+            deletePermision.addAction(cancelBtn)
+            self.present(deletePermision, animated: true)
         }
         
-        deletePermision.addAction(OKAction)
-        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
-        deletePermision.addAction(cancelBtn)
-        self.present(deletePermision, animated: true)
     }
     
     
@@ -131,6 +137,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        editBtn.title = "Edit"
+        selecting = false
+        colView.reloadData()
         getLists()
     }
     

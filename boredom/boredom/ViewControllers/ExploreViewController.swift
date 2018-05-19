@@ -656,14 +656,62 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
 
-    func addBtnClicked (adding: Bool, type: String, message: String){
-        if type == "List" && adding == true {
-            let addingAlert = UIAlertController(title: "Add Message", message:message , preferredStyle: .alert)
-            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
-            addingAlert.addAction(OKAction)
-            self.present(addingAlert, animated: true)
+    func addBtnClicked (actsInList: [UserActivity], currentList: List){
+        if let actsInList = actsInList as? [UserActivity]{
+            print("actInList", actsInList)
+            let addConfirmation = UIAlertController(title: "Adding List" , message: "Add this list to your profile?", preferredStyle: .actionSheet)
+            let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in
+                List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
+                    if (addedList != nil) {
+                        print("List created!")
+                        print("copy list", addedList!)
+                        print("Add Btn globalAct", self.globalAct)
+                        for act in self.globalAct {
+                            UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
+                                if error == nil {
+                                    print ("userAct", userAct!)
+                                    let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
+                                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                                    addingAlert.addAction(OKAction)
+                                    self.present(addingAlert, animated: true)
+                                }
+                            })
+                        }
+                    } else if let error = error {
+                        let addingAlert = UIAlertController(title: "Add Message", message:"Error: \(error.localizedDescription)" , preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                        addingAlert.addAction(OKAction)
+                        self.present(addingAlert, animated: true)
+                    }
+                }
+                
+            }
+            addConfirmation.addAction(OKaction)
+            let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
+            addConfirmation.addAction(cancelBtn)
+            self.present(addConfirmation, animated: true)
+            
+            
         }
+        
+//        if type == "List" && adding == true {
+//            let addingAlert = UIAlertController(title: "Add Message", message:message , preferredStyle: .alert)
+//            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+//            addingAlert.addAction(OKAction)
+//            self.present(addingAlert, animated: true)
+//        }
     }
+    
+    func emptyListAlert(){
+        let addConfirmation = UIAlertController(title: "Empty List" , message: "Cannot add empty list", preferredStyle: .alert)
+        //            let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in }
+        //            addConfirmation.addAction(OKaction)
+        let cancelBtn = UIAlertAction(title: "Ok", style: .cancel){ (action) in }
+        addConfirmation.addAction(cancelBtn)
+        self.present(addConfirmation, animated: true)
+    }
+    
+    
     
     func addBtnClicked (at index: IndexPath, type: String){
         print("add clicked")
