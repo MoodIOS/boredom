@@ -52,6 +52,7 @@ class AddNewActivityVCViewController: UIViewController {
         
         print("self.list", self.list)
         loadActivity()
+        
         self.tags["Restaurant"] = false
         self.tags["Brunch"] = false
         self.tags["Movie"] = false
@@ -61,6 +62,9 @@ class AddNewActivityVCViewController: UIViewController {
         self.tags["Nightlife"] = false
         self.tags["Happy hours"] = false
     }
+    
+//    override func viewDidAppear() {
+//    }
     
     
     @IBAction func hideKeyboard(_ sender: Any) {
@@ -218,9 +222,13 @@ class AddNewActivityVCViewController: UIViewController {
         Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
             if error == nil {
                 self.allActs = activities!
+                
                 self.getActivityNames()
+                print("self.activityNames", self.activityNames.count)
                 self.name.filterItems(self.activityNames)
                 self.handleUserPicker()
+                print("self.activityNames", self.activityNames)
+                
             } else {
                 print(error?.localizedDescription as Any)
             }
@@ -245,12 +253,19 @@ class AddNewActivityVCViewController: UIViewController {
     
     
     func getActivityNames() {
-        for name in allActNames {
-            let item = SearchTextFieldItem(title: name)
-            activityNames?.append(item)
-            print (name)
+        if activityNames.count == 0 {
+            print("allActNames", allActNames)
+            for name in allActNames {
+                if activityNames.count < allActs.count{
+                    let item = SearchTextFieldItem(title: name)
+                    activityNames?.append(item)
+                    print (name)
+                }
+                
+            }
             
         }
+        
     }
     
 
