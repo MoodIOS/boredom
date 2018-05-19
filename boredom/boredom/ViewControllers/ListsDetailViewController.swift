@@ -10,7 +10,7 @@ import Parse
 
 
 
-class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSomeActDelegate {
+class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSomeActDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     
     @IBOutlet weak var listNameLabel: UILabel!
@@ -21,15 +21,21 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     
     var activities =  [UserActivity]()
     var globalActivities = [Activity]()
+    // for adding activity to ad list w pickerview
+    var globalActsDictionary = [Activity]()
     var authorOfList: PFUser!
     var list: List!
     var newList: List!
     var listID: String!
     var activityIsLiked: Bool = false
-    
+    var userListsPicker = [[String : String]]()
+    var selectedList = List()
+    var userLists = [List]()
     var curActGlobal: Activity!
     var likeCell: ActivitiesInListCell!
+    var pickedListID = String()
     
+    var addingActivity = Activity()
     var userLikedActs = [String]()
     
     var itemForPickerview = [[String : String]]()
@@ -51,6 +57,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         super.viewDidLoad()
         
         getActivitiesInList()
+        getLists()
         
         tableView.dataSource = self
         tableView.rowHeight = 150
@@ -60,37 +67,99 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         noActivitiesLabel.isHidden = true
         
         viewWithPicker.isHidden = true
+        doneBtn.isHidden = true
+        listPicker.dataSource = self
+        listPicker.delegate = self
         
     }
     
     func handleAddingAct(at index: IndexPath){
         print("handlingAddingAct")
+        viewWithPicker.isHidden = false
+        listPicker.selectRow(0, inComponent: 0, animated: false)
+        addingActivity = globalActsDictionary[index.row]
+        print("addingActivity", addingActivity)
         
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let thisList = userListsPicker[row]
+        self.pickedListID = thisList["id"]!
+        pickerRow = row
+        print("self.selectedList",self.pickedListID)
         
-        
-//        let curUserAct = activities[index.row]
-//        let curActID = curUserAct.activity.objectId
-//        for act in globalActivities{
-//            if curActID = act.objectId{
-//                
-//            }
-//        }
-        
-        
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return userListsPicker.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let list = userListsPicker[row]
+        let listName = list["name"]
+        return listName
     }
     
     
     
     @IBAction func onDoneAdding(_ sender: UIButton) {
-        
+        doneBtn.isHidden = true
+        addBtn.isHidden = false
+        cancelBtn.isHidden = false
+        viewWithPicker.isHidden = true
     }
     
     
     @IBAction func onAddingThisAct(_ sender: UIButton) {
+        
+        print("on adding this act in listdetails")
+        print("adding Act to list")
+        if pickerRow == 0 {
+            print("please pick a list")
+        } else if pickerRow != 0 {
+            print ("before UserAct.addnewact", addingActivity)
+            
+            print("pickedListID", pickedListID)
+            
+            List.fetchWithID(listID: pickedListID) { (lists: [List]?, error: Error?) in
+                if error == nil {
+                    if let lists = lists {
+                        print("listtttt for adding", lists)
+                        UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
+                            if error == nil{
+
+                                List.addActToList(currentList: lists[0], userAct: userAct!, tags: self.addingActivity.tags, completion: { (list: List?, error: Error?) in
+                                    if error == nil {
+                                        print("done")
+                                        self.addBtn.isHidden = true
+                                        self.cancelBtn.isHidden = true
+                                        self.doneBtn.isHidden = false
+                                    } else {
+                                        print("Error adding activity to list \(String(describing: error?.localizedDescription))")
+                                    }
+                                })
+                            } else {
+                                print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        
     }
     
+    
+    
     @IBAction func onCancelAdding(_ sender: UIButton) {
+        viewWithPicker.isHidden = true
     }
+    
     
 // ============ Picker View for adding ================
 /*
@@ -129,51 +198,10 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         }
     }
 
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let thisList = userLists[row]
-        self.selectedList = thisList
-        print("self.selectedList",self.selectedList)
-        
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return userLists.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let list = userLists[row]
-        let listName = list.listName
-        return listName
-    }
     
     
-    func getLists() {
-        let curUser = PFUser.current()
-        let userId = curUser?.objectId
-        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
-            if lists?.count == 0 {
-                //                self.noListsLabel.isHidden = false
-                print("user has no lists yet")
-            }
-            else {
-                if error == nil {
-                    let lists = lists!
-                    //                    self.noListsLabel.isHidden = true
-                    print(lists)
-                    self.userLists = lists
-                    self.listPicker.reloadAllComponents()
-                    print("self.lists", self.userLists )
-                    print("lists[0]", self.userLists[0].listName)
-                } else {
-                    print(error?.localizedDescription)
-                }
-            }
-        }
-    }
+    
+    
     
     @IBAction func onCancelAdding(_ sender: UIButton) {
         viewWithPicker.isHidden = true
@@ -253,6 +281,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
                 let activities = activities
                 print("ACTIVITIES:", activities![0])
                 let curAct = activities![0]
+                self.globalActsDictionary.append(curAct)
                 if curAct.cost == 0 {
                     cell.costLabel.text = "$"
                 } else if curAct.cost == 1 {
@@ -289,6 +318,43 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         return cell
     }
     
+    
+    func getLists() {
+        let curUser = PFUser.current()
+        let userId = curUser?.objectId
+        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
+            if lists?.count == 0 {
+                //                self.noListsLabel.isHidden = false
+                print("user has no lists yet")
+            }
+            else {
+                if error == nil {
+                    let lists = lists!
+                    self.userLists = lists
+                    print("iiiii list",lists)
+                    var allOptions = [[String : String]]()
+                    var listIDsArr = [String]()
+                    for list in lists{
+                        listIDsArr.append(list.objectId!)
+                    }
+                    let defaultOne = ["name" : "Choose List to add", "id": "no id"]
+                    
+                    allOptions.append(defaultOne )
+                    
+                    for list in lists{
+                        let option : [String : String]
+                        let id = list.objectId
+                        option = ["name" : list.listName , "id": id ] as! [String : String]
+                        allOptions.append(option)
+                    }
+                    self.userListsPicker = allOptions
+                    self.listPicker.reloadAllComponents()
+                } else {
+                    print("\(error?.localizedDescription)")
+                }
+            }
+        }
+    }
     
     
     @IBAction func copyList(_ sender: Any) {

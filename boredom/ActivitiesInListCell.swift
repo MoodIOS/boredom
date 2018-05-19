@@ -41,13 +41,13 @@ class ActivitiesInListCell: UITableViewCell {
         
     }
 
-
+    
+    
     @IBAction func onAddingAct(_ sender: UIButton) {
-        
-        
-        self.delegate.handleAddingAct(at: indexPath)
-
+        print("adding act")
+        delegate.handleAddingAct(at: indexPath)
     }
+
 
     
     

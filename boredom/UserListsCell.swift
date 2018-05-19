@@ -13,7 +13,7 @@ import Parse
 protocol InfoListButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
 //    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton)
-//    func addBtnClicked (at index: IndexPath, type: String)
+    func addBtnClicked (adding: Bool, type: String, message: String)
 }
 
 class UserListsCell: UICollectionViewCell {
@@ -54,6 +54,7 @@ class UserListsCell: UICollectionViewCell {
     
     @IBAction func infoBtnClicked(_ sender: UIButton) {
         self.delegate.infoBtnClicked(at: indexPath, type: self.type)
+        
     }
  
     @IBAction func likeBtnClicked(_ sender: UIButton) {
@@ -133,6 +134,7 @@ class UserListsCell: UICollectionViewCell {
     }
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
+        
         let actsInList = currentList.activities
         print("actInList", actsInList!)
         if actsInList! != [] {
@@ -145,11 +147,13 @@ class UserListsCell: UICollectionViewCell {
                         UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
                             if error == nil {
                                 print ("userAct", userAct!)
+                                self.delegate.addBtnClicked(adding: true, type: "List", message: "You have successfully added this item to your account")
                             }
                         })
                     }
                 } else if let error = error {
-                    print("Problem saving list: \(error.localizedDescription)")
+                    self.delegate.addBtnClicked(adding: true, type: "List", message: "Error Adding: \(error.localizedDescription)")
+//                    print("Problem saving list: \(error.localizedDescription)")
                 }
             }
         }

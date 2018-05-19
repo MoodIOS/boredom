@@ -393,6 +393,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let activityCell = sender as! UICollectionViewCell
         let listCell = sender as! UICollectionViewCell
+//        let listDetails = sender as! UIViewController
         if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
             let activity = top10Act[indexPath.item]
             print(activity)
@@ -655,6 +656,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
 
+    func addBtnClicked (adding: Bool, type: String, message: String){
+        if type == "List" && adding == true {
+            let addingAlert = UIAlertController(title: "Add Message", message:message , preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+            addingAlert.addAction(OKAction)
+            self.present(addingAlert, animated: true)
+        }
+    }
+    
     func addBtnClicked (at index: IndexPath, type: String){
         print("add clicked")
         if type == "Act"{
@@ -999,7 +1009,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         allOptions.append(option)
                     }
                     self.itemForPickerview = allOptions
-                    self.itemForPickerView = lists
+//                    self.itemForPickerView = lists
                     self.pickerView.reloadAllComponents()
                 } else {
                     print("\(error?.localizedDescription)")

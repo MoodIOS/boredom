@@ -54,7 +54,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             })
         }
         self.username.text = User.current()?.username
+        
+        colView.allowsMultipleSelection = true
     }
+    
+    
+    @IBAction func onEditBtn(_ sender: UIBarButtonItem) {
+
+    }
+    
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         getLists()
