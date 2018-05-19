@@ -45,6 +45,29 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func handlingDeleteList(at index: IndexPath){
         print("handlingDeleteList")
+        print("[index.row]",[index.row])
+        let list = self.lists[index.row]
+        let listName = list.listName as String?
+        let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")", preferredStyle: .actionSheet)
+        let OKAction = UIAlertAction(title: "Delete", style: .destructive){ (action) in
+            print("deletinggggg....")
+            List.deleteList(deletingList: list, completion: { (list: List?, error:Error?) in
+                if error == nil{
+                    print("deleted", list!)
+                    self.lists.remove(at: index.row)
+                    self.getLists()
+                    self.colView.deleteItems(at: [index])
+                } else {
+                    print("\(String(describing: error?.localizedDescription))")
+                }
+            })
+            
+        }
+        
+        deletePermision.addAction(OKAction)
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
+        deletePermision.addAction(cancelBtn)
+        self.present(deletePermision, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -81,13 +104,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
         let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
         layout.itemSize = CGSize(width: width, height: width) //width*3/2
-        
-        
+
         getLists()
-        
-        //APIManager.shared.getLists()
-        
-        // Do any additional setup after loading the view.
+
         if let imageFile = User.current()?.profileImage {
             imageFile.getDataInBackground(block: { (data, error) in
                 if error == nil {

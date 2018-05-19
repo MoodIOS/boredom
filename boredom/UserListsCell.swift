@@ -27,11 +27,8 @@ class UserListsCell: UICollectionViewCell {
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var deleteListBtn: UIButton!
     
-    
-    
     var delegate: InfoListButtonDelegate!
     var delegate2: ListsInYourListDelegate!
-    
     var indexPath: IndexPath!
     var currentList: List!
     var listId: String!

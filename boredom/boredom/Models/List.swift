@@ -121,7 +121,8 @@ import Parse
     
     class func deleteList(deletingList: List, completion: @escaping (List?, Error?) -> Void){
         let list = deletingList
-        return list.deleteInBackground()
+        list.deleteInBackground()
+        return completion(list, nil)
     }
     
     class func updateListLikeCount(updateList: List,  completion: @escaping (List?, Error?) -> Void){
