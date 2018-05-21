@@ -50,13 +50,18 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             print("[index.row]",[index.row])
             let list = self.lists[index.row]
             let listName = list.listName as String?
-            let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")", preferredStyle: .actionSheet)
+            let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")?", preferredStyle: .actionSheet)
             let OKAction = UIAlertAction(title: "Delete", style: .destructive){ (action) in
                 print("deletinggggg....")
-                self.lists.remove(at: index.row)
-                
-                self.colView.deleteItems(at: [index])
-                
+                self.colView.performBatchUpdates({
+                    self.lists.remove(at: index.row)
+                    self.colView.deleteItems(at: [index])
+                }, completion: { (success) in
+                    if success {
+                        print("successfully updated")
+                    }
+                })
+                //self.deleteUserActInList(list: list)
                 List.deleteList(deletingList: list, completion: { (list: List?, error:Error?) in
                     if error == nil{
                         print("deleted", list!)
