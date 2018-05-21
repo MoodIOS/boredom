@@ -56,6 +56,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // to check duplicate to user act in list:
     var userActsInUserList = [UserActivity]()
+    var addingList = List()
     
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
@@ -667,29 +668,39 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             print("actInList Explore:", actsInList)
             let addConfirmation = UIAlertController(title: "Adding List" , message: "Add this list to your profile?", preferredStyle: .actionSheet)
             let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in
-                List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
-                    if (addedList != nil) {
-                        print("List created!")
-                        print("copy list", addedList!)
-                        print("Add Btn globalAct", globalActs)
-                        for act in globalActs {
-                            UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
-                                if error == nil {
-                                    print ("userAct", userAct!)
-                                    let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
-                                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
-                                    addingAlert.addAction(OKAction)
-                                    self.present(addingAlert, animated: true)
-                                }
-                            })
-                        }
-                    } else if let error = error {
-                        let addingAlert = UIAlertController(title: "Add Message", message:"Error: \(error.localizedDescription)" , preferredStyle: .alert)
+                self.checkDuplicate(addingList: currentList, done: { (duplicate) in
+                    if duplicate > 0 {
+                        let alertController = UIAlertController(title: "Can't Add List", message: "You already have this list." , preferredStyle: .alert)
                         let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
-                        addingAlert.addAction(OKAction)
-                        self.present(addingAlert, animated: true)
+                        alertController.addAction(OKAction)
+                        self.present(alertController, animated: true)
+                    } else if duplicate == 0{
+                        List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
+                            if (addedList != nil) {
+                                print("List created!")
+                                print("copy list", addedList!)
+                                print("Add Btn globalAct", globalActs)
+                                for act in globalActs {
+                                    UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
+                                        if error == nil {
+                                            print ("userAct", userAct!)
+                                            let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
+                                            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                                            addingAlert.addAction(OKAction)
+                                            self.present(addingAlert, animated: true)
+                                        }
+                                    })
+                                }
+                            } else if let error = error {
+                                let addingAlert = UIAlertController(title: "Add Message", message:"Error: \(error.localizedDescription)" , preferredStyle: .alert)
+                                let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                                addingAlert.addAction(OKAction)
+                                self.present(addingAlert, animated: true)
+                            }
+                        }
+
                     }
-                }
+                })
             }
             addConfirmation.addAction(OKaction)
             let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
@@ -698,10 +709,22 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    func checkDuplicate( done: @escaping (Int) -> Void){
+    func checkDuplicate(type: String, done: @escaping (Int) -> Void){
+        if type == "Act"{
+            var duplicate = 0
+            for act in userActsInUserList {
+                if act.activity.objectId == addingActivity.objectId{
+                    duplicate += 1
+                }
+            }
+            return done(duplicate)
+        }
+    }
+    
+    func checkDuplicate(addingList: List, done: @escaping (Int) -> Void){
         var duplicate = 0
-        for act in userActsInUserList {
-            if act.activity.objectId == addingActivity.objectId {
+        for list in userLists {
+            if list.objectId == addingList.objectId{
                 duplicate += 1
             }
         }
@@ -1018,7 +1041,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             alertController.addAction(OKAction)
             self.present(alertController, animated: true)
         } else if pickerRow != 0 {
-            self.checkDuplicate( done: { (duplicate: Int) in
+            self.checkDuplicate(type: "Act", done: { (duplicate: Int) in
                 print("list detail vc: duplicate", duplicate)
                 if duplicate > 0 {
                     self.viewWithPicker.isHidden = true

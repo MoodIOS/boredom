@@ -361,8 +361,6 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         self.checkDuplicate(type: "List") { (duplicate) in
             if duplicate > 0 {
                 let alertController = UIAlertController(title: "Can't Add List", message: "You already have list." , preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in}
-                alertController.addAction(cancelAction)
                 let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
                 alertController.addAction(OKAction)
                 self.present(alertController, animated: true)
