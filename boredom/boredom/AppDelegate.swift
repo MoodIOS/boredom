@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import GooglePlaces
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "tabViewController")
         }
+        
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyBfPd2Cqkw3w2ommVPR_Kxy9zptYDmmrdM")
+        GMSServices.provideAPIKey("AIzaSyBfPd2Cqkw3w2ommVPR_Kxy9zptYDmmrdM")
         
         return true
     }

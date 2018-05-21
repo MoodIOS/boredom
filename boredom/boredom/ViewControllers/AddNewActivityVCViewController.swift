@@ -9,6 +9,9 @@
 import UIKit
 import Parse
 import SearchTextField
+import GooglePlaces
+import GoogleMaps
+import GooglePlacePicker
 
 class AddNewActivityVCViewController: UIViewController {
 
@@ -41,7 +44,7 @@ class AddNewActivityVCViewController: UIViewController {
     @IBOutlet weak var happyhoursTag: UIButton!
     
 
-    
+    var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
         
@@ -52,6 +55,7 @@ class AddNewActivityVCViewController: UIViewController {
         
         print("self.list", self.list)
         loadActivity()
+        
         self.tags["Restaurant"] = false
         self.tags["Brunch"] = false
         self.tags["Movie"] = false
@@ -60,6 +64,36 @@ class AddNewActivityVCViewController: UIViewController {
         self.tags["Coffee"] = false
         self.tags["Nightlife"] = false
         self.tags["Happy hours"] = false
+        
+        placesClient = GMSPlacesClient.shared()
+        location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
+    }
+    
+//    https://developers.google.com/places/ios-sdk/start
+    
+    @objc func locationDidChange(location: UITextField){
+        let center = CLLocationCoordinate2D(latitude: 37.788204, longitude: -122.411937)
+        let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2D(latitude: center.latitude - 0.001, longitude: center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        let placePicker = GMSPlacePicker(config: config)
+        
+        placePicker.pickPlace(callback: {(place, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let place = place {
+//                self.location.text = place.name
+                self.location.text = place.formattedAddress?.components(separatedBy: ", ")
+                    .joined(separator: ", " )
+            } else {
+//                self.nameLabel.text = "No place selected"
+//                self.location.text = "No Address Found"
+            }
+        })
     }
     
     
@@ -218,9 +252,13 @@ class AddNewActivityVCViewController: UIViewController {
         Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
             if error == nil {
                 self.allActs = activities!
+                
                 self.getActivityNames()
+                print("self.activityNames", self.activityNames.count)
                 self.name.filterItems(self.activityNames)
                 self.handleUserPicker()
+                print("self.activityNames", self.activityNames)
+                
             } else {
                 print(error?.localizedDescription as Any)
             }
@@ -245,12 +283,19 @@ class AddNewActivityVCViewController: UIViewController {
     
     
     func getActivityNames() {
-        for name in allActNames {
-            let item = SearchTextFieldItem(title: name)
-            activityNames?.append(item)
-            print (name)
+        if activityNames.count == 0 {
+            print("allActNames", allActNames)
+            for name in allActNames {
+                if activityNames.count < allActs.count{
+                    let item = SearchTextFieldItem(title: name)
+                    activityNames?.append(item)
+                    print (name)
+                }
+                
+            }
             
         }
+        
     }
     
 

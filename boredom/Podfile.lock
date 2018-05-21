@@ -28,6 +28,16 @@ PODS:
     - AFNetworking/NSURLSession (~> 2.6.0)
   - Bolts/Tasks (1.9.0)
   - DynamicBlurView (2.0.2)
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.5.0):
+    - GoogleMaps (= 2.5.0)
+    - GooglePlaces (= 2.5.0)
+  - GooglePlaces (2.5.0):
+    - GoogleMaps/Base (= 2.5.0)
   - KeychainAccess (3.1.0)
   - OAuthSwift (1.2.0)
   - OAuthSwiftAlamofire (0.1.0):
@@ -57,6 +67,8 @@ DEPENDENCIES:
   - Alamofire (~> 4.5)
   - AlamofireImage (~> 3.3)
   - BDBOAuth1Manager
+  - GooglePlacePicker
+  - GooglePlaces
   - KeychainAccess
   - OAuthSwift
   - OAuthSwiftAlamofire
@@ -72,6 +84,9 @@ SPEC CHECKSUMS:
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GooglePlacePicker: 1573e644ab54564d95c2643edc0f29091609e966
+  GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
   OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
   OAuthSwiftAlamofire: 20bb998ac506f82c3bab0625fbc98a9c6fca783f
@@ -80,6 +95,6 @@ SPEC CHECKSUMS:
   PromiseKit: 445dac9b2c3c3b4b31b5f842bc325700b848a8bd
   SearchTextField: a5bb7e4c33affadb115afdbe8100d84ef10a8024
 
-PODFILE CHECKSUM: fc5f96b8cbe38613d74da129be29af2d2e5622b0
+PODFILE CHECKSUM: bf81d9fa353e495dc300631c1069d7461fc64ccf
 
 COCOAPODS: 1.4.0

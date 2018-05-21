@@ -12,44 +12,43 @@ import Parse
 
 protocol InfoListButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
-//    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton)
-//    func addBtnClicked (at index: IndexPath, type: String)
+    func addBtnClicked (actsInList: [UserActivity], currentList: List, globalActs: [Activity])
+    func emptyListAlert()
+}
+
+protocol ListsInYourListDelegate{
+    func handlingDeleteList(at index: IndexPath)
 }
 
 class UserListsCell: UICollectionViewCell {
     @IBOutlet weak var userListsImageView: UIImageView!
-//    @IBOutlet weak var listName: UILabel!
     @IBOutlet weak var listName: UILabel!
-    
-//    @IBOutlet weak var userListsImageView2: UIImageView!
-//
     @IBOutlet weak var infoBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var deleteListBtn: UIButton!
     
     var delegate: InfoListButtonDelegate!
+    var delegate2: ListsInYourListDelegate!
     var indexPath: IndexPath!
     var currentList: List!
     var listId: String!
     var type: String = "List"
     var listsUserLiked = [String]()
-    var globalAct = [Activity]()
-        
+    var globalActs = [Activity]()
+    var userActs = [UserActivity]()
     override func awakeFromNib() {
         print("hi")
-
-//        let likeBtn = self.likeBtn.imageView?.image
-//        let like = UIImage(named:"heart-gray")
-//        let unlike = UIImage(named:"heart-red")
-//            self.likeBtn.setImage(unlike, for: .normal)
-//        if (likeBtn?.isEqual(like))! {
-//             self.likeBtn.setImage(unlike, for: .normal)
-//        } else if (likeBtn?.isEqual(unlike))!{
-//
-//        }
-        
     }
     
+
+    
+    @IBAction func onDeleteList(_ sender: UIButton) {
+        print("deleting list")
+        //alert asking if user want to delete list
+        delegate2.handlingDeleteList(at: indexPath)
+        
+    }
 
     
     @IBAction func infoBtnClicked(_ sender: UIButton) {
@@ -132,27 +131,17 @@ class UserListsCell: UICollectionViewCell {
         
     }
     
+    
+
+    
     @IBAction func addBtnClicked(_ sender: UIButton) {
-        let actsInList = currentList.activities
-        print("actInList", actsInList!)
-        if actsInList! != [] {
-            List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
-                if (addedList != nil) {
-                    print("List created!")
-                    print("copy list", addedList!)
-                    print("Add Btn globalAct", self.globalAct)
-                    for act in self.globalAct {
-                        UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
-                            if error == nil {
-                                print ("userAct", userAct!)
-                            }
-                        })
-                    }
-                } else if let error = error {
-                    print("Problem saving list: \(error.localizedDescription)")
-                }
-            }
+        if let actsInList = currentList.activities{
+            self.delegate.addBtnClicked(actsInList: actsInList, currentList: currentList, globalActs: globalActs)
+        }else {
+            
+            self.delegate.emptyListAlert()
         }
+        
 
         
 //        self.delegate.addBtnClicked(at: indexPath, type: self.type)

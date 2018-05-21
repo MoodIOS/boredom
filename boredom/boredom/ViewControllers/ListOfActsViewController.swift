@@ -85,7 +85,6 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
         let userActivities = self.userActivities
