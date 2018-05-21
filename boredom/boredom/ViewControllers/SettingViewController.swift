@@ -11,20 +11,10 @@ import Parse
 import CoreLocation
 //import ParseUI
 
-<<<<<<< HEAD
-class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
-//, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        <#code#>
-//    }
-=======
+
 class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
->>>>>>> 54ecb94463942153323d45a086cbe3ed6b06d791
+
     
 
     @IBOutlet weak var usernameLabel: UILabel!

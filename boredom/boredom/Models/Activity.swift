@@ -37,9 +37,21 @@ import Parse
         activity.actDescription = actDescription ?? "No description"
         activity.location = location ?? "No location specified"
         if(location != nil){
-            let locationCoord = self.findCoordinates(yourAddress: activity.location)
-            activity.locationLongitude = locationCoord.coordinate.longitude
-            activity.locationLatitude = locationCoord.coordinate.latitude
+//            let locationCoord = self.findCoordinates(yourAddress: location!)
+//            print("wassup")
+//            print(locationCoord.coordinate.latitude)
+//            activity.locationLongitude = locationCoord.coordinate.longitude
+//            activity.locationLatitude = locationCoord.coordinate.latitude
+            var geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(location!) {
+                placemarks, error in
+                let placemark = placemarks?.first
+                let lat = placemark?.location?.coordinate.latitude
+                let lon = placemark?.location?.coordinate.longitude
+                activity.locationLongitude = lon!
+                activity.locationLatitude = lat!
+                print("pop: \(lat), Lon: \(lon)")
+            }
 //            activity.locationPoint = CGPoint(x: CGFloat(locationCoord.coordinate.longitude), y: CGFloat(locationCoord.coordinate.latitude))
         }
         
@@ -180,21 +192,21 @@ import Parse
         }
     }
     
-    class func findCoordinates(yourAddress: String) -> CLLocation {
-        let geocoder = CLGeocoder()
-        var longAndLat = CLLocation()
-        geocoder.geocodeAddressString(yourAddress) {
-            placemarks, error in
-            let placemark = placemarks?.first
-            let lat = placemark?.location?.coordinate.latitude
-            let lon = placemark?.location?.coordinate.longitude
-            //print("Lat: \(lat), Lon: \(lon)")
-            longAndLat = CLLocation(latitude: lat!, longitude: lon!)
-            
-        }
-        print(longAndLat)
-        return longAndLat
-    }
+//    class func findCoordinates(yourAddress: String) -> CLLocation {
+//        let geocoder = CLGeocoder()
+//        var longAndLat = CLLocation()
+//        geocoder.geocodeAddressString(yourAddress) {
+//            placemarks, error in
+//            let placemark = placemarks?.first
+//            let lat = placemark?.location?.coordinate.latitude
+//            let lon = placemark?.location?.coordinate.longitude
+//            //print("Lat: \(lat), Lon: \(lon)")
+//            longAndLat = CLLocation(latitude: lat!, longitude: lon!)
+//
+//        }
+//        print(longAndLat)
+//        return longAndLat
+//    }
     
 
 
