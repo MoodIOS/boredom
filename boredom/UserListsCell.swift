@@ -12,7 +12,7 @@ import Parse
 
 protocol InfoListButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
-    func addBtnClicked (actsInList: [UserActivity], currentList: List)
+    func addBtnClicked (actsInList: [UserActivity], currentList: List, globalActs: [Activity])
     func emptyListAlert()
 }
 
@@ -35,8 +35,8 @@ class UserListsCell: UICollectionViewCell {
     var listId: String!
     var type: String = "List"
     var listsUserLiked = [String]()
-    var globalAct = [Activity]()
-    
+    var globalActs = [Activity]()
+    var userActs = [UserActivity]()
     override func awakeFromNib() {
         print("hi")
     }
@@ -131,9 +131,12 @@ class UserListsCell: UICollectionViewCell {
         
     }
     
+    
+
+    
     @IBAction func addBtnClicked(_ sender: UIButton) {
         if let actsInList = currentList.activities{
-            self.delegate.addBtnClicked(actsInList: actsInList, currentList: currentList)
+            self.delegate.addBtnClicked(actsInList: actsInList, currentList: currentList, globalActs: globalActs)
         }else {
             
             self.delegate.emptyListAlert()

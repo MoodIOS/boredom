@@ -12,6 +12,9 @@ target 'boredom' do
   pod 'KeychainAccess'
   pod 'SearchTextField'
   pod 'PopupDialog', '~> 0.7'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
+
 
   # Promise function
   pod 'PromiseKit'

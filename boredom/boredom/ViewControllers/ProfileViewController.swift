@@ -22,15 +22,22 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     var selectedLists = [List]()
     var selecting: Bool!
     var indexPaths = [IndexPath]()
-    
+    var itemCounts = Int()
     
     @IBAction func onEditBtn(_ sender: UIBarButtonItem) {
         let button = sender
         print("sender.title", button.title)
-        if editBtn.title == "Edit"  {
-            editBtn.title = "Done"
-            selecting = true
-            colView.reloadData()
+        if self.lists != [] {
+            if editBtn.title == "Edit"  {
+                editBtn.title = "Done"
+                selecting = true
+                colView.reloadData()
+                
+            } else {
+                editBtn.title = "Edit"
+                selecting = false
+                colView.reloadData()
+            }
             
         } else {
             editBtn.title = "Edit"
@@ -43,27 +50,36 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     
+    
+    
     func handlingDeleteList(at index: IndexPath){
+        
         if (index.row) < lists.count{
             
             print("handlingDeleteList")
             print("[index.row]",[index.row])
             let list = self.lists[index.row]
             let listName = list.listName as String?
-            let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")", preferredStyle: .actionSheet)
+            let deletePermision = UIAlertController(title: "Delete List" , message: "Are you sure you want to delete \(listName ?? "this list")?", preferredStyle: .actionSheet)
             let OKAction = UIAlertAction(title: "Delete", style: .destructive){ (action) in
                 print("deletinggggg....")
-                self.lists.remove(at: index.row)
-                
-                self.colView.deleteItems(at: [index])
-                
-                List.deleteList(deletingList: list, completion: { (list: List?, error:Error?) in
-                    if error == nil{
-                        print("deleted", list!)
-                        self.getLists()
-                        self.deleteUserActInList(list: list!)
-                    } else {
-                        print("\(String(describing: error?.localizedDescription))")
+                self.colView.performBatchUpdates({
+                    self.lists.remove(at: index.row)
+                    self.colView.deleteItems(at: [index])
+                    self.itemCounts -= 1
+                    self.colView.reloadData()
+                }, completion: { (success) in
+                    if success {
+                        print("successfully updated")
+                        List.deleteList(deletingList: list, completion: { (list: List?, error:Error?) in
+                            if error == nil{
+                                print("deleted", list!)
+                                self.getLists()
+                                self.deleteUserActInList(list: list!)
+                            } else {
+                                print("\(String(describing: error?.localizedDescription))")
+                            }
+                        })
                     }
                 })
                 
@@ -106,7 +122,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Adjust cell size and layout
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
-        let cellsPerLine: CGFloat = 2
+        let cellsPerLine: CGFloat = 3
         let interItemSpacingTotal = layout.minimumInteritemSpacing * ( cellsPerLine - 1)
         let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
         layout.itemSize = CGSize(width: width, height: width) //width*3/2
@@ -158,10 +174,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                         self.noListsLabel.isHidden = true
                         print(lists)
                         self.lists = lists
+                        self.itemCounts = lists.count
                         self.colView.reloadData()
                         print("self.lists", self.lists )
                         print("lists[0]", self.lists[0].listName)
                     } else {
+                        self.editBtn.title = "Edit"
                         print(error?.localizedDescription)
                     }
                 
@@ -173,21 +191,26 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let userLists = self.lists
-        return userLists.count
+        return itemCounts
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
-        let userLists = self.lists
-        let curList = userLists[indexPath.row]
-        let curListName = curList.listName
-        cell.listName.text = curListName
-        cell.delegate2 = self
-        cell.indexPath = indexPath
-        if selecting == true {
-            cell.deleteListBtn.isHidden = false
-        } else {
-            cell.deleteListBtn.isHidden = true
+        if self.lists != [] {
+            let userLists = self.lists
+            let curList = userLists[indexPath.row]
+            let curListName = curList.listName
+            cell.listName.text = curListName
+            cell.delegate2 = self
+            cell.indexPath = indexPath
+            if selecting == true {
+                cell.deleteListBtn.isHidden = false
+            } else {
+                cell.deleteListBtn.isHidden = true
+            }
+            
+        } else if self.lists == nil  {
+            editBtn.title = "Edit"
         }
         return cell
     }

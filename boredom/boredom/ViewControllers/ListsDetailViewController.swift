@@ -26,6 +26,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     var globalActsDictionary = [Activity]()
     var authorOfList: PFUser!
     var list: List!
+    var addingList: List!
     var newList: List!
     var listID: String!
     var activityIsLiked: Bool = false
@@ -35,6 +36,10 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     var curActGlobal: Activity!
     var likeCell: ActivitiesInListCell!
     var pickedListID = String()
+    
+    //to check duplicate in user list
+    var userActsInUserList = [UserActivity]()
+    
     
     var addingActivity = Activity()
     var userLikedActs = [String]()
@@ -88,6 +93,14 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         self.pickedListID = thisList["id"]!
         pickerRow = row
         print("self.selectedList",self.pickedListID)
+        UserActivity.fetchActivity(listId: pickedListID) { (userActs:[UserActivity]?, error: Error?) in
+            if error == nil{
+                if let userActs = userActs{
+                    self.userActsInUserList = userActs
+                }
+            }
+            
+        }
         
     }
     
@@ -116,45 +129,81 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     
     
     @IBAction func onAddingThisAct(_ sender: UIButton) {
-        
         print("on adding this act in listdetails")
         print("adding Act to list")
         if pickerRow == 0 {
             print("please pick a list")
+            let alertController = UIAlertController(title: "Add Error", message: "Pick a List to add your item." , preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+            alertController.addAction(OKAction)
+            self.present(alertController, animated: true)
         } else if pickerRow != 0 {
-            print ("before UserAct.addnewact", addingActivity)
-            
-            print("pickedListID", pickedListID)
-            
-            List.fetchWithID(listID: pickedListID) { (lists: [List]?, error: Error?) in
-                if error == nil {
-                    if let lists = lists {
-                        print("listtttt for adding", lists)
-                        UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
-                            if error == nil{
-
-                                List.addActToList(currentList: lists[0], userAct: userAct!, tags: self.addingActivity.tags, completion: { (list: List?, error: Error?) in
-                                    if error == nil {
-                                        print("done")
-                                        self.addBtn.isHidden = true
-                                        self.cancelBtn.isHidden = true
-                                        self.doneBtn.isHidden = false
+            self.checkDuplicate( type: "Act", done: { (duplicate: Int) in
+                print("list detail vc: duplicate", duplicate)
+                if duplicate > 0 {
+                    self.viewWithPicker.isHidden = true
+                    let alertController = UIAlertController(title: "Can't Add Activity", message: "You already have this item in your list. Please add a different item." , preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in}
+                    alertController.addAction(cancelAction)
+                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true)
+                    
+                } else  if duplicate == 0 {
+                    
+                    print ("before UserAct.addnewact", self.addingActivity)
+                    print("pickedListID", self.pickedListID)
+                    List.fetchWithID(listID: self.pickedListID) { (lists: [List]?, error: Error?) in
+                        if error == nil {
+                            if let lists = lists {
+                                print("listtttt for adding", lists)
+                                UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
+                                    if error == nil{
+                                        
+                                        List.addActToList(currentList: lists[0], userAct: userAct!, tags: self.addingActivity.tags, completion: { (list: List?, error: Error?) in
+                                            if error == nil {
+                                                print("done")
+                                                self.addBtn.isHidden = true
+                                                self.cancelBtn.isHidden = true
+                                                self.doneBtn.isHidden = false
+                                            } else {
+                                                print("Error adding activity to list \(String(describing: error?.localizedDescription))")
+                                            }
+                                        })
                                     } else {
-                                        print("Error adding activity to list \(String(describing: error?.localizedDescription))")
+                                        print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
                                     }
-                                })
-                            } else {
-                                print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
+                                }
                             }
                         }
+                        
                     }
                 }
-                
+            })
+        }
+    }
+    
+    
+    func checkDuplicate(type: String, done: @escaping (Int) -> Void){
+        if type == "Act"{
+            var duplicate = 0
+            for act in userActsInUserList {
+                if act.activity.objectId == addingActivity.objectId{
+                    duplicate += 1
+                }
             }
+            return done(duplicate)
+        } else if type == "List"{
+            var duplicate = 0
+            for list in userLists {
+                if list.objectId == addingList.objectId{
+                    duplicate += 1
+                }
+            }
+            return done(duplicate)
         }
         
     }
-    
     
     
     @IBAction func onCancelAdding(_ sender: UIButton) {
@@ -162,61 +211,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     }
     
     
-// ============ Picker View for adding ================
-/*
-    @IBAction func onAddingActToList(_ sender: UIButton) {
-        print("adding Act to list")
-        if pickerRow == 0 {
-            print("please pick a list")
-        } else if pickerRow != 0 {
-            print ("before UserAct.addnewact", addingActivity)
-            
-            print("pickedListID", pickedListID)
-            List.fetchWithID(listID: pickedListID) { (lists: [List]?, error: Error?) in
-                if error == nil {
-                    if let lists = lists {
-                        print("listtttt for adding", lists)
-                        UserActivity.addNewActivity(activity: self.addingActivity, list: lists[0] ) { (userAct: UserActivity?, error: Error?) in
-                            if error == nil{
-                                List.addActToList(currentList: lists[0], userAct: userAct!, tags: self.addingActivity.tags, completion: { (list: List?, error: Error?) in
-                                    if error == nil {
-                                        print("done")
-                                        self.addBtn.isHidden = true
-                                        self.cancelBtn.isHidden = true
-                                        self.doneBtn.isHidden = false
-                                    } else {
-                                        print("Error adding activity to list \(String(describing: error?.localizedDescription))")
-                                    }
-                                })
-                            } else {
-                                print("Error adding activity to userAct \(String(describing: error?.localizedDescription))")
-                            }
-                        }
-                    }
-                }
-                
-            }
-        }
-    }
 
-    
-    
-    
-    
-    
-    @IBAction func onCancelAdding(_ sender: UIButton) {
-        viewWithPicker.isHidden = true
-        print("on cancel adding")
-    }
-    
-    //Clicked Done and view picker is hidden
-    @IBAction func onDoneAdding(_ sender: UIButton) {
-        viewWithPicker.isHidden = true
-        print("on done adding")
-        
-    }
-*/
-// ===================================
     
     
     func tapFavoritesBtn(activity: Activity){
@@ -231,6 +226,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         let listId = curList?.objectId
         var activitesArray: [UserActivity] = []
         var userId = PFUser.current()?.objectId
+        
         UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
                 if activities! != []{
@@ -323,6 +319,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
     func getLists() {
         let curUser = PFUser.current()
         let userId = curUser?.objectId
+        self.addingList = list
         List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
             if lists?.count == 0 {
                 //                self.noListsLabel.isHidden = false
@@ -332,6 +329,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
                 if error == nil {
                     let lists = lists!
                     self.userLists = lists
+                    
                     print("iiiii list",lists)
                     var allOptions = [[String : String]]()
                     var listIDsArr = [String]()
@@ -357,37 +355,66 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         }
     }
     
+    func emptyListAlert(){
+        let addConfirmation = UIAlertController(title: "Empty List" , message: "Cannot add empty list", preferredStyle: .alert)
+        //            let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in }
+        //            addConfirmation.addAction(OKaction)
+        let cancelBtn = UIAlertAction(title: "Ok", style: .cancel){ (action) in }
+        addConfirmation.addAction(cancelBtn)
+        self.present(addConfirmation, animated: true)
+    }
+    
     
     @IBAction func copyList(_ sender: Any) {
-        // nameText = name of the list copying
-        // categoryText = category
-        // likeCount should be reset to 0 since copying list
-        let actsInList = list.activities
-        print("actInList", actsInList!)
-        if actsInList! != [] {
-            List.addNewList(name: list.listName, category: list.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
-                if (addedList != nil) {
-                    print("List created!")
-                    print("copy list", addedList!)
-
-                    for act in self.globalActivities {
-                        UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
-                            if error == nil {
-                                print ("userAct", userAct!)
+        
+        self.checkDuplicate(type: "List") { (duplicate) in
+            if duplicate > 0 {
+                let alertController = UIAlertController(title: "Can't Add List", message: "You already have list." , preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                alertController.addAction(OKAction)
+                self.present(alertController, animated: true)
+            } else if duplicate == 0 {
+                let actsInList = self.list.activities
+                //        print("actInList", actsInList!)
+                if let actInLists = actsInList{
+                    let addConfirmation = UIAlertController(title: "Adding List" , message: "Add this list to your profile?", preferredStyle: .actionSheet)
+                    let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in
+                        List.addNewList(name: self.list.listName, category: self.list.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
+                            if (addedList != nil) {
+                                print("List created!")
+                                print("copy list", addedList!)
+                                
+                                for act in self.globalActivities {
+                                    UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
+                                        if error == nil {
+                                            print ("userAct", userAct!)
+                                            let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
+                                            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                                            addingAlert.addAction(OKAction)
+                                            self.present(addingAlert, animated: true)
+                                        }
+                                    })
+                                }
+                                self.dismiss(animated: true, completion: nil)
+                            } else if let error = error {
+                                print("Problem saving list: \(error.localizedDescription)")
+                                let addingAlert = UIAlertController(title: "Add Message", message:"Error: \(error.localizedDescription)" , preferredStyle: .alert)
+                                let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                                addingAlert.addAction(OKAction)
+                                self.present(addingAlert, animated: true)
                             }
-                        })
+                        }
                     }
-                    self.dismiss(animated: true, completion: nil)
-                } else if let error = error {
-                    print("Problem saving list: \(error.localizedDescription)")
+                    addConfirmation.addAction(OKaction)
+                    let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
+                    addConfirmation.addAction(cancelBtn)
+                    self.present(addConfirmation, animated: true)
+                } else {
+                    self.emptyListAlert()
                 }
             }
-            
-            
+            }
         }
-    
-        getActivitiesInList()
 
-    }
 }
 

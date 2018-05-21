@@ -12,6 +12,7 @@ import Parse
 @objc class List: PFObject, PFSubclassing {
     @NSManaged var listName: String!
     @NSManaged var category: String!
+    @NSManaged var listDescription: String!
     //@NSManaged var listImage: UIImage!
     @NSManaged var activities: [UserActivity]?
     //var rating: Int?
