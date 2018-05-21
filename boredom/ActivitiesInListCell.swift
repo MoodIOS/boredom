@@ -9,11 +9,21 @@
 import UIKit
 import Parse
 
+protocol AddSomeActDelegate {
+    func handleAddingAct (at index: IndexPath)
+
+}
+
+
 class ActivitiesInListCell: UITableViewCell {
 
     @IBOutlet weak var favoritesBtn: UIButton!
     
     @IBOutlet weak var activityNameLabel: UILabel!
+    
+    @IBOutlet weak var likeCount: UILabel!
+    
+    @IBOutlet weak var costLabel: UILabel!
     
     
     var listViewController: ListsDetailViewController!
@@ -23,78 +33,93 @@ class ActivitiesInListCell: UITableViewCell {
     var activity: Activity!
     var userAct: UserActivity!
     
-    
+    var delegate: AddSomeActDelegate!
+    var indexPath: IndexPath!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
-    
 
+    
+    @IBAction func onAddingAct(_ sender: UIButton) {
+        print("adding act")
+        delegate.handleAddingAct(at: indexPath)
+    }
+
+
+    
+    
     @IBAction func didTapFavoritesBtn(_ sender: Any) {
-        print("INSIDE METHOD")
-        //if means we pressed the like button
-        if(favoritesBtn.imageView?.image?.isEqual(UIImage(named:"heart-gray")))!{
-           
-            print("INSIDE IF STATEMENT")
-            favoritesBtn.setImage(UIImage(named:"heart-red"), for: UIControlState.normal)
-            print("userAct", userAct)
-            print("activity", activity)
-            oldLikeCount = activity.activityLikeCount
-            print("............old like count is: ", oldLikeCount)
+        print("like clicked.....")
+        let curUser = User.current()
+        let actsUserLiked = curUser?.likedActivities
+        let likeBtn = self.favoritesBtn.imageView?.image
+        let like = UIImage(named:"heart-red")
+        let unlike = UIImage(named:"heart-gray")
+        
+        if (likeBtn?.isEqual(like))! {
+            print("just unliked")
+            self.favoritesBtn.setImage(unlike, for: .normal)
+            // need to remove the id from array:
+            var newArray = [String]()
+            var i = 0
+            let actID = activity.objectId
+            while i < (actsUserLiked?.count)! {
+                let id = actsUserLiked![i]
+                if actID != id {
+                    print(actID!, "is different than", id)
+                    newArray.append(actsUserLiked![i])
+                }
+                i = i + 1
+            }
+            print("newArray", newArray)
+            let curUser = User.current()
+            curUser?.likedLists = newArray
+            print("current User liked lists", curUser?.likedLists )
             
-            Activity.changeLikeCount(actId: activity.objectId!, likeCount: activity.activityLikeCount) { (activities: [Activity]?, error: Error?) in
-                if activities! != []{
-                    let activities = activities
-                    print("ACTIVITIES:", activities![0])
-                    let activity = activities![0]
-                    activity.activityLikeCount = activity.activityLikeCount + 1
-                    self.newLikeCount = activity.activityLikeCount
-                    let currUser = PFUser.current()
-                    var count = 0
-                    if(!activity.activityLikedByUsers.isEmpty)
-                    {
-                        count = activity.activityLikedByUsers.count - 1
-                    }
-                    print("...........", (currUser?.objectId)!)
-                    
-                    activity.activityLikedByUsers.append((currUser?.objectId)!)
-                    activity.saveInBackground()
+            let newLikeCount = activity.activityLikeCount - 1
+            activity.activityLikeCount = newLikeCount
+            self.likeCount.text = "\(newLikeCount)"
+            Activity.updateActivityLikeCount(updateAct: activity) { (act: Activity?, error: Error?) in
+                if error == nil{
+                    print("update list:", act)
+                } else {
+                    print("error updating user liked list", "\(String(describing: error?.localizedDescription))")
                 }
             }
             
-            //newLikeCount = activity.activityLikeCount
-            print("....................new like count is: ", newLikeCount)
+            User.updateUserActArray(updateArray: newArray) { (user: User?, error: Error?) in
+                if let user = user {
+                    print("user", user)
+                } else {
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
+                }
+            }
             
+        } else {
+            print("just liked")
+            self.favoritesBtn.setImage(like, for: .normal)
+            let newLikeCount = activity.activityLikeCount + 1
+            activity.activityLikeCount = newLikeCount
+            self.likeCount.text = "\(newLikeCount)"
+            Activity.updateActivityLikeCount(updateAct: activity) { (act: Activity?, error: Error?) in
+                if error == nil{
+                    print("update list:", act!)
+                } else {
+                    print("error updating user liked list", "\(String(describing: error?.localizedDescription))")
+                }
+            }
+            User.updateUserLikedAct(curUserId: (curUser?.objectId)!, likedAct: activity.objectId!) { (user: User?, error: Error?) in
+                if let user = user {
+                    print("user", user)
+                } else {
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
+                }
+            }
             
         }
-        else{ //else means we pressed the like button again, hence, unlike
-            
-            favoritesBtn.setImage(UIImage(named:"heart-gray"), for: UIControlState.normal)
-            Activity.changeLikeCount(actId: activity.objectId!, likeCount: activity.activityLikeCount) { (activities: [Activity]?, error: Error?) in
-                if activities! != []{
-                    let activities = activities
-                    print("ACTIVITIES:", activities![0])
-                    let activity = activities![0]
-                    activity.activityLikeCount = activity.activityLikeCount - 1
-                    self.newLikeCount = activity.activityLikeCount
-                    activity.saveInBackground()
-                }
-            }
-            
-            
-            var indexOfUser = 0
-            while indexOfUser < activity.activityLikedByUsers.count{
-                if activity.activityLikedByUsers[indexOfUser] == PFUser.current()?.objectId{
-                    print("INSIDE REMOVE IF.........")
-                    activity.activityLikedByUsers.remove(at: indexOfUser)
-                    activity.saveInBackground()
-                }
-                indexOfUser = (indexOfUser + 1)
-            }
-            print("INSIDE ELSE STATEMENT")
-        }
+        
     }
     
     

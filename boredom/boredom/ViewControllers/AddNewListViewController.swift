@@ -22,6 +22,11 @@ class AddNewListViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func hideKeyBoard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,7 +38,7 @@ class AddNewListViewController: UIViewController {
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        List.addNewList(name: nameText.text, category: categoryText.text, likeCount: 0 , activities: []) { (success, error) in
+        List.addNewList(name: nameText.text, category: categoryText.text, likeCount: 0 , activities: nil) { (success, error) in
             if (success != nil) {
                 print("List created!")
                 

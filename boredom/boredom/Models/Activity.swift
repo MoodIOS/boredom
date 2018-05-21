@@ -17,7 +17,8 @@ import Parse
     //@NSManaged var list: List!
     //@NSManaged var done: BooleanLiteralType
     @NSManaged var location: String!
-    @NSManaged var locationPoint: CGPoint
+    @NSManaged var locationLongitude: Double
+    @NSManaged var locationLatitude: Double
     @NSManaged var cost: Int // Free, $, $$, $$$
     @NSManaged var activityLikeCount: Int
     @NSManaged var usersLikedActivity: [String]!
@@ -37,7 +38,9 @@ import Parse
         activity.location = location ?? "No location specified"
         if(location != nil){
             let locationCoord = self.findCoordinates(yourAddress: activity.location)
-            activity.locationPoint = CGPoint(x: CGFloat(locationCoord.coordinate.longitude), y: CGFloat(locationCoord.coordinate.latitude))
+            activity.locationLongitude = locationCoord.coordinate.longitude
+            activity.locationLatitude = locationCoord.coordinate.latitude
+//            activity.locationPoint = CGPoint(x: CGFloat(locationCoord.coordinate.longitude), y: CGFloat(locationCoord.coordinate.latitude))
         }
         
         activity.cost = cost
@@ -56,6 +59,7 @@ import Parse
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")
+        query.includeKey("tags")
         query.includeKey("_created_at")
         //query.addDescendingOrder("_created_at")
         query.addDescendingOrder("activityLikeCount")
@@ -70,6 +74,7 @@ import Parse
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")
+        query.includeKey("tags")
         query.includeKey("_created_at")
         query.addDescendingOrder("_created_at")
         //query.addDescendingOrder("activityLikeCount")
@@ -82,6 +87,7 @@ import Parse
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
         query.includeKey("activityLikedByUsers")
+        query.includeKey("tags")
         query.addDescendingOrder("_created_at")
         print("Activity ID " + "\(actId)")
         query.whereKey("objectId", equalTo: actId)
@@ -94,6 +100,7 @@ import Parse
     class func changeLikeCount(actId: String, likeCount: Int, completion: @escaping ([Activity]?, Error?) -> Void){
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
+        query.includeKey("tags")
         query.includeKey("activityLikedByUsers")
         query.includeKey("activityLikeCount")
         query.addDescendingOrder("_created_at")
@@ -122,6 +129,7 @@ import Parse
     class func saveUserIDLikedAct(actId: String, userId: String, completion: @escaping (Activity?, Error?) -> Void){
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
+        query.includeKey("tags")
         query.includeKey("activityLikedByUsers")
         query.includeKey("activityLikeCount")
         query.addDescendingOrder("_created_at")
@@ -144,6 +152,7 @@ import Parse
     class func isLikedByUser(actId: String, currentUserId: String, completion: @escaping (Int, Error?) -> Void){
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
+        query.includeKey("tags")
         query.includeKey("activityLikedByUsers")
         query.includeKey("activityLikeCount")
         query.addDescendingOrder("_created_at")

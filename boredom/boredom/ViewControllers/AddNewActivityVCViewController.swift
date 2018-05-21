@@ -52,8 +52,25 @@ class AddNewActivityVCViewController: UIViewController {
         
         print("self.list", self.list)
         loadActivity()
+        
+        self.tags["Restaurant"] = false
+        self.tags["Brunch"] = false
+        self.tags["Movie"] = false
+        self.tags["Outdoor"] = false
+        self.tags["Book"] = false
+        self.tags["Coffee"] = false
+        self.tags["Nightlife"] = false
+        self.tags["Happy hours"] = false
     }
-
+    
+//    override func viewDidAppear() {
+//    }
+    
+    
+    @IBAction func hideKeyboard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
         checkForDuplicateInList { (duplicateInList: Int, error: Error?) in
@@ -76,7 +93,7 @@ class AddNewActivityVCViewController: UIViewController {
                         UserActivity.addNewActivity(activity: self.actInDatabase, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
                             if error == nil {
                                 print("User activity created")
-                                List.addActToList(currentList: self.list, userAct: userAct , completion: { (list: List?, error: Error?) in
+                                List.addActToList(currentList: self.list, userAct: userAct!, tags: self.actInDatabase.tags , completion: { (list: List?, error: Error?) in
                                     if error == nil {
                                         print("list", list!)
                                     }
@@ -112,7 +129,7 @@ class AddNewActivityVCViewController: UIViewController {
                                 UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
                                     if error == nil {
                                         print("User activity created")
-                                        List.addActToList(currentList: self.list, userAct: userAct , completion: { (list: List?, error: Error?) in
+                                        List.addActToList(currentList: self.list, userAct: userAct!, tags: self.tags, completion: { (list: List?, error: Error?) in
                                             if error == nil {
                                                 print("list", list!)
                                             }
@@ -205,9 +222,13 @@ class AddNewActivityVCViewController: UIViewController {
         Activity.fetchActivity(completion: { (activities: [Activity]?, error: Error?) in
             if error == nil {
                 self.allActs = activities!
+                
                 self.getActivityNames()
+                print("self.activityNames", self.activityNames.count)
                 self.name.filterItems(self.activityNames)
                 self.handleUserPicker()
+                print("self.activityNames", self.activityNames)
+                
             } else {
                 print(error?.localizedDescription as Any)
             }
@@ -232,12 +253,19 @@ class AddNewActivityVCViewController: UIViewController {
     
     
     func getActivityNames() {
-        for name in allActNames {
-            let item = SearchTextFieldItem(title: name)
-            activityNames?.append(item)
-            print (name)
+        if activityNames.count == 0 {
+            print("allActNames", allActNames)
+            for name in allActNames {
+                if activityNames.count < allActs.count{
+                    let item = SearchTextFieldItem(title: name)
+                    activityNames?.append(item)
+                    print (name)
+                }
+                
+            }
             
         }
+        
     }
     
 

@@ -11,7 +11,7 @@ import UIKit
 protocol InfoActButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
 //    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton)
-//    func addBtnClicked (at index: IndexPath, type: String)
+    func addBtnClicked (at index: IndexPath, type: String)
 }
 
 class ActivitiesCell: UICollectionViewCell {
@@ -54,16 +54,15 @@ class ActivitiesCell: UICollectionViewCell {
                 i = i + 1
             }
             print("newArray", newArray)
-            let curUser = User.current()
             curUser?.likedActivities = newArray
             print("current User liked lists", curUser?.likedActivities)
             let newLikeCount = currentAct.activityLikeCount - 1
             currentAct.activityLikeCount = newLikeCount
             Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
                 if error == nil{
-                    print("activity", activity)
+                    print("activity", activity!)
                 } else {
-                     print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))" )
                 }
             }
             User.updateUserActArray(updateArray: newArray) { (user: User?, error: Error?) in
@@ -71,7 +70,7 @@ class ActivitiesCell: UICollectionViewCell {
                     print("user", user)
                     
                 } else {
-                    print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }
             }
 
@@ -80,11 +79,12 @@ class ActivitiesCell: UICollectionViewCell {
             curUser?.likedActivities.append(actId)
             let newLikeCount = currentAct.activityLikeCount +  1
             currentAct.activityLikeCount = newLikeCount
+            curUser?.likedActivities.append(actId)
             Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
                 if error == nil{
-                    print("activity", activity)
+                    print("activity", activity!)
                 } else {
-                    print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }
             }
             User.updateUserLikedAct(curUserId: (curUser?.objectId)!, likedAct: actId) { (user:User?, error: Error?) in
@@ -92,7 +92,7 @@ class ActivitiesCell: UICollectionViewCell {
                     print("user", user)
                     
                 } else {
-                    print("error updating user liked act", error?.localizedDescription)
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }
             }
             
@@ -101,7 +101,7 @@ class ActivitiesCell: UICollectionViewCell {
     
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
-//        self.delegate.addBtnClicked(at: indexPath, type: self.type)
+        self.delegate.addBtnClicked(at: indexPath, type: self.type)
     }
     
     

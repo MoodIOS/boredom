@@ -23,6 +23,10 @@ class LoginViewController: UIViewController {
         
     }
     
+    @IBAction func hideKeyBoard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     
     @IBAction func onTapLogin(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
