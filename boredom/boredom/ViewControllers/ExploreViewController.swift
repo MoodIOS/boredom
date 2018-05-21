@@ -1025,6 +1025,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     //Clicked Done and view picker is hidden
     @IBAction func onDoneAdding(_ sender: UIButton) {
+        self.pickerRow = 0
         viewWithPicker.isHidden = true
         print("on done adding")
         
