@@ -9,6 +9,9 @@
 import UIKit
 import Parse
 import SearchTextField
+import GooglePlaces
+import GoogleMaps
+import GooglePlacePicker
 
 class AddNewActivityVCViewController: UIViewController {
 
@@ -41,7 +44,7 @@ class AddNewActivityVCViewController: UIViewController {
     @IBOutlet weak var happyhoursTag: UIButton!
     
 
-    
+    var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
         
@@ -61,10 +64,37 @@ class AddNewActivityVCViewController: UIViewController {
         self.tags["Coffee"] = false
         self.tags["Nightlife"] = false
         self.tags["Happy hours"] = false
+        
+        placesClient = GMSPlacesClient.shared()
+        location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
     }
     
-//    override func viewDidAppear() {
-//    }
+//    https://developers.google.com/places/ios-sdk/start
+    
+    @objc func locationDidChange(location: UITextField){
+        let center = CLLocationCoordinate2D(latitude: 37.788204, longitude: -122.411937)
+        let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2D(latitude: center.latitude - 0.001, longitude: center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        let placePicker = GMSPlacePicker(config: config)
+        
+        placePicker.pickPlace(callback: {(place, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let place = place {
+//                self.location.text = place.name
+                self.location.text = place.formattedAddress?.components(separatedBy: ", ")
+                    .joined(separator: "\n")
+            } else {
+//                self.nameLabel.text = "No place selected"
+                self.location.text = "No Address Found"
+            }
+        })
+    }
     
     
     @IBAction func hideKeyboard(_ sender: Any) {

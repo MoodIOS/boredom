@@ -50,6 +50,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     
+    
+    
     func handlingDeleteList(at index: IndexPath){
         
         if (index.row) < lists.count{
