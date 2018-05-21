@@ -355,6 +355,15 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         }
     }
     
+    func emptyListAlert(){
+        let addConfirmation = UIAlertController(title: "Empty List" , message: "Cannot add empty list", preferredStyle: .alert)
+        //            let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in }
+        //            addConfirmation.addAction(OKaction)
+        let cancelBtn = UIAlertAction(title: "Ok", style: .cancel){ (action) in }
+        addConfirmation.addAction(cancelBtn)
+        self.present(addConfirmation, animated: true)
+    }
+    
     
     @IBAction func copyList(_ sender: Any) {
         
@@ -367,7 +376,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
             } else if duplicate == 0 {
                 let actsInList = self.list.activities
                 //        print("actInList", actsInList!)
-                if actsInList! != [] {
+                if let actInLists = actsInList{
                     let addConfirmation = UIAlertController(title: "Adding List" , message: "Add this list to your profile?", preferredStyle: .actionSheet)
                     let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in
                         List.addNewList(name: self.list.listName, category: self.list.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
@@ -400,12 +409,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
                     let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
                     addConfirmation.addAction(cancelBtn)
                     self.present(addConfirmation, animated: true)
-                    
-                    
+                } else {
+                    self.emptyListAlert()
                 }
-                
-//                getActivitiesInList()
-                
             }
             }
         }
