@@ -88,10 +88,10 @@ class AddNewActivityVCViewController: UIViewController {
             if let place = place {
 //                self.location.text = place.name
                 self.location.text = place.formattedAddress?.components(separatedBy: ", ")
-                    .joined(separator: "\n")
+                    .joined(separator: ", " )
             } else {
 //                self.nameLabel.text = "No place selected"
-                self.location.text = "No Address Found"
+//                self.location.text = "No Address Found"
             }
         })
     }
