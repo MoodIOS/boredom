@@ -64,19 +64,19 @@ class OptionsViewController: UIViewController {
         let choseDist = [1, 2, 3, 4]
         let resultTwo = choseDist[distanceControl.selectedSegmentIndex]
         if(resultTwo == 1){
-            savedBool.set(0, forKey: "whichTwo")
+            savedBool.set(483, forKey: "whichTwo")
             print("yah")
         }
         else if(resultTwo == 2){
-            savedBool.set(1, forKey: "whichTwo")
+            savedBool.set(1610, forKey: "whichTwo")
             print("yah1")
         }
         else if(resultTwo == 3){
-            savedBool.set(5, forKey: "whichTwo")
+            savedBool.set(8047, forKey: "whichTwo")
             print("yah1")
         }
         else{
-            savedBool.set(20, forKey: "whichTwo")
+            savedBool.set(32186, forKey: "whichTwo")
             print("yah2")
         }
         

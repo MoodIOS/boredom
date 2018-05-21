@@ -17,6 +17,7 @@ import Parse
     //@NSManaged var list: List!
     //@NSManaged var done: BooleanLiteralType
     @NSManaged var location: String!
+    @NSManaged var locationPoint: CGPoint
     @NSManaged var cost: Int // Free, $, $$, $$$
     @NSManaged var activityLikeCount: Int
     @NSManaged var usersLikedActivity: [String]!
@@ -34,6 +35,11 @@ import Parse
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
         activity.location = location ?? "No location specified"
+        if(location != nil){
+            let locationCoord = self.findCoordinates(yourAddress: activity.location)
+            activity.locationPoint = CGPoint(x: CGFloat(locationCoord.coordinate.longitude), y: CGFloat(locationCoord.coordinate.latitude))
+        }
+        
         activity.cost = cost
         print("cost: ", cost)
         activity.activityLikeCount = 0
@@ -165,10 +171,10 @@ import Parse
         }
     }
     
-    class func findCoordinates() -> CLLocation {
+    class func findCoordinates(yourAddress: String) -> CLLocation {
         let geocoder = CLGeocoder()
         var longAndLat = CLLocation()
-        geocoder.geocodeAddressString("your address") {
+        geocoder.geocodeAddressString(yourAddress) {
             placemarks, error in
             let placemark = placemarks?.first
             let lat = placemark?.location?.coordinate.latitude
@@ -177,6 +183,7 @@ import Parse
             longAndLat = CLLocation(latitude: lat!, longitude: lon!)
             
         }
+        print(longAndLat)
         return longAndLat
     }
     

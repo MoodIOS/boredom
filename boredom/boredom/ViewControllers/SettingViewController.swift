@@ -8,9 +8,10 @@
 
 import UIKit
 import Parse
+import CoreLocation
 //import ParseUI
 
-class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 //, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        <#code#>
@@ -29,6 +30,7 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var password1: UITextField!
     @IBOutlet weak var password2: UITextField!
     
+    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()

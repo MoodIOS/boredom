@@ -170,13 +170,24 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                                let actId = act.activity.objectId
                                 
                                 Activity.fetchActivity(actId: actId!, completion: { (acts: [Activity]?, error: Error?) in
-                                    if (acts != []){
+                                    if (acts! != []){
                                         let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
                                         let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
                                         if (acts![0].cost == firstOption){
-                                            //need to add distance, tags, etc. to filter out activities.
                                             
-                                            self.userActivities.append(act)
+                                            //need to add distance, tags, etc. to filter out activities.
+                                            if(acts![0].locationCoord != nil){
+                                                if(Int(self.userLocation.distance(from: acts![0].locationCoord)) <= secondOption){
+                                                     print("is thisworking")
+                                                        print(Int(self.userLocation.distance(from: acts![0].locationCoord)))
+                                            
+                                            
+                                                    self.userActivities.append(act)
+                                                }
+                                            }
+                                            else{
+                                                self.userActivities.append(act)
+                                            }
                                         }
                                     } else {
                                         print("error", error?.localizedDescription)
