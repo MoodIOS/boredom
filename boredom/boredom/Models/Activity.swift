@@ -48,8 +48,8 @@ import Parse
                 let placemark = placemarks?.first
                 let lat = placemark?.location?.coordinate.latitude
                 let lon = placemark?.location?.coordinate.longitude
-                activity.locationLongitude = lon!
-                activity.locationLatitude = lat!
+                activity.locationLongitude = lon! as! Double
+                activity.locationLatitude = lat! as! Double
                 print("pop: \(lat), Lon: \(lon)")
             }
 //            activity.locationPoint = CGPoint(x: CGFloat(locationCoord.coordinate.longitude), y: CGFloat(locationCoord.coordinate.latitude))
