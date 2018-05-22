@@ -22,7 +22,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     
     var locationManager:CLLocationManager!
-    let userLocation:CLLocation! = nil
+    var userLocation:CLLocation! = nil
     
     var userActivities = [UserActivity]()
     var allActivities = [Activity]()
@@ -65,7 +65,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             print("whatttttttttt", isSaved)
             getActFromList()
             getLists()
-//            randomActivity()
         }
     }
     
@@ -157,7 +156,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         
         print("user latitude = \(userLocation.coordinate.latitude)")
         print("user longitude = \(userLocation.coordinate.longitude)")
-        
+        self.userLocation = userLocation
         //self.labelL.text = "\(userLocation.coordinate.latitude)"
         //self.labelLongi.text = "\(userLocation.coordinate.longitude)"
         
@@ -214,12 +213,28 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                                 let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
 
                                 if (acts![0].cost == firstOption ){
-                                    self.userActivities.append(act)
-                                } else {
-                                self.userActivities.append(act)
-                                //                                    self.locationManager.requestAlwaysAuthorization()
+                                    if (self.userLocation != nil) && (acts![0].locationLatitude != nil){
+                                        print("(acts![0].locationLongitude)", (acts![0].locationLongitude))
+                                        // THIS crashing
+                                        let lat = CLLocationDegrees(acts![0].locationLatitude)
+                                        let lon = CLLocationDegrees(acts![0].locationLongitude)
+                                        
+                                        let actLocation =  CLLocation(latitude: lat , longitude: lon)
+                                        
+                                        print("actLocation", actLocation)
+                                        print("user location", self.userLocation)
+                                        print("user location", self.userLocation)
+                                        let distanceInMeters = self.userLocation.distance(from: actLocation)
+                                        if(Double(secondOption) >= distanceInMeters){
+                                            self.userActivities.append(act)
+                                        }
+                                        print("distance:", distanceInMeters)
+                                    } else {
+
+                                        self.userActivities.append(act)
+                
+                                    } 
                                 }
-                                
                                 
                             } else {
                                 print("error", "\(String(describing: error?.localizedDescription))")

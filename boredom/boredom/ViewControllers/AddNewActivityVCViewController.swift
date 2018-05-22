@@ -13,7 +13,7 @@ import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
 
-class AddNewActivityVCViewController: UIViewController {
+class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelegate{
 
     @IBOutlet weak var actName: UITextField!
     @IBOutlet weak var actDescription: UITextField!
@@ -43,7 +43,8 @@ class AddNewActivityVCViewController: UIViewController {
     @IBOutlet weak var nightlifeTag: UIButton!
     @IBOutlet weak var happyhoursTag: UIButton!
     
-
+    var locationManager:CLLocationManager!
+    var userLocation:CLLocation! = nil
     var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
@@ -65,6 +66,17 @@ class AddNewActivityVCViewController: UIViewController {
         self.tags["Nightlife"] = false
         self.tags["Happy hours"] = false
         
+        
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.startUpdatingLocation()
+        }
+        
         placesClient = GMSPlacesClient.shared()
         location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
     }
@@ -72,7 +84,7 @@ class AddNewActivityVCViewController: UIViewController {
 //    https://developers.google.com/places/ios-sdk/start
     
     @objc func locationDidChange(location: UITextField){
-        let center = CLLocationCoordinate2D(latitude: 37.788204, longitude: -122.411937)
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
         let southWest = CLLocationCoordinate2D(latitude: center.latitude - 0.001, longitude: center.longitude - 0.001)
         let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
@@ -96,6 +108,35 @@ class AddNewActivityVCViewController: UIViewController {
         })
     }
     
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation :CLLocation = locations[0] as CLLocation
+        
+        
+        print("user latitude = \(userLocation.coordinate.latitude)")
+        print("user longitude = \(userLocation.coordinate.longitude)")
+        self.userLocation = userLocation
+        //self.labelL.text = "\(userLocation.coordinate.latitude)"
+        //self.labelLongi.text = "\(userLocation.coordinate.longitude)"
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+            if (error != nil){
+                print("error in reverseGeocode")
+            } else {
+                let placemark = placemarks! as [CLPlacemark]
+                if placemark.count>0{
+                    let placemark = placemarks![0]
+                    print(placemark.locality!)
+                    print(placemark.administrativeArea!)
+                    print(placemark.country!)
+                    
+                }
+            }
+            
+        }
+        
+    }
     
     @IBAction func hideKeyboard(_ sender: Any) {
         view.endEditing(true)
