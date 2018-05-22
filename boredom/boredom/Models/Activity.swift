@@ -46,7 +46,7 @@ import Parse
             geocoder.geocodeAddressString(location!) {
                 placemarks, error in
                 let placemark = placemarks?.first
-                let lat = placemark?.location?.coordinate.latitude
+                let lat = placemark?.location?.coordinate.latitude 
                 let lon = placemark?.location?.coordinate.longitude
                 activity.locationLongitude = lon! as! Double
                 activity.locationLatitude = lat! as! Double
