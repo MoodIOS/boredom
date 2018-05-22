@@ -1,8 +1,13 @@
-# Group Project - ActivityFinder
+# SPARK the Adventurer in You 
 
-ActivityFinder (temp name) is going to be an app  that helps indecisive individuals to pick activites while out with friends/family. Sometimes, we end up taking too much time to decide on what to do and this app will make it easier for people to decide an activity by generating an activity from user's lists, according to the user input of time, money, and distance/location. We are thinking of using the Yelp API to get general information and description of businesses/locations.
+Spark is an productivity iOS app in which it helps you to make a decision, whether it's to choose a movie to watch or to go to eat at a restaurant. This app is inspired by the time wasted on deciding what to do/ where to go. Now with Spark, you can save that time for actually enjoying the activities. Less thinking and more doing! 
 
-Time spent: **X** hours spent in total
+The app has three main features: Explore where you can find awesome list/ activity to add to your own, Your List where you can create new list and add activity and also where your list/ activity from Explore can be saved. Once you have a list of things you want to do, the rest can be taken care of by our Shuffle feature. Shuffle, as its name implies, will help you pick out an activity based on your saved options such as cost, location... 
+
+Spark - Adventures await! 
+
+
+Time spent: **150** hours spent in total
 
 ## User Stories(required)
 Individual:(user)
@@ -27,16 +32,16 @@ Individual:(user)
 
 
 ## Optional user stories
+- [x] App Icon, UI and color cooridination - Michelle  
 - [x] User can change their password - Michelle
 - [x] persistent login(so users don't have to login over and over again) - Michelle
 - [x] User can delete activity from list - Melissa
-- [] User can see activity information, like or add that activity through popup - Melissa [working on it]
-- [-] User can like an Activity from his/her own List - working on it
-- [-] User can edit activity description --working on it -Melissa
-- [] User can use map to see their activities
-- [] User can use camera to take picture of activities
-- [-] User can choose between different random search modes: --working on it -Justin(options page)
-- [] Users can see if their friends also plan on going to the same activity, so they can go together
+- [x] User can delete List - Melissa 
+- [x] Implemeted GooglePlaces API to autocomplete address for activity - Melissa 
+- [x] User can see activity information, like or add that activity through popup - Melissa
+- [x] User can like an Activity from his/her own List - Melissa & JJ 
+- [] User can choose between different random search modes: --working on it -Justin(options page)
+<!--- [] Users can see if their friends also plan on going to the same activity, so they can go together-->
 
 ## Database/ API
 - API for activity description: Yelp
