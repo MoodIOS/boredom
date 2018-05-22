@@ -64,6 +64,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             self.userActivities.removeAll()
             print("whatttttttttt", isSaved)
             getActFromList()
+            getLists()
 //            randomActivity()
         }
     }
@@ -211,19 +212,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                             if (acts! != []){
                                 let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
                                 let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
-                                
-                                if (acts![0].cost == firstOption){
-                                    //need to add distance, tags, etc. to filter out activities.
-                                    if(acts![0].location != nil){
-                                        let distanceInMeters = self.userLocation.distance(from: CLLocation(latitude: CLLocationDegrees(acts![0].locationLatitude), longitude: CLLocationDegrees(acts![0].locationLongitude)))
-                                        if(Double(secondOption) >= distanceInMeters){
-                                           self.userActivities.append(act)
-                                        }
-                                    }
-                                    else {
-                                        self.userActivities.append(act)
-                                    }
+
+                                if (acts![0].cost == firstOption ){
+                                    self.userActivities.append(act)
+                                } else {
+                                self.userActivities.append(act)
+                                //                                    self.locationManager.requestAlwaysAuthorization()
                                 }
+                                
+                                
                             } else {
                                 print("error", "\(String(describing: error?.localizedDescription))")
                             }
