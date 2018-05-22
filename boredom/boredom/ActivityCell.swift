@@ -11,7 +11,7 @@ import Parse
 
 
 protocol UploadImageforCompletionDelegate {
-    func uploadImgPopup(button: UIButton)
+    func uploadImgPopup(button: UIButton, index: IndexPath)
 }
 
 class ActivityCell: UITableViewCell {
@@ -27,6 +27,7 @@ class ActivityCell: UITableViewCell {
     var actID = String()
     var currentAct: Activity!
     var delegate: UploadImageforCompletionDelegate!
+    var indexPath: IndexPath!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -120,7 +121,7 @@ class ActivityCell: UITableViewCell {
         if thisAct.done == false {
             // set done = true and change the image to green for done!
             // pop up asking user to either submit a picture or not
-            self.delegate.uploadImgPopup(button: completionBtn)
+            self.delegate.uploadImgPopup(button: completionBtn, index: indexPath)
             let update = thisAct
             update.done = true
             UserActivity.updateUserAct(updatedAct: update) { (userActs: [UserActivity]?, error: Error?) in

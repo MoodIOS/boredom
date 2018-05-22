@@ -23,6 +23,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var allActNames = [String]()
     var actsInList =  [Activity]()
     var allActs = [Activity]()
+    var actIndexPath = IndexPath()
 //    var doneAct = UserActivity()
 
     var deleteIndexPath: NSIndexPath? = nil
@@ -93,7 +94,8 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     //delegate funct for adding picture:
     
-    func uploadImgPopup(button: UIButton) {
+    func uploadImgPopup(button: UIButton, index: IndexPath) {
+        self.actIndexPath = index
         completionPopup = PopupDialog(title: "Activity Complete!", message: "Would you like to upload a picture to describe your activity?")
         let okBtn = CancelButton(title: "OK") {
             button.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
@@ -115,6 +117,8 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     
+    
+    
     // imag picker
     
     func imagePickerController(_ picker: UIImagePickerController,
@@ -132,8 +136,35 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         dismiss(animated: true, completion: {
             // save image with the act
             // Do something here
-            
+            self.saveImgToAct()
         })
+        
+    }
+    
+    func saveImgToAct() {
+        let index = self.actIndexPath
+        let userActivities = self.userActivities
+        let currentAct = userActivities[index.row]
+        let currentActID = currentAct.activity.objectId
+        Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
+            if activities! != [] {
+                let activities = activities
+                print("ACTIVITIES:", activities![0])
+                let curAct = activities![0]
+                Activity.saveActImage(image: self.pickedImage, currentAct: curAct, withCompletion: { (success: Bool?, error: Error?) in
+                    if success != nil{
+                        print("save Image")
+                        let alertController = UIAlertController(title: "Image Saved!", message: nil , preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                        alertController.addAction(OKAction)
+                        self.present(alertController, animated: true)
+                        
+                    } else {
+                        print("\(String(describing: error?.localizedDescription))")
+                    }
+                })
+            }
+        }
         
     }
     
@@ -146,6 +177,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let currentActID = currentAct.activity.objectId
         cell.thisAct = currentAct
         cell.delegate = self
+        cell.indexPath = indexPath
         if currentAct.done == false {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {
