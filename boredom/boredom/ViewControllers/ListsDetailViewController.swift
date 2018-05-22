@@ -299,7 +299,7 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
                 }
                 
                 if liked == 0 {
-                    cell.favoritesBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                    cell.favoritesBtn.setImage(UIImage(named: "heart-white"), for: .normal)
                 } else if liked > 0 {
                     cell.favoritesBtn.setImage(UIImage(named: "heart-red"), for: .normal)
                 }

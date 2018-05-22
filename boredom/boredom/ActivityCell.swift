@@ -32,7 +32,7 @@ class ActivityCell: UITableViewCell {
         if thisAct.done == false {
         // set done = true and change the image to green for done!
         // pop up asking user to either submit a picture or not
-            completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+            completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {
             completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
@@ -44,7 +44,7 @@ class ActivityCell: UITableViewCell {
         let actsUserLiked = curUser?.likedActivities
         let likeBtn = self.likeBtn.imageView?.image
         let like = UIImage(named:"heart-red")
-        let unlike = UIImage(named:"heart-gray")
+        let unlike = UIImage(named:"heart-white")
         
         if (likeBtn?.isEqual(like))! {
             print("just unliked")
@@ -127,7 +127,7 @@ class ActivityCell: UITableViewCell {
                 }
             }
         } else {
-            completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+            completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
             let update = thisAct
             update.done = false
             UserActivity.updateUserAct(updatedAct: update) { (userActs: [UserActivity]?, error: Error?) in

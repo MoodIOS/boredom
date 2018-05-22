@@ -92,7 +92,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let currentActID = currentAct.activity.objectId
         cell.thisAct = currentAct
         if currentAct.done == false {
-            cell.completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+            cell.completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
@@ -112,6 +112,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 } else {
                     cell.costLabel.text = "$$$$"
                 }
+                cell.costLabel.textColor = UIColor.white
     
                 var liked: Int = 0
                 var i = 0
@@ -124,7 +125,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 if liked == 0 {
-                    cell.likeBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                    cell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
                 } else if liked > 0 {
                     cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
                 }
