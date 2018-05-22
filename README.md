@@ -1,8 +1,8 @@
 # SPARK the Adventurer in You 
 
-Spark is an productivity iOS app in which it helps you to make a decision, whether it's to choose a movie to watch or to go to eat at a restaurant. This app is inspired by the time wasted on deciding what to do/ where to go. Now with Spark, you can save that time for actually enjoying the activities. Less thinking and more doing! 
+Spark is an iOS app which boosts productivity and saves your time by helping you make a decision, whether it's to choose a movie to watch or to go to eat at a restaurant. This app is inspired by the time wasted on deciding what to do/ where to go when hanging out with friends/family. Now with Spark, you can save that time for actually enjoying the activities. Less thinking and more doing! 
 
-The app has three main features: Explore where you can find awesome list/ activity to add to your own, Your List where you can create new list and add activity and also where your list/ activity from Explore can be saved. Once you have a list of things you want to do, the rest can be taken care of by our Shuffle feature. Shuffle, as its name implies, will help you pick out an activity based on your saved options such as cost, location... 
+The app has three main features: Explore, where you can find awesome list/activity to add to your own list of to-do's; Your List, where you can create new lists and add activity and also where your list/activity from Explore can be saved. Once you have a list of things you want to do, the rest can be taken care of by our Shuffle feature. Shuffle, as its name implies, will help you randomly pick out an activity based on your saved options such as cost, location, etc.
 
 Spark - Adventures await! 
 
@@ -18,15 +18,15 @@ Individual:(user)
 - [x] Autocomplete functionality when user tries to create an activity - Michelle and Melissa
 - [x] User can search for description from our app (which will integrate the Yelp database)-edit:making our own database, not using Yelp
 - [x] User can edit information such as location, duration, cost, group size(big vs small group vs individual) (partially working) -Justin
-- [x] User can like a List from different users(so lists are public, kinda like how spotify playlists are)
-- [x]programmatically have a likecount for each list, and sort top 10 lists with highest like counts. -JJ (still working on display)
+- [x] User can like a List from different users(so lists are public, kinda like how spotify playlists are)-Melissa
+- [x]programmatically have a likecount for each list, and sort top 10 lists with highest like counts. -JJ 
 - [x] User can push a button to generate an (Random) activity from their List(s) - Melissa
 - [x]User will have a profile with their list of activities(the activities they have done) and maybe even some friends list - Melissa and Michelle
 - [x] Individual Explore: from top 10 lists with highest like counts - JJ
 - [x] Individual Explore: from top 10 activities with highest like counts- JJ
 - [x] Users can add a list they like into their own lists and edit that lists' contents. The activities of the liked list are also copied over - Melissa and Michelle
 - [x] Alert controllers pop up to guide user in the right direction and stop them from creating another list with the same name as a list that is already in the database. - Melissa
-- [x] options function on the home page to change cost, location, and type of activity -- mostly done -Justin 
+- [x] options function on the home page to change cost, location, and type of activity -Justin 
 - [x] incorporate tags for an activity (such as food, entertainment, music, etc) instead of long descriptions, since tags are faster to sort by - Melissa
 
 
@@ -40,11 +40,10 @@ Individual:(user)
 - [x] Implemeted GooglePlaces API to autocomplete address for activity - Melissa 
 - [x] User can see activity information, like or add that activity through popup - Melissa
 - [x] User can like an Activity from his/her own List - Melissa & JJ 
-- [] User can choose between different random search modes: --working on it -Justin(options page)
-<!--- [] Users can see if their friends also plan on going to the same activity, so they can go together-->
+- [x] User can choose between different random search modes(recently added vs top 10) - JJ
+
 
 ## Database/ API
-- API for activity description: Yelp
 - Database: Parse
 
 
