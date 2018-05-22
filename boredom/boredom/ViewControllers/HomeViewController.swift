@@ -220,7 +220,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                                            self.userActivities.append(act)
                                         }
                                     }
-                                    else{
+                                    else {
                                         self.userActivities.append(act)
                                     }
                                 }
