@@ -16,9 +16,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     }
     
 
+    //var center: CGPoint!
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
     @IBOutlet weak var actDescriptionLabel: UILabel!
+    
+    @IBOutlet weak var backView: UIView!
+    
+    var prevColor = 0
+    let purple = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
+    let yellow = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
     
     
     var locationManager:CLLocationManager!
@@ -42,6 +49,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        actImage.backgroundColor = self.purple
         //listPicker.setValue(UIColor.white, forKeyPath: "textColor")
         listPicker.dataSource = self
         listPicker.delegate = self
@@ -55,6 +63,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             locationManager.startUpdatingLocation()
         }
         
+        //center = actImage.center
 
     }
     
@@ -246,6 +255,18 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                 if (error == nil) && ((activities?.count)! > 0) {
                     let randomAct = activities![0]
                     print("randomAct", randomAct)
+                    //actImage.ani
+                    UIView.animate(withDuration: 0.5, animations: {
+                        if (self.prevColor == 0) {
+                            self.prevColor = 1
+                            self.actImage.backgroundColor = self.yellow
+                        }
+                        else {
+                            self.prevColor = 0
+                            self.actImage.backgroundColor = self.purple
+                            
+                        }
+                    })
                     self.actName.text = randomAct.actName
                     self.actDescriptionLabel.text = randomAct.actDescription ?? "no Description available"
                 }else {
