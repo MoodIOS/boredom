@@ -8,7 +8,11 @@
 
 import UIKit
 import Parse
-class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+import PopupDialog
+
+class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UploadImageforCompletionDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,10 +24,13 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var actsInList =  [Activity]()
     var allActs = [Activity]()
 //    var doneAct = UserActivity()
-    private var completionPopup: UIView!
+
     var deleteIndexPath: NSIndexPath? = nil
     
     var userLikedActs = [String]()
+    
+    var completionPopup: PopupDialog!
+    var pickedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +48,12 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     //OPTIONAL: If user clicks on completion btn ->  popup asking for picture?
-    func loadCompletionPopup() {
-        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
-        completionPopup = UIView(frame: customViewFrame)
-        view.addSubview(completionPopup)
-        completionPopup.isHidden = false
-    }
+//    func loadCompletionPopup() {
+//        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
+//        completionPopup = UIView(frame: customViewFrame)
+//        view.addSubview(completionPopup)
+//        completionPopup.isHidden = false
+//    }
     
     func getActivities() {
         let curUser = User.current()
@@ -84,6 +91,53 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         dismiss(animated: true, completion: nil)
     }
     
+    //delegate funct for adding picture:
+    
+    func uploadImgPopup(button: UIButton) {
+        completionPopup = PopupDialog(title: "Activity Complete!", message: "Would you like to upload a picture to describe your activity?")
+        let okBtn = CancelButton(title: "OK") {
+            button.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+            print("done without uploading")
+        }
+        let uploadImgBtn = DefaultButton(title: "Upload Image") {
+            print("uploading image")
+            let vc = UIImagePickerController()
+            vc.delegate = self
+            vc.allowsEditing = true
+            vc.sourceType = .photoLibrary
+            self.present(vc, animated: true, completion:nil)
+
+        }
+        completionPopup.addButtons([okBtn, uploadImgBtn])
+        completionPopup.buttonAlignment = .horizontal
+        
+        self.present(completionPopup, animated: true, completion: nil)
+    }
+
+    
+    // imag picker
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        // Get the image captured by the UIImagePickerController
+        //let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        self.pickedImage = editedImage
+        //temp.image = originalImage
+        
+        // Do something with the images (based on your use case)
+        
+        
+        // Dismiss UIImagePickerController to go back to your original view controller
+        dismiss(animated: true, completion: {
+            // save image with the act
+            // Do something here
+            
+        })
+        
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
@@ -91,6 +145,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let currentAct = userActivities[indexPath.row]
         let currentActID = currentAct.activity.objectId
         cell.thisAct = currentAct
+        cell.delegate = self
         if currentAct.done == false {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {

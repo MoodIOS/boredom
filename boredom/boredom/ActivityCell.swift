@@ -9,6 +9,11 @@
 import UIKit
 import Parse
 
+
+protocol UploadImageforCompletionDelegate {
+    func uploadImgPopup(button: UIButton)
+}
+
 class ActivityCell: UITableViewCell {
 
     @IBOutlet weak var activityName: UILabel!
@@ -21,6 +26,7 @@ class ActivityCell: UITableViewCell {
     var thisAct = UserActivity()
     var actID = String()
     var currentAct: Activity!
+    var delegate: UploadImageforCompletionDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,13 +36,12 @@ class ActivityCell: UITableViewCell {
     
     func checkForCompletion(){
         if thisAct.done == false {
-        // set done = true and change the image to green for done!
-        // pop up asking user to either submit a picture or not
             completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {
             completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
     }
+    
     
     @IBAction func onLikeAct(_ sender: UIButton) {
         print("like clicked.....")
@@ -115,7 +120,7 @@ class ActivityCell: UITableViewCell {
         if thisAct.done == false {
             // set done = true and change the image to green for done!
             // pop up asking user to either submit a picture or not
-            completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+            self.delegate.uploadImgPopup(button: completionBtn)
             let update = thisAct
             update.done = true
             UserActivity.updateUserAct(updatedAct: update) { (userActs: [UserActivity]?, error: Error?) in

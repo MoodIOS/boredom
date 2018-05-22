@@ -31,10 +31,7 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         usernameLabel.text = User.current()?.username
         userImage.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTap))
-//        userImage.addGestureRecognizer(tapGesture)
 
-        // Do any additional setup after loading the view.
         if let imageFile = User.current()?.profileImage {
             imageFile.getDataInBackground(block: { (data, error) in
                 if error == nil {
@@ -123,8 +120,8 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
                 else if let error = error {
                     print("Problem saving image \(error.localizedDescription)")
                 }
-        }
-    })
+            }
+        })
         
     }
     
