@@ -119,6 +119,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         colView.delegate = self
         noListsLabel.isHidden = true
         let layout = colView.collectionViewLayout as! UICollectionViewFlowLayout
+        
         // Adjust cell size and layout
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
