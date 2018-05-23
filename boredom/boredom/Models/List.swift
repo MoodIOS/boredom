@@ -39,7 +39,7 @@ import Parse
             "Outdoor": false
         ]
         list.listName = name ?? "No name"
-        list.category = category ?? "No category"
+        list.listDescription = category ?? "No category"
         list.activities = activities
         list.author = PFUser.current()
         list.likeCount = likeCount ?? 0

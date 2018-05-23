@@ -83,6 +83,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         
         placesClient = GMSPlacesClient.shared()
         location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
+        
 //        location.addTarget(self, action: #selector(locationDidChange), for: .)
         var i = 0
         while i < tagsBtn.count {

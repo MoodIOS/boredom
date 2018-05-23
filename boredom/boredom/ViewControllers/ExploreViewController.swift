@@ -94,7 +94,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         recentlyAddedBtn.backgroundColor = UIColor.gray
-        mostlyLikedBtn.backgroundColor = UIColor.blue
+        mostlyLikedBtn.backgroundColor = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         
@@ -138,7 +138,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cellsPerLine: CGFloat = 2
         let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layout.itemSize = CGSize(width: 120, height: 120)
+        layout.itemSize = CGSize(width: 154, height: 154)
         
         let layoutActivities = activitiesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layoutActivities.minimumInteritemSpacing = 2
@@ -146,7 +146,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cellsPerLineActivities: CGFloat = 2
         let interItemSpacingTotalActivities = layoutActivities.minimumInteritemSpacing * (cellsPerLineActivities - 1)
         //let width = userListsCollectionView.frame.size.width / cellsPerLine - interItemSpacingTotal / cellsPerLine
-        layoutActivities.itemSize = CGSize(width: 120, height: 120)
+        layoutActivities.itemSize = CGSize(width: 154, height: 154)
         
         getTopLists()
         getTopActivities()
@@ -212,7 +212,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func didTapRecentlyAdded(_ sender: Any) {
         print("inside recently tapped-------------------------")
-        recentlyAddedBtn.backgroundColor = UIColor.blue
+        recentlyAddedBtn.backgroundColor = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
         mostlyLikedBtn.backgroundColor = UIColor.gray
         
         recentlyAddedBtnClicked = true
@@ -241,7 +241,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func didTapMostlyLiked(_ sender: Any) {
         print("inside mostly liked tapped-------------------------")
-        mostlyLikedBtn.backgroundColor = UIColor.blue
+        mostlyLikedBtn.backgroundColor = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
         recentlyAddedBtn.backgroundColor = UIColor.gray
         mostlyLikedBtnClicked = true
         listsLabel.text = "Top 10 Lists"
@@ -759,7 +759,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             print("info list",info)
             let title = "\(info.listName!)"
             let message = """
-            Category: \(info.category!)
+            Description: \(info.listDescription!)
             \(info.likeCount) likes
             """
             let img = bgUrlList[index.row]
