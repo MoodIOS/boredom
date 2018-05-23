@@ -859,7 +859,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="144"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Azur Lane" translatesAutoresizingMaskIntoConstraints="NO" id="wye-3T-YLA">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wye-3T-YLA">
                                                     <rect key="frame" x="0.0" y="0.0" width="155" height="144"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1713,10 +1713,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2lD-N8-oZF">
-                                        <rect key="frame" x="32" y="134" width="311" height="145"/>
+                                        <rect key="frame" x="32" y="134" width="311" height="137"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="311" id="4MO-BK-l48"/>
-                                            <constraint firstAttribute="height" constant="145" id="xVu-fk-NkH"/>
                                         </constraints>
                                     </mapView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUA-fL-MdF">
@@ -1740,9 +1739,9 @@
                                     <constraint firstItem="GUA-fL-MdF" firstAttribute="top" secondItem="hY8-T7-iG8" secondAttribute="bottom" constant="23" id="KEL-8I-tIa"/>
                                     <constraint firstAttribute="bottom" secondItem="ar4-GR-U1d" secondAttribute="bottom" id="Pue-lU-ydW"/>
                                     <constraint firstItem="2lD-N8-oZF" firstAttribute="leading" secondItem="Qjh-5L-kWp" secondAttribute="leading" constant="32" id="SFK-dA-Ewm"/>
-                                    <constraint firstAttribute="bottom" secondItem="2lD-N8-oZF" secondAttribute="bottom" constant="16" id="Spi-9f-ggb"/>
                                     <constraint firstAttribute="height" constant="295" id="X3T-Sv-Cxg"/>
                                     <constraint firstAttribute="trailing" secondItem="GUA-fL-MdF" secondAttribute="trailing" id="XOy-l3-ecV"/>
+                                    <constraint firstAttribute="bottom" secondItem="2lD-N8-oZF" secondAttribute="bottom" constant="24" id="aus-NI-XqJ"/>
                                     <constraint firstItem="ar4-GR-U1d" firstAttribute="leading" secondItem="Qjh-5L-kWp" secondAttribute="leading" id="bb4-hn-6Aq"/>
                                     <constraint firstAttribute="trailing" secondItem="2lD-N8-oZF" secondAttribute="trailing" constant="32" id="fSh-lH-oFa"/>
                                     <constraint firstItem="ar4-GR-U1d" firstAttribute="top" secondItem="Qjh-5L-kWp" secondAttribute="top" id="gG8-Mu-HJi"/>
@@ -2014,7 +2013,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Azur Lane" width="1680" height="1050"/>
         <image name="SpongeBob_(5)" width="1036" height="858"/>
         <image name="add-white" width="32" height="32"/>
         <image name="heart-white" width="32" height="32"/>
