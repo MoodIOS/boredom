@@ -14,7 +14,7 @@ target 'boredom' do
   pod 'PopupDialog', '~> 0.7'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
-
+  pod 'GoogleMaps'
 
   # Promise function
   pod 'PromiseKit'

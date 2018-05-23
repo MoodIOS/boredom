@@ -9,8 +9,9 @@
 import UIKit
 import Parse
 import MapKit
+import GoogleMaps
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, MKMapViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -26,10 +27,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     @IBOutlet weak var backView: UIView!
     
+    var i = 0
     var prevColor = 0
     let purple = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
     let yellow = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
-    
+    var annotation: MKPointAnnotation! = nil
     
     var locationManager:CLLocationManager!
     var userLocation:CLLocation! = nil
@@ -42,7 +44,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     var isSaved = 0
     
     var actDescription:String!
-    
+    var randomAct = Activity()
     var userLists = [List]()
     
     var itemForPickerView = [[String : [String]]]()
@@ -60,14 +62,85 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        if userLocation == nil {
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
         
         if CLLocationManager.locationServicesEnabled(){
             locationManager.startUpdatingLocation()
+            
         }
         
+        if self.mapDisplay.isHidden == true {
+            self.mapDisplay.isHidden = false
+        }
+        
+        let mapTapGesture = UITapGestureRecognizer(target: self, action: #selector(openMap))
+        mapDisplay.delegate = self
         //center = actImage.center
+        mapDisplay.addGestureRecognizer(mapTapGesture)
 
+    }
+    
+    
+    let regionRadius: CLLocationDistance = 1000
+    
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        mapDisplay.setRegion(coordinateRegion, animated: true)
+    }
+    
+    
+    func displayMap(location: CLLocation, title: String, address: String){
+        
+        if annotation != nil{
+            mapDisplay.removeAnnotation(annotation)
+        } else {
+            annotation = MKPointAnnotation()
+        }
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
+        
+        
+        annotation.title = title
+        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        annotation.subtitle = address
+        
+        mapDisplay.addAnnotation(annotation)
+        
+        centerMapOnLocation(location: location)
+        
+
+        
+    }
+    
+    @objc func openMap(){
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+            let lat = randomAct.locationLatitude
+            let lon = randomAct.locationLongitude
+            let address = randomAct.location as! String
+            let urlGoogle = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=14&x-success=sourceapp://resume=true&x-source=Spark")
+            let urlApple = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=14&x-source=SourceApp&x-success=sourceapp://?resume=true")
+            let redirect = UIAlertController(title: "Open in Map? " , message: nil, preferredStyle: .actionSheet)
+            
+            let gmap = UIAlertAction(title: "Google Maps", style: .default ){ (action) in
+                 UIApplication.shared.open(urlGoogle! , options: [:], completionHandler: nil)
+            }
+            redirect.addAction(gmap)
+            let amap = UIAlertAction(title: "Apple Map", style: .default ){ (action) in
+                 UIApplication.shared.open(urlApple! , options: [:], completionHandler: nil)
+            }
+            redirect.addAction(amap)
+            let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
+            redirect.addAction(cancelBtn)
+            self.present(redirect, animated: true)
+                
+           
+        } else {
+            print("Can't use comgooglemaps://");
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,7 +151,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             getActFromList()
             getLists()
         }
+        
     }
+
+    
     
     // make font white
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
@@ -168,7 +244,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         
         print("user latitude = \(userLocation.coordinate.latitude)")
         print("user longitude = \(userLocation.coordinate.longitude)")
+        
         self.userLocation = userLocation
+        if i == 0 {
+            if (userLocation != nil) {
+                displayMap(location: userLocation, title: "Current Location", address: "")
+                i += 1
+            }
+        }
+        
+        
         //self.labelL.text = "\(userLocation.coordinate.latitude)"
         //self.labelLongi.text = "\(userLocation.coordinate.longitude)"
         
@@ -207,6 +292,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     @IBAction func randomizeAct(_ sender: UIButton) {
         randomActivity()
+
     }
     
     func getActFromList(){
@@ -278,6 +364,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                 if (error == nil) && ((activities?.count)! > 0) {
                     let randomAct = activities![0]
                     print("randomAct", randomAct)
+                    self.randomAct = randomAct
                     //actImage.ani
                     UIView.animate(withDuration: 0.5, animations: {
                         if (self.prevColor == 0) {
@@ -296,6 +383,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                     } else {
                         self.actDescriptionLabel.text = randomAct.actDescription ?? "no Description available"
                     }
+                    let location = CLLocation(latitude: CLLocationDegrees(randomAct.locationLatitude), longitude: CLLocationDegrees(randomAct.locationLongitude))
+                    self.displayMap(location: location , title: randomAct.actName, address: randomAct.location)
                     
                 }else {
                     print("error", "\(String(describing: error?.localizedDescription))")
@@ -317,6 +406,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             self.present(alertController, animated: true)
         }
     }
+    
+    
     
     /*
     // MARK: - Navigation

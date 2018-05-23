@@ -67,6 +67,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.5)
   - AlamofireImage (~> 3.3)
   - BDBOAuth1Manager
+  - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
   - KeychainAccess
@@ -95,6 +96,6 @@ SPEC CHECKSUMS:
   PromiseKit: 445dac9b2c3c3b4b31b5f842bc325700b848a8bd
   SearchTextField: a5bb7e4c33affadb115afdbe8100d84ef10a8024
 
-PODFILE CHECKSUM: bf81d9fa353e495dc300631c1069d7461fc64ccf
+PODFILE CHECKSUM: 4d932e9d370b52fa7139e28d16be2b3219b62946
 
 COCOAPODS: 1.4.0
