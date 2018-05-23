@@ -288,7 +288,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                         }
                     })
                     self.actName.text = randomAct.actName
-                    self.actDescriptionLabel.text = randomAct.actDescription ?? "no Description available"
+                    if randomAct.actDescription == ""  {
+                        self.actDescriptionLabel.text = " "
+                    } else {
+                        self.actDescriptionLabel.text = randomAct.actDescription ?? "no Description available"
+                    }
+                    
                 }else {
                     print("error", "\(String(describing: error?.localizedDescription))")
                     let alertController = UIAlertController(title: "Error Generating Your Activity ", message: "\(error?.localizedDescription ?? "Please narrow down your options")" , preferredStyle: .alert)

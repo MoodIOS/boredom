@@ -40,7 +40,7 @@ class OptionsViewController: UIViewController {
         else if(whichTwo == 8047){
             distanceControl.selectedSegmentIndex = 3
         }
-        else{
+        else if whichTwo == 32186{
             distanceControl.selectedSegmentIndex = 4 
         }
         
@@ -76,7 +76,7 @@ class OptionsViewController: UIViewController {
         //Distance Segmented Control
         let choseDist = [1, 2, 3, 4]
         let resultTwo = choseDist[distanceControl.selectedSegmentIndex]
-        if(resultTwo == 1){
+        if (resultTwo == 1){
             savedBool.set(483, forKey: "whichTwo")
             print("yah")
         }
