@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import MapKit
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -20,6 +21,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
     @IBOutlet weak var actDescriptionLabel: UILabel!
+    
+    @IBOutlet weak var mapDisplay: MKMapView!
     
     @IBOutlet weak var backView: UIView!
     
