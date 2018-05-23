@@ -68,7 +68,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var index2 = [Int]()
     var bgUrlAct = [URL]()
     var bgUrlList = [URL]()
-    
+    var firstLoad = 0
     var tableIndex1:Bool!
     var tableIndex2:Bool!
     var selectedIndexInTable:IndexPath!
@@ -234,8 +234,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
 
         
-        bgUrlList = []
-        bgUrlAct = []
+//        bgUrlList = []
+//        bgUrlAct = []
         
     }
     
@@ -262,8 +262,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.filterByTags()
         }
         
-        bgUrlAct=[]
-        bgUrlList=[]
+//        bgUrlAct=[]
+//        bgUrlList=[]
         
     }
 
@@ -349,11 +349,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             activitiesCell.actsIdLike = self.actsIdLiked
             activitiesCell.currentAct = act
             while bgUrlAct.count < 11 {
+                
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
                 let backgroundURL = URL(string: background)
                 bgUrlAct.append(backgroundURL!)
             }
+            
             let backgroundURL = bgUrlAct[indexPath.item]
             activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
             
