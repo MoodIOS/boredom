@@ -234,11 +234,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                                         print("user location", self.userLocation)
                                         print("user location", self.userLocation)
                                         
-                                        let testLocation = CLLocation(latitude: 122.4194, longitude: 37.7749)
+                                        let testLocation = CLLocation(latitude: 32.873636, longitude: -117.237814)
                                         //let distanceInMeters = self.userLocation.distance(from: actLocation)
                                         let distanceInMeters = testLocation.distance(from: actLocation)
                                         if(Double(secondOption) >= distanceInMeters){
                                             self.userActivities.append(act)
+                                            print("yes it works")
                                         }
                                         print("secondOption", Double(secondOption))
                                         print("distanceWorking:", distanceInMeters)
