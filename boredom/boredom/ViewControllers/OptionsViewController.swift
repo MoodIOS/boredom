@@ -31,7 +31,19 @@ class OptionsViewController: UIViewController {
         
 
         costControl.selectedSegmentIndex = which
-        distanceControl.selectedSegmentIndex = whichTwo
+        if(whichTwo == 483){
+            distanceControl.selectedSegmentIndex = 1
+        }
+        else if(whichTwo == 1610){
+            distanceControl.selectedSegmentIndex = 2
+        }
+        else if(whichTwo == 8047){
+            distanceControl.selectedSegmentIndex = 3
+        }
+        else{
+            distanceControl.selectedSegmentIndex = 4 
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
