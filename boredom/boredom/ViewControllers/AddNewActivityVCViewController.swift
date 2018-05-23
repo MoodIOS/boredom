@@ -91,7 +91,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
             tagBtn.layer.cornerRadius = 7
             tagBtn.layer.borderWidth = 1
             tagBtn.layer.borderColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0).cgColor
-            tagBtn.backgroundColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
+            tagBtn.backgroundColor = UIColor.darkGray
             i += 1
         }
     }

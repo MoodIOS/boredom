@@ -382,7 +382,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             print("tags[indexPath.item]",tags[indexPath.item])
             
             let tagName = tags[indexPath.item]
-            tagsCell.tagBtn.backgroundColor = UIColor.darkGray
             tagsCell.tagBtn.setTitle(tagName, for: .normal)
             tagsCell.delegate = self
             //handleTagsFilter(button: tagsCell.tagBtn)
@@ -428,10 +427,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func handleTagsFilter(button : UIButton){
         print("button sender ", button.backgroundColor!)
-        let blueColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
-        let grayColor = UIColor.lightGray
-        print("blueColor", blueColor)
-        print("grayColor", grayColor)
+
         handleTags(tagName: button.currentTitle!) { (tags: [String: Bool]?, error: Error?) in
             for (tag, value) in tags!{
                 if (value == true) && (button.currentTitle == tag)  {
