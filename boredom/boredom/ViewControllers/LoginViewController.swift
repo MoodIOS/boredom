@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
             alertController.addAction(OKAction)
             self.present(alertController, animated: true)
         }
-        else{//TODO might have to use prepareforsegue isntead(or something else), since right now, we are still proceeding to the user page even with incorrect login credentials, because of our segue.
+        else{
                 User.logInWithUsername(inBackground: usernameField.text!, password: userPasswordField.text!) { (user: PFUser?, error:Error?) -> Void in
                 if user != nil {
                     appDelegate.login()
