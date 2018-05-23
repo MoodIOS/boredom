@@ -36,6 +36,7 @@ import Parse
         activity.actName = actName ?? "No name"
         activity.actDescription = actDescription ?? "No description"
         activity.location = location ?? "No location specified"
+        activity.actImgs = []
         if(location != nil){
 //            let locationCoord = self.findCoordinates(yourAddress: location!)
 //            print("wassup")
@@ -190,6 +191,24 @@ import Parse
                 return completion(userDidLike, nil)
             }
         }
+    }
+    
+    class func getPFFileFromImage(image: UIImage?) -> PFFile? {
+        // check if image is not nil
+        if let image = image {
+            // get image data and check if that is not nil
+            if let imageData = UIImagePNGRepresentation(image) {
+                return PFFile(name: "image.png", data: imageData)
+            }
+        }
+        return nil
+    }
+    
+    class func saveActImage (image: UIImage?, currentAct: Activity, withCompletion completion: PFBooleanResultBlock?){
+        let act = currentAct
+        let imgPFFile = getPFFileFromImage(image: image)!
+        act.actImgs.append(imgPFFile)
+        act.saveInBackground(block: completion)
     }
     
 //    class func findCoordinates(yourAddress: String) -> CLLocation {

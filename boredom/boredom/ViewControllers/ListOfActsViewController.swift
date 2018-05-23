@@ -8,7 +8,11 @@
 
 import UIKit
 import Parse
-class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+import PopupDialog
+
+class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UploadImageforCompletionDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,11 +23,15 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var allActNames = [String]()
     var actsInList =  [Activity]()
     var allActs = [Activity]()
+    var actIndexPath = IndexPath()
 //    var doneAct = UserActivity()
-    private var completionPopup: UIView!
+
     var deleteIndexPath: NSIndexPath? = nil
     
     var userLikedActs = [String]()
+    
+    var completionPopup: PopupDialog!
+    var pickedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +49,12 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     //OPTIONAL: If user clicks on completion btn ->  popup asking for picture?
-    func loadCompletionPopup() {
-        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
-        completionPopup = UIView(frame: customViewFrame)
-        view.addSubview(completionPopup)
-        completionPopup.isHidden = false
-    }
+//    func loadCompletionPopup() {
+//        let customViewFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 200)
+//        completionPopup = UIView(frame: customViewFrame)
+//        view.addSubview(completionPopup)
+//        completionPopup.isHidden = false
+//    }
     
     func getActivities() {
         let curUser = User.current()
@@ -84,6 +92,83 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         dismiss(animated: true, completion: nil)
     }
     
+    //delegate funct for adding picture:
+    
+    func uploadImgPopup(button: UIButton, index: IndexPath) {
+        self.actIndexPath = index
+        completionPopup = PopupDialog(title: "Activity Complete!", message: "Would you like to upload a picture to describe your activity?")
+        let okBtn = CancelButton(title: "OK") {
+            button.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+            print("done without uploading")
+        }
+        let uploadImgBtn = DefaultButton(title: "Upload Image") {
+            print("uploading image")
+            let vc = UIImagePickerController()
+            vc.delegate = self
+            vc.allowsEditing = true
+            vc.sourceType = .photoLibrary
+            self.present(vc, animated: true, completion:nil)
+
+        }
+        completionPopup.addButtons([okBtn, uploadImgBtn])
+        completionPopup.buttonAlignment = .horizontal
+        
+        self.present(completionPopup, animated: true, completion: nil)
+    }
+
+    
+    
+    
+    // imag picker
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        // Get the image captured by the UIImagePickerController
+        //let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        self.pickedImage = editedImage
+        //temp.image = originalImage
+        
+        // Do something with the images (based on your use case)
+        
+        
+        // Dismiss UIImagePickerController to go back to your original view controller
+        dismiss(animated: true, completion: {
+            // save image with the act
+            // Do something here
+            self.saveImgToAct()
+        })
+        
+    }
+    
+    func saveImgToAct() {
+        let index = self.actIndexPath
+        let userActivities = self.userActivities
+        let currentAct = userActivities[index.row]
+        let currentActID = currentAct.activity.objectId
+        Activity.fetchActivity(actId: currentActID!) { (activities: [Activity]?, error: Error?) in
+            if activities! != [] {
+                let activities = activities
+                print("ACTIVITIES:", activities![0])
+                let curAct = activities![0]
+                Activity.saveActImage(image: self.pickedImage, currentAct: curAct, withCompletion: { (success: Bool?, error: Error?) in
+                    if success != nil{
+                        print("save Image")
+                        let alertController = UIAlertController(title: "Image Saved!", message: nil , preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                        alertController.addAction(OKAction)
+                        self.present(alertController, animated: true)
+                        
+                    } else {
+                        print("\(String(describing: error?.localizedDescription))")
+                    }
+                })
+            }
+        }
+        
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
@@ -91,8 +176,10 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let currentAct = userActivities[indexPath.row]
         let currentActID = currentAct.activity.objectId
         cell.thisAct = currentAct
+        cell.delegate = self
+        cell.indexPath = indexPath
         if currentAct.done == false {
-            cell.completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+            cell.completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
@@ -112,6 +199,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 } else {
                     cell.costLabel.text = "$$$$"
                 }
+                cell.costLabel.textColor = UIColor.white
     
                 var liked: Int = 0
                 var i = 0
@@ -124,7 +212,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 if liked == 0 {
-                    cell.likeBtn.setImage(UIImage(named: "heart-gray"), for: .normal)
+                    cell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
                 } else if liked > 0 {
                     cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
                 }

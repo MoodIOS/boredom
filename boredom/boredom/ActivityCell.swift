@@ -9,6 +9,11 @@
 import UIKit
 import Parse
 
+
+protocol UploadImageforCompletionDelegate {
+    func uploadImgPopup(button: UIButton, index: IndexPath)
+}
+
 class ActivityCell: UITableViewCell {
 
     @IBOutlet weak var activityName: UILabel!
@@ -21,6 +26,8 @@ class ActivityCell: UITableViewCell {
     var thisAct = UserActivity()
     var actID = String()
     var currentAct: Activity!
+    var delegate: UploadImageforCompletionDelegate!
+    var indexPath: IndexPath!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,13 +37,12 @@ class ActivityCell: UITableViewCell {
     
     func checkForCompletion(){
         if thisAct.done == false {
-        // set done = true and change the image to green for done!
-        // pop up asking user to either submit a picture or not
-            completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+            completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
         } else {
             completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
         }
     }
+    
     
     @IBAction func onLikeAct(_ sender: UIButton) {
         print("like clicked.....")
@@ -44,7 +50,7 @@ class ActivityCell: UITableViewCell {
         let actsUserLiked = curUser?.likedActivities
         let likeBtn = self.likeBtn.imageView?.image
         let like = UIImage(named:"heart-red")
-        let unlike = UIImage(named:"heart-gray")
+        let unlike = UIImage(named:"heart-white")
         
         if (likeBtn?.isEqual(like))! {
             print("just unliked")
@@ -115,7 +121,7 @@ class ActivityCell: UITableViewCell {
         if thisAct.done == false {
             // set done = true and change the image to green for done!
             // pop up asking user to either submit a picture or not
-            completionBtn.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+            self.delegate.uploadImgPopup(button: completionBtn, index: indexPath)
             let update = thisAct
             update.done = true
             UserActivity.updateUserAct(updatedAct: update) { (userActs: [UserActivity]?, error: Error?) in
@@ -127,7 +133,7 @@ class ActivityCell: UITableViewCell {
                 }
             }
         } else {
-            completionBtn.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+            completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
             let update = thisAct
             update.done = false
             UserActivity.updateUserAct(updatedAct: update) { (userActs: [UserActivity]?, error: Error?) in
