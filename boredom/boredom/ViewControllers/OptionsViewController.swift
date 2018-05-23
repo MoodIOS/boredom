@@ -32,16 +32,16 @@ class OptionsViewController: UIViewController {
 
         costControl.selectedSegmentIndex = which
         if(whichTwo == 483){
-            distanceControl.selectedSegmentIndex = 1
+            distanceControl.selectedSegmentIndex = 0
         }
         else if(whichTwo == 1610){
-            distanceControl.selectedSegmentIndex = 2
+            distanceControl.selectedSegmentIndex = 1
         }
         else if(whichTwo == 8047){
-            distanceControl.selectedSegmentIndex = 3
+            distanceControl.selectedSegmentIndex = 2
         }
         else{
-            distanceControl.selectedSegmentIndex = 4 
+            distanceControl.selectedSegmentIndex = 3
         }
         
     }
