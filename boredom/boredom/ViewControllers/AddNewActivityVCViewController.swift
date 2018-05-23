@@ -43,6 +43,8 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     @IBOutlet weak var nightlifeTag: UIButton!
     @IBOutlet weak var happyhoursTag: UIButton!
     
+    
+    var tagsBtn = [UIButton]()
     var locationManager:CLLocationManager!
     var userLocation:CLLocation! = nil
     var placesClient: GMSPlacesClient!
@@ -50,6 +52,8 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        tagsBtn = [restaurantTag, brunchTag, movieTag, outdoorTag, bookTag, coffeeTag, nightlifeTag, happyhoursTag]
         
         self.activityNames = []
         self.activityId = []
@@ -79,6 +83,17 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         
         placesClient = GMSPlacesClient.shared()
         location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
+//        location.addTarget(self, action: #selector(locationDidChange), for: .)
+        var i = 0
+        while i < tagsBtn.count {
+            let tagBtn = tagsBtn[i]
+            tagBtn.contentEdgeInsets = UIEdgeInsetsMake(5,5,5,5)
+            tagBtn.layer.cornerRadius = 7
+            tagBtn.layer.borderWidth = 1
+            tagBtn.layer.borderColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0).cgColor
+            tagBtn.backgroundColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
+            i += 1
+        }
     }
     
 //    https://developers.google.com/places/ios-sdk/start
@@ -226,16 +241,12 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     @IBAction func clickedOnTags(_ sender: UIButton) {
         let button = sender
         print("button sender ", button.backgroundColor!)
-        let blueColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
-        let grayColor = UIColor.lightGray
-        print("blueColor", blueColor)
-        print("grayColor", grayColor)
         handleTags(tagName: button.currentTitle!) { (tags: [String: Bool]?, error: Error?) in
             for (tag, value) in tags!{
                 if (value == true) && (button.currentTitle == tag)  {
-                    button.backgroundColor = UIColor.init(red: 0, green: 122/255, blue:1 , alpha: 1)
+                    button.backgroundColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
                 } else if (value == false) && (button.currentTitle == tag) {
-                    button.backgroundColor = UIColor.lightGray
+                    button.backgroundColor = UIColor.darkGray
                 }
             }
         }
