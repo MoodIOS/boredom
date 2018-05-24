@@ -41,7 +41,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = 100
         getActivities()
         tableView.reloadData()
-        print("actnamesInList", userLikedActs)
+        print("userLikedActs", userLikedActs)
         
         // Do any additional setup after loading the view.
         
@@ -220,6 +220,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.activityName.text = curAct.actName
                 cell.currentAct = curAct
                 cell.actID = curAct.objectId!
+                
                 self.actnamesInList.append(curAct.actName)
                 self.actsInList.append(activities![0])
     
@@ -282,14 +283,30 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
             self.userActivities.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
             deleteIndexPath = nil
+            
             tableView.endUpdates()
             
             UserActivity.deleteAct(deleting: thisAct) { (acts, error) in
                 if (acts == nil){
                     print("deleting successfully")
-                    
+                    UserActivity.fetchActivity(listId: self.list.objectId!) { (userActs: [UserActivity]?, error:Error?) in
+                        if error == nil {
+                            if let userActs = userActs {
+                                self.userActivities = userActs
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
                 } else {
                     print("error?", error?.localizedDescription)
+                    UserActivity.fetchActivity(listId: self.list.objectId!) { (userActs: [UserActivity]?, error:Error?) in
+                        if error == nil {
+                            if let userActs = userActs {
+                                self.userActivities = userActs
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
                 }
             }
             
@@ -304,12 +321,42 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         let navVC = segue.destination as! UINavigationController
         let addNewActVC = navVC.topViewController as! AddNewActivityVCViewController
         addNewActVC.list = self.list
-        addNewActVC.actNamesInList = actnamesInList
         addNewActVC.allActNames = allActNames
         addNewActVC.allActs = allActs
-        addNewActVC.actsInList = actsInList
+        
+        // FOR addNewActVC.actNamesInList = actnamesInList
+        // update acts in lists
+        let curUser = User.current()
+        userLikedActs = (curUser?.likedActivities)!
+        let curList = self.list
+        let listId = curList.objectId
+        
+        UserActivity.fetchActivity(listId: listId!) { (userActivities: [UserActivity]?, error: Error?) in
+            if error == nil {
+                print(userActivities!)
+                if let userActs = userActivities {
+                    print("self.activities", self.userActivities )
+                    for act in userActs{
+                        Activity.fetchActivity(actId: act.activity.objectId!) { (activities: [Activity]?, error: Error?) in
+                            if activities! != [] {
+                                let activities = activities
+                                print("ACTIVITIES:", activities![0])
+                                let curAct = activities![0]
+                                self.actsInList.append(activities![0])
+                                addNewActVC.actsInList = self.actsInList
+                                addNewActVC.actNamesInList.append(activities![0].actName)
+                            }
+        
+                        }
+                    }
+                    print("addNewActVC.actNamesInList", addNewActVC.actNamesInList)
+//                    print("addNewActVC.actNamesInList", addNewActVC.actNamesInList)
+                } else{
+                    print(error?.localizedDescription as Any)
+                }
+            }
+        }
     }
-
 
     
     override func viewDidAppear(_ animated: Bool) {
