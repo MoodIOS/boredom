@@ -25,10 +25,14 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
     var allActs = [Activity]()
     var actIndexPath = IndexPath()
 //    var doneAct = UserActivity()
+    
+    var refreshControl: UIRefreshControl!/////
 
     var deleteIndexPath: NSIndexPath? = nil
     
     var userLikedActs = [String]()
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var completionPopup: PopupDialog!
     var pickedImage: UIImage?
@@ -41,6 +45,13 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = 100
         getActivities()
         tableView.reloadData()
+        refreshControl = UIRefreshControl()
+        //action is what method is called and start enums by .
+        refreshControl.addTarget(self, action: #selector(ListOfActsViewController.didPullToRefresh(_:)), for: .valueChanged)
+        
+        tableView.insertSubview(refreshControl, at: 0)
+        //tableView.reloadData()
+        activityIndicator.stopAnimating()
         print("actnamesInList", userLikedActs)
         
         // Do any additional setup after loading the view.
@@ -87,7 +98,14 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-
+    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl)
+    {
+       getActivities()
+       tableView.reloadData()
+       self.refreshControl.endRefreshing()
+    }
+    
+    
     @IBAction func onBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -287,6 +305,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
             UserActivity.deleteAct(deleting: thisAct) { (acts, error) in
                 if (acts == nil){
                     print("deleting successfully")
+                    
                     
                 } else {
                     print("error?", error?.localizedDescription)

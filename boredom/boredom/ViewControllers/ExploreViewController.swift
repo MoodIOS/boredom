@@ -317,7 +317,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             cell.listsUserLiked = self.listsIdLiked
             cell.backgroundColor?.withAlphaComponent(0.5)
             //randomize bg
-            while bgUrlList.count < 11 {
+            var count = 11
+            if(self.top10Act.count != nil)
+            {
+                count = self.top10List.count
+            }
+            while bgUrlList.count < count {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                  let background = bgURL[randomindex]
                  let backgroundURL = URL(string: background)
@@ -358,7 +363,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             activitiesCell.actId = act.objectId
             activitiesCell.actsIdLike = self.actsIdLiked
             activitiesCell.currentAct = act
-            while bgUrlAct.count < 11 {
+            var count = 11
+            if(self.top10Act.count != nil)
+            {
+                count = self.top10Act.count
+            }
+            
+            while bgUrlAct.count < count {
                 
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                 let background = bgURL[randomindex]
@@ -507,9 +518,22 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         if(mostlyLikedBtn.backgroundColor == UIColor.gray){
             print("allRecentLists","allRecentActs" )
             if (self.allRecentLists != []) && (self.allRecentActs != []){
+                print("----------------------------", top10Act.count)
+                print("------------------------------")
+                print("------------------------------")
+                print("------------------------------")
+                print("------------------------------")
+                print("------------------------------")
+                print("------------------------------")
+                print("------------------------------")
+                print("------------------------------")
                 //filter recent lists and append into top10lists
-                self.top10List = []
-                self.top10Act = []
+                //self.top10List = []///////////////////////////////////////////
+                self.top10List.removeAll()
+                self.top10Act.removeAll()
+                
+                print("----------------------------later---------------", top10Act.count)
+                //self.top10Act = []/////////////////////////////////////////////////////
                 var activities = [Activity]()
                 var lists = [List]()
                 
