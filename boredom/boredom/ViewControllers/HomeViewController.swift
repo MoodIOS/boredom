@@ -148,7 +148,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         if(isSaved == 2) {
             self.userActivities.removeAll()
             print("whatttttttttt", isSaved)
-            getActFromList()
+            getActFromList(ids: pickedListID)
             getLists()
         }
         
@@ -182,7 +182,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         if userList != nil {
             let list = itemForPickerView[row]
             self.pickedListID = list["ids"]!
-            getActFromList()
+            let idsArr = list["ids"]!
+            getActFromList(ids: idsArr)
             print("self.pickedList", self.pickedListID)
         }
     }
@@ -229,7 +230,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                     
                     self.itemForPickerView = allOptions
                     self.pickedListID = listIDsArr
-                    self.getActFromList()
+                    self.getActFromList(ids: listIDsArr)
                     self.listPicker.reloadAllComponents()
                 } else {
                     print("\(error?.localizedDescription)")
@@ -295,10 +296,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
 
     }
     
-    func getActFromList(){
+    func getActFromList(ids: [String]){
         print("getActFromList")
         print("pickedListID", pickedListID)
-        for id in pickedListID {
+        for id in ids {
             UserActivity.fetchActivity(listId: id, completion: { (activities: [UserActivity]?, error: Error?) in
                 if error == nil {
                     let actsInList = activities
