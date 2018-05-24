@@ -103,7 +103,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         listsLabel.text = "Top 10 Lists"
         activitiesLabel.text = "Top 10 Activities"
         
-    
+        doneBtn.contentEdgeInsets = UIEdgeInsetsMake(5,5,5,5)
+        doneBtn.layer.borderWidth = 1
+        doneBtn.layer.borderColor = (UIColor.lightGray).cgColor
+        cancelBtn.contentEdgeInsets = UIEdgeInsetsMake(5,5,5,5)
+        cancelBtn.layer.borderWidth = 1
+        cancelBtn.layer.borderColor = (UIColor.lightGray).cgColor
+        addBtn.contentEdgeInsets = UIEdgeInsetsMake(5,5,5,5)
+        addBtn.layer.borderWidth = 1
+        addBtn.layer.borderColor = (UIColor.lightGray).cgColor
+        
+        
         userListsCollectionView.dataSource = self
         activitiesCollectionView.dataSource = self
         tagsCollectionView.dataSource = self
