@@ -221,6 +221,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                                                 print("list", list!)
                                             }
                                         })
+                                        //activity.saveInBackground()//////////////
                                         self.dismiss(animated: true, completion: nil)
                                         self.loadActivity()
                                     } else if let error = error {
