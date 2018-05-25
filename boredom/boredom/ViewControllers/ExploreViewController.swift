@@ -508,6 +508,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func filterByTags(){
         if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            // In Recently Added
             print("allRecentLists","allRecentActs" )
             if (self.allRecentLists != []) && (self.allRecentActs != []){
                 print("----------------------------", top10Act.count)
@@ -538,19 +539,25 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool {
                             if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    if self.top10List != [] {
+                                    if self.top10List.count > 0 {
                                         var duplicate = 0
                                         for addedList in self.top10List{
                                             if list == addedList{
                                                 duplicate += 1
                                             }
                                             if duplicate == 0 {
-                                                self.top10List.append(list)
+                                                if self.top10List.count < 11{
+                                                    self.top10List.append(list)
+                                                }
+                                                
                                             }
                                         }
-                                    }else {
-                                        self.top10List.append(list)
+                                    } else {
+                                        if self.top10List.count < 11{
+                                            self.top10List.append(list)
+                                        }
                                     }
+                                    
                                 }
                             }
                         }
@@ -567,7 +574,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool{
                             if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    if self.top10Act != [] {
+                                    if self.top10Act.count > 0 {
                                         var duplicate = 0
                                         for addedAct in self.top10Act{
                                             if  activity == addedAct {
@@ -575,11 +582,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                                             }
                                         }
                                         if duplicate == 0 {
-                                            self.top10Act.append(activity)
+                                            if self.top10Act.count < 11{
+                                                self.top10Act.append(activity)
+                                            }
                                         }
                                     } else {
-                                        self.top10Act.append(activity)
+                                        if self.top10Act.count < 11{
+                                            self.top10Act.append(activity)
+                                        }
                                     }
+
                                 }
                             }
                         }
@@ -593,11 +605,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         }
         else {
+            // In most liked
             print("allLikedLists","allLikedActs" )
             if (self.allLikedLists != []) && (self.allLikedActs != []){
                 //filter recent lists and append into top10lists
-                self.top10List = []
-                self.top10Act = []
+                self.top10List.removeAll()
+                self.top10Act.removeAll()
                 var activities = [Activity]()
                 var lists = [List]()
                 
@@ -618,7 +631,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool {
                             if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    if self.top10List != [] {
+                                    if self.top10List.count > 0 {
                                         var duplicate = 0
                                         for addedList in self.top10List{
                                             if list == addedList{
@@ -626,11 +639,19 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                                             }
                                         }
                                         if duplicate == 0 {
-                                            self.top10List.append(list)
+                                            if self.top10List.count < 11{
+                                                self.top10List.append(list)
+                                            }
+                                            
                                         }
                                     } else {
-                                        self.top10List.append(list)
+                                        if self.top10List.count < 11{
+                                            self.top10List.append(list)
+                                        }
+                                        
                                     }
+                                    
+
                                 }
                             }
                         }
@@ -647,7 +668,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         for (pickedTag, pickedTagValue) in self.tagsBool{
                             if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    if self.top10Act != [] {
+                                    if self.top10Act.count > 0{
                                         var duplicate = 0
                                         for addedAct in self.top10Act{
                                             if  activity == addedAct {
@@ -655,11 +676,18 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                                             }
                                         }
                                         if duplicate == 0 {
-                                            self.top10Act.append(activity)
+                                            if self.top10Act.count < 11 {
+                                                self.top10Act.append(activity)
+                                            }
+                                            
                                         }
                                     } else {
-                                        self.top10Act.append(activity)
+                                        if self.top10Act.count < 11{
+                                            self.top10Act.append(activity)
+                                        }
                                     }
+                                    
+
                                 }
                             }
                         }
@@ -826,7 +854,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 if lists! != [] {
                     self.exploreLists = lists
                     let lists = lists
-                    self.top10List = [List]()
+                    self.top10List.removeAll()
                     var i = 0
                     if (lists?.count)! > 9 {
                         while i < 10 {
@@ -865,7 +893,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self.allRecentLists = lists!
                 self.exploreLists = lists
                 let lists = lists
-                self.top10List = [List]()
+                self.top10List.removeAll()
                 var i = 0
                 if (lists?.count)! > 9 {
                     while i < 10 {
