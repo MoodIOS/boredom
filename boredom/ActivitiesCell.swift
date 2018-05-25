@@ -10,8 +10,8 @@ import UIKit
 
 protocol InfoActButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
-//    func likeBtnClicked(at index: IndexPath, type: String, btn: UIButton)
     func addBtnClicked (at index: IndexPath, type: String)
+    func handleLikedCell(likedId: String)
 }
 
 class ActivitiesCell: UICollectionViewCell {
@@ -58,6 +58,9 @@ class ActivitiesCell: UICollectionViewCell {
             print("current User liked lists", curUser?.likedActivities)
             let newLikeCount = currentAct.activityLikeCount - 1
             currentAct.activityLikeCount = newLikeCount
+
+            self.delegate.handleLikedCell(likedId: actId)
+            
             Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
                 if error == nil{
                     print("activity", activity!)
@@ -80,6 +83,9 @@ class ActivitiesCell: UICollectionViewCell {
             let newLikeCount = currentAct.activityLikeCount +  1
             currentAct.activityLikeCount = newLikeCount
             curUser?.likedActivities.append(actId)
+            
+            self.delegate.handleLikedCell(likedId: actId)
+            
             Activity.updateActivityLikeCount(updateAct: currentAct) { (activity: Activity?, error: Error?) in
                 if error == nil{
                     print("activity", activity!)
@@ -90,7 +96,7 @@ class ActivitiesCell: UICollectionViewCell {
             User.updateUserLikedAct(curUserId: (curUser?.objectId)!, likedAct: actId) { (user:User?, error: Error?) in
                 if let user = user {
                     print("user", user)
-                    
+
                 } else {
                     print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }

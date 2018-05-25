@@ -14,6 +14,7 @@ protocol InfoListButtonDelegate {
     func infoBtnClicked(at index: IndexPath, type: String)
     func addBtnClicked (actsInList: [UserActivity], currentList: List, globalActs: [Activity])
     func emptyListAlert()
+    func handleLikedCell(likedId: String)
 }
 
 protocol ListsInYourListDelegate{
@@ -83,6 +84,9 @@ class UserListsCell: UICollectionViewCell {
             
             let newLikeCount = currentList.likeCount - 1
             currentList.likeCount = newLikeCount
+
+            self.delegate.handleLikedCell(likedId: listId)
+            
             List.updateListLikeCount(updateList: currentList) { (list: List?, error: Error?) in
                 if error == nil{
                     print("update list:", list)
@@ -108,6 +112,9 @@ class UserListsCell: UICollectionViewCell {
             currentList.likeCount = newLikeCount
             // updating the current data in User in session
             curUser?.likedLists.append(currentList.objectId!)
+            
+            self.delegate.handleLikedCell(likedId: listId)
+            
             List.updateListLikeCount(updateList: currentList) { (list: List?, error: Error?) in
                 if error == nil{
                     print("update list:", list)
@@ -118,8 +125,7 @@ class UserListsCell: UICollectionViewCell {
             User.updateUserLikedList(curUserId: (curUser?.objectId)!, likedList: listId) { (user:User?, error: Error?) in
                 if let user = user {
                     print("user", user)
-                    let curUser = User.current()
-                    curUser?.likedLists = user.likedLists
+                    
                 } else {
                     print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
                 }

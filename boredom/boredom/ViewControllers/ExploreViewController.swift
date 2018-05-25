@@ -244,9 +244,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
 
         
-//        bgUrlList = []
-//        bgUrlAct = []
-        
     }
     
     @IBAction func didTapMostlyLiked(_ sender: Any) {
@@ -271,9 +268,6 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         } else {
             self.filterByTags()
         }
-        
-//        bgUrlAct=[]
-//        bgUrlList=[]
         
     }
 
@@ -507,9 +501,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             
         }
-        
-//        userListsCollectionView.reloadData()
-//        activitiesCollectionView.reloadData()
+
         return completion(tagsBool, nil)
 
     }
@@ -520,20 +512,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             if (self.allRecentLists != []) && (self.allRecentActs != []){
                 print("----------------------------", top10Act.count)
                 print("------------------------------")
-                print("------------------------------")
-                print("------------------------------")
-                print("------------------------------")
-                print("------------------------------")
-                print("------------------------------")
-                print("------------------------------")
-                print("------------------------------")
-                //filter recent lists and append into top10lists
-                //self.top10List = []///////////////////////////////////////////
+
                 self.top10List.removeAll()
                 self.top10Act.removeAll()
                 
                 print("----------------------------later---------------", top10Act.count)
-                //self.top10Act = []/////////////////////////////////////////////////////
+
                 var activities = [Activity]()
                 var lists = [List]()
                 
@@ -1169,4 +1153,21 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         appDelegate.logout()
     }
 
+    func handleLikedCell (likedId: String) {
+        print("likedID: ", likedId)
+        print("+++++++++++++++++++++")
+        print("self.actsIdLiked", self.actsIdLiked)
+        print("self.listsIdLiked", self.listsIdLiked)
+        let curUser = User.current()
+        self.actsIdLiked = (curUser?.likedActivities)!
+        self.listsIdLiked = (curUser?.likedLists)!
+        print("++++++++++AFTER UPDATE+++++++++++")
+        print("self.actsIdLiked", self.actsIdLiked)
+        print("self.listsIdLiked", self.listsIdLiked)
+        userListsCollectionView.reloadData()
+        activitiesCollectionView.reloadData()
+    }
+    
+    
+    
 }
