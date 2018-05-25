@@ -37,7 +37,7 @@ import Parse
         activity.actDescription = actDescription ?? "No description"
         activity.location = location ?? "No location specified"
         activity.actImgs = []
-        if(location != nil){
+        if(location != ""){
 //            let locationCoord = self.findCoordinates(yourAddress: location!)
 //            print("wassup")
 //            print(locationCoord.coordinate.latitude)
@@ -54,7 +54,32 @@ import Parse
                 print("pop: \(lat), Lon: \(lon)")
             }
 //            activity.locationPoint = CGPoint(x: CGFloat(locationCoord.coordinate.longitude), y: CGFloat(locationCoord.coordinate.latitude))
+        } else if location == "Current" {
+            //set to current location
         }
+        
+        activity.cost = cost
+        print("cost: ", cost)
+        activity.activityLikeCount = 0
+        activity.activityLikedByUsers = []
+        activity.tags = tags
+        return activity.saveInBackground { (success, error) in
+            completion(activity, nil)
+        }
+    }
+    
+    class func addNewActivity(actName: String?, actDescription: String?, cost: Int, location: String, lon: Double, lat: Double,tags: [String: Bool], completion: @escaping (Activity?, Error?) -> Void){
+        let activity = Activity()
+        activity.actName = actName ?? "No name"
+        activity.actDescription = actDescription ?? "No description"
+//        activity.location = location ?? "No location specified"
+        activity.actImgs = []
+        
+        activity.location = location
+        activity.locationLongitude = lon as! Double
+        activity.locationLatitude = lat as! Double
+        print("pop: \(lat), Lon: \(lon)")
+
         
         activity.cost = cost
         print("cost: ", cost)

@@ -55,6 +55,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     override func viewDidLoad() {
         super.viewDidLoad()
         actImage.backgroundColor = self.purple
+        self.actDescriptionLabel.text = ""
         //listPicker.setValue(UIColor.white, forKeyPath: "textColor")
         listPicker.dataSource = self
         listPicker.delegate = self
@@ -145,13 +146,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     override func viewDidAppear(_ animated: Bool) {
         isSaved = UserDefaults.standard.integer(forKey: "savedBoolean")
+        listPicker.selectRow(0, inComponent: 0, animated: false)
+        self.actDescriptionLabel.text = ""
+        self.actName.text = "Let's see what we're doing today."
         if(isSaved == 2) {
             self.userActivities.removeAll()
             print("whatttttttttt", isSaved)
-            getActFromList(ids: pickedListID)
             getLists()
+            getActFromList(ids: pickedListID)
+            
         }
-        
     }
 
     
@@ -185,6 +189,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             let idsArr = list["ids"]!
             getActFromList(ids: idsArr)
             print("self.pickedList", self.pickedListID)
+            
         }
     }
     

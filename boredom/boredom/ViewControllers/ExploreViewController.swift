@@ -1154,16 +1154,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
 
     func handleLikedCell (likedId: String) {
-        print("likedID: ", likedId)
-        print("+++++++++++++++++++++")
-        print("self.actsIdLiked", self.actsIdLiked)
-        print("self.listsIdLiked", self.listsIdLiked)
+//        print("likedID: ", likedId)
+//        print("+++++++++++++++++++++")
+//        print("self.actsIdLiked", self.actsIdLiked)
+//        print("self.listsIdLiked", self.listsIdLiked)
         let curUser = User.current()
         self.actsIdLiked = (curUser?.likedActivities)!
         self.listsIdLiked = (curUser?.likedLists)!
-        print("++++++++++AFTER UPDATE+++++++++++")
-        print("self.actsIdLiked", self.actsIdLiked)
-        print("self.listsIdLiked", self.listsIdLiked)
+//        print("++++++++++AFTER UPDATE+++++++++++")
+//        print("self.actsIdLiked", self.actsIdLiked)
+//        print("self.listsIdLiked", self.listsIdLiked)
         userListsCollectionView.reloadData()
         activitiesCollectionView.reloadData()
     }

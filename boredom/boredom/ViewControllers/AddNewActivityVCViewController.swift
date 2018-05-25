@@ -209,30 +209,56 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                             savedValue = 3
                         }
                         print("self.tags", self.tags)
-                        
-                        Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
-                            if let activity = activity  {
-                                print("Activity ID:", activity)
-                                UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
-                                    if error == nil {
-                                        print("User activity created")
-                                        List.addActToList(currentList: self.list, userAct: userAct!, tags: self.tags, completion: { (list: List?, error: Error?) in
-                                            if error == nil {
-                                                print("list", list!)
-                                            }
-                                        })
-                                        //activity.saveInBackground()//////////////
-                                        self.dismiss(animated: true, completion: nil)
-                                        self.loadActivity()
-                                    } else if let error = error {
-                                        print("Problem saving User activity: \(error.localizedDescription)")
-                                    }
-                                })
+                        if self.location.text?.isEmpty ?? true {
+                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: "Nearby", lon: self.userLocation.coordinate.longitude, lat: self.userLocation.coordinate.latitude, tags: self.tags){ (activity, error) in
+                                if let activity = activity  {
+                                    print("Activity ID:", activity)
+                                    UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
+                                        if error == nil {
+                                            print("User activity created")
+                                            List.addActToList(currentList: self.list, userAct: userAct!, tags: self.tags, completion: { (list: List?, error: Error?) in
+                                                if error == nil {
+                                                    print("list", list!)
+                                                }
+                                            })
+                                            //activity.saveInBackground()//////////////
+                                            self.dismiss(animated: true, completion: nil)
+                                            self.loadActivity()
+                                        } else if let error = error {
+                                            print("Problem saving User activity: \(error.localizedDescription)")
+                                        }
+                                    })
+                                }
+                                else if let error = error {
+                                    print("Problem saving activity: \(error.localizedDescription)")
+                                }
                             }
-                            else if let error = error {
-                                print("Problem saving activity: \(error.localizedDescription)")
+                        } else {
+                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
+                                if let activity = activity  {
+                                    print("Activity ID:", activity)
+                                    UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
+                                        if error == nil {
+                                            print("User activity created")
+                                            List.addActToList(currentList: self.list, userAct: userAct!, tags: self.tags, completion: { (list: List?, error: Error?) in
+                                                if error == nil {
+                                                    print("list", list!)
+                                                }
+                                            })
+                                            //activity.saveInBackground()//////////////
+                                            self.dismiss(animated: true, completion: nil)
+                                            self.loadActivity()
+                                        } else if let error = error {
+                                            print("Problem saving User activity: \(error.localizedDescription)")
+                                        }
+                                    })
+                                }
+                                else if let error = error {
+                                    print("Problem saving activity: \(error.localizedDescription)")
+                                }
                             }
                         }
+                        
                     }
                 })
             }
