@@ -77,6 +77,8 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         listPicker.dataSource = self
         listPicker.delegate = self
         
+        tableView.allowsSelection = false
+        
     }
     
     func handleAddingAct(at index: IndexPath){
@@ -308,13 +310,16 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
                 cell.activity = curAct
                 cell.userAct = currentAct
                 cell.likeCount.text = "\(curAct.activityLikeCount)"
-                
+//                let bgColorView = UIView()
+//                bgColorView.backgroundColor = UIColor.darkGray
+//                cell.selectedBackgroundView = bgColorView
             }
         }
 
         return cell
     }
     
+
     
     func getLists() {
         let curUser = PFUser.current()
