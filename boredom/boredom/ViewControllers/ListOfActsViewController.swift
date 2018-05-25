@@ -289,6 +289,45 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
             confirmDelete(act: thisAct,name: name! )
         }
     }
+    
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        let act = actsInList[indexPath.row]
+//        // action one
+//        let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+//            print("Edit tapped")
+//            let alert = UIAlertController(title: "Edit", message: "Edit Activity Name?", preferredStyle: .alert)
+//            
+//            //2. Add the text field. You can configure it however you need.
+//            alert.addTextField { (textField) in
+//                textField.text = act.actName
+//            }
+//            
+//            // 3. Grab the value from the text field, and print it when the user clicks OK.
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+//                let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+//                print("Text field: \(textField?.text)")
+//                
+//            }))
+//            
+//            // 4. Present the alert.
+//            self.present(alert, animated: true, completion: nil)
+//            
+//        })
+//        editAction.backgroundColor = UIColor.lightGray
+//        
+//        // action two
+//        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { (action, indexPath) in
+//            self.deleteIndexPath = indexPath as NSIndexPath
+//            let thisAct = self.userActivities[indexPath.row]
+//            let name = self.actsInList[indexPath.row].actName
+//            //delete act
+//            print("deleting act")
+//            self.confirmDelete(act: thisAct,name: name! )
+//        })
+//        
+//        
+//        return [editAction, deleteAction]
+//    }
 
     func confirmDelete(act: UserActivity , name: String) {
         let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to permanently delete \(name)?", preferredStyle: .actionSheet)
