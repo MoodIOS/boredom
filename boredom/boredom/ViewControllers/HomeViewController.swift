@@ -122,8 +122,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             let lat = randomAct.locationLatitude
             let lon = randomAct.locationLongitude
             let address = randomAct.location as! String
-            let urlGoogle = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=14&x-success=sourceapp://resume=true&x-source=Spark")
-            let urlApple = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=14&x-source=SourceApp&x-success=sourceapp://?resume=true")
+            let urlGoogle = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=19&x-success=sourceapp://resume=true&x-source=Spark")
+            let urlApple = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=18&x-source=SourceApp&x-success=sourceapp://?resume=true")
             let redirect = UIAlertController(title: "Open in Map? " , message: nil, preferredStyle: .actionSheet)
             
             let gmap = UIAlertAction(title: "Google Maps", style: .default ){ (action) in
