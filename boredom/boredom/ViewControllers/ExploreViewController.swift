@@ -217,6 +217,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             cancelBtn.isHidden = false
             
         }
+        
+        self.tagsBool["Restaurant"] = false
+        self.tagsBool["Brunch"] = false
+        self.tagsBool["Movie"] = false
+        self.tagsBool["Outdoor"] = false
+        self.tagsBool["Book"] = false
+        self.tagsBool["Coffee"] = false
+        self.tagsBool["Nightlife"] = false
+        self.tagsBool["Happy hours"] = false
     }
     
     
@@ -401,9 +410,19 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let tagName = tags[indexPath.item]
             tagsCell.tagBtn.setTitle(tagName, for: .normal)
             tagsCell.delegate = self
+            
             //handleTagsFilter(button: tagsCell.tagBtn)
             //tagsCell.onTapTagBtn(getTagActivities())
             //activitiesCollectionView.reloadData()
+            for (tag, value) in self.tagsBool {
+                if (value == true) && (tagsCell.tagBtn.currentTitle == tag)  {
+                    tagsCell.tagBtn.backgroundColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
+                    
+                } else if (value == false) && (tagsCell.tagBtn.currentTitle == tag) {
+                    tagsCell.tagBtn.backgroundColor = UIColor.darkGray
+                    
+                }
+            }
             return tagsCell
         }
     }
@@ -449,10 +468,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             for (tag, value) in tags!{
                 if (value == true) && (button.currentTitle == tag)  {
                     button.backgroundColor = UIColor(displayP3Red: 255/255, green: 193/255, blue: 0.0, alpha: 1.0)
-                    
+//                    self.tagsCollectionView.reloadData()
                 } else if (value == false) && (button.currentTitle == tag) {
                     button.backgroundColor = UIColor.darkGray
-
+//                    self.tagsCollectionView.reloadData()
                 }
             }
         }
@@ -708,7 +727,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     func addBtnClicked (actsInList: [UserActivity], currentList: List, globalActs: [Activity]){
         let actInList = currentList.activities
         if actsInList != [] {
-            print("actInList Explore:", actsInList)
+//            print("actInList Explore:", actsInList)
             let addConfirmation = UIAlertController(title: "Adding List" , message: "Add this list to your profile?", preferredStyle: .actionSheet)
             let OKaction = UIAlertAction(title: "Add", style: .default ){ (action) in
                 self.checkDuplicate(addingList: currentList, done: { (duplicate) in
@@ -720,9 +739,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     } else if duplicate == 0{
                         List.addNewList(name: currentList.listName, category: currentList.category, likeCount: 0, activities: actsInList) { (addedList: List?, error: Error?) in
                             if (addedList != nil) {
-                                print("List created!")
-                                print("copy list", addedList!)
-                                print("Add Btn globalAct", globalActs)
+//                                print("List created!")
+//                                print("copy list", addedList!)
+//                                print("Add Btn globalAct", globalActs)
                                 for act in globalActs {
                                     UserActivity.addNewActivity(activity: act, list: addedList, completion: { (userAct: UserActivity?, error: Error?) in
                                         if error == nil {
@@ -796,7 +815,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 pickerView.selectRow(0, inComponent: 0, animated: false)
             }
             addingActivity = top10Act[index.row]
-            print("addingActivity", addingActivity)
+//            print("addingActivity", addingActivity)
         }
     }
     
@@ -859,11 +878,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     if (lists?.count)! > 9 {
                         while i < 10 {
                             let list = lists![i]
-                            print("listLikecount", lists![i].likeCount)
+//                            print("listLikecount", lists![i].likeCount)
                             print("top list", i)
                             print(list)
                             self.top10List.append(list)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10List)
+//                            print("~~~~~~~~~~~~~~~~~~~", self.top10List)
                             self.userListsCollectionView.reloadData()
                             //self.tableView.reloadData()
                             i = i + 1
@@ -871,11 +890,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     }else {
                         while i < lists!.count {
                             let list = lists![i]
-                            print("listLikecount", lists![i].likeCount)
-                            print("top list", i)
+//                            print("listLikecount", lists![i].likeCount)
+//                            print("top list", i)
                             print(list)
                             self.top10List.append(list)
-                            print("----------------recent lists-----", self.top10List)
+//                            print("----------------recent lists-----", self.top10List)
                             self.userListsCollectionView.reloadData()
                             //self.tableView.reloadData()
                             i = i + 1
@@ -898,8 +917,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 if (lists?.count)! > 9 {
                     while i < 10 {
                         let list = lists![i]
-                        print("listLikecount", lists![i].likeCount)
-                        print("top list", i)
+//                        print("listLikecount", lists![i].likeCount)
+//                        print("top list", i)
                         print(list)
                         self.top10List.append(list)
                         print("----------------recent lists-----", self.top10List)
@@ -939,10 +958,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         var i = 0
                         if activities!.count > 9 {
                             while i < 10 {
-                                print("activityLikeCount", activities![i].activityLikeCount)
+//                                print("activityLikeCount", activities![i].activityLikeCount)
                                 let act = activities![i]
                                 self.top10Act.append(act)
-                                print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+//                                print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
                                 self.activitiesCollectionView.reloadData()
                                 //self.tableView.reloadData()
                                 i = i + 1
@@ -950,10 +969,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         }else {
                             self.top10Act = []
                             while i < activities!.count {
-                                print("activityLikeCount", activities![i].activityLikeCount)
+//                                print("activityLikeCount", activities![i].activityLikeCount)
                                 let act = activities![i]
                                 self.top10Act.append(act)
-                                print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
+//                                print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
                                 self.activitiesCollectionView.reloadData()
                                 //self.tableView.reloadData()
                                 i = i + 1
