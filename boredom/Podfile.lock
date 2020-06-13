@@ -78,6 +78,25 @@ DEPENDENCIES:
   - PromiseKit
   - SearchTextField
 
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - Alamofire
+    - AlamofireImage
+    - BDBOAuth1Manager
+    - Bolts
+    - DynamicBlurView
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
+    - KeychainAccess
+    - OAuthSwift
+    - OAuthSwiftAlamofire
+    - Parse
+    - PopupDialog
+    - PromiseKit
+    - SearchTextField
+
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -86,7 +105,7 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
-  GooglePlacePicker: 1573e644ab54564d95c2643edc0f29091609e966
+  GooglePlacePicker: 7867ab2dee54d00c337ec70faf6f0b619bdc30b5
   GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
   OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
@@ -98,4 +117,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4d932e9d370b52fa7139e28d16be2b3219b62946
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.9.3
