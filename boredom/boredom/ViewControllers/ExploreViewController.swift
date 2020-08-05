@@ -1164,7 +1164,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 if error == nil {
                     let lists = lists!
                     self.userLists = lists
-                    print("iiiii list",lists)
+                    //print("iiiii list",lists)
                     var allOptions = [[String : String]]()
                     var listIDsArr = [String]()
                     for list in lists{

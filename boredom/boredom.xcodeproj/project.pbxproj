@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,7 @@
 		44116EFE209522390037EB0D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFD209522390037EB0D /* GradientView.swift */; };
 		4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425C84120A14DC200A63D67 /* CollectionViewClass.swift */; };
 		4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */; };
+		5259D7CE24D25F7D00303DA8 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5259D7CD24D25F7D00303DA8 /* AuthenticationServices.framework */; };
 		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
 		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
@@ -81,6 +82,8 @@
 		44116EFD209522390037EB0D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4425C84120A14DC200A63D67 /* CollectionViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
 		4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewCell.swift; sourceTree = "<group>"; };
+		5259D7CC24D258FD00303DA8 /* boredom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = boredom.entitlements; sourceTree = "<group>"; };
+		5259D7CD24D25F7D00303DA8 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5259D7CE24D25F7D00303DA8 /* AuthenticationServices.framework in Frameworks */,
 				911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +165,7 @@
 		3EC50DBB2CBF15F3C5D8B255 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5259D7CD24D25F7D00303DA8 /* AuthenticationServices.framework */,
 				A0C09AFC596F4C5038953714 /* Pods_boredom.framework */,
 				D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */,
 				95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */,
@@ -226,6 +231,7 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
+				5259D7CC24D258FD00303DA8 /* boredom.entitlements */,
 				FFBA1635207C534B00242310 /* Models */,
 				FFF76960207EEDD500B1F21E /* ViewCells */,
 				FFBA1634207C532E00242310 /* ViewControllers */,
@@ -305,8 +311,6 @@
 				FFE9468E204F76E30070B150 /* Sources */,
 				FFE9468F204F76E30070B150 /* Frameworks */,
 				FFE94690204F76E30070B150 /* Resources */,
-				F9BCED13560F7B9BC75E91F5 /* [CP] Embed Pods Frameworks */,
-				45154DA507E16339C4D5DB6E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -326,8 +330,6 @@
 				FFE94699204F76E40070B150 /* Sources */,
 				FFE9469A204F76E40070B150 /* Frameworks */,
 				FFE9469B204F76E40070B150 /* Resources */,
-				6D3773D4D7F6CE8B9AA404FE /* [CP] Embed Pods Frameworks */,
-				445EDEB367775A5B7D90AD23 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,7 +349,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = "Melissa Phuong Nguyen";
+				ORGANIZATIONNAME = jigyasaasood;
 				TargetAttributes = {
 					FFE9467D204F76E30070B150 = {
 						CreatedOnToolsVersion = 9.2;
@@ -366,7 +368,7 @@
 				};
 			};
 			buildConfigurationList = FFE94679204F76E30070B150 /* Build configuration list for PBXProject "boredom" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -431,51 +433,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		445EDEB367775A5B7D90AD23 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		45154DA507E16339C4D5DB6E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6D3773D4D7F6CE8B9AA404FE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B70543CDEE95310FCB9BDF3D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -500,7 +457,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
@@ -533,7 +490,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BBD07FD0A5CE6158C92FC16D /* [CP] Check Pods Manifest.lock */ = {
@@ -560,7 +517,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
@@ -573,22 +530,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredom/Pods-boredom-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9BCED13560F7B9BC75E91F5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -784,7 +726,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -794,12 +737,16 @@
 			baseConfigurationReference = 2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = boredom/boredom.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4SX7SE65E;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredom;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jigyasaasood.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -812,12 +759,16 @@
 			baseConfigurationReference = 5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = boredom/boredom.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4SX7SE65E;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredom;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jigyasaasood.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -832,9 +783,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533AJXWKZ4;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredomTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredomTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -850,9 +805,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533AJXWKZ4;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredomTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredomTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -867,8 +826,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredomUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredomUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -883,8 +847,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredomUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredomUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
