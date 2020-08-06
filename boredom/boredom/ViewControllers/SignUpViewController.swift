@@ -56,7 +56,7 @@ class SignUpViewController: UIViewController, CLLocationManagerDelegate{
                 print("error in reverseGeocode")
             }
             let placemark = placemarks! as [CLPlacemark]
-            if placemark.count>0{
+            if placemark.count > 0 {
                 let placemark = placemarks![0]
                 print(placemark.locality!)
                 print(placemark.administrativeArea!)

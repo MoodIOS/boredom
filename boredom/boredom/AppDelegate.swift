@@ -23,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         Parse.initialize(
-            with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
+            with: ParseClientConfiguration(block: { (
+                configuration: ParseMutableClientConfiguration) -> Void in
 //                configuration.applicationId = "boredomID"
 //                configuration.clientKey = "boredomMasterKey"  // set to nil assuming you have not set clientKey
 //                configuration.server = "https://boredom-ios.herokuapp.com/parse"

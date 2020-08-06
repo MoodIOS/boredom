@@ -10,7 +10,6 @@ import UIKit
 import Parse
 
 
-
 class AddSomeActToYourListViewController: UIViewController , UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var listPicker: UIPickerView!
