@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        Parse.enableLocalDatastore()
         
         // Override point for customization after application launch.
-        Parse.initialize(
+       /* Parse.initialize(
             with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
 //                configuration.applicationId = "boredomID"
 //                configuration.clientKey = "boredomMasterKey"  // set to nil assuming you have not set clientKey
@@ -31,7 +31,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.clientKey = "fiv94sjvo3g_gh2/gidie0335{fi"
                 configuration.server = "https://spark-adventureawaits.herokuapp.com/parse"
             })
-        )
+        )*/
+        
+        // --- Copy this only
+        
+        let parseConfig = ParseClientConfiguration {
+            $0.applicationId = "ISTclrEvFKx5BqFRtGkn3PXXtKmXeGcvfsxxNDxZ" // <- UPDATE
+            $0.clientKey = "uHzxlwjEPucuRUGl0LXkWddpvR1sPAZROWJP7LOC" // <- UPDATE
+            $0.server = "https://parseapi.back4app.com"
+        }
+        Parse.initialize(with: parseConfig)
+        
+        // --- end copy
         
         // persisting user
         if PFUser.current() != nil {

@@ -69,7 +69,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         tableView.rowHeight = 150
         tableView.reloadData()
         
-        listNameLabel.text = list.listName
+        self.title = list.listName
+        
+       // listNameLabel.text = list.listName
         noActivitiesLabel.isHidden = true
         
         viewWithPicker.isHidden = true

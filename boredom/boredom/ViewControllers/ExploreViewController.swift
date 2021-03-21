@@ -98,6 +98,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         
+        
         mostlyLikedBtnClicked = true
         
         listsLabel.text = "Top 10 Lists"
@@ -297,8 +298,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
         if (collectionView == self.userListsCollectionView){
             let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
+            cell.layer.cornerRadius = 8.0
+            cell.clipsToBounds = true
+            
+            cell.userListsImageView.layer.cornerRadius = 8.0
+            cell.userListsImageView.clipsToBounds = true
             let list = top10List[indexPath.item]
             var globalAct = [Activity]()
             UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
@@ -359,6 +367,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         else if (collectionView == self.activitiesCollectionView){
 
             let activitiesCell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "ActivitiesCell", for: indexPath) as! ActivitiesCell
+            
+            activitiesCell.layer.cornerRadius = 8.0
+            activitiesCell.clipsToBounds = true
+            
+            activitiesCell.activitiesImageView.layer.cornerRadius = 8.0
+            activitiesCell.activitiesImageView.clipsToBounds = true
             activitiesCell.delegate = self
             activitiesCell.indexPath = indexPath
             let act = top10Act[indexPath.item]

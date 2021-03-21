@@ -197,6 +197,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
+        
+        
         if self.lists != [] {
             let userLists = self.lists
             let curList = userLists[indexPath.row]
@@ -213,6 +215,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         } else if self.lists == nil  {
             editBtn.title = "Edit"
         }
+        
+        cell.layer.cornerRadius = 8.0
+        cell.clipsToBounds = true
         return cell
     }
     
