@@ -35,6 +35,9 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     var actInDatabase = Activity()
     var tags = [String: Bool]()
     
+    var locationLat:Double! = -1
+    var locationLong:Double! = -1
+    
     @IBOutlet weak var restaurantTag: UIButton!
     @IBOutlet weak var brunchTag: UIButton!
     @IBOutlet weak var movieTag: UIButton!
@@ -143,7 +146,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     
     
     
-   /* func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation :CLLocation = locations[0] as CLLocation
         
         
@@ -170,7 +173,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
             
         }
         
-    }*/
+    }
     
     @IBAction func hideKeyboard(_ sender: Any) {
         view.endEditing(true)
@@ -252,7 +255,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                                 }
                             }
                         } else {
-                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
+                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: self.location.text!, lon: self.locationLong, lat: self.locationLat, tags: self.tags) { (activity, error) in
                                 if let activity = activity  {
                                     print("Activity ID:", activity)
                                     UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
@@ -275,6 +278,30 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                                     print("Problem saving activity: \(error.localizedDescription)")
                                 }
                             }
+                            /*Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: self.location.text, tags: self.tags){ (activity, error) in
+                                if let activity = activity  {
+                                    print("Activity ID:", activity)
+                                    UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
+                                        if error == nil {
+                                            print("User activity created")
+                                            List.addActToList(currentList: self.list, userAct: userAct!, tags: self.tags, completion: { (list: List?, error: Error?) in
+                                                if error == nil {
+                                                    print("list", list!)
+                                                }
+                                            })
+                                            //activity.saveInBackground()//////////////
+                                            self.dismiss(animated: true, completion: nil)
+                                            self.loadActivity()
+                                        } else if let error = error {
+                                            print("Problem saving User activity: \(error.localizedDescription)")
+                                        }
+                                    })
+                                }
+                                else if let error = error {
+                                    print("Problem saving activity: \(error.localizedDescription)")
+                                }
+                            }
+                            */
                         }
                         
                     }
@@ -416,6 +443,8 @@ extension AddNewActivityVCViewController: GMSAutocompleteViewControllerDelegate 
         // Get the place name from 'GMSAutocompleteViewController'
         // Then display the name in textField
         location.text = place.name
+        locationLat = place.coordinate.latitude
+        locationLong = place.coordinate.longitude
         // Dismiss the GMSAutocompleteViewController when something is selected
         dismiss(animated: true, completion: nil)
     }
