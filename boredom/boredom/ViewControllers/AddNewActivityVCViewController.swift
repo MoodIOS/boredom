@@ -11,7 +11,7 @@ import Parse
 import SearchTextField
 import GooglePlaces
 import GoogleMaps
-import GooglePlacePicker
+//import GooglePlacePicker
 
 class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelegate{
 
@@ -21,6 +21,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     @IBOutlet weak var costControl: UISegmentedControl!
     
     @IBOutlet weak var name: SearchTextField!
+    
     
     var list = List()
 //    var allActivities: [Activity]?
@@ -53,6 +54,9 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         
         super.viewDidLoad()
         
+        
+        
+        
         tagsBtn = [restaurantTag, brunchTag, movieTag, outdoorTag, bookTag, coffeeTag, nightlifeTag, happyhoursTag]
         
         self.activityNames = []
@@ -72,17 +76,17 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         
         
         
-        locationManager = CLLocationManager()
+     /*   locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled(){
             locationManager.startUpdatingLocation()
-        }
+        }*/
         
         placesClient = GMSPlacesClient.shared()
-        location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
+      //  location.addTarget(self, action: #selector(locationDidChange), for: .touchDown)
         
 //        location.addTarget(self, action: #selector(locationDidChange), for: .)
         var i = 0
@@ -97,9 +101,21 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         }
     }
     
+    
+    @IBAction func locationTextFieldTouchDown(_ sender: Any) {
+        
+        location.resignFirstResponder()
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+        
+    }
+    
+    
 //    https://developers.google.com/places/ios-sdk/start
     
-    @objc func locationDidChange(location: UITextField){
+    
+   /* @objc func locationDidChange(location: UITextField){
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
         let southWest = CLLocationCoordinate2D(latitude: center.latitude - 0.001, longitude: center.longitude - 0.001)
@@ -122,10 +138,12 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
 //                self.location.text = "No Address Found"
             }
         })
-    }
+    }*/
     
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+    
+   /* func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation :CLLocation = locations[0] as CLLocation
         
         
@@ -152,7 +170,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
             
         }
         
-    }
+    }*/
     
     @IBAction func hideKeyboard(_ sender: Any) {
         view.endEditing(true)
@@ -388,5 +406,28 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         // Pass the selected object to the new view controller.
     }
     */
+    
+   
 
 }
+
+extension AddNewActivityVCViewController: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        // Get the place name from 'GMSAutocompleteViewController'
+        // Then display the name in textField
+        location.text = place.name
+        // Dismiss the GMSAutocompleteViewController when something is selected
+        dismiss(animated: true, completion: nil)
+    }
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // Handle the error
+        print("Error: ", error.localizedDescription)
+    }
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        // Dismiss when the user canceled the action
+        dismiss(animated: true, completion: nil)
+}
+
+}
+
+

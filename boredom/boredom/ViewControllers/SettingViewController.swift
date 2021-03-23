@@ -71,7 +71,7 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.usernameLabel.text = "Unknown Username"
         }
         print("in getuserinfo()")
-        if let getParseImg = user!["profileImage"] as? PFFile {
+        if let getParseImg = user!["profileImage"] as? PFFileObject {
             getParseImg.getDataInBackground{(imageData, error) in
                 if (error == nil) {
                     if let imageData = imageData{

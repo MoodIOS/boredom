@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317D9F6208AAD810026CD0D /* UserActivity.swift */; };
-		25E5CEBFFD7A40B894BF5CBE /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */; };
-		3494FA0A1FE948776617FFB6 /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */; };
 		440E738D209D5F6A00393728 /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */; };
 		440E738F209D684E00393728 /* InsideTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E738E209D684E00393728 /* InsideTableCollectionViewCell.swift */; };
 		44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EA72079E4F10037EB0D /* ExploreViewController.swift */; };
@@ -24,8 +22,10 @@
 		44116EFE209522390037EB0D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFD209522390037EB0D /* GradientView.swift */; };
 		4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425C84120A14DC200A63D67 /* CollectionViewClass.swift */; };
 		4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */; };
+		6E6E690FFA9EE380CAACC66C /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2990BA4F85711CD5C6BE4D /* Pods_boredomUITests.framework */; };
 		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
-		911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C09AFC596F4C5038953714 /* Pods_boredom.framework */; };
+		93AD22AF9E5530A410F6A74D /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F715B3E9D9264047D8937726 /* Pods_boredomTests.framework */; };
+		95513F70AAA968A9E0130798 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5CABC8230283B808B57B452 /* Pods_boredom.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
 		FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */; };
 		FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */; };
@@ -67,8 +67,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0486189B61F2C182A3744676 /* Pods-boredomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.debug.xcconfig"; path = "Target Support Files/Pods-boredomUITests/Pods-boredomUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		11F04A1CD61AA66584596159 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		1317D9F6208AAD810026CD0D /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
-		2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
 		440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
 		440E738E209D684E00393728 /* InsideTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideTableCollectionViewCell.swift; sourceTree = "<group>"; };
 		44116EA72079E4F10037EB0D /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -83,15 +84,15 @@
 		44116EFD209522390037EB0D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4425C84120A14DC200A63D67 /* CollectionViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
 		4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewCell.swift; sourceTree = "<group>"; };
-		5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
-		6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
+		47A4EFB760D0B912966DB13B /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
+		52088ABD2608C9CF00B9EAC7 /* boredom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = boredom.entitlements; sourceTree = "<group>"; };
+		54459FAF86DC67EAE385A488 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6D2990BA4F85711CD5C6BE4D /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8528FEF978E8EEA909C9004A /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
-		95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0C09AFC596F4C5038953714 /* Pods_boredom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomUITests/Pods-boredomUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
+		A5CABC8230283B808B57B452 /* Pods_boredom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BACCDC4A4A83354913071F71 /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F715B3E9D9264047D8937726 /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF6294FB208A8C7000646128 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewActivityVCViewController.swift; sourceTree = "<group>"; };
 		FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfActsViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				911BDCF1166711CFAEE7EB95 /* Pods_boredom.framework in Frameworks */,
+				95513F70AAA968A9E0130798 /* Pods_boredom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3494FA0A1FE948776617FFB6 /* Pods_boredomTests.framework in Frameworks */,
+				93AD22AF9E5530A410F6A74D /* Pods_boredomTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,32 +143,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25E5CEBFFD7A40B894BF5CBE /* Pods_boredomUITests.framework in Frameworks */,
+				6E6E690FFA9EE380CAACC66C /* Pods_boredomUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03371133378E42D20E409049 /* Pods */ = {
+		2435EC52A141C9DF37336C46 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */,
-				5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */,
-				B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */,
-				E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */,
-				A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */,
-				6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */,
+				47A4EFB760D0B912966DB13B /* Pods-boredom.debug.xcconfig */,
+				11F04A1CD61AA66584596159 /* Pods-boredom.release.xcconfig */,
+				BACCDC4A4A83354913071F71 /* Pods-boredomTests.debug.xcconfig */,
+				8528FEF978E8EEA909C9004A /* Pods-boredomTests.release.xcconfig */,
+				0486189B61F2C182A3744676 /* Pods-boredomUITests.debug.xcconfig */,
+				54459FAF86DC67EAE385A488 /* Pods-boredomUITests.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		3EC50DBB2CBF15F3C5D8B255 /* Frameworks */ = {
+		6B8E67011325E86B492D85E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A0C09AFC596F4C5038953714 /* Pods_boredom.framework */,
-				D804D1435A9C9CB114DB63AE /* Pods_boredomTests.framework */,
-				95AB159203F9A4AB2D200A77 /* Pods_boredomUITests.framework */,
+				A5CABC8230283B808B57B452 /* Pods_boredom.framework */,
+				F715B3E9D9264047D8937726 /* Pods_boredomTests.framework */,
+				6D2990BA4F85711CD5C6BE4D /* Pods_boredomUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,8 +213,8 @@
 				FFE94695204F76E30070B150 /* boredomTests */,
 				FFE946A0204F76E40070B150 /* boredomUITests */,
 				FFE9467F204F76E30070B150 /* Products */,
-				03371133378E42D20E409049 /* Pods */,
-				3EC50DBB2CBF15F3C5D8B255 /* Frameworks */,
+				2435EC52A141C9DF37336C46 /* Pods */,
+				6B8E67011325E86B492D85E9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +231,7 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
+				52088ABD2608C9CF00B9EAC7 /* boredom.entitlements */,
 				FFBA1635207C534B00242310 /* Models */,
 				FFF76960207EEDD500B1F21E /* ViewCells */,
 				FFBA1634207C532E00242310 /* ViewControllers */,
@@ -287,12 +289,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946A6204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredom" */;
 			buildPhases = (
-				B70543CDEE95310FCB9BDF3D /* [CP] Check Pods Manifest.lock */,
+				E848AD4D087B18E658322A15 /* [CP] Check Pods Manifest.lock */,
 				FFE9467A204F76E30070B150 /* Sources */,
 				FFE9467B204F76E30070B150 /* Frameworks */,
 				FFE9467C204F76E30070B150 /* Resources */,
-				B81EA930FDE23957B3D6B0AC /* [CP] Embed Pods Frameworks */,
-				BEF20CA5526F1D9BAA530E0B /* [CP] Copy Pods Resources */,
+				73D4F4AF4FA48DF260465AC3 /* [CP] Embed Pods Frameworks */,
+				3427BEE0F14BBC58CC1D7CF1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -307,7 +309,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946A9204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredomTests" */;
 			buildPhases = (
-				BBD07FD0A5CE6158C92FC16D /* [CP] Check Pods Manifest.lock */,
+				A334B1C7057E8D957A9650F2 /* [CP] Check Pods Manifest.lock */,
 				FFE9468E204F76E30070B150 /* Sources */,
 				FFE9468F204F76E30070B150 /* Frameworks */,
 				FFE94690204F76E30070B150 /* Resources */,
@@ -326,7 +328,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946AC204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredomUITests" */;
 			buildPhases = (
-				2DBB48EF93FA8B3A4ECE4788 /* [CP] Check Pods Manifest.lock */,
+				99307B6C2DB3BEB808BB814F /* [CP] Check Pods Manifest.lock */,
 				FFE94699204F76E40070B150 /* Sources */,
 				FFE9469A204F76E40070B150 /* Frameworks */,
 				FFE9469B204F76E40070B150 /* Resources */,
@@ -349,11 +351,16 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = "Melissa Phuong Nguyen";
+				ORGANIZATIONNAME = "Codacity LLC";
 				TargetAttributes = {
 					FFE9467D204F76E30070B150 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					FFE94691204F76E30070B150 = {
 						CreatedOnToolsVersion = 9.2;
@@ -417,103 +424,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2DBB48EF93FA8B3A4ECE4788 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-boredomUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B70543CDEE95310FCB9BDF3D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-boredom-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B81EA930FDE23957B3D6B0AC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
-				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/OAuthSwiftAlamofire/OAuthSwiftAlamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
-				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwiftAlamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BBD07FD0A5CE6158C92FC16D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-boredomTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BEF20CA5526F1D9BAA530E0B /* [CP] Copy Pods Resources */ = {
+		3427BEE0F14BBC58CC1D7CF1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -533,6 +444,112 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73D4F4AF4FA48DF260465AC3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		99307B6C2DB3BEB808BB814F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredomUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A334B1C7057E8D957A9650F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredomTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E848AD4D087B18E658322A15 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredom-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -735,15 +752,16 @@
 		};
 		FFE946A7204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F21928AC4B7AE5A82382DAA /* Pods-boredom.debug.xcconfig */;
+			baseConfigurationReference = 47A4EFB760D0B912966DB13B /* Pods-boredom.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = boredom/boredom.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4SX7SE65E;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codacityllc.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -753,15 +771,16 @@
 		};
 		FFE946A8204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F9150D422716C277607E5C5 /* Pods-boredom.release.xcconfig */;
+			baseConfigurationReference = 11F04A1CD61AA66584596159 /* Pods-boredom.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = boredom/boredom.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4SX7SE65E;
+				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.melissanguyen.boredom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codacityllc.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -771,7 +790,7 @@
 		};
 		FFE946AA204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2C0D56CFA9BE33C1B83A3AE /* Pods-boredomTests.debug.xcconfig */;
+			baseConfigurationReference = BACCDC4A4A83354913071F71 /* Pods-boredomTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -789,7 +808,7 @@
 		};
 		FFE946AB204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E82769B9CD638BFC83AAB966 /* Pods-boredomTests.release.xcconfig */;
+			baseConfigurationReference = 8528FEF978E8EEA909C9004A /* Pods-boredomTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -807,7 +826,7 @@
 		};
 		FFE946AD204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0F07BC982DE17358A12745E /* Pods-boredomUITests.debug.xcconfig */;
+			baseConfigurationReference = 0486189B61F2C182A3744676 /* Pods-boredomUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -823,7 +842,7 @@
 		};
 		FFE946AE204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B1726BFA897DB1394727757 /* Pods-boredomUITests.release.xcconfig */;
+			baseConfigurationReference = 54459FAF86DC67EAE385A488 /* Pods-boredomUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

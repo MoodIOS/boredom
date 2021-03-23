@@ -51,9 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
-        GMSPlacesClient.provideAPIKey("AIzaSyBfPd2Cqkw3w2ommVPR_Kxy9zptYDmmrdM")
-        GMSServices.provideAPIKey("AIzaSyBfPd2Cqkw3w2ommVPR_Kxy9zptYDmmrdM")
-        
+      //  GMSPlacesClient.provideAPIKey("AIzaSyBfPd2Cqkw3w2ommVPR_Kxy9zptYDmmrdM")
+      //  GMSServices.provideAPIKey("AIzaSyBfPd2Cqkw3w2ommVPR_Kxy9zptYDmmrdM")
+        GMSPlacesClient.provideAPIKey("AIzaSyDHwb8Zrvurukr1i7mnN0TNh3FaQO5NHIQ")
+          GMSServices.provideAPIKey("AIzaSyDHwb8Zrvurukr1i7mnN0TNh3FaQO5NHIQ")
+     
         
         return true
     }

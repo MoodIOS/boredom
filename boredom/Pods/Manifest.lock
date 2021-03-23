@@ -20,59 +20,52 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Alamofire (4.6.0)
-  - AlamofireImage (3.3.0):
-    - Alamofire (~> 4.5)
+  - Alamofire (5.4.1)
+  - AlamofireImage (4.1.0):
+    - Alamofire (~> 5.1)
   - BDBOAuth1Manager (1.6.0):
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
-  - Bolts/Tasks (1.9.0)
-  - DynamicBlurView (2.0.2)
-  - GoogleMaps (2.5.0):
-    - GoogleMaps/Maps (= 2.5.0)
-  - GoogleMaps/Base (2.5.0)
-  - GoogleMaps/Maps (2.5.0):
+  - Bolts/Tasks (1.9.1)
+  - DynamicBlurView (3.0.1)
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
     - GoogleMaps/Base
-  - GooglePlacePicker (2.5.0):
-    - GoogleMaps (= 2.5.0)
-    - GooglePlaces (= 2.5.0)
-  - GooglePlaces (2.5.0):
-    - GoogleMaps/Base (= 2.5.0)
-  - KeychainAccess (3.1.0)
-  - OAuthSwift (1.2.0)
-  - OAuthSwiftAlamofire (0.1.0):
-    - Alamofire
-    - OAuthSwift
-  - Parse (1.16.0):
-    - Parse/Core (= 1.16.0)
-  - Parse/Core (1.16.0):
-    - Bolts/Tasks (~> 1.9)
-  - PopupDialog (0.7.0):
-    - DynamicBlurView (~> 2.0)
-  - PromiseKit (4.5.1):
-    - PromiseKit/Foundation (= 4.5.1)
-    - PromiseKit/QuartzCore (= 4.5.1)
-    - PromiseKit/UIKit (= 4.5.1)
-  - PromiseKit/CorePromise (4.5.1)
-  - PromiseKit/Foundation (4.5.1):
+  - GooglePlacePicker (3.1.0):
+    - GoogleMaps (= 3.1.0)
+    - GooglePlaces (= 3.1.0)
+  - GooglePlaces (3.1.0):
+    - GoogleMaps/Base (= 3.1.0)
+  - KeychainAccess (4.2.2)
+  - OAuthSwift (1.2.2)
+  - Parse (1.19.2):
+    - Parse/Core (= 1.19.2)
+  - Parse/Core (1.19.2):
+    - Bolts/Tasks (= 1.9.1)
+  - PopupDialog (0.9.2):
+    - DynamicBlurView (~> 3.0.1)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (4.5.1):
+  - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (4.5.1):
-    - PromiseKit/CorePromise
-  - SearchTextField (1.2.0)
+  - SearchTextField (1.2.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
-  - Alamofire (~> 4.5)
-  - AlamofireImage (~> 3.3)
+  - AlamofireImage
   - BDBOAuth1Manager
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
   - KeychainAccess
-  - OAuthSwift
-  - OAuthSwiftAlamofire
+  - OAuthSwift (~> 1.2.0)
   - Parse
   - PopupDialog (~> 0.7)
   - PromiseKit
@@ -91,7 +84,6 @@ SPEC REPOS:
     - GooglePlaces
     - KeychainAccess
     - OAuthSwift
-    - OAuthSwiftAlamofire
     - Parse
     - PopupDialog
     - PromiseKit
@@ -99,22 +91,21 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
-  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
-  GooglePlacePicker: 7867ab2dee54d00c337ec70faf6f0b619bdc30b5
-  GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
-  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
-  OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
-  OAuthSwiftAlamofire: 20bb998ac506f82c3bab0625fbc98a9c6fca783f
-  Parse: 5b36dc2c2f0a2fd82a257ae018bc3d68cf2c24e7
-  PopupDialog: 4abc6db5b22b7c8029e2162bde8891ee6aa4b6c8
-  PromiseKit: 445dac9b2c3c3b4b31b5f842bc325700b848a8bd
-  SearchTextField: a5bb7e4c33affadb115afdbe8100d84ef10a8024
+  Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
+  GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  OAuthSwift: 27b34fe80b76b67cd8f45571e0be2432bc9f6de1
+  Parse: 081fb8755c3000fd11df817eec235def233d0af3
+  PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
 
-PODFILE CHECKSUM: 4d932e9d370b52fa7139e28d16be2b3219b62946
+PODFILE CHECKSUM: de1961d7427735b56418035f58cac82db7c05beb
 
 COCOAPODS: 1.9.3

@@ -24,7 +24,7 @@ import Parse
     @NSManaged var usersLikedActivity: [String]!
     @NSManaged var activityLikedByUsers: [String]!
     @NSManaged var tags: [String: Bool]!
-    @NSManaged var actImgs: [PFFile]!
+    @NSManaged var actImgs: [PFFileObject]!
     
     
     class func parseClassName() -> String {
@@ -218,12 +218,12 @@ import Parse
         }
     }
     
-    class func getPFFileFromImage(image: UIImage?) -> PFFile? {
+    class func getPFFileFromImage(image: UIImage?) -> PFFileObject? {
         // check if image is not nil
         if let image = image {
             // get image data and check if that is not nil
             if let imageData = UIImagePNGRepresentation(image) {
-                return PFFile(name: "image.png", data: imageData)
+                return PFFileObject(name: "image.png", data: imageData)
             }
         }
         return nil

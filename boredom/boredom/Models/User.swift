@@ -14,7 +14,7 @@ class User: PFUser {
 
     @NSManaged var likedActivities: [String]
     @NSManaged var likedLists: [String]
-    @NSManaged var profileImage : PFFile
+    @NSManaged var profileImage : PFFileObject
 
     
     override init() {
@@ -48,12 +48,12 @@ class User: PFUser {
     }
     
     
-    class func getPFFileFromImage(image: UIImage?) -> PFFile? {
+    class func getPFFileFromImage(image: UIImage?) -> PFFileObject? {
         // check if image is not nil
         if let image = image {
             // get image data and check if that is not nil
             if let imageData = UIImagePNGRepresentation(image) {
-                return PFFile(name: "image.png", data: imageData)
+                return PFFileObject(name: "image.png", data: imageData)
             }
         }
         return nil

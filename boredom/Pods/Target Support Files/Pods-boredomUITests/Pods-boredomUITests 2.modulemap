@@ -1,0 +1,6 @@
+framework module Pods_boredomUITests {
+  umbrella header "Pods-boredomUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
