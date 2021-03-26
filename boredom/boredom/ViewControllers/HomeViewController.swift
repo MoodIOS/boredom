@@ -54,7 +54,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        actImage.backgroundColor = self.purple
+        actImage.backgroundColor = UIColor.systemPurple
+        actImage.layer.cornerRadius = 10.0
+        actImage.clipsToBounds = true
         self.actDescriptionLabel.text = ""
         //listPicker.setValue(UIColor.white, forKeyPath: "textColor")
         listPicker.dataSource = self
@@ -119,25 +121,30 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     @objc func openMap(){
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-            let lat = randomAct.locationLatitude
-            let lon = randomAct.locationLongitude
-            let address = randomAct.location as! String
-            let urlGoogle = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=19&x-success=sourceapp://resume=true&x-source=Spark")
-            let urlApple = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=18&x-source=SourceApp&x-success=sourceapp://?resume=true")
-            let redirect = UIAlertController(title: "Open in Map? " , message: nil, preferredStyle: .actionSheet)
             
-            let gmap = UIAlertAction(title: "Google Maps", style: .default ){ (action) in
-                 UIApplication.shared.open(urlGoogle! , options: [:], completionHandler: nil)
-            }
-            redirect.addAction(gmap)
-            let amap = UIAlertAction(title: "Apple Map", style: .default ){ (action) in
-                 UIApplication.shared.open(urlApple! , options: [:], completionHandler: nil)
-            }
-            redirect.addAction(amap)
-            let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
-            redirect.addAction(cancelBtn)
-            self.present(redirect, animated: true)
+            if(randomAct.location != nil){
+                let lat = randomAct.locationLatitude
+                let lon = randomAct.locationLongitude
+                let address = randomAct.location as! String
+                let urlGoogle = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=19&x-success=sourceapp://resume=true&x-source=Spark")
+              //  let urlApple = URL(string: "comgooglemaps://?center=\(lat),\(lon)&zoom=18&x-source=SourceApp&x-success=sourceapp://?resume=true")
+                let urlApple = URL(string:  "http://maps.apple.com/?daddr=\(lat),\(lon)")
                 
+               
+                let redirect = UIAlertController(title: "Open in Map? " , message: nil, preferredStyle: .actionSheet)
+                
+                let gmap = UIAlertAction(title: "Google Maps", style: .default ){ (action) in
+                     UIApplication.shared.open(urlGoogle! , options: [:], completionHandler: nil)
+                }
+                redirect.addAction(gmap)
+                let amap = UIAlertAction(title: "Apple Map", style: .default ){ (action) in
+                     UIApplication.shared.open(urlApple! , options: [:], completionHandler: nil)
+                }
+                redirect.addAction(amap)
+                let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
+                redirect.addAction(cancelBtn)
+                self.present(redirect, animated: true)
+            }
            
         } else {
             print("Can't use comgooglemaps://");

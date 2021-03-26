@@ -13,7 +13,7 @@ import Parse
     @NSManaged var listName: String!
     @NSManaged var category: String!
     @NSManaged var listDescription: String!
-    //@NSManaged var listImage: UIImage!
+    @NSManaged var backgroundPic: PFFileObject!
     @NSManaged var activities: [UserActivity]?
     //var rating: Int?
     @NSManaged var author: PFUser!
@@ -25,7 +25,7 @@ import Parse
     }
     
     
-    class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?,  completion: @escaping (List?, Error?) -> Void) {
+    class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?, completion: @escaping (List?, Error?) -> Void) {
         // use subclass approach
         let list = List()
         list.tags = [
@@ -43,6 +43,35 @@ import Parse
         list.activities = activities
         list.author = PFUser.current()
         list.likeCount = likeCount ?? 0
+      
+        
+        // Save object (following function will save the object in Parse asynchronously)
+        ///list.saveInBackground(block: completion)
+        //return list
+        return list.saveInBackground { (success,error) in completion(list,nil) }
+        //return list
+    }
+    
+    
+    class func addNewList(name: String?, category: String?, likeCount: Int?, activities: [UserActivity]?,backgroundImage:PFFileObject,  completion: @escaping (List?, Error?) -> Void) {
+        // use subclass approach
+        let list = List()
+        list.tags = [
+            "Coffee": false,
+            "Brunch": false,
+            "Book": false,
+            "Happy hours": false,
+            "Restaurant": false,
+            "Nightlife": false,
+            "Movie": false,
+            "Outdoor": false
+        ]
+        list.listName = name ?? "No name"
+        list.listDescription = category ?? "No category"
+        list.activities = activities
+        list.author = PFUser.current()
+        list.likeCount = likeCount ?? 0
+        list.backgroundPic = backgroundImage
         
         // Save object (following function will save the object in Parse asynchronously)
         ///list.saveInBackground(block: completion)

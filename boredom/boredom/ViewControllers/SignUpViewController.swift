@@ -23,6 +23,9 @@ class SignUpViewController: UIViewController, CLLocationManagerDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        signUpBtn.layer.cornerRadius = 8.0
+        signUpBtn.clipsToBounds = true
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

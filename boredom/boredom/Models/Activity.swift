@@ -25,6 +25,7 @@ import Parse
     @NSManaged var activityLikedByUsers: [String]!
     @NSManaged var tags: [String: Bool]!
     @NSManaged var actImgs: [PFFileObject]!
+    @NSManaged var backgroundImg: PFFileObject!
     
     
     class func parseClassName() -> String {
@@ -86,6 +87,30 @@ import Parse
         activity.activityLikeCount = 0
         activity.activityLikedByUsers = []
         activity.tags = tags
+        return activity.saveInBackground { (success, error) in
+            completion(activity, nil)
+        }
+    }
+    
+    class func addNewActivity(actName: String?, actDescription: String?, cost: Int, location: String, lon: Double, lat: Double, tags: [String: Bool], backgroundImg: PFFileObject, completion: @escaping (Activity?, Error?) -> Void){
+        let activity = Activity()
+        activity.actName = actName ?? "No name"
+        activity.actDescription = actDescription ?? "No description"
+//        activity.location = location ?? "No location specified"
+        activity.actImgs = []
+        
+        activity.location = location
+        activity.locationLongitude = lon as! Double
+        activity.locationLatitude = lat as! Double
+        print("pop: \(lat), Lon: \(lon)")
+
+        
+        activity.cost = cost
+        print("cost: ", cost)
+        activity.activityLikeCount = 0
+        activity.activityLikedByUsers = []
+        activity.tags = tags
+        activity.backgroundImg = backgroundImg
         return activity.saveInBackground { (success, error) in
             completion(activity, nil)
         }

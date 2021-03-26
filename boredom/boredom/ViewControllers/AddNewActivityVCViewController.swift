@@ -13,7 +13,7 @@ import GooglePlaces
 import GoogleMaps
 //import GooglePlacePicker
 
-class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelegate{
+class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var actName: UITextField!
     @IBOutlet weak var actDescription: UITextField!
@@ -22,6 +22,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     
     @IBOutlet weak var name: SearchTextField!
     
+    var pickedImage:UIImage!
     
     var list = List()
 //    var allActivities: [Activity]?
@@ -65,8 +66,8 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         self.activityNames = []
         self.activityId = []
         
-        print("self.list", self.list)
-        loadActivity()
+       // print("self.list", self.list)
+      //  loadActivity()
         
         self.tags["Restaurant"] = false
         self.tags["Brunch"] = false
@@ -104,6 +105,12 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print("self.list", self.list)
+        loadActivity()
+    }
+    
     
     @IBAction func locationTextFieldTouchDown(_ sender: Any) {
         
@@ -113,6 +120,62 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         present(acController, animated: true, completion: nil)
         
     }
+    
+    
+    @IBAction func cameraBtnTapped(_ sender: Any) {
+        let vc = UIImagePickerController()
+                vc.delegate = self
+                vc.allowsEditing = true
+                
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    print("Camera is available 📸")
+                    vc.sourceType = .camera
+                } else {
+                    print("Camera 🚫 available so we will use photo library instead")
+                    vc.sourceType = .photoLibrary
+                }
+                
+                self.present(vc, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [String : Any]) {
+            // Get the image captured by the UIImagePickerController
+            
+            let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+            self.pickedImage = editedImage
+            
+            
+            // Do something with the images (based on your use case)
+            
+            // Dismiss UIImagePickerController to go back to your original view controller
+            
+            dismiss(animated: true, completion: {
+                // save image with the act
+                // Do something here
+               
+            })
+    }
+    
+    /**
+         Method to convert UIImage to PFFile
+         
+         - parameter image: Image that the user wants to upload to parse
+         
+         - returns: PFFile for the the data in the image
+         */
+        func getPFFileFromImage(image: UIImage?) -> PFFileObject? {
+            // check if image is not nil
+            if let image = image {
+                // get image data and check if that is not nil
+                if let imageData = UIImagePNGRepresentation(image) {
+                    return PFFileObject(name: "image.png", data: imageData)
+                }
+            }
+            return nil
+        }
+            
+
     
     
 //    https://developers.google.com/places/ios-sdk/start
@@ -181,6 +244,17 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
         // TO-DO: check if the data already has this item, if user already have this item in this list.
+        let backgroundImg:PFFileObject!
+        let image = UIImage(named: "lilacBackground.png")
+        
+        if(pickedImage == nil){
+            backgroundImg = getPFFileFromImage(image: image)
+        }
+        else{
+            backgroundImg = getPFFileFromImage(image: pickedImage)
+        }
+        
+        
         checkForDuplicateInList { (duplicateInList: Int, error: Error?) in
             print("duplicate? ", duplicateInList)
             if duplicateInList != 0 {
@@ -231,7 +305,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                         }
                         print("self.tags", self.tags)
                         if self.location.text?.isEmpty ?? true {
-                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: "Nearby", lon: self.userLocation.coordinate.longitude, lat: self.userLocation.coordinate.latitude, tags: self.tags){ (activity, error) in
+                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: "Nearby", lon: self.userLocation.coordinate.longitude, lat: self.userLocation.coordinate.latitude, tags: self.tags, backgroundImg: backgroundImg){ (activity, error) in
                                 if let activity = activity  {
                                     print("Activity ID:", activity)
                                     UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in

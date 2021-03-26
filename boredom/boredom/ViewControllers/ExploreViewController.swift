@@ -94,7 +94,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         recentlyAddedBtn.backgroundColor = UIColor.gray
-        mostlyLikedBtn.backgroundColor = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
+        mostlyLikedBtn.backgroundColor = UIColor(displayP3Red: 136/255, green: 150/255, blue: 241/255, alpha: 1.0)
         userListsCollectionView.backgroundColor = UIColor.clear
         activitiesCollectionView.backgroundColor = UIColor.clear
         
@@ -232,7 +232,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func didTapRecentlyAdded(_ sender: Any) {
         print("inside recently tapped-------------------------")
-        recentlyAddedBtn.backgroundColor = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
+        recentlyAddedBtn.backgroundColor = UIColor(displayP3Red: 136/255, green: 150/255, blue: 241/255, alpha: 1.0)
         mostlyLikedBtn.backgroundColor = UIColor.gray
         
         recentlyAddedBtnClicked = true
@@ -258,7 +258,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func didTapMostlyLiked(_ sender: Any) {
         print("inside mostly liked tapped-------------------------")
-        mostlyLikedBtn.backgroundColor = UIColor(displayP3Red: 139/255, green: 22/255, blue: 1.0, alpha: 1.0)
+        mostlyLikedBtn.backgroundColor = UIColor(displayP3Red: 136/255, green: 150/255, blue: 241/255, alpha: 1.0)
         recentlyAddedBtn.backgroundColor = UIColor.gray
         mostlyLikedBtnClicked = true
         listsLabel.text = "Top 10 Lists"
@@ -340,7 +340,21 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                  bgUrlList.append(backgroundURL!)
              }
             let backgroundURL = bgUrlList[indexPath.item]
-            cell.userListsImageView.af_setImage(withURL: backgroundURL)
+         //   let backImg = URL(string:"https://i.imgur.com/Kv9JdwT.png")
+         //   cell.userListsImageView.af_setImage(withURL: backImg!)
+            
+            
+            let pfFileImage = top10List[indexPath.item].backgroundPic!
+                   pfFileImage.getDataInBackground{(imageData, error) in
+                    if(error == nil){
+                        if let imageData = imageData{
+                            let img = UIImage(data: imageData)
+                            cell.userListsImageView.image = img
+                            cell.userListsImageView.alpha = 0.7
+                        }
+                    }
+            }
+            
             //check if user liked this:
             print("listsIdLiked", listsIdLiked)
             var liked: Int = 0
@@ -395,7 +409,22 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             
             let backgroundURL = bgUrlAct[indexPath.item]
-            activitiesCell.activitiesImageView.af_setImage(withURL: backgroundURL)
+            
+          //  let backImg = URL(string:"https://i.imgur.com/6ho9DOI.png")
+            
+          //  activitiesCell.activitiesImageView.af_setImage(withURL: backImg!)
+            if(top10Act[indexPath.item].backgroundImg != nil){
+                let pfFileImage = top10Act[indexPath.item].backgroundImg!
+                       pfFileImage.getDataInBackground{(imageData, error) in
+                        if(error == nil){
+                            if let imageData = imageData{
+                                let img = UIImage(data: imageData)
+                                activitiesCell.activitiesImageView.image = img
+                                activitiesCell.activitiesImageView.alpha = 0.7
+                            }
+                        }
+                }
+            }
             
             print("listsIdLiked", actsIdLiked)
             var liked: Int = 0

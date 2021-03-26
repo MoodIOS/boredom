@@ -56,7 +56,7 @@ class CollectionViewClass: UICollectionView, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: "InsideTableCollectionViewCell", for: indexPath) as! InsideTableCollectionViewCell
         
-        
+       
 //        if(self.indexList == true && self.indexAct == false){
             while bgUrlList.count < 11 {
                 let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
@@ -64,8 +64,9 @@ class CollectionViewClass: UICollectionView, UICollectionViewDelegate, UICollect
                 let backgroundURL = URL(string: background)
                 bgUrlList.append(backgroundURL!)
             }
-            let backgroundURL = bgUrlList[indexPath.item]
-            cell.collectionImageView.af_setImage(withURL: backgroundURL)
+        cell.collectionImageView.backgroundColor = UIColor.init(displayP3Red: 195.0, green: 174.0, blue: 214.0, alpha: 1.0)
+          //  let backgroundURL = bgUrlList[indexPath.item]
+         //   cell.collectionImageView.af_setImage(withURL: backgroundURL)
 //            let curList = listArray
             print("//////////////////////////////",self.listArray)
             //cell.listOrActNameLabel.text = listArray[indexPath.item].listName

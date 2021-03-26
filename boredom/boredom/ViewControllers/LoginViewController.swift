@@ -21,6 +21,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loginBtn.layer.cornerRadius = 8.0
+        loginBtn.clipsToBounds = true
+        
     }
     
     @IBAction func hideKeyBoard(_ sender: Any) {
