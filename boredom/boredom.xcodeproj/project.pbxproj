@@ -8,24 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317D9F6208AAD810026CD0D /* UserActivity.swift */; };
+		14547157436041CF0334A86A /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A86E4EFFD6C417FD2F65E36 /* Pods_boredom.framework */; };
 		440E738D209D5F6A00393728 /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */; };
 		440E738F209D684E00393728 /* InsideTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E738E209D684E00393728 /* InsideTableCollectionViewCell.swift */; };
 		44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EA72079E4F10037EB0D /* ExploreViewController.swift */; };
 		44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EAB2079F21A0037EB0D /* UserListsCell.swift */; };
 		44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EB1207A17370037EB0D /* ActivitiesCell.swift */; };
 		44116EF2208970D70037EB0D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF1208970D70037EB0D /* SignUpViewController.swift */; };
-		44116EF4208996600037EB0D /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF3208996600037EB0D /* YelpClient.swift */; };
-		44116EF620899C510037EB0D /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF520899C510037EB0D /* Business.swift */; };
 		44116EF82093E8E10037EB0D /* ActivitiesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */; };
 		44116EFA2093E9350037EB0D /* ListsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EF92093E9350037EB0D /* ListsDetailViewController.swift */; };
 		44116EFC2094383D0037EB0D /* ActivitiesInListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */; };
 		44116EFE209522390037EB0D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFD209522390037EB0D /* GradientView.swift */; };
 		4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425C84120A14DC200A63D67 /* CollectionViewClass.swift */; };
 		4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */; };
-		6E6E690FFA9EE380CAACC66C /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2990BA4F85711CD5C6BE4D /* Pods_boredomUITests.framework */; };
+		524E63A126397C4900B80529 /* SDCodersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524E63A026397C4900B80529 /* SDCodersViewController.swift */; };
+		52A511DB2613378500755386 /* ATCWalkthroughModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511DA2613378500755386 /* ATCWalkthroughModel.swift */; };
+		52A511E4261337BF00755386 /* ATCClassicWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */; };
+		52A511E5261337BF00755386 /* ATCWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511E0261337BE00755386 /* ATCWalkthroughViewController.swift */; };
+		52A511E6261337BF00755386 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511E1261337BE00755386 /* ViewController.swift */; };
+		52A511E7261337BF00755386 /* ATCWalkthroughViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A511E2261337BF00755386 /* ATCWalkthroughViewController.xib */; };
+		52A511E8261337BF00755386 /* ATCClassicWalkthroughViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52A511E3261337BF00755386 /* ATCClassicWalkthroughViewController.xib */; };
+		52A511F02613381700755386 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511ED2613381700755386 /* UIColor.swift */; };
+		52A511F12613381700755386 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511EE2613381700755386 /* UIImage.swift */; };
+		52A511F22613381700755386 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511EF2613381700755386 /* UIViewController.swift */; };
+		6482EB946042B413A9456C45 /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F928F694EAD7F39CC91EE9D /* Pods_boredomTests.framework */; };
 		8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */; };
-		93AD22AF9E5530A410F6A74D /* Pods_boredomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F715B3E9D9264047D8937726 /* Pods_boredomTests.framework */; };
-		95513F70AAA968A9E0130798 /* Pods_boredom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5CABC8230283B808B57B452 /* Pods_boredom.framework */; };
+		F73ACA2D97EE86F45DA3AA02 /* Pods_boredomUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F731B62248DAA02A1A1BA01E /* Pods_boredomUITests.framework */; };
 		FF6294FC208A8C7000646128 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6294FB208A8C7000646128 /* Movie.swift */; };
 		FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */; };
 		FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */; };
@@ -67,32 +75,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0486189B61F2C182A3744676 /* Pods-boredomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.debug.xcconfig"; path = "Target Support Files/Pods-boredomUITests/Pods-boredomUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		11F04A1CD61AA66584596159 /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
 		1317D9F6208AAD810026CD0D /* UserActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivity.swift; sourceTree = "<group>"; };
+		1F928F694EAD7F39CC91EE9D /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F35C0572671696232C3680F /* Pods-boredomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.debug.xcconfig"; path = "Target Support Files/Pods-boredomUITests/Pods-boredomUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		440E738C209D5F6A00393728 /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
 		440E738E209D684E00393728 /* InsideTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideTableCollectionViewCell.swift; sourceTree = "<group>"; };
 		44116EA72079E4F10037EB0D /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		44116EAB2079F21A0037EB0D /* UserListsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListsCell.swift; sourceTree = "<group>"; };
 		44116EB1207A17370037EB0D /* ActivitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCell.swift; sourceTree = "<group>"; };
 		44116EF1208970D70037EB0D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		44116EF3208996600037EB0D /* YelpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpClient.swift; sourceTree = "<group>"; };
-		44116EF520899C510037EB0D /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		44116EF72093E8E10037EB0D /* ActivitiesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDetailViewController.swift; sourceTree = "<group>"; };
 		44116EF92093E9350037EB0D /* ListsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailViewController.swift; sourceTree = "<group>"; };
 		44116EFB2094383D0037EB0D /* ActivitiesInListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesInListCell.swift; sourceTree = "<group>"; };
 		44116EFD209522390037EB0D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4425C84120A14DC200A63D67 /* CollectionViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
 		4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewCell.swift; sourceTree = "<group>"; };
-		47A4EFB760D0B912966DB13B /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
 		52088ABD2608C9CF00B9EAC7 /* boredom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = boredom.entitlements; sourceTree = "<group>"; };
-		54459FAF86DC67EAE385A488 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
-		6D2990BA4F85711CD5C6BE4D /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8528FEF978E8EEA909C9004A /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
+		524E63A026397C4900B80529 /* SDCodersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCodersViewController.swift; sourceTree = "<group>"; };
+		52A511DA2613378500755386 /* ATCWalkthroughModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCWalkthroughModel.swift; sourceTree = "<group>"; };
+		52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCClassicWalkthroughViewController.swift; sourceTree = "<group>"; };
+		52A511E0261337BE00755386 /* ATCWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCWalkthroughViewController.swift; sourceTree = "<group>"; };
+		52A511E1261337BE00755386 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		52A511E2261337BF00755386 /* ATCWalkthroughViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATCWalkthroughViewController.xib; sourceTree = "<group>"; };
+		52A511E3261337BF00755386 /* ATCClassicWalkthroughViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATCClassicWalkthroughViewController.xib; sourceTree = "<group>"; };
+		52A511ED2613381700755386 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		52A511EE2613381700755386 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		52A511EF2613381700755386 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		5C773F455E5376895059925E /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5EBEB8990978E6CED01DD16C /* Pods-boredom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.debug.xcconfig"; path = "Target Support Files/Pods-boredom/Pods-boredom.debug.xcconfig"; sourceTree = "<group>"; };
+		8A86E4EFFD6C417FD2F65E36 /* Pods_boredom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B5C9E6E208AB2A300648578 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
-		A5CABC8230283B808B57B452 /* Pods_boredom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BACCDC4A4A83354913071F71 /* Pods-boredomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.debug.xcconfig"; path = "Target Support Files/Pods-boredomTests/Pods-boredomTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F715B3E9D9264047D8937726 /* Pods_boredomTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		985788817A8D58FF4A390CBA /* Pods-boredomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomTests.release.xcconfig"; path = "Target Support Files/Pods-boredomTests/Pods-boredomTests.release.xcconfig"; sourceTree = "<group>"; };
+		D73698D35E1C8BAD35EA4252 /* Pods-boredomUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredomUITests.release.xcconfig"; path = "Target Support Files/Pods-boredomUITests/Pods-boredomUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F3485526C823F48CDAA9571D /* Pods-boredom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boredom.release.xcconfig"; path = "Target Support Files/Pods-boredom/Pods-boredom.release.xcconfig"; sourceTree = "<group>"; };
+		F731B62248DAA02A1A1BA01E /* Pods_boredomUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_boredomUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF6294FB208A8C7000646128 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		FF68C847208076DF0005967E /* AddNewActivityVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewActivityVCViewController.swift; sourceTree = "<group>"; };
 		FF68C8492080CEAC0005967E /* ListOfActsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfActsViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95513F70AAA968A9E0130798 /* Pods_boredom.framework in Frameworks */,
+				14547157436041CF0334A86A /* Pods_boredom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93AD22AF9E5530A410F6A74D /* Pods_boredomTests.framework in Frameworks */,
+				6482EB946042B413A9456C45 /* Pods_boredomTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E6E690FFA9EE380CAACC66C /* Pods_boredomUITests.framework in Frameworks */,
+				F73ACA2D97EE86F45DA3AA02 /* Pods_boredomUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,29 +169,44 @@
 		2435EC52A141C9DF37336C46 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				47A4EFB760D0B912966DB13B /* Pods-boredom.debug.xcconfig */,
-				11F04A1CD61AA66584596159 /* Pods-boredom.release.xcconfig */,
-				BACCDC4A4A83354913071F71 /* Pods-boredomTests.debug.xcconfig */,
-				8528FEF978E8EEA909C9004A /* Pods-boredomTests.release.xcconfig */,
-				0486189B61F2C182A3744676 /* Pods-boredomUITests.debug.xcconfig */,
-				54459FAF86DC67EAE385A488 /* Pods-boredomUITests.release.xcconfig */,
+				5EBEB8990978E6CED01DD16C /* Pods-boredom.debug.xcconfig */,
+				F3485526C823F48CDAA9571D /* Pods-boredom.release.xcconfig */,
+				5C773F455E5376895059925E /* Pods-boredomTests.debug.xcconfig */,
+				985788817A8D58FF4A390CBA /* Pods-boredomTests.release.xcconfig */,
+				3F35C0572671696232C3680F /* Pods-boredomUITests.debug.xcconfig */,
+				D73698D35E1C8BAD35EA4252 /* Pods-boredomUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		6B8E67011325E86B492D85E9 /* Frameworks */ = {
+		4B2AAD9501E28CC2B58545CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A5CABC8230283B808B57B452 /* Pods_boredom.framework */,
-				F715B3E9D9264047D8937726 /* Pods_boredomTests.framework */,
-				6D2990BA4F85711CD5C6BE4D /* Pods_boredomUITests.framework */,
+				8A86E4EFFD6C417FD2F65E36 /* Pods_boredom.framework */,
+				1F928F694EAD7F39CC91EE9D /* Pods_boredomTests.framework */,
+				F731B62248DAA02A1A1BA01E /* Pods_boredomUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52A511EC2613381600755386 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				52A511ED2613381700755386 /* UIColor.swift */,
+				52A511EE2613381700755386 /* UIImage.swift */,
+				52A511EF2613381700755386 /* UIViewController.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FFBA1634207C532E00242310 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */,
+				52A511E3261337BF00755386 /* ATCClassicWalkthroughViewController.xib */,
+				52A511E0261337BE00755386 /* ATCWalkthroughViewController.swift */,
+				52A511E2261337BF00755386 /* ATCWalkthroughViewController.xib */,
+				52A511E1261337BE00755386 /* ViewController.swift */,
 				FFE94683204F76E30070B150 /* LoginViewController.swift */,
 				44116EF1208970D70037EB0D /* SignUpViewController.swift */,
 				44116EA72079E4F10037EB0D /* ExploreViewController.swift */,
@@ -196,8 +227,8 @@
 		FFBA1635207C534B00242310 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				44116EF520899C510037EB0D /* Business.swift */,
 				FF6294FB208A8C7000646128 /* Movie.swift */,
+				52A511DA2613378500755386 /* ATCWalkthroughModel.swift */,
 				FFBA1636207C53C700242310 /* User.swift */,
 				FFBA1638207C53DE00242310 /* List.swift */,
 				FFBA163B207C53FF00242310 /* Activity.swift */,
@@ -214,7 +245,7 @@
 				FFE946A0204F76E40070B150 /* boredomUITests */,
 				FFE9467F204F76E30070B150 /* Products */,
 				2435EC52A141C9DF37336C46 /* Pods */,
-				6B8E67011325E86B492D85E9 /* Frameworks */,
+				4B2AAD9501E28CC2B58545CC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -231,6 +262,7 @@
 		FFE94680204F76E30070B150 /* boredom */ = {
 			isa = PBXGroup;
 			children = (
+				52A511EC2613381600755386 /* Helpers */,
 				52088ABD2608C9CF00B9EAC7 /* boredom.entitlements */,
 				FFBA1635207C534B00242310 /* Models */,
 				FFF76960207EEDD500B1F21E /* ViewCells */,
@@ -242,8 +274,8 @@
 				FFE94688204F76E30070B150 /* Assets.xcassets */,
 				FFE9468A204F76E30070B150 /* LaunchScreen.storyboard */,
 				FFE9468D204F76E30070B150 /* Info.plist */,
-				44116EF3208996600037EB0D /* YelpClient.swift */,
 				44116EFD209522390037EB0D /* GradientView.swift */,
+				524E63A026397C4900B80529 /* SDCodersViewController.swift */,
 			);
 			path = boredom;
 			sourceTree = "<group>";
@@ -289,12 +321,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946A6204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredom" */;
 			buildPhases = (
-				E848AD4D087B18E658322A15 /* [CP] Check Pods Manifest.lock */,
+				5D1CE0E9E1EC453D3EDEEA3F /* [CP] Check Pods Manifest.lock */,
 				FFE9467A204F76E30070B150 /* Sources */,
 				FFE9467B204F76E30070B150 /* Frameworks */,
 				FFE9467C204F76E30070B150 /* Resources */,
-				73D4F4AF4FA48DF260465AC3 /* [CP] Embed Pods Frameworks */,
-				3427BEE0F14BBC58CC1D7CF1 /* [CP] Copy Pods Resources */,
+				1285834B45F268D6D7EE8A7F /* [CP] Embed Pods Frameworks */,
+				16F9D1830FF93A3792DC7E68 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -309,7 +341,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946A9204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredomTests" */;
 			buildPhases = (
-				A334B1C7057E8D957A9650F2 /* [CP] Check Pods Manifest.lock */,
+				2FE60B89870F542472F9E6FC /* [CP] Check Pods Manifest.lock */,
 				FFE9468E204F76E30070B150 /* Sources */,
 				FFE9468F204F76E30070B150 /* Frameworks */,
 				FFE94690204F76E30070B150 /* Resources */,
@@ -328,7 +360,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFE946AC204F76E40070B150 /* Build configuration list for PBXNativeTarget "boredomUITests" */;
 			buildPhases = (
-				99307B6C2DB3BEB808BB814F /* [CP] Check Pods Manifest.lock */,
+				C0F7A368B03A2ED018B0145D /* [CP] Check Pods Manifest.lock */,
 				FFE94699204F76E40070B150 /* Sources */,
 				FFE9469A204F76E40070B150 /* Frameworks */,
 				FFE9469B204F76E40070B150 /* Resources */,
@@ -399,6 +431,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A511E8261337BF00755386 /* ATCClassicWalkthroughViewController.xib in Resources */,
+				52A511E7261337BF00755386 /* ATCWalkthroughViewController.xib in Resources */,
 				FFA2C4BB2495708A000DCD86 /* JJ.storyboard in Resources */,
 				FFE9468C204F76E30070B150 /* LaunchScreen.storyboard in Resources */,
 				FFE94689204F76E30070B150 /* Assets.xcassets in Resources */,
@@ -424,7 +458,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3427BEE0F14BBC58CC1D7CF1 /* [CP] Copy Pods Resources */ = {
+		1285834B45F268D6D7EE8A7F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		16F9D1830FF93A3792DC7E68 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -446,69 +516,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		73D4F4AF4FA48DF260465AC3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
-				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
-				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-boredom/Pods-boredom-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		99307B6C2DB3BEB808BB814F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-boredomUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A334B1C7057E8D957A9650F2 /* [CP] Check Pods Manifest.lock */ = {
+		2FE60B89870F542472F9E6FC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -530,7 +538,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E848AD4D087B18E658322A15 /* [CP] Check Pods Manifest.lock */ = {
+		5D1CE0E9E1EC453D3EDEEA3F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -552,6 +560,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C0F7A368B03A2ED018B0145D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-boredomUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -566,13 +596,17 @@
 				4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */,
 				FFBA1642207C61E900242310 /* SettingViewController.swift in Sources */,
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,
+				52A511F02613381700755386 /* UIColor.swift in Sources */,
 				FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */,
 				FFBA1639207C53DE00242310 /* List.swift in Sources */,
-				44116EF4208996600037EB0D /* YelpClient.swift in Sources */,
 				44116EFA2093E9350037EB0D /* ListsDetailViewController.swift in Sources */,
 				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
+				52A511E5261337BF00755386 /* ATCWalkthroughViewController.swift in Sources */,
+				524E63A126397C4900B80529 /* SDCodersViewController.swift in Sources */,
 				FFBA1637207C53C700242310 /* User.swift in Sources */,
+				52A511F22613381700755386 /* UIViewController.swift in Sources */,
 				1317D9F7208AAD810026CD0D /* UserActivity.swift in Sources */,
+				52A511E6261337BF00755386 /* ViewController.swift in Sources */,
 				440E738D209D5F6A00393728 /* ExploreTableViewCell.swift in Sources */,
 				8B5C9E6F208AB2A300648578 /* OptionsViewController.swift in Sources */,
 				44116EB2207A17370037EB0D /* ActivitiesCell.swift in Sources */,
@@ -580,15 +614,17 @@
 				FFE94682204F76E30070B150 /* AppDelegate.swift in Sources */,
 				44116EF2208970D70037EB0D /* SignUpViewController.swift in Sources */,
 				FF68C84C2080D02B0005967E /* ActivityCell.swift in Sources */,
+				52A511F12613381700755386 /* UIImage.swift in Sources */,
 				FFBA163C207C53FF00242310 /* Activity.swift in Sources */,
+				52A511E4261337BF00755386 /* ATCClassicWalkthroughViewController.swift in Sources */,
 				FF68C84A2080CEAC0005967E /* ListOfActsViewController.swift in Sources */,
 				440E738F209D684E00393728 /* InsideTableCollectionViewCell.swift in Sources */,
 				44116EF82093E8E10037EB0D /* ActivitiesDetailViewController.swift in Sources */,
-				44116EF620899C510037EB0D /* Business.swift in Sources */,
 				44116EFC2094383D0037EB0D /* ActivitiesInListCell.swift in Sources */,
 				44116EFE209522390037EB0D /* GradientView.swift in Sources */,
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,
+				52A511DB2613378500755386 /* ATCWalkthroughModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,15 +788,17 @@
 		};
 		FFE946A7204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47A4EFB760D0B912966DB13B /* Pods-boredom.debug.xcconfig */;
+			baseConfigurationReference = 5EBEB8990978E6CED01DD16C /* Pods-boredom.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = boredom/boredom.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codacityllc.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -771,15 +809,17 @@
 		};
 		FFE946A8204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11F04A1CD61AA66584596159 /* Pods-boredom.release.xcconfig */;
+			baseConfigurationReference = F3485526C823F48CDAA9571D /* Pods-boredom.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = boredom/boredom.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = L525BAT9PA;
 				INFOPLIST_FILE = boredom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codacityllc.boredom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -790,7 +830,7 @@
 		};
 		FFE946AA204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BACCDC4A4A83354913071F71 /* Pods-boredomTests.debug.xcconfig */;
+			baseConfigurationReference = 5C773F455E5376895059925E /* Pods-boredomTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -808,7 +848,7 @@
 		};
 		FFE946AB204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8528FEF978E8EEA909C9004A /* Pods-boredomTests.release.xcconfig */;
+			baseConfigurationReference = 985788817A8D58FF4A390CBA /* Pods-boredomTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -826,7 +866,7 @@
 		};
 		FFE946AD204F76E40070B150 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0486189B61F2C182A3744676 /* Pods-boredomUITests.debug.xcconfig */;
+			baseConfigurationReference = 3F35C0572671696232C3680F /* Pods-boredomUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -842,7 +882,7 @@
 		};
 		FFE946AE204F76E40070B150 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54459FAF86DC67EAE385A488 /* Pods-boredomUITests.release.xcconfig */;
+			baseConfigurationReference = D73698D35E1C8BAD35EA4252 /* Pods-boredomUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

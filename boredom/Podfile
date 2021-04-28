@@ -18,10 +18,6 @@ target 'boredom' do
   # Promise function
   pod 'PromiseKit'
 
-	
-  # Pods for Yelp
-  pod 'AFNetworking', '~> 2.5'
-  pod 'BDBOAuth1Manager'
 
   # Pods for boredom
 

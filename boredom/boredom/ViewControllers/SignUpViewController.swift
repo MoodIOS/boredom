@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import CoreLocation
 
-class SignUpViewController: UIViewController, CLLocationManagerDelegate{
+class SignUpViewController: UIViewController, CLLocationManagerDelegate, ATCWalkthroughViewControllerDelegate{
 
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
@@ -35,6 +35,10 @@ class SignUpViewController: UIViewController, CLLocationManagerDelegate{
             locationManager.startUpdatingLocation()
         }
         // Do any additional setup after loading the view.
+        
+        let walkthroughVC = self.walkthroughVC()
+        walkthroughVC.delegate = self
+        self.addChildViewControllerWithView(walkthroughVC)
     }
     
     
@@ -96,13 +100,38 @@ class SignUpViewController: UIViewController, CLLocationManagerDelegate{
     }
     
     @IBAction func onTapCancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+       // self.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "backToLoginSegue", sender: nil)
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    let walkthroughs = [
+      ATCWalkthroughModel(title: "Create", subtitle: "Make your own lists of activities to do when bored such as hiking, drawing, dinner at a particular restaurant, \n input details and location of activity, \n and save and share it with the rest of the world!", icon: "contact"),
+      ATCWalkthroughModel(title: "Discover", subtitle: "Looking for a first-date idea? \n Where to celebrate your birthday? \n What to do on a boring Sunday evening? \n Spark got you! Search through most liked activities and lists for inspiration on what to do. \n Like, save, and share lists of activities!", icon: "flash"),
+      ATCWalkthroughModel(title: "Shuffle", subtitle: "Gosh, so many fun things to do, so little time, how to choose? \n Spark's shuffle feature will pick an activity for you based on your chosen preferences like budget and location! \n After picking an activity, we will navigate you to it via google and/or apple maps", icon: "shuffle"),
+      ATCWalkthroughModel(title: "Let's Go!", subtitle: "Whatcha waiting for? \n Sign up and explore! :)", icon: "heart-red"),
+    ]
+    
+
+    
+    func walkthroughViewControllerDidFinishFlow(_ vc: ATCWalkthroughViewController) {
+      UIView.transition(with: self.view, duration: 1, options: .transitionFlipFromLeft, animations: {
+        vc.view.removeFromSuperview()
+        //let viewControllerToBePresented = UIViewController()
+        //self.view.addSubview(viewControllerToBePresented.view)
+      }, completion: nil)
+    }
+    
+    fileprivate func walkthroughVC() -> ATCWalkthroughViewController {
+      let viewControllers = walkthroughs.map { ATCClassicWalkthroughViewController(model: $0, nibName: "ATCClassicWalkthroughViewController", bundle: nil) }
+      return ATCWalkthroughViewController(nibName: "ATCWalkthroughViewController",
+                                          bundle: nil,
+                                          viewControllers: viewControllers)
     }
     
 

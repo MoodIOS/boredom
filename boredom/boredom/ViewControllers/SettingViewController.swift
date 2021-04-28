@@ -16,7 +16,9 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
 
 
     
-
+    @IBOutlet weak var contactTeamBtn: UIButton!
+    @IBOutlet weak var logoutbtn: UIButton!
+    
     @IBOutlet weak var usernameLabel: UILabel!
 
     @IBOutlet weak var userImage: UIImageView!
@@ -31,6 +33,11 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         usernameLabel.text = User.current()?.username
         userImage.isUserInteractionEnabled = true
+        contactTeamBtn.layer.cornerRadius = 8.0
+        contactTeamBtn.clipsToBounds = true
+        
+        logoutbtn.layer.cornerRadius = 8.0
+        logoutbtn.clipsToBounds = true
 
         if let imageFile = User.current()?.profileImage {
             imageFile.getDataInBackground(block: { (data, error) in

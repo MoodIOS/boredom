@@ -17,7 +17,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         return 1
     }
     
-
+    @IBOutlet weak var noListsLabel: UILabel!
+    
     //var center: CGPoint!
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
@@ -54,6 +55,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.noListsLabel.isHidden = true
+        self.listPicker.isHidden = false
         actImage.backgroundColor = UIColor.systemPurple
         actImage.layer.cornerRadius = 10.0
         actImage.clipsToBounds = true
@@ -213,12 +216,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             if lists?.count == 0 {
                 print("user has no lists yet")
                 self.itemForPickerView.append(["name" : ["You have no list"], "ids": ["id"]])
+                self.noListsLabel.isHidden = false
+                self.listPicker.isHidden = true
             }
             else {
                 if error == nil {
                     let lists = lists!
                     //                    self.noListsLabel.isHidden = true
                     self.userLists = lists
+                    self.noListsLabel.isHidden = true
+                    self.listPicker.isHidden = false
                     print(lists)
                     var allOptions = [[String : [String]]]()
                     

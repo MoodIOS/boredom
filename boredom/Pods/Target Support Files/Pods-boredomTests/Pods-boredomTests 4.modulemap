@@ -1,6 +1,0 @@
-framework module Pods_boredomTests {
-  umbrella header "Pods-boredomTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
