@@ -19,6 +19,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     @IBOutlet weak var noListsLabel: UILabel!
     
+    @IBOutlet weak var sparkBtn: UIButton!
+    
     //var center: CGPoint!
     @IBOutlet weak var actImage: UIImageView!
     @IBOutlet weak var actName: UILabel!
@@ -64,6 +66,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         actImage.backgroundColor = UIColor.systemPurple
         actImage.layer.cornerRadius = 10.0
         actImage.clipsToBounds = true
+        sparkBtn.layer.cornerRadius = 8.0
+        sparkBtn.clipsToBounds = true
         self.actDescriptionLabel.text = ""
         //listPicker.setValue(UIColor.white, forKeyPath: "textColor")
         listPicker.dataSource = self
@@ -171,6 +175,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             getActFromList(ids: pickedListID)
             
        // }
+        if self.mapDisplay.isHidden == true {
+            self.mapDisplay.isHidden = false
+        }
     }
 
     

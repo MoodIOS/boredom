@@ -200,6 +200,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.thisAct = currentAct
         cell.delegate = self
         cell.indexPath = indexPath
+        
 
         if currentAct.done == false {
             cell.completionBtn.setImage(#imageLiteral(resourceName: "uncheck-white"), for: .normal)
