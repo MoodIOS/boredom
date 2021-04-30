@@ -243,6 +243,22 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
     }
     
     @IBAction func saveNewActivity(_ sender: UIBarButtonItem) {
+        
+        if(self.actName.text?.isEmpty == true){
+            DispatchQueue.main.async {
+                
+                let alertController = UIAlertController(title: "Can't Add Activity", message: "You must add a name for the activity" , preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(action) in}
+                alertController.addAction(cancelAction)
+                let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                alertController.addAction(OKAction)
+                self.present(alertController, animated: true)
+                }
+            
+        }
+        
+        else { //just require name, if it exists, then everything else is run, else, it isn't!
+        
         // TO-DO: check if the data already has this item, if user already have this item in this list.
         let backgroundImg:PFFileObject!
         let image = UIImage(named: "lilacBackground.png")
@@ -253,6 +269,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         else{
             backgroundImg = getPFFileFromImage(image: pickedImage)
         }
+        
         
         
         checkForDuplicateInList { (duplicateInList: Int, error: Error?) in
@@ -292,20 +309,20 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                         let result = choseMon[self.costControl.selectedSegmentIndex]
                         var savedValue = 5
                         if(result == 1){
-                            savedValue = 0
-                        }
-                        else if(result == 2){
                             savedValue = 1
                         }
-                        else if(result == 3){
+                        else if(result == 2){
                             savedValue = 2
                         }
-                        else if(result == 4){
+                        else if(result == 3){
                             savedValue = 3
+                        }
+                        else if(result == 4){
+                            savedValue = 4
                         }
                         print("self.tags", self.tags)
                         if self.location.text?.isEmpty ?? true {
-                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: "Nearby", lon: self.userLocation.coordinate.longitude, lat: self.userLocation.coordinate.latitude, tags: self.tags, backgroundImg: backgroundImg){ (activity, error) in
+                            Activity.addNewActivity(actName: self.actName.text, actDescription: self.actDescription.text, cost: savedValue, location: "Nearby", lon: -1, lat: -1, tags: self.tags, backgroundImg: backgroundImg){ (activity, error) in
                                 if let activity = activity  {
                                     print("Activity ID:", activity)
                                     UserActivity.addNewActivity(activity: activity, list: self.list, completion: { (userAct: UserActivity? , error: Error?) in
@@ -381,6 +398,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                     }
                 })
             }
+        }
         }
     }
     

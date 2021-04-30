@@ -44,9 +44,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     var currentRandomAct = Activity()
     var isSaved = 0
     
+    var allOptions = [[String : [String]]]()
     var actDescription:String!
     var randomAct = Activity()
     var userLists = [List]()
+    var combinedLists = [List]()
+    var combinedListsSet = Set<List>()
+
     
     var itemForPickerView = [[String : [String]]]()
     var pickedListID = [String]()
@@ -64,7 +68,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         //listPicker.setValue(UIColor.white, forKeyPath: "textColor")
         listPicker.dataSource = self
         listPicker.delegate = self
-        getLists()
+        //getLists()
+        getAddedListsRe()
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -159,13 +164,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         listPicker.selectRow(0, inComponent: 0, animated: false)
         self.actDescriptionLabel.text = ""
         self.actName.text = "Let's see what we're doing today."
-        if(isSaved == 2) {
+       // if(isSaved == 2) {
             self.userActivities.removeAll()
             print("whatttttttttt", isSaved)
             getLists()
             getActFromList(ids: pickedListID)
             
-        }
+       // }
     }
 
     
@@ -209,7 +214,84 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         optionVC.pickedListId = self.pickedListID
     }
     
+    func getAddedListsRe(){
+        let currUser = PFUser.current() as! User
+        let listIds = currUser.addedLists
+        combinedListsSet = Set<List>()
+       // for listId in listIds {
+            let query = PFQuery(className: "List")
+            query.whereKey("objectId", containedIn: listIds)
+       
+            
+        query.findObjectsInBackground { [self] (lists: [PFObject]? , error: Error?) in
+            print("ADDED LISTS FOUND......", lists)
+                let lists = lists as! [List]
+                if lists.count == 0 {
+                   // self.noListsLabel.isHidden = false
+                    print("user has no lists yet")
+                }
+                else {
+                    if error == nil {
+                        if lists != nil{
+                            let lists = lists
+                            self.noListsLabel.isHidden = true
+                            print(lists)
+                            //self.addLists = lists
+                            for item in lists {
+                                print("ITEM to compare...", item)
+                                combinedListsSet.insert(item)
+                                /*if(self.combinedLists.contains(item) == false){
+                                    self.combinedLists.append(contentsOf: self.lists)
+                                    print("COMBINED LISTS IS...", self.combinedLists)
+                                }*/
+                            }
+                            
+                            self.combinedLists = Array(combinedListsSet)
+                            
+                            self.userLists = self.combinedLists
+                            self.noListsLabel.isHidden = true
+                            self.listPicker.isHidden = false
+                            print(lists)
+                            allOptions = [[String : [String]]]()
+                            
+                            var listIDsArr = [String]()
+                            
+                            for list in self.combinedLists{
+                                listIDsArr.append(list.objectId!)
+                            }
+                            
+                            let allLists : [String : [String]]
+                            allLists = ["name" : ["All Lists"], "ids": listIDsArr]
+                            
+                            allOptions.append(allLists)
+
+                            for list in self.combinedLists{
+                                let option : [String : [String]]
+                                let id = list.objectId
+                                option = ["name" : [list.listName ], "ids": [id]] as! [String : [String]]
+                                allOptions.append(option)
+                            }
+                            
+                            self.itemForPickerView = allOptions
+                            self.pickedListID = listIDsArr
+                            self.getActFromList(ids: listIDsArr)
+                            self.listPicker.reloadAllComponents()
+                            
+                        } else {
+                            //self.editBtn.title = "Edit"
+                            print(error?.localizedDescription)
+                        }
+                    
+                    }
+                }
+                
+                
+            }
+       // }
+    }
+    
     func getLists() {
+        getAddedListsRe()
         let curUser = PFUser.current()
         let userId = curUser?.objectId
         List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
@@ -222,32 +304,42 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
             else {
                 if error == nil {
                     let lists = lists!
-                    //                    self.noListsLabel.isHidden = true
-                    self.userLists = lists
+                    for item in lists {
+                        print("ITEM to compare...", item)
+                        self.combinedListsSet.insert(item)
+                        /*if(self.combinedLists.contains(item) == false){
+                            self.combinedLists.append(contentsOf: self.lists)
+                            print("COMBINED LISTS IS...", self.combinedLists)
+                        }*/
+                    }
+                    
+                    self.combinedLists = Array(self.combinedListsSet)
+                    
+                    self.userLists = self.combinedLists
                     self.noListsLabel.isHidden = true
                     self.listPicker.isHidden = false
                     print(lists)
-                    var allOptions = [[String : [String]]]()
+                    self.allOptions = [[String : [String]]]()
                     
                     var listIDsArr = [String]()
                     
-                    for list in lists{
+                    for list in self.combinedLists{
                         listIDsArr.append(list.objectId!)
                     }
                     
                     let allLists : [String : [String]]
                     allLists = ["name" : ["All Lists"], "ids": listIDsArr]
                     
-                    allOptions.append(allLists)
+                    self.allOptions.append(allLists)
 
-                    for list in lists{
+                    for list in self.combinedLists{
                         let option : [String : [String]]
                         let id = list.objectId
                         option = ["name" : [list.listName ], "ids": [id]] as! [String : [String]]
-                        allOptions.append(option)
+                        self.allOptions.append(option)
                     }
                     
-                    self.itemForPickerView = allOptions
+                    self.itemForPickerView = self.allOptions
                     self.pickedListID = listIDsArr
                     self.getActFromList(ids: listIDsArr)
                     self.listPicker.reloadAllComponents()
@@ -330,28 +422,35 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                                 let firstOption = UserDefaults.standard.integer(forKey: "whichOne")
                                 let secondOption = UserDefaults.standard.integer(forKey: "whichTwo")
 
-                                if (acts![0].cost == firstOption ){
+                                if (acts![0].cost <= firstOption ){
                                     if (self.userLocation != nil) && (acts![0].locationLatitude != nil){
                                         print("(acts![0].locationLongitude)", (acts![0].locationLongitude))
                                         // THIS crashing
-                                        let lat = CLLocationDegrees(acts![0].locationLatitude)
-                                        let lon = CLLocationDegrees(acts![0].locationLongitude)
                                         
-                                        let actLocation =  CLLocation(latitude: lat , longitude: lon)
-                                        
-                                        print("actLocation", actLocation)
-                                        print("user location", self.userLocation)
-                                        print("user location", self.userLocation)
-                                        
-                                        //let testLocation = CLLocation(latitude: 32.873636, longitude: -117.237814)
-                                        let distanceInMeters = self.userLocation.distance(from: actLocation)
-                                        //let distanceInMeters = testLocation.distance(from: actLocation)
-                                        if(Double(secondOption) >= distanceInMeters){
+                                        if(acts![0].locationLongitude == -1 || acts![0].locationLongitude == -1){
                                             self.userActivities.append(act)
-                                            print("yes it works")
                                         }
-                                        print("secondOption", Double(secondOption))
-                                        print("distanceWorking:", distanceInMeters)
+                                        else{
+                                            let lat = CLLocationDegrees(acts![0].locationLatitude)
+                                            let lon = CLLocationDegrees(acts![0].locationLongitude)
+                                            
+                                            let actLocation =  CLLocation(latitude: lat , longitude: lon)
+                                            
+                                            print("actLocation", actLocation)
+                                            print("user location", self.userLocation)
+                                            print("user location", self.userLocation)
+                                            
+                                            //let testLocation = CLLocation(latitude: 32.873636, longitude: -117.237814)
+                                            let distanceInMeters = self.userLocation.distance(from: actLocation)
+                                            //let distanceInMeters = testLocation.distance(from: actLocation)
+                                            if(Double(secondOption) >= distanceInMeters){
+                                                self.userActivities.append(act)
+                                                print("yes it works")
+                                            }
+                                            print("secondOption", Double(secondOption))
+                                            print("distanceWorking:", distanceInMeters)
+                                        }
+                                        
                                     } else {
 
                                         self.userActivities.append(act)
@@ -376,7 +475,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
     
     func randomActivity(){
         if userActivities != [] {
+            var randoms = [Int]()
             let randomindex = Int(arc4random_uniform(UInt32(userActivities.count)))
+            
             let userRandomAct = userActivities[randomindex]
             let actId = userRandomAct.activity.objectId
             print("actID", actId!)
@@ -403,8 +504,18 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                     } else {
                         self.actDescriptionLabel.text = randomAct.actDescription ?? "no Description available"
                     }
-                    let location = CLLocation(latitude: CLLocationDegrees(randomAct.locationLatitude), longitude: CLLocationDegrees(randomAct.locationLongitude))
-                    self.displayMap(location: location , title: randomAct.actName, address: randomAct.location)
+                    
+                    if(randomAct.locationLatitude == -1 || randomAct.locationLongitude == -1){
+                        
+                        self.mapDisplay.isHidden = true
+                                        
+                    }
+                    else{
+                        self.mapDisplay.isHidden = false
+                        let location = CLLocation(latitude: CLLocationDegrees(randomAct.locationLatitude), longitude: CLLocationDegrees(randomAct.locationLongitude))
+                        
+                        self.displayMap(location: location , title: randomAct.actName, address: randomAct.location)
+                    }
                     
                 }else {
                     print("error", "\(String(describing: error?.localizedDescription))")

@@ -5,7 +5,7 @@
 //  Created by Justin Lee on 4/20/18.
 //  Copyright © 2018 Melissa Phuong Nguyen. All rights reserved.
 //
-
+//MARK: - make cost required when adding a new activity
 import UIKit
 
 class OptionsViewController: UIViewController {
@@ -31,13 +31,13 @@ class OptionsViewController: UIViewController {
         
 
         costControl.selectedSegmentIndex = which
-        if(whichTwo == 483){
+        if(whichTwo == 8046){
             distanceControl.selectedSegmentIndex = 0
         }
-        else if(whichTwo == 1610){
+        else if(whichTwo == 32186){
             distanceControl.selectedSegmentIndex = 1
         }
-        else if(whichTwo == 8047){
+        else if(whichTwo == 64373){
             distanceControl.selectedSegmentIndex = 2
         }
 
@@ -58,7 +58,7 @@ class OptionsViewController: UIViewController {
         let result = choseMon[costControl.selectedSegmentIndex]
         let savedBool = UserDefaults.standard
         if(result == 1){
-            savedBool.set(0, forKey: "whichOne")
+            savedBool.set(1, forKey: "whichOne")
             print("yah")
         }
         else if(result == 2){
@@ -66,30 +66,30 @@ class OptionsViewController: UIViewController {
             print("yah1")
         }
         else if(result == 3){
-            savedBool.set(2, forKey: "whichOne")
+            savedBool.set(3, forKey: "whichOne")
             print("yah1")
         }
         else{
-            savedBool.set(3, forKey: "whichOne")
+            savedBool.set(4, forKey: "whichOne")
             print("yah2")
         }
         //Distance Segmented Control
         let choseDist = [1, 2, 3, 4]
         let resultTwo = choseDist[distanceControl.selectedSegmentIndex]
         if (resultTwo == 1){
-            savedBool.set(483, forKey: "whichTwo")
+            savedBool.set(8046, forKey: "whichTwo") //5
             print("yah")
         }
         else if(resultTwo == 2){
-            savedBool.set(1610, forKey: "whichTwo")
+            savedBool.set(32186, forKey: "whichTwo") //20
             print("yah1")
         }
         else if(resultTwo == 3){
-            savedBool.set(8047, forKey: "whichTwo")
+            savedBool.set(64373, forKey: "whichTwo") //40
             print("yah1")
         }
         else{
-            savedBool.set(32186, forKey: "whichTwo")
+            savedBool.set(321869, forKey: "whichTwo") //200
             print("yah2")
         }
         
