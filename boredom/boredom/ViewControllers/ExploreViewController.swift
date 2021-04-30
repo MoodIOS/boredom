@@ -84,6 +84,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     var actsIdLiked = [String]()
     var listsIdLiked = [String]()
     
+    var listsIdAdded = [String]()
+    
     var recentlyAddedBtnClicked:Bool!
     var mostlyLikedBtnClicked:Bool!
     
@@ -326,6 +328,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             cell.listName.text = list.listName
             cell.listId = list.objectId
             cell.listsUserLiked = self.listsIdLiked
+            cell.listsUserAdded = self.listsIdAdded
             cell.backgroundColor?.withAlphaComponent(0.5)
             //randomize bg
             var count = 11
@@ -358,7 +361,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             //check if user liked this:
             print("listsIdLiked", listsIdLiked)
             var liked: Int = 0
+            var added: Int = 0
             var i = 0
+            var j = 0
+            
+            while j < listsIdAdded.count{
+                let id = listsIdAdded[j]
+                if id == list.objectId {
+                    added = added + 1
+                }
+                j = j + 1
+            }
             
             while i < listsIdLiked.count{
                 let id = listsIdLiked[i]
@@ -372,6 +385,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 cell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
             } else if liked > 0 {
                 cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+            }
+            
+            if added == 0 {
+                cell.addBtn.setImage(UIImage(named: "add-white"), for: .normal)
+            } else if added > 0 {
+                cell.addBtn.setImage(UIImage(named: "added"), for: .normal)
             }
             
 
@@ -1256,6 +1275,19 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 //        print("self.listsIdLiked", self.listsIdLiked)
         userListsCollectionView.reloadData()
         activitiesCollectionView.reloadData()
+    }
+    
+    func handleAddedCell (addedId: String) {
+//        print("likedID: ", likedId)
+//        print("+++++++++++++++++++++")
+//        print("self.listsIdLiked", self.listsIdLiked)
+        let curUser = User.current()
+        self.listsIdAdded = (curUser?.likedLists)!
+//        print("++++++++++AFTER UPDATE+++++++++++")
+//
+//        print("self.listsIdLiked", self.listsIdLiked)
+        userListsCollectionView.reloadData()
+        
     }
     
     

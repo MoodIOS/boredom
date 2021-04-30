@@ -15,6 +15,7 @@ protocol InfoListButtonDelegate {
     func addBtnClicked (actsInList: [UserActivity], currentList: List, globalActs: [Activity])
     func emptyListAlert()
     func handleLikedCell(likedId: String)
+    func handleAddedCell(addedId: String)
 }
 
 protocol ListsInYourListDelegate{
@@ -22,6 +23,7 @@ protocol ListsInYourListDelegate{
 }
 
 class UserListsCell: UICollectionViewCell {
+    @IBOutlet weak var profileListsImageView: UIImageView!
     @IBOutlet weak var userListsImageView: UIImageView!
     @IBOutlet weak var listName: UILabel!
     @IBOutlet weak var infoBtn: UIButton!
@@ -36,8 +38,11 @@ class UserListsCell: UICollectionViewCell {
     var listId: String!
     var type: String = "List"
     var listsUserLiked = [String]()
+    var listsUserAdded = [String]()
     var globalActs = [Activity]()
     var userActs = [UserActivity]()
+    
+    var duplicate: Int!
     override func awakeFromNib() {
         print("hi")
     }
@@ -141,17 +146,96 @@ class UserListsCell: UICollectionViewCell {
 
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
-        if let actsInList = currentList.activities{
+        /*if let actsInList = currentList.activities{
             self.delegate.addBtnClicked(actsInList: actsInList, currentList: currentList, globalActs: globalActs)
         }else {
             
             self.delegate.emptyListAlert()
+        } -- old code, works kinda! */
+        
+        print("add clicked.....")
+        let curUser = User.current()
+        let addBtn = self.addBtn.imageView?.image
+        let add = UIImage(named:"added")
+        let unAdd = UIImage(named:"add-white")
+        
+        if (addBtn?.isEqual(add))! {
+            print("just unliked")
+            self.addBtn.setImage(unAdd, for: .normal)
+            // need to remove the id from array:
+            var newArray = [String]()
+            var i = 0
+            while i < listsUserAdded.count {
+                let id = listsUserAdded[i]
+                if listId != id {
+                    print(listId, "is different than", id)
+                    newArray.append(listsUserAdded[i])
+                }
+                i = i + 1
+            }
+            // updating the current data in User in session
+            print("newArray", newArray)
+            curUser?.addedLists = newArray
+            print("current User liked lists", curUser?.addedLists )
+            
+            //let newLikeCount = currentList.likeCount - 1
+            //currentList.likeCount = newLikeCount
+
+            self.delegate.handleAddedCell(addedId: listId)
+            
+            
+            User.updateUserAddedListArray(updateArray:  newArray) { (user: User?, error: Error?) in
+                if let user = user {
+                    print("user", user)
+                    
+                } else {
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
+                }
+            }
+            
+            
+
+        } else {
+            print("just liked")
+            self.addBtn.setImage(add, for: .normal)
+           // let newLikeCount = currentList.likeCount + 1
+          //  currentList.likeCount = newLikeCount
+            // updating the current data in User in session
+            curUser?.addedLists.append(currentList.objectId!)
+            
+            self.delegate.handleAddedCell(addedId: listId)
+            
+            
+            User.updateUserAddedList(curUserId: (curUser?.objectId)!, addedList: listId) { (user:User?, error: Error?) in
+                if let user = user {
+                    print("user", user)
+                    
+                   
+                    let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                    addingAlert.addAction(OKAction)
+                    UIApplication.shared.keyWindow?.rootViewController?.present(addingAlert, animated: true, completion: nil)
+
+                    
+                    
+                } else {
+                    print("error updating user liked act", "\(String(describing: error?.localizedDescription))")
+                    
+                    let addingAlert = UIAlertController(title: "Add Message", message:"Error: \(error!.localizedDescription)" , preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+                    addingAlert.addAction(OKAction)
+                    UIApplication.shared.keyWindow?.rootViewController?.present(addingAlert, animated: true, completion: nil)
+                }
+            }
+            
         }
+        
         
 
         
 //        self.delegate.addBtnClicked(at: indexPath, type: self.type)
     }
+    
 
     func checkForUserLiked(){
 

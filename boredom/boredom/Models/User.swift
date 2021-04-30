@@ -14,6 +14,7 @@ class User: PFUser {
 
     @NSManaged var likedActivities: [String]
     @NSManaged var likedLists: [String]
+    @NSManaged var addedLists: [String]
     @NSManaged var profileImage : PFFileObject
 
     
@@ -35,9 +36,21 @@ class User: PFUser {
         user?.saveInBackground()
     }
     
+    class func updateUserAddedList(curUserId: String, addedList: String, completion: (User?, Error?) -> Void ){
+        let user = current()
+        user?.addedLists.append(addedList)
+        user?.saveInBackground()
+    }
+    
     class func updateUserListArray(updateArray: [String], completion: (User?, Error?) -> Void ){
         let user = current()
         user?.likedLists = updateArray
+        user?.saveInBackground()
+    }
+    
+    class func updateUserAddedListArray(updateArray: [String], completion: (User?, Error?) -> Void ){
+        let user = current()
+        user?.addedLists = updateArray
         user?.saveInBackground()
     }
     

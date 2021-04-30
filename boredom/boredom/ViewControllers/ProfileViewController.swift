@@ -19,6 +19,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     var lists = [List]()
+    var addLists = [List]()
+    var combinedLists = [List]()
+    var combinedListsSet = Set<List>()
     var selectedLists = [List]()
     var selecting: Bool!
     var indexPaths = [IndexPath]()
@@ -54,7 +57,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func handlingDeleteList(at index: IndexPath){
         
-        if (index.row) < lists.count{
+        if (index.row) < combinedLists.count{
             
             print("handlingDeleteList")
             print("[index.row]",[index.row])
@@ -128,7 +131,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let width = colView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine
         layout.itemSize = CGSize(width: width, height: width) //width*3/2
 
-        getLists()
+      //  getLists()
 
         if let imageFile = User.current()?.profileImage {
             imageFile.getDataInBackground(block: { (data, error) in
@@ -158,14 +161,75 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         selecting = false
         colView.reloadData()
         getLists()
+        getAddedListsRe()
+        
+        if combinedLists.count == 0 {
+            self.noListsLabel.isHidden = false
+            print("user has no lists yet")
+        }
+        else{
+            self.noListsLabel.isHidden = true
+        }
+    }
+    
+    func getAddedListsRe(){
+        let currUser = PFUser.current() as! User
+        let listIds = currUser.addedLists
+        combinedListsSet = Set<List>()
+       // for listId in listIds {
+            let query = PFQuery(className: "List")
+            query.whereKey("objectId", containedIn: listIds)
+       
+            
+        query.findObjectsInBackground { [self] (lists: [PFObject]? , error: Error?) in
+            print("ADDED LISTS FOUND......", lists)
+                let lists = lists as! [List]
+                if lists.count == 0 {
+                   // self.noListsLabel.isHidden = false
+                    print("user has no lists yet")
+                }
+                else {
+                    if error == nil {
+                        if lists != nil{
+                            let lists = lists
+                            self.noListsLabel.isHidden = true
+                            print(lists)
+                            self.addLists = lists
+                            for item in self.addLists {
+                                print("ITEM to compare...", item)
+                                combinedListsSet.insert(item)
+                                /*if(self.combinedLists.contains(item) == false){
+                                    self.combinedLists.append(contentsOf: self.lists)
+                                    print("COMBINED LISTS IS...", self.combinedLists)
+                                }*/
+                            }
+                            
+                            self.combinedLists = Array(combinedListsSet)
+                            
+                            self.itemCounts = self.combinedLists.count
+                            self.colView.reloadData()
+                           // print("self.lists", self.lists )
+                           // print("lists[0]", self.lists[0].listName)
+                        } else {
+                            self.editBtn.title = "Edit"
+                            print(error?.localizedDescription)
+                        }
+                    
+                    }
+                }
+                
+                
+            }
+       // }
     }
     
     func getLists() {
         let curUser = User.current()
         let userId = curUser?.objectId
-        List.fetchLists(userId: userId!) { (lists: [List]?, error: Error?) in
+        combinedListsSet = Set<List>()
+        List.fetchLists(userId: userId!) { [self] (lists: [List]?, error: Error?) in
             if lists?.count == 0 {
-                self.noListsLabel.isHidden = false
+               // self.noListsLabel.isHidden = false
                 print("user has no lists yet")
             }
             else {
@@ -175,10 +239,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                         self.noListsLabel.isHidden = true
                         print(lists)
                         self.lists = lists
-                        self.itemCounts = lists.count
+                        for item in self.lists {
+                            print("ITEM to compare...", item)
+                            combinedListsSet.insert(item)
+                            /*if(self.combinedLists.contains(item) == false){
+                                self.combinedLists.append(contentsOf: self.lists)
+                                print("COMBINED LISTS IS...", self.combinedLists)
+                            }*/
+                        }
+                        
+                        self.combinedLists = Array(combinedListsSet)
+                        
+                        self.itemCounts = self.combinedLists.count
+                        print("COMBINED LISTS IS outside...", self.combinedLists)
+                        print("COMBINED LISTS IS...", self.combinedLists.count)
                         self.colView.reloadData()
-                        print("self.lists", self.lists )
-                        print("lists[0]", self.lists[0].listName)
+                      //  print("self.lists", self.lists )
+                       // print("lists[0]", self.lists[0].listName)
                     } else {
                         self.editBtn.title = "Edit"
                         print(error?.localizedDescription)
@@ -191,7 +268,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let userLists = self.lists
+        //let userLists = self.lists
         return itemCounts
     }
     
@@ -199,8 +276,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let cell = colView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
         
         
-        if self.lists != [] {
-            let userLists = self.lists
+        if self.combinedLists != [] {
+            self.combinedLists.sort(by: { $0.createdAt! > $1.createdAt! })
+            let userLists = self.combinedLists
             let curList = userLists[indexPath.row]
             let curListName = curList.listName
             cell.listName.text = curListName
@@ -216,6 +294,19 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             editBtn.title = "Edit"
         }
         
+        if(self.combinedLists[indexPath.item].backgroundPic != nil){
+            let pfFileImage = self.combinedLists[indexPath.item].backgroundPic!
+                   pfFileImage.getDataInBackground{(imageData, error) in
+                    if(error == nil){
+                        if let imageData = imageData{
+                            let img = UIImage(data: imageData)
+                            cell.profileListsImageView.image = img
+                            cell.profileListsImageView.alpha = 0.7
+                        }
+                    }
+            }
+        }
+        
         cell.layer.cornerRadius = 8.0
         cell.clipsToBounds = true
         return cell
@@ -228,7 +319,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             if let indexPath = colView.indexPath(for: cell){
 
-                let curList = lists[indexPath.row]
+                let curList = combinedLists[indexPath.row]
                 print("list to be send for adding act:", curList)
                 let navVC = segue.destination as! UINavigationController
                 let listOfActVC = navVC.topViewController as! ListOfActsViewController
