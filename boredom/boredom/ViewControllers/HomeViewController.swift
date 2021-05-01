@@ -145,6 +145,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                
                 let redirect = UIAlertController(title: "Open in Map? " , message: nil, preferredStyle: .actionSheet)
                 
+                redirect.modalPresentationStyle = .popover
+                
+                
+                
                 let gmap = UIAlertAction(title: "Google Maps", style: .default ){ (action) in
                      UIApplication.shared.open(urlGoogle! , options: [:], completionHandler: nil)
                 }
@@ -155,7 +159,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
                 redirect.addAction(amap)
                 let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel){ (action) in }
                 redirect.addAction(cancelBtn)
-                self.present(redirect, animated: true)
+               // self.present(redirect, animated: true)
+                
+                if let presenter = redirect.popoverPresentationController {
+                    presenter.sourceView = self.view
+                    presenter.sourceRect = self.view.bounds
+                    }
+                present(redirect, animated: true, completion: nil)
             }
            
         } else {

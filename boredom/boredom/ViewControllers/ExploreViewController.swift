@@ -286,10 +286,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if(collectionView == activitiesCollectionView){
+        if(collectionView == activitiesCollectionView && top10Act != nil){
             return top10Act.count
         }
-        else if(collectionView == userListsCollectionView){
+        else if(collectionView == userListsCollectionView && top10List != nil){
             return top10List.count
         }
         else {
@@ -306,6 +306,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let cell = userListsCollectionView.dequeueReusableCell(withReuseIdentifier: "UserListsCell", for: indexPath) as! UserListsCell
             cell.layer.cornerRadius = 8.0
             cell.clipsToBounds = true
+            
+            if(top10List != nil && top10List != []){
             
             cell.userListsImageView.layer.cornerRadius = 8.0
             cell.userListsImageView.clipsToBounds = true
@@ -330,12 +332,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             cell.listsUserLiked = self.listsIdLiked
             cell.listsUserAdded = self.listsIdAdded
             cell.backgroundColor?.withAlphaComponent(0.5)
+           
             //randomize bg
             var count = 11
-            if(self.top10Act.count != nil)
-            {
+            //if(self.top10Act.count != nil)
+            //{
                 count = self.top10List.count
-            }
+           // }
             while bgUrlList.count < count {
                  let randomindex = Int(arc4random_uniform(UInt32(bgURL.count)))
                  let background = bgURL[randomindex]
@@ -392,7 +395,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             } else if added > 0 {
                 cell.addBtn.setImage(UIImage(named: "added"), for: .normal)
             }
-            
+            }
 
 
             return cell
@@ -404,6 +407,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             activitiesCell.layer.cornerRadius = 8.0
             activitiesCell.clipsToBounds = true
             
+            if(self.top10Act != nil && self.top10Act != []){
+            
             activitiesCell.activitiesImageView.layer.cornerRadius = 8.0
             activitiesCell.activitiesImageView.clipsToBounds = true
             activitiesCell.delegate = self
@@ -414,10 +419,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             activitiesCell.actsIdLike = self.actsIdLiked
             activitiesCell.currentAct = act
             var count = 11
-            if(self.top10Act.count != nil)
-            {
+            //if(self.top10Act.count != nil)
+            //{
                 count = self.top10Act.count
-            }
+           // }
             
             while bgUrlAct.count < count {
                 
@@ -461,6 +466,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 activitiesCell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
             } else if liked > 0 {
                 activitiesCell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+            }
             }
             
             return activitiesCell
@@ -930,7 +936,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func getTopLists(){
         List.fetchLists { (lists: [List]?, error: Error?) in
-            if error == nil && lists! != [] {
+            if error == nil && lists != nil {
+                if lists! != [] {
                 self.allLikedLists = lists!
                 if lists! != [] {
                     self.exploreLists = lists
@@ -965,12 +972,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     
                 }
             }
+            }
         }
     }
     
     func getRecentLists(){
         List.fetchRecentLists{(lists: [List]?, error: Error?) in
-            if error == nil && lists! != [] {
+            if error == nil && lists != nil {
+                if lists! != [] {
                 self.allRecentLists = lists!
                 self.exploreLists = lists
                 let lists = lists
@@ -1002,13 +1011,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     }
                 }
             }
+            }
             
         }
     }
     
     func getTopActivities() {
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
-            if error == nil {
+            if error == nil && activities != nil {
                 if activities! != [] {
                     self.top10Act = []
                     self.allLikedActs = activities!
@@ -1054,7 +1064,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func getRecentActivities() {
         Activity.fetchRecentActivity{ (activities: [Activity]?, error: Error?) in
-            if error == nil && activities! != [] {
+            if error == nil && activities != nil {
+                if activities! != []{
                 self.top10Act = []
                 self.exploreActivities = activities
                 self.allRecentActs = activities!
@@ -1091,6 +1102,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             else{
                 print(error?.localizedDescription)
+            }
             }
         }
     }

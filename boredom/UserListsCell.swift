@@ -204,17 +204,16 @@ class UserListsCell: UICollectionViewCell {
             curUser?.addedLists.append(currentList.objectId!)
             
             self.delegate.handleAddedCell(addedId: listId)
-            
+            let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
+            addingAlert.addAction(OKAction)
+            UIApplication.shared.keyWindow?.rootViewController?.present(addingAlert, animated: true, completion: nil)
             
             User.updateUserAddedList(curUserId: (curUser?.objectId)!, addedList: listId) { (user:User?, error: Error?) in
                 if let user = user {
-                    print("user", user)
+                    print("update added list successful!", user)
                     
-                   
-                    let addingAlert = UIAlertController(title: "Add Message", message:"Successfully Added List" , preferredStyle: .alert)
-                    let OKAction = UIAlertAction(title: "OK", style: .default){ (action) in }
-                    addingAlert.addAction(OKAction)
-                    UIApplication.shared.keyWindow?.rootViewController?.present(addingAlert, animated: true, completion: nil)
+                
 
                     
                     

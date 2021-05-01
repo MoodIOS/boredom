@@ -392,6 +392,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q1w-Qe-lGv">
                                                     <rect key="frame" x="4" y="4" width="154" height="154"/>
+                                                    <color key="backgroundColor" red="0.50400787589999996" green="0.13777652379999999" blue="0.96084040400000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="154" id="1O2-9Q-4MT"/>
                                                         <constraint firstAttribute="height" constant="154" id="YzW-Bw-kiK"/>
@@ -438,6 +439,8 @@
                                                 </button>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.50400787589999996" green="0.13777652379999999" blue="0.96084040400000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="VDg-ex-cRg" secondAttribute="trailing" constant="2" id="0lf-m4-SmN"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="yw2-dm-bG2" secondAttribute="bottom" id="BSR-hP-orY"/>
@@ -886,7 +889,7 @@
         <scene sceneID="3GN-WH-JqQ">
             <objects>
                 <viewController id="AO5-EO-i6w" customClass="ProfileViewController" customModule="boredom" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="UN6-4u-UWd">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="UN6-4u-UWd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -981,7 +984,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.54521440129999998" green="0.088234570270000007" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.50400787589999996" green="0.13777652379999999" blue="0.96084040400000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstItem="QwK-HF-2BB" firstAttribute="top" secondItem="1Wk-Rh-spI" secondAttribute="bottom" constant="5" id="Ch3-50-kb1"/>
                                             <constraint firstItem="URS-ds-zMa" firstAttribute="top" secondItem="i7o-Ta-NGT" secondAttribute="top" id="DfH-Kk-tjn"/>
@@ -1002,7 +1005,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your own List or      Find one from Explore tab!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLG-nk-T7e">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Add your own List or      Find one from Explore tab!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLG-nk-T7e">
                                 <rect key="frame" x="82" y="304" width="210" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="GW2-QN-gBJ"/>
