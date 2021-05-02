@@ -68,8 +68,9 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         tableView.dataSource = self
         tableView.rowHeight = 150
         tableView.reloadData()
-        
+        if(list != nil){
         self.title = list.listName
+        }
         
        // listNameLabel.text = list.listName
         noActivitiesLabel.isHidden = true
@@ -227,11 +228,12 @@ class ListsDetailViewController: UIViewController, UITableViewDataSource, AddSom
         let curUser = User.current()
         userLikedActs = (curUser?.likedActivities)!
         let curList = self.list
-        let listId = curList?.objectId
+        let listId = curList?.objectId ?? ""
         var activitesArray: [UserActivity] = []
         var userId = PFUser.current()?.objectId
         
-        UserActivity.fetchActivity(listId: listId!) { (activities: [UserActivity]?, error: Error?) in
+        
+        UserActivity.fetchActivity(listId: listId) { (activities: [UserActivity]?, error: Error?) in
             if error == nil{
                 if activities! != []{
                     self.noActivitiesLabel.isHidden = true

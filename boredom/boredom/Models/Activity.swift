@@ -134,6 +134,7 @@ import Parse
     class func fetchRecentActivity (completion: @escaping ([Activity]?, Error?) -> Void) {
         print("inside getActitivy")
         let query = PFQuery(className: "Activity")
+        query.limit = 10
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")

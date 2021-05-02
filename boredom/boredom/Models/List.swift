@@ -98,6 +98,7 @@ import Parse
     //fetching all lists possible
     class func fetchRecentLists(completion: @escaping ([List]?, Error?) -> Void){
         let query = PFQuery(className: "List")
+        query.limit = 10
         query.includeKey("likeCount")
         query.includeKey("_p_author")
         query.includeKey("_p_activity")

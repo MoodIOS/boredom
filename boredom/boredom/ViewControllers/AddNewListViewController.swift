@@ -102,7 +102,7 @@ class AddNewListViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func doneButton(_ sender: Any) {
         var backgroundImg:PFFileObject!
-        let image = UIImage(named: "lilacBackground.png")
+        let image = UIImage(named: "image.png")
        
         
         if(pickedImage == nil){

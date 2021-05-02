@@ -21,6 +21,10 @@
 		44116EFE209522390037EB0D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116EFD209522390037EB0D /* GradientView.swift */; };
 		4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4425C84120A14DC200A63D67 /* CollectionViewClass.swift */; };
 		4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */; };
+		522DA4C0263E767C00FBB2C3 /* ActsListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522DA4BF263E767C00FBB2C3 /* ActsListsCollectionViewCell.swift */; };
+		522DA4DD263EA72D00FBB2C3 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522DA4DC263EA72D00FBB2C3 /* PresentationController.swift */; };
+		522DA4E6263EA93A00FBB2C3 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522DA4E4263EA93A00FBB2C3 /* OverlayView.swift */; };
+		522DA4E7263EA93A00FBB2C3 /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522DA4E5263EA93A00FBB2C3 /* OverlayView.xib */; };
 		524E63A126397C4900B80529 /* SDCodersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524E63A026397C4900B80529 /* SDCodersViewController.swift */; };
 		52A511DB2613378500755386 /* ATCWalkthroughModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511DA2613378500755386 /* ATCWalkthroughModel.swift */; };
 		52A511E4261337BF00755386 /* ATCClassicWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */; };
@@ -91,6 +95,10 @@
 		4425C84120A14DC200A63D67 /* CollectionViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
 		4474101320A94A0800D378CF /* TagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewCell.swift; sourceTree = "<group>"; };
 		52088ABD2608C9CF00B9EAC7 /* boredom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = boredom.entitlements; sourceTree = "<group>"; };
+		522DA4BF263E767C00FBB2C3 /* ActsListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActsListsCollectionViewCell.swift; sourceTree = "<group>"; };
+		522DA4DC263EA72D00FBB2C3 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		522DA4E4263EA93A00FBB2C3 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		522DA4E5263EA93A00FBB2C3 /* OverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		524E63A026397C4900B80529 /* SDCodersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCodersViewController.swift; sourceTree = "<group>"; };
 		52A511DA2613378500755386 /* ATCWalkthroughModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCWalkthroughModel.swift; sourceTree = "<group>"; };
 		52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCClassicWalkthroughViewController.swift; sourceTree = "<group>"; };
@@ -276,6 +284,10 @@
 				FFE9468D204F76E30070B150 /* Info.plist */,
 				44116EFD209522390037EB0D /* GradientView.swift */,
 				524E63A026397C4900B80529 /* SDCodersViewController.swift */,
+				522DA4BF263E767C00FBB2C3 /* ActsListsCollectionViewCell.swift */,
+				522DA4DC263EA72D00FBB2C3 /* PresentationController.swift */,
+				522DA4E4263EA93A00FBB2C3 /* OverlayView.swift */,
+				522DA4E5263EA93A00FBB2C3 /* OverlayView.xib */,
 			);
 			path = boredom;
 			sourceTree = "<group>";
@@ -436,6 +448,7 @@
 				FFA2C4BB2495708A000DCD86 /* JJ.storyboard in Resources */,
 				FFE9468C204F76E30070B150 /* LaunchScreen.storyboard in Resources */,
 				FFE94689204F76E30070B150 /* Assets.xcassets in Resources */,
+				522DA4E7263EA93A00FBB2C3 /* OverlayView.xib in Resources */,
 				FFE94687204F76E30070B150 /* Main.storyboard in Resources */,
 				FFA2C4BD249570D8000DCD86 /* Melissa.storyboard in Resources */,
 			);
@@ -598,6 +611,7 @@
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,
 				52A511F02613381700755386 /* UIColor.swift in Sources */,
 				FFBA1640207C61CE00242310 /* ProfileViewController.swift in Sources */,
+				522DA4E6263EA93A00FBB2C3 /* OverlayView.swift in Sources */,
 				FFBA1639207C53DE00242310 /* List.swift in Sources */,
 				44116EFA2093E9350037EB0D /* ListsDetailViewController.swift in Sources */,
 				FF68C848208076DF0005967E /* AddNewActivityVCViewController.swift in Sources */,
@@ -625,6 +639,8 @@
 				44116EA82079E4F10037EB0D /* ExploreViewController.swift in Sources */,
 				FFF7695F207EED7000B1F21E /* AddNewListViewController.swift in Sources */,
 				52A511DB2613378500755386 /* ATCWalkthroughModel.swift in Sources */,
+				522DA4C0263E767C00FBB2C3 /* ActsListsCollectionViewCell.swift in Sources */,
+				522DA4DD263EA72D00FBB2C3 /* PresentationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

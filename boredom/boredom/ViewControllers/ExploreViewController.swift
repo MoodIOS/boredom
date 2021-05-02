@@ -13,10 +13,22 @@ import PromiseKit
 import PopupDialog
 
 
+class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate, UIPickerViewDelegate, UIPickerViewDataSource, TagsCollectionViewCellDelegate, UICollectionViewDelegateFlowLayout{
+   
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if(collectionView == actsListsCollectionView){
+            let yourWidth = collectionView.bounds.width
+            let yourHeight = yourWidth/3
 
-class ExploreViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, InfoListButtonDelegate, InfoActButtonDelegate, UIPickerViewDelegate, UIPickerViewDataSource, TagsCollectionViewCellDelegate {
+            return CGSize(width: yourWidth, height: 80)
+        }
+        
+        return CGSize(width: 100, height: 100)
+        
+    }
   
-    
+   
     
     @IBOutlet weak var recentlyAddedBtn: UIButton!
     @IBOutlet weak var mostlyLikedBtn: UIButton!
@@ -54,12 +66,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var doneBtn: UIButton!
     
+    @IBOutlet weak var actsListsCollectionView: UICollectionView!
+    @IBOutlet weak var tableViewActslists: UITableView!
     // to check duplicate to user act in list:
     var userActsInUserList = [UserActivity]()
     var addingList = List()
     
 //    var activitiesYelp: [Business]!
     var top10List: [List]! = []
+    var allLists: [List]! = []
+    var allActivities: [Activity]! = []
     var top10Act: [Activity]! = []
     var tags: [String] = ["Restaurant", "Brunch", "Movie", "Outdoor", "Book", "Coffee", "Nightlife", "Happy hours"]
     var tagsBool =  [String: Bool]()
@@ -101,6 +117,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         activitiesCollectionView.backgroundColor = UIColor.clear
         
         
+        
         mostlyLikedBtnClicked = true
         
         listsLabel.text = "Top 10 Lists"
@@ -116,10 +133,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         addBtn.layer.borderWidth = 1
         addBtn.layer.borderColor = (UIColor.lightGray).cgColor
         
+       
+      
         
         userListsCollectionView.dataSource = self
         activitiesCollectionView.dataSource = self
         tagsCollectionView.dataSource = self
+        actsListsCollectionView.delegate = self
+        actsListsCollectionView.dataSource = self
         
         //self.userListsCollectionView.isScrollEnabled = true
         //activitiesCollectionView.backgroundView?.tintColor = UIColor.white
@@ -175,7 +196,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
+       
+
         if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+            activitiesCollectionView.isHidden = false
+            userListsCollectionView.isHidden = true
             var filterTags = 0
             for (_, value) in tagsBool {
                 if value == true {
@@ -184,14 +209,17 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             if filterTags == 0 {
                 
-                getRecentLists()
+               //getRecentLists()
                 getRecentActivities()
+                getTopActivities()
             } else {
                 self.filterByTags()
             }
 
         }
         else {
+            activitiesCollectionView.isHidden = true
+            userListsCollectionView.isHidden = false
             var filterTags = 0
             for (_, value) in tagsBool {
                 if value == true {
@@ -201,7 +229,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             if filterTags == 0 {
                 
                 getTopLists()
-                getTopActivities()
+                getRecentListsTableview()
+               // getTopActivities()
             } else {
                 self.filterByTags()
             }
@@ -229,6 +258,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.tagsBool["Coffee"] = false
         self.tagsBool["Nightlife"] = false
         self.tagsBool["Happy hours"] = false
+        
+        
     }
     
     
@@ -238,9 +269,12 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         mostlyLikedBtn.backgroundColor = UIColor.gray
         
         recentlyAddedBtnClicked = true
-        listsLabel.text = "Recently Added Lists"
+        listsLabel.text = "Top 10 Activities"
         activitiesLabel.text = "Recently Added Activities"
 
+        userListsCollectionView.isHidden = true
+        activitiesCollectionView.isHidden = false
+        
         var filterTags = 0
         for (_, value) in tagsBool {
             if value == true {
@@ -249,7 +283,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         if filterTags == 0 {
             
-            getRecentLists()
+            //getRecentLists()
+            getTopActivities()
             getRecentActivities()
         } else {
             self.filterByTags()
@@ -264,7 +299,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         recentlyAddedBtn.backgroundColor = UIColor.gray
         mostlyLikedBtnClicked = true
         listsLabel.text = "Top 10 Lists"
-        activitiesLabel.text = "Top 10 Activities"
+        activitiesLabel.text = "Recently Added Lists"
+        userListsCollectionView.isHidden = false
+        activitiesCollectionView.isHidden = true
+       // activitiesLabel.text = "Top 10 Activities"
 
         
         var filterTags = 0
@@ -276,7 +314,8 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         if filterTags == 0 {
             
             getTopLists()
-            getTopActivities()
+            //getTopActivities()
+            getRecentListsTableview()
         } else {
             self.filterByTags()
         }
@@ -291,6 +330,22 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         else if(collectionView == userListsCollectionView && top10List != nil){
             return top10List.count
+        }
+        else if(collectionView == actsListsCollectionView){
+            if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+                if(allActivities != nil){
+                    return allActivities.count
+                }
+                return 0
+            }
+            else{
+                if(allLists != nil){
+                    return allLists.count
+                }
+                
+                return 0
+               
+            }
         }
         else {
             return 8
@@ -471,7 +526,143 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             return activitiesCell
         
-        } else {
+        }else if(collectionView == self.actsListsCollectionView){
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "actsListsColCell", for: indexPath) as! ActsListsCollectionViewCell
+            if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+                if allActivities != nil{
+                cell.actsListsNameLabel!.text = allActivities[indexPath.item].actName
+                cell.actsListsImgView.layer.cornerRadius = 10.0
+                cell.actsListsImgView.clipsToBounds = true
+                cell.actID = allActivities[indexPath.item].objectId!
+                    cell.inListView = false
+               // cell.actsIDLike = self.actsIdLiked
+                cell.currentAct = allActivities[indexPath.item]
+                    
+                    var liked: Int = 0
+                    var i = 0
+                    
+                    while i < actsIdLiked.count{
+                        let id = actsIdLiked[i]
+                        if id == allActivities[indexPath.item].objectId {
+                            liked = liked + 1
+                        }
+                        i = i + 1
+                    }
+                    
+                    if liked == 0 {
+                        cell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
+                    } else if liked > 0 {
+                        cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+                    }
+                    
+                    cell.likedCountLabel.text = "\(allActivities[indexPath.item].activityLikeCount )"
+                    
+                    
+                let pfFileImage = allActivities[indexPath.item].backgroundImg!
+                if pfFileImage.name.hasSuffix("_image.png") {
+                    cell.actsListsImgView.image = UIImage(named: "image (1)")
+                }
+                else{
+                       pfFileImage.getDataInBackground{(imageData, error) in
+                        if(error == nil){
+                            if let imageData = imageData{
+                                let img = UIImage(data: imageData)
+                                cell.actsListsImgView.image = img
+                                cell.actsListsImgView.layer.cornerRadius = 10.0
+                                cell.actsListsImgView.clipsToBounds = true
+                                cell.actsListsImgView.alpha = 0.7
+                            }
+                        }
+                        
+                       }
+                }
+                }
+            }else{
+                cell.actsListsNameLabel!.text = allLists[indexPath.row].listName
+                cell.actsListsImgView.layer.cornerRadius = 10.0
+                cell.actsListsImgView.clipsToBounds = true
+                cell.currentList = allLists[indexPath.row]
+                cell.inListView = true
+                //cell.listName.text = allLists[indexPath.row].listName
+                cell.listId = allLists[indexPath.row].objectId
+                
+                cell.listsUserLiked = self.listsIdLiked
+                var liked: Int = 0
+                var added: Int = 0
+                var i = 0
+                var j = 0
+                while j < listsIdAdded.count{
+                    let id = listsIdAdded[j]
+                    if id == allLists[indexPath.row].objectId {
+                        added = added + 1
+                    }
+                    j = j + 1
+                }
+                
+                while i < listsIdLiked.count{
+                    let id = listsIdLiked[i]
+                    if id == allLists[indexPath.row].objectId {
+                        liked = liked + 1
+                    }
+                    i = i + 1
+                }
+                
+                if liked == 0 {
+                    cell.likeBtn.setImage(UIImage(named: "heart-white"), for: .normal)
+                } else if liked > 0 {
+                    cell.likeBtn.setImage(UIImage(named: "heart-red"), for: .normal)
+                }
+                
+                cell.likedCountLabel.text = "\(allLists[indexPath.row].likeCount)"
+                
+                /*if added == 0 {
+                    cell.addBtn.setImage(UIImage(named: "add-white"), for: .normal)
+                } else if added > 0 {
+                    cell.addBtn.setImage(UIImage(named: "added"), for: .normal)
+                }
+                }*/
+                let pfFileImage = allLists[indexPath.item].backgroundPic!
+                print("PFILE name is....", pfFileImage.name)
+                if pfFileImage.name.hasSuffix("_image.png"){
+                    cell.actsListsImgView.image = UIImage(named: "image (1)")
+                }
+                
+                else{
+                       pfFileImage.getDataInBackground{(imageData, error) in
+                        if(error == nil){
+                            if let imageData = imageData{
+                                let img = UIImage(data: imageData)
+                                cell.actsListsImgView.image = img
+                                cell.actsListsImgView.alpha = 0.7
+                                
+                            }
+                        }
+                        
+                       }
+                }
+                
+                
+            }
+            
+            //for cell vertical spacing
+                    let verticalPadding: CGFloat = 2
+
+                        let maskLayer = CALayer()
+                        maskLayer.cornerRadius = 10    //if you want round edges
+                        maskLayer.backgroundColor = UIColor.black.cgColor
+                        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: 80 )
+                        cell.layer.mask = maskLayer
+            
+            
+                    
+                    //cell vertical spacing code finished
+            
+            
+            return cell
+            
+        }
+        
+        else {
             let tagsCell = tagsCollectionView.dequeueReusableCell(withReuseIdentifier: "TagsCollectionView", for: indexPath) as! TagsCollectionViewCell
             print("tags[indexPath.item]",tags[indexPath.item])
             
@@ -500,6 +691,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let activityCell = sender as! UICollectionViewCell
         let listCell = sender as! UICollectionViewCell
+        let actListCell = sender as! UICollectionViewCell
 //        let listDetails = sender as! UIViewController
         if let indexPath = activitiesCollectionView.indexPath(for: activityCell){
             let activity = top10Act[indexPath.item]
@@ -524,6 +716,31 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     }
                     
                 }
+            }
+        }
+        
+        else if let indexPath = actsListsCollectionView.indexPath(for: actListCell){
+            
+            if(mostlyLikedBtn.backgroundColor != UIColor.gray){
+            let list = allLists[indexPath.item]
+            let navVC = segue.destination as! UINavigationController
+            let listDetailViewController = navVC.topViewController as! ListsDetailViewController
+            listDetailViewController.list = list
+            listDetailViewController.authorOfList = list.author
+            UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
+                if error == nil {
+                    print("userActivities", userActivities!)
+                    for userAct in userActivities! {
+                        let globalAct = userAct.activity
+                        
+                        listDetailViewController.globalActivities.append(globalAct!)
+                    }
+                    
+                }
+            }
+        }
+            else{
+                print("color isn't gray")
             }
         }
         
@@ -565,8 +782,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             if filterTags == 0 {
                 
-                getRecentLists()
+               // getRecentLists()
                 getRecentActivities()
+                getTopActivities()
             } else {
                 self.filterByTags()
             }
@@ -582,7 +800,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             if filterTags == 0 {
                 
                 getTopLists()
-                getTopActivities()
+                //getTopActivities()
+                getRecentListsTableview()
+                
             } else {
                 self.filterByTags()
             }
@@ -601,50 +821,64 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 print("----------------------------", top10Act.count)
                 print("------------------------------")
 
-                self.top10List.removeAll()
+                //self.top10List.removeAll()
                 self.top10Act.removeAll()
+                //self.allLists.removeAll()
+                self.allActivities.removeAll()
                 
                 print("----------------------------later---------------", top10Act.count)
 
                 var activities = [Activity]()
-                var lists = [List]()
+                var recentActivities = [Activity]()
                 
-                for list in self.allRecentLists {
+               /* for list in self.allRecentLists {
                     lists.append(list)
-                }
-                for act in self.allRecentActs {
+                }*/
+                for act in self.allLikedActs {
                     activities.append(act)
                 }
                 
-                for list in lists {
-                    let listTag = list.tags
-                    print("list.tag", list.tags)
+                for act in self.allRecentActs {
+                    recentActivities.append(act)
+                }
+                
+                
+                
+                ////
+                
+                for activity in recentActivities{
+                    let actTags = activity.tags
+                    print("activity.tags", activity.tags)
                     // actTags is the tags that this current activity has
-                    for (listTag, tagValue) in listTag! {
+                    for (actTag, tagValue) in actTags! {
                         // want to loop actTags through tags in Explore and compare name
                         // if both equal true then add to user.exploreActivities
-                        for (pickedTag, pickedTagValue) in self.tagsBool {
-                            if listTag == pickedTag {
+                        for (pickedTag, pickedTagValue) in self.tagsBool{
+                            if actTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    if self.top10List.count > 0 {
+                                    if self.allActivities.count > 0{
                                         var duplicate = 0
-                                        for addedList in self.top10List{
-                                            if list == addedList{
+                                        for addedAct in self.allActivities{
+                                            if  activity == addedAct {
                                                 duplicate += 1
                                             }
-                                            if duplicate == 0 {
-                                                if self.top10List.count < 11{
-                                                    self.top10List.append(list)
-                                                }
-                                                
-                                            }
+                                        }
+                                        if duplicate == 0 {
+                                            /*if self.allRecentActs.count < 11 {
+                                                self.allRecentActs.append(activity)
+                                            }*/
+                                            self.allActivities.append(activity)
+                                            
                                         }
                                     } else {
-                                        if self.top10List.count < 11{
-                                            self.top10List.append(list)
-                                        }
+                                        /*if self.allRecentActs.count < 11{
+                                            self.allRecentActs.append(activity)
+                                        }*/
+                                        self.allActivities.append(activity)
+
                                     }
                                     
+
                                 }
                             }
                         }
@@ -672,11 +906,13 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                                             if self.top10Act.count < 11{
                                                 self.top10Act.append(activity)
                                             }
+                                          //  self.allActivities.append(activity)
                                         }
                                     } else {
                                         if self.top10Act.count < 11{
                                             self.top10Act.append(activity)
                                         }
+                                        //self.allActivities.append(activity)
                                     }
 
                                 }
@@ -689,6 +925,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 //filter recent acts and append into top10acts
                 self.userListsCollectionView.reloadData()
                 self.activitiesCollectionView.reloadData()
+                self.actsListsCollectionView.reloadData()
             }
         }
         else {
@@ -697,15 +934,20 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             if (self.allLikedLists != []) && (self.allLikedActs != []){
                 //filter recent lists and append into top10lists
                 self.top10List.removeAll()
-                self.top10Act.removeAll()
-                var activities = [Activity]()
+               // self.top10Act.removeAll()
+                self.allLists.removeAll()
+               //self.allRecentLists.removeAll()
+
+               // self.allActivities.removeAll()
+                
+                var recentList = [List]()
                 var lists = [List]()
                 
                 for list in self.allLikedLists {
                     lists.append(list)
                 }
-                for act in self.allLikedActs {
-                    activities.append(act)
+                for act in self.allRecentLists {
+                    recentList.append(act)
                 }
                 
                 for list in lists {
@@ -729,12 +971,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                                             if self.top10List.count < 11{
                                                 self.top10List.append(list)
                                             }
+                                          //  self.allLists.append(list)
                                             
                                         }
                                     } else {
                                         if self.top10List.count < 11{
                                             self.top10List.append(list)
                                         }
+                                        //self.allLists.append(list)
                                         
                                     }
                                     
@@ -745,33 +989,36 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     }
                 }
                 
-                for activity in activities {
-                    let actTags = activity.tags
-                    print("activity.tags", activity.tags)
-                    // actTags is the tags that this current activity has
-                    for (actTag, tagValue) in actTags! {
+                for list in recentList {
+                    let listTag = list.tags
+                    print("list.tag", list.tags)
+                    // actTags is the tags that this current activity has'
+                    for (listTag, tagValue) in listTag! {
                         // want to loop actTags through tags in Explore and compare name
                         // if both equal true then add to user.exploreActivities
-                        for (pickedTag, pickedTagValue) in self.tagsBool{
-                            if actTag == pickedTag {
+                        for (pickedTag, pickedTagValue) in self.tagsBool {
+                            if listTag == pickedTag {
                                 if (tagValue == true) && (pickedTagValue == true){
-                                    if self.top10Act.count > 0{
+                                    if self.allLists.count > 0 {
                                         var duplicate = 0
-                                        for addedAct in self.top10Act{
-                                            if  activity == addedAct {
+                                        for addedList in self.allLists{
+                                            if list == addedList{
                                                 duplicate += 1
                                             }
                                         }
                                         if duplicate == 0 {
-                                            if self.top10Act.count < 11 {
-                                                self.top10Act.append(activity)
-                                            }
+                                            /*if self.allLists.count < 11{
+                                                self.allLists.append(list)
+                                            }*/
+                                            self.allLists.append(list)
                                             
                                         }
                                     } else {
-                                        if self.top10Act.count < 11{
-                                            self.top10Act.append(activity)
-                                        }
+                                        /*if self.allLists.count < 11{
+                                            self.allLists.append(list)
+                                        }*/
+                                        self.allLists.append(list)
+                                        
                                     }
                                     
 
@@ -780,11 +1027,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         }
                     }
                 }
+                
+                
+                //////
+                
                 print("After filtering self.exploreActivities", self.top10List)
                 
                 //filter recent acts and append into top10acts
                 self.userListsCollectionView.reloadData()
                 self.activitiesCollectionView.reloadData()
+                self.actsListsCollectionView.reloadData()
             }
 
         }
@@ -982,8 +1234,14 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 if lists! != [] {
                 self.allRecentLists = lists!
                 self.exploreLists = lists
-                let lists = lists
+                self.allLists = lists
                 self.top10List.removeAll()
+                self.top10List = lists
+                    self.actsListsCollectionView.reloadData()
+
+                    self.userListsCollectionView.reloadData()
+                    
+                /*//self.top10List.removeAll()
                 var i = 0
                 if (lists?.count)! > 9 {
                     while i < 10 {
@@ -1010,6 +1268,53 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                         i = i + 1
                     }
                 }
+                    */
+            }
+            }
+            
+        }
+    }
+    
+    func getRecentListsTableview(){
+        List.fetchRecentLists{(lists: [List]?, error: Error?) in
+            if error == nil && lists != nil {
+                if lists! != [] {
+                self.allRecentLists = lists!
+                self.exploreLists = lists
+                self.allLists = lists
+                //self.top10List.removeAll()
+                //self.top10List = lists
+                    self.actsListsCollectionView.reloadData()
+                   // self.userListsCollectionView.reloadData()
+                    
+                /*//self.top10List.removeAll()
+                var i = 0
+                if (lists?.count)! > 9 {
+                    while i < 10 {
+                        let list = lists![i]
+//                        print("listLikecount", lists![i].likeCount)
+//                        print("top list", i)
+                        print(list)
+                        self.top10List.append(list)
+                        print("----------------recent lists-----", self.top10List)
+                        self.userListsCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        i = i + 1
+                    }
+                } else {
+                    while i < lists!.count {
+                        let list = lists![i]
+                        print("listLikecount", lists![i].likeCount)
+                        print("top list", i)
+                        print(list)
+                        self.top10List.append(list)
+                        print("----------------recent lists-----", self.top10List)
+                        self.userListsCollectionView.reloadData()
+                        //self.tableView.reloadData()
+                        i = i + 1
+                    }
+                }
+                    */
             }
             }
             
@@ -1066,10 +1371,16 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         Activity.fetchRecentActivity{ (activities: [Activity]?, error: Error?) in
             if error == nil && activities != nil {
                 if activities! != []{
-                self.top10Act = []
+                //self.top10Act = activities
                 self.exploreActivities = activities
                 self.allRecentActs = activities!
-                if self.exploreActivities != nil {
+                    self.allActivities = activities!
+                   // self.activitiesCollectionView.reloadData()
+                    self.actsListsCollectionView.reloadData()
+
+                
+                    
+              /*  if self.exploreActivities != nil {
                     self.exploreActivities = activities
                     let activities = activities
                     self.top10Act = [Activity]()
@@ -1102,9 +1413,10 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             else{
                 print(error?.localizedDescription)
-            }
+            }*/
             }
         }
+    }
     }
     
     
@@ -1302,6 +1614,42 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(collectionView == self.actsListsCollectionView){
+            
+            let slideVC = OverlayView()
+            slideVC.modalPresentationStyle = .custom
+            slideVC.transitioningDelegate = self
+            
+            
+            if(mostlyLikedBtn.backgroundColor == UIColor.gray){
+           
+                slideVC.activity = allActivities[indexPath.item]
+                self.present(slideVC, animated: true, completion: nil)
+                
+            }
+            else{
+                
+                let cell = self.actsListsCollectionView?.cellForItem(at: indexPath)
+               // let cell = self.collectionView(collectionView, cellForItemAt: indexPath)
+               
+                //slideVC.list = allLists[indexPath.item]
+                performSegue(withIdentifier: "listActBottomSegue", sender: cell )
+            }
+            
+        }
+    }
+    
+    
+    
     
     
 }
+
+extension ExploreViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+

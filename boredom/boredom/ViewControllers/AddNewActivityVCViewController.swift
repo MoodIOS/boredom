@@ -142,8 +142,18 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
                                    didFinishPickingMediaWithInfo info: [String : Any]) {
             // Get the image captured by the UIImagePickerController
             
-            let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        var editedImage:UIImage
+        
+        if(info[UIImagePickerControllerEditedImage] != nil){
+            editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
             self.pickedImage = editedImage
+        }
+        else{
+            editedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            self.pickedImage = editedImage
+        }
+        
+        
             
             
             // Do something with the images (based on your use case)
@@ -169,7 +179,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
             if let image = image {
                 // get image data and check if that is not nil
                 if let imageData = UIImagePNGRepresentation(image) {
-                    return PFFileObject(name: "image.png", data: imageData)
+                    return PFFileObject(name: "userSelected.png", data: imageData)
                 }
             }
             return nil
@@ -261,7 +271,7 @@ class AddNewActivityVCViewController: UIViewController , CLLocationManagerDelega
         
         // TO-DO: check if the data already has this item, if user already have this item in this list.
         let backgroundImg:PFFileObject!
-        let image = UIImage(named: "lilacBackground.png")
+        let image = UIImage(named: "image.png")
         
         if(pickedImage == nil){
             backgroundImg = getPFFileFromImage(image: image)
