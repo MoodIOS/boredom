@@ -54,23 +54,23 @@ class OptionsViewController: UIViewController {
     
     @IBAction func saveAction(_ sender: Any) {
         //Cost Segmented Control
-        let choseMon = [1, 2, 3, 4]
-        let result = choseMon[costControl.selectedSegmentIndex]
+       // let choseMon = [1, 2, 3, 4]
+        let result = costControl.selectedSegmentIndex
         let savedBool = UserDefaults.standard
-        if(result == 1){
-            savedBool.set(0, forKey: "whichOne")
+        if(result == 0){
+            savedBool.set(1, forKey: "whichOne")
             print("yah")
         }
-        else if(result == 2){
-            savedBool.set(1, forKey: "whichOne")
-            print("yah1")
-        }
-        else if(result == 3){
+        else if(result == 1){
             savedBool.set(2, forKey: "whichOne")
             print("yah1")
         }
-        else{
+        else if(result == 2){
             savedBool.set(3, forKey: "whichOne")
+            print("yah1")
+        }
+        else{
+            savedBool.set(4, forKey: "whichOne")
             print("yah2")
         }
         //Distance Segmented Control

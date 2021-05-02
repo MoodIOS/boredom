@@ -150,6 +150,7 @@ import Parse
         let query = PFQuery(className: "Activity")
         query.includeKey("_created_at")
         query.includeKey("activityLikedByUsers")
+        query.includeKey("cost")
         query.includeKey("tags")
         query.addDescendingOrder("_created_at")
         print("Activity ID " + "\(actId)")

@@ -651,21 +651,13 @@
                         <outlet property="mostlyLikedBtn" destination="r5F-zd-KrE" id="fuh-o4-LUc"/>
                         <outlet property="pickerView" destination="KV6-LM-zMR" id="Tha-Pl-t9b"/>
                         <outlet property="recentlyAddedBtn" destination="H53-93-vw0" id="aeK-kl-Xr8"/>
-                        <outlet property="searchDisplayController" destination="vw0-Kr-KwW" id="bO2-Nu-kFz"/>
                         <outlet property="tagsCollectionView" destination="jJn-dU-piU" id="kds-1q-obM"/>
                         <outlet property="userListsCollectionView" destination="DIH-zT-7PL" id="UBh-Bq-8YN"/>
                         <outlet property="viewWithPicker" destination="lfb-hW-maL" id="xdG-Rn-zY9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="flA-Rp-VXx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="vw0-Kr-KwW">
-                    <connections>
-                        <outlet property="delegate" destination="Ol9-U0-lL2" id="IEK-S9-qQv"/>
-                        <outlet property="searchContentsController" destination="Ol9-U0-lL2" id="0Cd-9b-eSH"/>
-                        <outlet property="searchResultsDataSource" destination="Ol9-U0-lL2" id="eTF-dw-XF2"/>
-                        <outlet property="searchResultsDelegate" destination="Ol9-U0-lL2" id="Jbu-xE-iYd"/>
-                    </connections>
-                </searchDisplayController>
+                <searchDisplayController id="vw0-Kr-KwW"/>
             </objects>
             <point key="canvasLocation" x="5597.6000000000004" y="1196.8515742128936"/>
         </scene>
@@ -678,14 +670,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunnyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="oRv-nx-jYu">
-                                <rect key="frame" x="121" y="76" width="128" height="128"/>
+                                <rect key="frame" x="123.5" y="76" width="128" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="Agb-N8-1mF"/>
                                     <constraint firstAttribute="width" constant="128" id="bin-VC-YNy"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-XG-iy1">
-                                <rect key="frame" x="110" y="255" width="149.5" height="21"/>
+                                <rect key="frame" x="110" y="255" width="155" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="154" placeholder="YES" id="235-nd-alw"/>
                                     <constraint firstAttribute="height" constant="21" placeholder="YES" id="uJh-BM-yXG"/>
@@ -702,7 +694,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQf-CO-mD9">
-                                <rect key="frame" x="124" y="212" width="121.5" height="29"/>
+                                <rect key="frame" x="124" y="212" width="127" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Edit Profile Picture">
                                     <color key="titleColor" red="0.96470588239999999" green="0.76078431369999999" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -712,7 +704,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New password..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RPV-lx-ofJ">
-                                <rect key="frame" x="112" y="308" width="145.5" height="30"/>
+                                <rect key="frame" x="112" y="308" width="151" height="30"/>
                                 <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="g0I-Dl-h1s"/>
@@ -722,7 +714,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7MQ-3N-A6v">
-                                <rect key="frame" x="112" y="354" width="145.5" height="30"/>
+                                <rect key="frame" x="112" y="354" width="151" height="30"/>
                                 <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="jPX-OS-adC"/>
@@ -732,7 +724,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="klH-AE-r71">
-                                <rect key="frame" x="126" y="400" width="117.5" height="29"/>
+                                <rect key="frame" x="126" y="400" width="123" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Change Password">
                                     <color key="titleColor" red="0.96470588239999999" green="0.76078431369999999" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -752,7 +744,7 @@
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P29-vo-nhM">
-                                <rect key="frame" x="74" y="558" width="221.5" height="34"/>
+                                <rect key="frame" x="74" y="558" width="227" height="34"/>
                                 <color key="backgroundColor" red="0.53830122950000003" green="0.5772596002" blue="0.94513756039999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Contact Spark Team">
@@ -763,7 +755,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gau-cj-5Y0">
-                                <rect key="frame" x="143" y="437" width="88" height="30"/>
+                                <rect key="frame" x="143" y="437" width="93.5" height="30"/>
                                 <color key="backgroundColor" red="0.53830122950000003" green="0.5772596002" blue="0.94513756039999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -889,7 +881,7 @@
         <scene sceneID="3GN-WH-JqQ">
             <objects>
                 <viewController id="AO5-EO-i6w" customClass="ProfileViewController" customModule="boredom" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="UN6-4u-UWd">
+                    <view key="view" contentMode="scaleToFill" id="UN6-4u-UWd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1005,7 +997,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Add your own List or      Find one from Explore tab!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLG-nk-T7e">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your own List or      Find one from Explore tab!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLG-nk-T7e">
                                 <rect key="frame" x="82" y="304" width="210" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="GW2-QN-gBJ"/>

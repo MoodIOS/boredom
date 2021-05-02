@@ -214,11 +214,11 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ACTIVITIES:", activities![0])
                 let curAct = activities![0]
                 
-                if curAct.cost == 0 {
+                if curAct.cost == 1 {
                     cell.costLabel.text = "$"
-                } else if curAct.cost == 1 {
-                    cell.costLabel.text = "$$"
                 } else if curAct.cost == 2 {
+                    cell.costLabel.text = "$$"
+                } else if curAct.cost == 3 {
                     cell.costLabel.text = "$$$"
                 } else {
                     cell.costLabel.text = "$$$$"
@@ -289,7 +289,7 @@ class ListOfActsViewController: UIViewController, UITableViewDelegate, UITableVi
             let name = actsInList[indexPath.row].actName
             //delete act
             print("deleting act")
-            confirmDelete(act: thisAct,name: name! )
+            confirmDelete(act: thisAct,name: thisAct.activity.actName )
         }
     }
     

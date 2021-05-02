@@ -79,17 +79,21 @@ import Parse
     }
     
     class func deleteAct (deleting: UserActivity, completion: @escaping ([UserActivity]?, Error? ) -> Void){
-        deleting.deleteInBackground { (success, error) in
-            if success {
-                let query = PFQuery(className: "UserActivity")
-                query.whereKey("objectId", equalTo: deleting.objectId!)
-                return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
-                    completion( activities as? [UserActivity], nil)
+        let query = PFQuery(className: "UserActivity")
+        query.whereKey("objectId", equalTo: deleting.objectId!)
+        return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+            if(activities != nil){
+                activities![0].deleteInBackground{ (success, error) in
+                    if success {
+                        
+                    } else if let error = error {
+                        print( "error update user activity", error.localizedDescription)
+                    }
                 }
-            } else if let error = error {
-                print( "error update user activity", error.localizedDescription)
             }
         }
+        
+       
         
     }
     

@@ -178,13 +178,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, UIPickerV
         listPicker.selectRow(0, inComponent: 0, animated: false)
         self.actDescriptionLabel.text = ""
         self.actName.text = "Let's see what we're doing today."
-       // if(isSaved == 2) {
+        if(isSaved == 2) {
             self.userActivities.removeAll()
             print("whatttttttttt", isSaved)
             getLists()
             getActFromList(ids: pickedListID)
             
-       // }
+        }
         if self.mapDisplay.isHidden == true {
             self.mapDisplay.isHidden = false
         }
