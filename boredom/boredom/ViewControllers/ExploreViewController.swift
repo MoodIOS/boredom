@@ -29,6 +29,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
   
    
+    @IBOutlet weak var viewWithActsLists: UIView!
     
     @IBOutlet weak var recentlyAddedBtn: UIButton!
     @IBOutlet weak var mostlyLikedBtn: UIButton!
@@ -142,6 +143,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         actsListsCollectionView.delegate = self
         actsListsCollectionView.dataSource = self
         
+        
+        
+        
         //self.userListsCollectionView.isScrollEnabled = true
         //activitiesCollectionView.backgroundView?.tintColor = UIColor.white
         //self.view.addSubview(userListsCollectionView)
@@ -190,6 +194,11 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.actsIdLiked = (curUser?.likedActivities)!
         self.listsIdLiked = (curUser?.likedLists)!
 
+        
+        let layoutActsLists = FadingLayout(scrollDirection: .vertical)
+        self.actsListsCollectionView.setCollectionViewLayout(layoutActsLists, animated: false)
+        
+        
     }
     
     
@@ -258,6 +267,9 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.tagsBool["Coffee"] = false
         self.tagsBool["Nightlife"] = false
         self.tagsBool["Happy hours"] = false
+        
+        Activity.fetchActivityCount()
+        List.fetchListCount()
         
         
     }
@@ -727,6 +739,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             let listDetailViewController = navVC.topViewController as! ListsDetailViewController
             listDetailViewController.list = list
             listDetailViewController.authorOfList = list.author
+            
             UserActivity.fetchActivity(listId: list.objectId!) { (userActivities:[UserActivity]?, error: Error?) in
                 if error == nil {
                     print("userActivities", userActivities!)
@@ -1275,6 +1288,21 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if(mostlyLikedBtn.backgroundColor != UIColor.gray){
+            if(indexPath.item + 1 == allLists.count){
+                getMoreRecentListsTableview()
+            }
+        }
+        else{
+            if(indexPath.item + 1 == allRecentActs.count){
+                print("all recent acts yass is...", allRecentActs.count)
+                print("indexpath + 1 is...", indexPath.item + 1)
+                getMoreRecentActivities()
+            }
+        }
+    }
+    
     func getRecentListsTableview(){
         List.fetchRecentLists{(lists: [List]?, error: Error?) in
             if error == nil && lists != nil {
@@ -1282,44 +1310,42 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self.allRecentLists = lists!
                 self.exploreLists = lists
                 self.allLists = lists
-                //self.top10List.removeAll()
-                //self.top10List = lists
+                
                     self.actsListsCollectionView.reloadData()
-                   // self.userListsCollectionView.reloadData()
-                    
-                /*//self.top10List.removeAll()
-                var i = 0
-                if (lists?.count)! > 9 {
-                    while i < 10 {
-                        let list = lists![i]
-//                        print("listLikecount", lists![i].likeCount)
-//                        print("top list", i)
-                        print(list)
-                        self.top10List.append(list)
-                        print("----------------recent lists-----", self.top10List)
-                        self.userListsCollectionView.reloadData()
-                        //self.tableView.reloadData()
-                        i = i + 1
-                    }
-                } else {
-                    while i < lists!.count {
-                        let list = lists![i]
-                        print("listLikecount", lists![i].likeCount)
-                        print("top list", i)
-                        print(list)
-                        self.top10List.append(list)
-                        print("----------------recent lists-----", self.top10List)
-                        self.userListsCollectionView.reloadData()
-                        //self.tableView.reloadData()
-                        i = i + 1
-                    }
-                }
-                    */
+                   
             }
             }
             
         }
     }
+    
+    func getMoreRecentListsTableview(){
+        
+        let userDefaults = UserDefaults.standard
+        let maxCountForLists = userDefaults.integer(forKey: "TotalListsInParse")
+        
+        if(maxCountForLists != allLists.count){
+            
+            let count = allLists.count + 10
+        
+        List.fetchMoreRecentLists(numOfLists: count) { (lists: [List]?, error: Error?) in
+            if error == nil && lists != nil {
+                if lists! != [] {
+                self.allRecentLists = lists!
+                self.exploreLists = lists
+                self.allLists = lists
+                
+                    self.actsListsCollectionView.reloadData()
+                   
+            }
+            }
+        }
+        }
+            
+        
+        
+    }
+    
     
     func getTopActivities() {
         Activity.fetchActivity{ (activities: [Activity]?, error: Error?) in
@@ -1375,48 +1401,38 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                 self.exploreActivities = activities
                 self.allRecentActs = activities!
                     self.allActivities = activities!
-                   // self.activitiesCollectionView.reloadData()
                     self.actsListsCollectionView.reloadData()
 
-                
-                    
-              /*  if self.exploreActivities != nil {
-                    self.exploreActivities = activities
-                    let activities = activities
-                    self.top10Act = [Activity]()
-                    var i = 0
-                    if (activities?.count)! > 9 {
-                        while i < 10{
-                            print("activityLikeCount", activities![i].activityLikeCount)
-                            let act = activities![i]
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~recent activities~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                        }
-                    }else {
-                        self.top10Act = []
-                        while i < activities!.count {
-                            print("activityLikeCount", activities![i].activityLikeCount)
-                            let act = activities![i]
-                            self.top10Act.append(act)
-                            print("~~~~~~~~~~~~~~~~~~~", self.top10Act)
-                            self.activitiesCollectionView.reloadData()
-                            //self.tableView.reloadData()
-                            i = i + 1
-                        }
-                    }
-                } else {
-                    print("No Recent Activity Available")
-                }
-            }
-            else{
-                print(error?.localizedDescription)
-            }*/
             }
         }
     }
+    }
+    
+    func getMoreRecentActivities() {
+        
+       
+        
+        
+        let userDefaults = UserDefaults.standard
+        let maxCount = userDefaults.integer(forKey: "TotalActivitiesInParse")
+        
+        if(maxCount != self.allRecentActs.count) {
+       
+            let actMaxCount = allRecentActs.count + 10
+        Activity.fetchMoreRecentActivity(activityCount: actMaxCount) { (activities: [Activity]?, error: Error?) in
+            if error == nil && activities != nil {
+                if activities! != []{
+                //self.top10Act = activities
+                self.exploreActivities = activities
+                self.allRecentActs = activities!
+                    self.allActivities = activities!
+                    self.actsListsCollectionView.reloadData()
+
+                }
+            }
+        }
+        }
+        
     }
     
     

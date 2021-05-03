@@ -26,6 +26,7 @@
 		522DA4E6263EA93A00FBB2C3 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522DA4E4263EA93A00FBB2C3 /* OverlayView.swift */; };
 		522DA4E7263EA93A00FBB2C3 /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522DA4E5263EA93A00FBB2C3 /* OverlayView.xib */; };
 		524E63A126397C4900B80529 /* SDCodersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524E63A026397C4900B80529 /* SDCodersViewController.swift */; };
+		529D5831263FF0B900DAF2F0 /* FadingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529D5830263FF0B900DAF2F0 /* FadingLayout.swift */; };
 		52A511DB2613378500755386 /* ATCWalkthroughModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511DA2613378500755386 /* ATCWalkthroughModel.swift */; };
 		52A511E4261337BF00755386 /* ATCClassicWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */; };
 		52A511E5261337BF00755386 /* ATCWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A511E0261337BE00755386 /* ATCWalkthroughViewController.swift */; };
@@ -100,6 +101,7 @@
 		522DA4E4263EA93A00FBB2C3 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		522DA4E5263EA93A00FBB2C3 /* OverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		524E63A026397C4900B80529 /* SDCodersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDCodersViewController.swift; sourceTree = "<group>"; };
+		529D5830263FF0B900DAF2F0 /* FadingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadingLayout.swift; sourceTree = "<group>"; };
 		52A511DA2613378500755386 /* ATCWalkthroughModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCWalkthroughModel.swift; sourceTree = "<group>"; };
 		52A511DF261337BE00755386 /* ATCClassicWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCClassicWalkthroughViewController.swift; sourceTree = "<group>"; };
 		52A511E0261337BE00755386 /* ATCWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCWalkthroughViewController.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				522DA4DC263EA72D00FBB2C3 /* PresentationController.swift */,
 				522DA4E4263EA93A00FBB2C3 /* OverlayView.swift */,
 				522DA4E5263EA93A00FBB2C3 /* OverlayView.xib */,
+				529D5830263FF0B900DAF2F0 /* FadingLayout.swift */,
 			);
 			path = boredom;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				4474101420A94A0800D378CF /* TagsCollectionViewCell.swift in Sources */,
 				FFF82431209D3F2B004CB2B4 /* AddSomeActToYourListViewController.swift in Sources */,
 				FFE94684204F76E30070B150 /* LoginViewController.swift in Sources */,
+				529D5831263FF0B900DAF2F0 /* FadingLayout.swift in Sources */,
 				4425C84220A14DC200A63D67 /* CollectionViewClass.swift in Sources */,
 				FFBA1642207C61E900242310 /* SettingViewController.swift in Sources */,
 				44116EAC2079F21A0037EB0D /* UserListsCell.swift in Sources */,

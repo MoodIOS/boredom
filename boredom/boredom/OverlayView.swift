@@ -112,6 +112,9 @@ class OverlayView: UIViewController {
             hasSetPointOrigin = true
             pointOrigin = self.view.frame.origin
         }
+        
+
+        
     }
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)

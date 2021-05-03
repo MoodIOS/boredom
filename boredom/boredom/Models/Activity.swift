@@ -131,10 +131,43 @@ import Parse
         }
     }
     
+    class func fetchActivityCount () -> Void{
+        print("inside fetch recent")
+        let query = PFQuery(className: "Activity")
+        query.countObjectsInBackground { (count: Int32, error: Error?) in
+            if let error = error {
+                // The request failed
+                
+                print(error.localizedDescription)
+            } else {
+                print("Sean has played \(count) games")
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(Int(count), forKey: "TotalActivitiesInParse")
+            }
+        }
+        
+    }
+    
     class func fetchRecentActivity (completion: @escaping ([Activity]?, Error?) -> Void) {
-        print("inside getActitivy")
+        print("inside fetch recent")
         let query = PFQuery(className: "Activity")
         query.limit = 10
+        query.includeKey("activityLikeCount")
+        query.includeKey("activityLikedByUsers")
+        query.includeKey("actName")
+        query.includeKey("tags")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        //query.addDescendingOrder("activityLikeCount")
+        return query.findObjectsInBackground { (activities: [PFObject]? , error: Error?) in
+            completion(activities as? [Activity], nil)
+        }
+    }
+    
+    class func fetchMoreRecentActivity (activityCount: Int, completion: @escaping ([Activity]?, Error?) -> Void) {
+        print("inside fetch more recent")
+        let query = PFQuery(className: "Activity")
+        query.limit = activityCount
         query.includeKey("activityLikeCount")
         query.includeKey("activityLikedByUsers")
         query.includeKey("actName")

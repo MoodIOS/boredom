@@ -95,10 +95,43 @@ import Parse
         }
     }
     
+    class func fetchListCount () -> Void{
+        print("inside fetch recent")
+        let query = PFQuery(className: "List")
+        query.countObjectsInBackground { (count: Int32, error: Error?) in
+            if let error = error {
+                // The request failed
+                
+                print(error.localizedDescription)
+            } else {
+                print("Sean has played \(count) games")
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(Int(count), forKey: "TotalListsInParse")
+            }
+        }
+        
+    }
+    
     //fetching all lists possible
     class func fetchRecentLists(completion: @escaping ([List]?, Error?) -> Void){
         let query = PFQuery(className: "List")
         query.limit = 10
+        query.includeKey("likeCount")
+        query.includeKey("_p_author")
+        query.includeKey("_p_activity")
+        query.includeKey("_created_at")
+        query.addDescendingOrder("_created_at")
+        
+        return query.findObjectsInBackground { (lists: [PFObject]? , error: Error?) in
+            completion( lists as? [List], nil)
+            
+        }
+    }
+    
+    //fetching all lists possible
+    class func fetchMoreRecentLists(numOfLists: Int, completion: @escaping ([List]?, Error?) -> Void){
+        let query = PFQuery(className: "List")
+        query.limit = numOfLists
         query.includeKey("likeCount")
         query.includeKey("_p_author")
         query.includeKey("_p_activity")
